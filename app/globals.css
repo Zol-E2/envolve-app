@@ -142,16 +142,16 @@ body {
   .home-section {
     @apply flex gap-4 justify-between items-start w-full max-lg:flex-col-reverse max-lg:items-center;
   }
-  .companions-grid {
+  .course-grid {
     @apply flex flex-wrap gap-4 w-full max-md:justify-center;
   }
-  .companion-card {
+  .course-card {
     @apply flex flex-col rounded-4xl border border-black px-4 py-4 gap-5 w-full min-lg:max-w-[410px] justify-between;
   }
   .subject-badge {
     @apply bg-black text-white rounded-4xl text-sm px-2 py-1 capitalize;
   }
-  .companion-bookmark {
+  .course-bookmark {
     @apply px-2 bg-black rounded-4xl flex items-center h-full aspect-square cursor-pointer;
   }
   .input {
@@ -175,21 +175,21 @@ body {
   .btn-signin {
     @apply border border-black rounded-4xl px-4 py-2.5 text-sm font-semibold flex items-center gap-2 cursor-pointer;
   }
-  .companion-list {
+  .course-list {
     @apply rounded-4xl border border-black px-7 pt-7 pb-10 max-lg:w-full bg-white;
   }
-  .companion-limit {
+  .course-limit {
     @apply items-center justify-center flex flex-col gap-4 w-full min-2xl:w-1/2 pt-20 text-center;
   }
 
-  .companion-section {
+  .course-section {
     @apply border-2 border-orange-500 w-2/3 max-sm:w-full flex flex-col gap-4 justify-center items-center rounded-lg;
   }
 
-  .companion-avatar {
+  .course-avatar {
     @apply size-[300px] flex items-center justify-center rounded-lg max-sm:size-[100px] mt-4;
   }
-  .companion-lottie {
+  .course-lottie {
     @apply size-[300px] max-sm:size-[100px];
   }
 

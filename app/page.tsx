@@ -1,13 +1,53 @@
-import { Button } from '@/components/ui/button'
-import React from 'react'
+import CourseCard from "@/components/CourseCard";
+import CourseList from "@/components/CourseList";
+import CTA from "@/components/CTA";
+import { recentSessions } from "@/constants";
 
 const Page = () => {
   return (
-    <div>
-      <h1 className='text-2xl underline'>Üdvözöllek az eNvolve platformon!</h1>
-      <Button>Vágjunk bele!</Button>
-    </div>
-  )
-}
+    <main>
+      <h1>Popular Courses</h1>
 
-export default Page
+      <section className="home-section">
+        <CourseCard 
+          id = "1"
+          subject = "science"
+          title = "Neura the Brainy Explorer"
+          topic = "Neural Network of the Brains"
+          duration = {45}
+          color = "#E5D0FF"
+
+        />
+        <CourseCard 
+          id = "2"
+          subject = "maths"
+          title = "Countsy the Number Wizard"
+          topic = "Derivatives & Integrals"
+          duration = {30}
+          color = "#FFDA6E"
+
+        />
+        <CourseCard 
+          id = "3"
+          subject = "language"
+          title = "Verba the Vocabulary Builder"
+          topic = "English Literature"
+          duration = {60}
+          color = "#BDE7FF"
+
+        />
+      </section>
+
+      <section className="home-section">
+        <CourseList 
+          title="Your Recent Courses"
+          courses={recentSessions}
+          classNames="w-2/3 max-lg:w-full"
+        />
+        <CTA />
+      </section>
+    </main>
+  );
+};
+
+export default Page;
