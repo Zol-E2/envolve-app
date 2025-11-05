@@ -22,6 +22,8 @@ import {
 } from "@/components/ui/select";
 import { subjects } from "@/constants";
 import { Textarea } from "./ui/textarea";
+import { createCourse } from "@/lib/actions/course.actions";
+import { redirect } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
@@ -34,7 +36,9 @@ const formSchema = z.object({
 
 const CourseForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema) as unknown as Resolver<z.infer<typeof formSchema>>,
+    resolver: zodResolver(formSchema) as unknown as Resolver<
+      z.infer<typeof formSchema>
+    >,
     defaultValues: {
       name: "",
       subject: "",
@@ -45,8 +49,15 @@ const CourseForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const course = await createCourse(values);
+
+    if (course) {
+      redirect(`/courses/${course.id}`);
+    } else {
+      alert("Failed to create course. Please try again.");
+      redirect("/");
+    }
   };
 
   return (
@@ -156,7 +167,7 @@ const CourseForm = () => {
                   defaultValue={field.value}
                 >
                   <SelectTrigger className="input">
-                  <SelectValue placeholder="Select the Style of the Voice"/>  
+                    <SelectValue placeholder="Select the Style of the Voice" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="formal">Formal</SelectItem>
@@ -186,7 +197,9 @@ const CourseForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full cursor-pointer">Build the Course</Button>
+        <Button type="submit" className="w-full cursor-pointer">
+          Build the Course
+        </Button>
       </form>
     </Form>
   );
