@@ -1,10 +1,9 @@
-import React from "react";
 import Image from "next/image";
 import Link from "next/dist/client/link";
 
 interface CourseCardProps {
   id: string;
-  title: string;
+  name: string;
   topic: string;
   subject: string;
   duration: number;
@@ -13,7 +12,7 @@ interface CourseCardProps {
 
 const CourseCard = ({
   id,
-  title,
+  name,
   topic,
   subject,
   duration,
@@ -33,7 +32,7 @@ const CourseCard = ({
         </button>
       </div>
 
-      <h2 className="text-xl font-semibold">{title}</h2>
+      <h2 className="text-xl font-semibold">{name}</h2>
       <p className="text-sm">{topic}</p>
       <div className="flex items-center gap-2 ">
         <Image

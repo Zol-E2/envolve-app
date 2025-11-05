@@ -9,7 +9,7 @@ const navItems = [
   { label: "Profile", link: "/my-profile" },
 ];
 
-const Navitems = () => {
+const NavItems = () => {
   const pathname = usePathname();
 
   return (
@@ -27,4 +27,4 @@ const Navitems = () => {
   );
 };
 
-export default Navitems;
+export default NavItems;

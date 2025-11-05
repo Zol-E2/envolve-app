@@ -12,7 +12,7 @@ const Page = () => {
         <CourseCard 
           id = "1"
           subject = "science"
-          title = "Neura the Brainy Explorer"
+          name = "Neura the Brainy Explorer"
           topic = "Neural Network of the Brains"
           duration = {45}
           color = "#E5D0FF"
@@ -21,7 +21,7 @@ const Page = () => {
         <CourseCard 
           id = "2"
           subject = "maths"
-          title = "Countsy the Number Wizard"
+          name = "Countsy the Number Wizard"
           topic = "Derivatives & Integrals"
           duration = {30}
           color = "#FFDA6E"
@@ -30,7 +30,7 @@ const Page = () => {
         <CourseCard 
           id = "3"
           subject = "language"
-          title = "Verba the Vocabulary Builder"
+          name = "Verba the Vocabulary Builder"
           topic = "English Literature"
           duration = {60}
           color = "#BDE7FF"
