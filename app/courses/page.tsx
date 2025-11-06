@@ -2,6 +2,7 @@ import CourseCard from "@/components/CourseCard";
 import { getAllCourses } from "@/lib/actions/course.actions";
 import { getSubjectColor } from "@/lib/utils";
 import SearchInput from "@/components/Searchinput";
+import SubjectFilter from "@/components/SubjectFilter";
 
 const Courses = async ({ searchParams }: SearchParams) => {
   const filters = await searchParams;
@@ -16,6 +17,7 @@ const Courses = async ({ searchParams }: SearchParams) => {
         <h1>Course Library</h1>
         <div className="flex gap-4 ">
           <SearchInput />
+          <SubjectFilter />
         </div>
       </section>
       <section className="course-grid">
