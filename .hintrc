@@ -1,5 +1,7 @@
 {
-  "connector": { "name": "local" },
+  "connector": {
+    "name": "local"
+  },
   "extends": [
     "development"
   ],
@@ -7,6 +9,7 @@
     "typescript-config/consistent-casing": "off",
     "button-type": "off",
     "no-inline-styles": "off",
-    "compat-api/css": "off"
+    "compat-api/css": "off",
+    "disown-opener": "off"
   }
 }

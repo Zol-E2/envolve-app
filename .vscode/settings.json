@@ -1,5 +1,7 @@
 {
   "cSpell.words": [
+    "adblocker",
+    "Adblockers",
     "állandó",
     "amiről",
     "arról",
@@ -63,10 +65,13 @@
     "órákat",
     "pénzügyek",
     "perc",
+    "pkey",
+    "Postgrest",
     "programozás",
     "részekre",
     "részenként",
     "róla",
+    "rouded",
     "rövidek",
     "Searchinput",
     "setcall",
@@ -98,7 +103,7 @@
     "vedd",
     "Verba",
     "Zqobx"
-],
+  ],
 
   "css.lint.unknownAtRules": "ignore",
   "scss.lint.unknownAtRules": "ignore",

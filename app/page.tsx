@@ -1,47 +1,36 @@
 import CourseCard from "@/components/CourseCard";
 import CourseList from "@/components/CourseList";
 import CTA from "@/components/CTA";
-import { recentSessions } from "@/constants";
+import { getAllCourses, getRecentSessions } from "@/lib/actions/course.actions";
+import { getSubjectColor } from "@/lib/utils";
 
-const Page = () => {
+const Page = async () => {
+  const courses = await getAllCourses({ limit: 3 });
+  const recentSessionsCourses = await getRecentSessions(10);
+
   return (
     <main>
       <h1>Popular Courses</h1>
 
       <section className="home-section">
-        <CourseCard 
-          id = "1"
-          subject = "science"
-          name = "Neura the Brainy Explorer"
-          topic = "Neural Network of the Brains"
-          duration = {45}
-          color = "#E5D0FF"
-
-        />
-        <CourseCard 
-          id = "2"
-          subject = "maths"
-          name = "Countsy the Number Wizard"
-          topic = "Derivatives & Integrals"
-          duration = {30}
-          color = "#FFDA6E"
-
-        />
-        <CourseCard 
-          id = "3"
-          subject = "language"
-          name = "Verba the Vocabulary Builder"
-          topic = "English Literature"
-          duration = {60}
-          color = "#BDE7FF"
-
-        />
+        {courses.map((course) => (
+          <CourseCard
+            key={course.id}
+            id={course.id}
+            name={course.name}
+            topic={course.topic}
+            subject={course.subject}
+            duration={course.duration}
+            bookmarked={course.bookmarked}
+            color={getSubjectColor(course.subject)}
+          />
+        ))}
       </section>
 
       <section className="home-section">
-        <CourseList 
+        <CourseList
           title="Your Recent Courses"
-          courses={recentSessions}
+          courses={recentSessionsCourses}
           classNames="w-2/3 max-lg:w-full"
         />
         <CTA />

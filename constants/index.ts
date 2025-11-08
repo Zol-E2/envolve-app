@@ -17,7 +17,7 @@ export const subjectsColors = {
 };
 
 export const voices = {
-  male: { casual: "7B7mSWflzRSaO1yGeJH6", formal: "7B7mSWflzRSaO1yGeJH6" },
+  male: { casual: "2BJW5coyhAzSr8STdHbE", formal: "c6SfcYrb2t09NHXiT80T" },
   female: { casual: "ZIlrSGI4jZqobxRKprJz", formal: "sarah" },
 };
 

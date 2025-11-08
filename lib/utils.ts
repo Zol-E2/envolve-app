@@ -1,4 +1,3 @@
-
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { subjectsColors, voices } from "@/constants";
@@ -18,7 +17,7 @@ export const configureAssistant = (voice: string, style: string) => {
           ] || "sarah";
 
   const vapiAssistant: CreateAssistantDTO = {
-    name: "Companion",
+    name: "Course",
     firstMessage:
         "Hello, let's start the session. Today we'll be talking about {{topic}}.",
     transcriber: {
@@ -46,6 +45,7 @@ export const configureAssistant = (voice: string, style: string) => {
                     Tutor Guidelines:
                     Stick to the given topic - {{ topic }} and subject - {{ subject }} and teach the student about it.
                     Keep the conversation flowing smoothly while maintaining control.
+                    Speak calmly, clearly, and articulately. There is no need to rush; just speak naturally.
                     From time to time make sure that the student is following you and understands you.
                     Break down the topic into smaller parts and teach the student one part at a time.
                     Keep your style of conversation {{ style }}.
@@ -55,9 +55,9 @@ export const configureAssistant = (voice: string, style: string) => {
         },
       ],
     },
-    //@ts-expect-error Vapi serverMessages expects an array at runtime
+    //@ts-expect-error vapi
     clientMessages: [],
-    //@ts-expect-error Vapi serverMessages expects an array at runtime
+    //@ts-expect-error vapi
     serverMessages: [],
   };
   return vapiAssistant;

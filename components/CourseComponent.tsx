@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { cn, configureAssistant, getSubjectColor } from "@/lib/utils";
@@ -8,6 +7,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import soundwaves from "@/constants/soundwaves.json";
+import { addToSessionHistory } from "@/lib/actions/course.actions";
 
 enum CallStatus {
   INACTIVE = "INACTIVE",
@@ -49,6 +49,7 @@ const CourseComponent = ({
     };
     const onCallEnd = () => {
       setCallStatus(CallStatus.ENDED);
+      addToSessionHistory(courseId);
     };
 
     const onMessage = (message: Message) => {
@@ -82,7 +83,7 @@ const CourseComponent = ({
       vapi.off("speech-start", onSpeechStart);
       vapi.off("speech-end", onSpeechEnd);
     };
-  }, []);
+  }, [courseId]);
 
   const toggleMicrophone = () => {
     const isMuted = vapi.isMuted();
@@ -164,7 +165,12 @@ const CourseComponent = ({
             />
             <p className="font-bold text-2xl">{userName}</p>
           </div>
-          <button className="btn-mic" onClick={toggleMicrophone} disabled = {callStatus !== CallStatus.ACTIVE} title="mic">
+          <button
+            className="btn-mic"
+            onClick={toggleMicrophone}
+            disabled={callStatus !== CallStatus.ACTIVE}
+            title="mic"
+          >
             <Image
               src={isMuted ? "/icons/mic-off.svg" : "/icons/mic-on.svg"}
               alt="mic"
@@ -213,6 +219,7 @@ const CourseComponent = ({
             }
           })}
         </div>
+
         <div className="transcript-fade" />
       </section>
     </section>

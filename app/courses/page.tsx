@@ -1,5 +1,5 @@
-import CourseCard from "@/components/CourseCard";
 import { getAllCourses } from "@/lib/actions/course.actions";
+import CourseCard from "@/components/CourseCard";
 import { getSubjectColor } from "@/lib/utils";
 import SearchInput from "@/components/Searchinput";
 import SubjectFilter from "@/components/SubjectFilter";
@@ -15,16 +15,21 @@ const Courses = async ({ searchParams }: SearchParams) => {
     <main>
       <section className="flex justify-between gap-4 max-sm:flex-col">
         <h1>Course Library</h1>
-        <div className="flex gap-4 ">
+        <div className="flex gap-4">
           <SearchInput />
           <SubjectFilter />
         </div>
       </section>
-      <section className="course-grid">
+      <section className="courses-grid">
         {courses.map((course) => (
           <CourseCard
             key={course.id}
-            {...course}
+            id={course.id}
+            name={course.name}
+            topic={course.topic}
+            subject={course.subject}
+            duration={course.duration}
+            bookmarked={course.bookmarked}
             color={getSubjectColor(course.subject)}
           />
         ))}
