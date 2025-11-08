@@ -1,10 +1,12 @@
 {
+  "connector": { "name": "local" },
   "extends": [
     "development"
   ],
   "hints": {
     "typescript-config/consistent-casing": "off",
     "button-type": "off",
-    "no-inline-styles": "off"
+    "no-inline-styles": "off",
+    "compat-api/css": "off"
   }
 }

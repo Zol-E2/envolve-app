@@ -44,3 +44,17 @@ export const getAllCourses = async (
 
     return courses;
 }
+
+export const getCourseById = async (id: string) => {
+    const supabase = createSupabaseClient();
+    const { data, error } = await supabase
+    .from('courses')
+    .select()
+    .eq('id', id);
+
+    if (error || !data) {
+        throw new Error(error?.message || 'Failed to fetch course');
+    }
+
+    return data[0];
+}
