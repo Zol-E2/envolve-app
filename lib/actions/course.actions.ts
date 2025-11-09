@@ -112,8 +112,6 @@ export const addToSessionHistory = async (courseId: string) => {
   return data;
 };
 
-
-
 export const getRecentSessions = async (limit = 10) => {
     const supabase = createSupabaseClient();
     const {data, error} = await supabase
