@@ -65,7 +65,7 @@ const CourseSession = async ({ params }: CourseSessionPageProps) => {
       </article>
       <CourseComponent
         {...course}
-        companionId={id}
+        courseId={id}
         userName={user.firstName!}
         userImage={user.imageUrl!}
       />
