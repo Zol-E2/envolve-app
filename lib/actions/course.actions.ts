@@ -79,10 +79,10 @@ export const getCourseById = async (id: string) => {
 
     return data[0];
 }
+
 export const addToSessionHistory = async (courseId: string) => {
   const { userId } = await auth();
   if (!userId || !courseId) return null;
-
   const supabase = createSupabaseClient();
 
   const { data: course, error: cErr } = await supabase
@@ -90,15 +90,25 @@ export const addToSessionHistory = async (courseId: string) => {
     .select("id")
     .eq("id", courseId)
     .maybeSingle();
-
   if (cErr) throw new Error(cErr.message);
   if (!course) {
-    throw new Error(`addToSessionHistory: unknown courseId (${courseId})`);
+    throw new Error(
+      `addToSessionHistory: unknown courseId (${courseId})`
+    );
   }
 
   const { data, error } = await supabase
     .from("session_history")
-    .insert({ course_id: courseId, user_id: userId })
+    .upsert(
+      {
+        course_id: courseId,
+        user_id: userId,
+        created_at: new Date().toISOString(),
+      },
+      {
+        onConflict: "user_id, course_id",
+      }
+    )
     .select("id");
 
   if (error) {
