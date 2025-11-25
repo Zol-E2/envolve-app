@@ -1,7 +1,7 @@
 {
   "servers": {
     "Sentry": {
-      "url": "https://mcp.sentry.dev/mcp/lightningweb/javascript-nextjs",
+      "url": "https://mcp.sentry.dev/mcp/lightningweb/envolve-nextjs",
       "type": "http"
     }
   }
