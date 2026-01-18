@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="hu">
       <body
         className={`${bricolage.variable} antialiased`}
         suppressHydrationWarning={true}

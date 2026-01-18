@@ -1,19 +1,19 @@
 export const subjects = [
-  "maths",
-  "language",
-  "science",
-  "history",
-  "coding",
-  "economics",
+  "matematika",
+  "nyelvek",
+  "tudományok",
+  "történelem",
+  "programozás",
+  "közgazdaságtan",
 ];
 
 export const subjectsColors = {
-  science: "#E5D0FF",
-  maths: "#FFDA6E",
-  language: "#BDE7FF",
-  coding: "#FFC8E4",
-  history: "#FFECC8",
-  economics: "#C8FFDF",
+  tudományok: "#E5D0FF",
+  matematika: "#FFDA6E",
+  nyelvek: "#BDE7FF",
+  programozás: "#FFC8E4",
+  történelem: "#FFECC8",
+  közgazdaságtan: "#C8FFDF",
 };
 
 export const voices = {

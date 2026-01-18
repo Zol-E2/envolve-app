@@ -10,7 +10,7 @@ const Page = async () => {
 
   return (
     <main>
-      <h1>Popular Courses</h1>
+      <h1>Népszerű Kurzusok</h1>
 
       <section className="home-section">
         {courses.map((course) => (
@@ -29,7 +29,7 @@ const Page = async () => {
 
       <section className="home-section">
         <CourseList
-          title="Your Recent Courses"
+          title="Legutóbbi Kurzusok"
           courses={recentSessionsCourses}
           classNames="w-2/3 max-lg:w-full"
         />

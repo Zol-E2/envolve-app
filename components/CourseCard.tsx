@@ -69,12 +69,12 @@ const handleBookmark = () => {
           width={13.5}
           height={13.5}
         />
-        <p className="text-sm">{duration} minutes</p>
+        <p className="text-sm">{duration} perc</p>
       </div>
 
       <Link href={`/courses/${id}`} className="w-full">
         <button className="btn-primary w-full justify-center">
-          Launch Lesson
+          Lecke Indítása
         </button>
       </Link>
     </article>

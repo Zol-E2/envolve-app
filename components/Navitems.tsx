@@ -4,9 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navItems = [
-  { label: "Home", link: "/" },
-  { label: "Courses", link: "/courses" },
-  { label: "Profile", link: "/my-profile" },
+  { label: "Főoldal", link: "/" },
+  { label: "Kurzusok", link: "/courses" },
+  { label: "Profil", link: "/my-profile" },
 ];
 
 const NavItems = () => {

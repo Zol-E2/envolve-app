@@ -68,10 +68,10 @@ const CourseForm = () => {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Kurzus Név</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Enter the name of the Course"
+                  placeholder="Add meg a kurzus nevét"
                   {...field}
                   className="input"
                 />
@@ -85,15 +85,15 @@ const CourseForm = () => {
           name="subject"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Subject</FormLabel>
+              <FormLabel>Tantárgy</FormLabel>
               <FormControl>
                 <Select
                   onValueChange={field.onChange}
                   value={field.value}
                   defaultValue={field.value}
                 >
-                  <SelectTrigger className="input capitalize">
-                    <SelectValue placeholder="Select the Subject" />
+                  <SelectTrigger className="input">
+                    <SelectValue placeholder="Válaszd ki a tantárgyat" />
                   </SelectTrigger>
                   <SelectContent>
                     {subjects.map((subject) => (
@@ -117,10 +117,10 @@ const CourseForm = () => {
           name="topic"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>What should the Course cover?</FormLabel>
+              <FormLabel>Mit kell lefednie a kurzusnak?</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Ex. Algebra, World War II, Photosynthesis"
+                  placeholder="Pl. Algebra, II. világháború, Fotoszintézis"
                   {...field}
                   className="input"
                 />
@@ -134,7 +134,7 @@ const CourseForm = () => {
           name="voice"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Voice</FormLabel>
+              <FormLabel>Hang</FormLabel>
               <FormControl>
                 <Select
                   onValueChange={field.onChange}
@@ -142,11 +142,11 @@ const CourseForm = () => {
                   defaultValue={field.value}
                 >
                   <SelectTrigger className="input">
-                    <SelectValue placeholder="Select the Voice" />
+                    <SelectValue placeholder="Válaszd ki a hangot" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="male">Male</SelectItem>
-                    <SelectItem value="female">Female</SelectItem>
+                    <SelectItem value="male">Férfi</SelectItem>
+                    <SelectItem value="female">Női</SelectItem>
                   </SelectContent>
                 </Select>
               </FormControl>
@@ -159,7 +159,7 @@ const CourseForm = () => {
           name="style"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Style</FormLabel>
+              <FormLabel>Stílus</FormLabel>
               <FormControl>
                 <Select
                   onValueChange={field.onChange}
@@ -167,11 +167,11 @@ const CourseForm = () => {
                   defaultValue={field.value}
                 >
                   <SelectTrigger className="input">
-                    <SelectValue placeholder="Select the Style of the Voice" />
+                    <SelectValue placeholder="Válaszd ki a hang stílusát" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="formal">Formal</SelectItem>
-                    <SelectItem value="casual">Casual</SelectItem>
+                    <SelectItem value="formal">Formális</SelectItem>
+                    <SelectItem value="casual">Közvetlen</SelectItem>
                   </SelectContent>
                 </Select>
               </FormControl>
@@ -184,7 +184,7 @@ const CourseForm = () => {
           name="duration"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Estimated Session Duration in Minutes</FormLabel>
+              <FormLabel>Lecke Időtartam (perc)</FormLabel>
               <FormControl>
                 <Input
                   type="number"
@@ -198,7 +198,7 @@ const CourseForm = () => {
           )}
         />
         <Button type="submit" className="w-full cursor-pointer">
-          Build the Course
+          Kurzus Létrehozása
         </Button>
       </form>
     </Form>

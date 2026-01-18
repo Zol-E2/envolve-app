@@ -25,9 +25,9 @@ const CourseList = ({ title, courses, classNames }: CourseListProps) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="text-lg w-2/3">Lessons</TableHead>
-            <TableHead className="text-lg">Subject</TableHead>
-            <TableHead className="text-lg text-right">Duration</TableHead>
+            <TableHead className="text-lg w-2/3">Leckék</TableHead>
+            <TableHead className="text-lg">Tantárgy</TableHead>
+            <TableHead className="text-lg text-right">Időtartam</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

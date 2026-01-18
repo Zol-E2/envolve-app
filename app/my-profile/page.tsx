@@ -53,46 +53,46 @@ const Profile = async () => {
               />
               <p className="text-2xl font-bold">{sessionHistory.length}</p>
             </div>
-            <div>Lessons completed</div>
+            <div>Elvégzett Leckék</div>
           </div>
           <div className="border border-black rouded-lg p-3 gap-2 flex flex-col h-fit">
             <div className="flex gap-2 items-center">
               <Image src="/icons/cap.svg" alt="cap" width={22} height={22} />
               <p className="text-2xl font-bold">{courses.length}</p>
             </div>
-            <div>Courses created</div>
+            <div>Létrehozott Kurzusok</div>
           </div>
         </div>
       </section>
       <Accordion type="multiple">
         <AccordionItem value="bookmarks">
           <AccordionTrigger className="text-2xl font-bold">
-            Bookmarked Courses {`(${bookmarkedCourses.length})`}
+            Könyvjelzők {`(${bookmarkedCourses.length})`}
           </AccordionTrigger>
           <AccordionContent>
             <CourseList
               courses={bookmarkedCourses}
-              title="Bookmarked Courses"
+              title="Mentett Kurzusok"
             />
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="recent">
           <AccordionTrigger className="text-2xl font-bold">
-            Recent Sessions
+            Legutóbbi Leckék
           </AccordionTrigger>
           <AccordionContent>
             <CourseList
-              title="Recent Sessions"
+              title="Legutóbbi Leckék"
               courses={sessionHistory}
             />
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="courses">
           <AccordionTrigger className="text-2xl font-bold">
-            My Courses {`(${courses.length})`}
+            Saját Kurzusok {`(${courses.length})`}
           </AccordionTrigger>
           <AccordionContent>
-            <CourseList title="My Courses" courses={courses} />
+            <CourseList title="Saját Kurzusok" courses={courses} />
           </AccordionContent>
         </AccordionItem>
       </Accordion>
