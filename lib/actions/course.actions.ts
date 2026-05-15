@@ -1,10 +1,13 @@
 'use server';
 
-import { auth } from "@clerk/nextjs/server"
+import { auth } from "@clerk/nextjs/server";
 import { createSupabaseClient } from "../supabase";
 import type { PostgrestError } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
 
+// ─── Course CRUD ──────────────────────────────────────────────────────────────
+
+/** Creates a new course row owned by the currently authenticated user. */
 export const createCourse = async (formData: CreateCourse) => {
     const { userId: author } = await auth();
     const supabase = createSupabaseClient();
@@ -21,6 +24,10 @@ export const createCourse = async (formData: CreateCourse) => {
     return data[0];
 }
 
+/**
+ * Returns a paginated, optionally filtered list of courses.
+ * Bookmark status is resolved for the logged-in user in a single extra query.
+ */
 export const getAllCourses = async (
   { limit = 10, page = 1, subject, topic }: GetAllCourses
 ) => {
@@ -50,6 +57,7 @@ export const getAllCourses = async (
     return courses.map((c) => ({ ...c, bookmarked: false }));
   }
 
+  // Fetch all bookmark entries for the current user in one query
   const ids = courses.map((c) => c.id);
   const { data: marks, error: mErr } = await supabase
     .from("bookmarks")
@@ -65,7 +73,7 @@ export const getAllCourses = async (
   return courses.map((c) => ({ ...c, bookmarked: marked.has(c.id) }));
 };
 
-
+/** Fetches a single course by its UUID. Throws if not found. */
 export const getCourseById = async (id: string) => {
     const supabase = createSupabaseClient();
     const { data, error } = await supabase
@@ -80,11 +88,18 @@ export const getCourseById = async (id: string) => {
     return data[0];
 }
 
+// ─── Session History ──────────────────────────────────────────────────────────
+
+/**
+ * Records (or updates) a session history entry for the given course.
+ * Uses upsert so repeated visits only refresh the timestamp.
+ */
 export const addToSessionHistory = async (courseId: string) => {
   const { userId } = await auth();
   if (!userId || !courseId) return null;
   const supabase = createSupabaseClient();
 
+  // Confirm the course exists before inserting the history row
   const { data: course, error: cErr } = await supabase
     .from("courses")
     .select("id")
@@ -122,6 +137,7 @@ export const addToSessionHistory = async (courseId: string) => {
   return data;
 };
 
+/** Returns the most recent sessions across all users (for the home page). */
 export const getRecentSessions = async (limit = 10) => {
     const supabase = createSupabaseClient();
     const {data, error} = await supabase
@@ -133,9 +149,11 @@ export const getRecentSessions = async (limit = 10) => {
     if(error){
         throw new Error(error.message)
     }
-    return data.map(({courses})=>courses);
+    // Cast is safe: Supabase returns a single course object per row for this many-to-one join
+    return data.map(({ courses }) => courses as unknown as Course);
 }
 
+/** Returns the session history for a specific user (for the profile page). */
 export const getUserSessions = async (userId: string, limit = 10) => {
     const supabase = createSupabaseClient();
     const {data, error} = await supabase
@@ -148,9 +166,11 @@ export const getUserSessions = async (userId: string, limit = 10) => {
     if(error){
         throw new Error(error.message)
     }
-    return data.map(({courses})=>courses);
+    // Cast is safe: Supabase returns a single course object per row for this many-to-one join
+    return data.map(({ courses }) => courses as unknown as Course);
 }
 
+/** Returns all courses created by the given user. */
 export const getUserCourses = async (userId: string) => {
     const supabase = createSupabaseClient();
     const {data, error} = await supabase
@@ -194,6 +214,12 @@ export const getUserCourses = async (userId: string) => {
     }
 } */
 
+// ─── Bookmarks ────────────────────────────────────────────────────────────────
+
+/**
+ * Adds a bookmark for the current user.
+ * Silently ignores duplicate key errors (idempotent).
+ */
 export const addBookmark = async (courseId: string, path: string) => {
   const { userId } = await auth();
   if (!userId) return;
@@ -211,6 +237,7 @@ export const addBookmark = async (courseId: string, path: string) => {
   return data;
 };
 
+/** Removes the bookmark for the current user and revalidates the given path. */
 export const removeBookmark = async (courseId: string, path: string) => {
   const { userId } = await auth();
   if (!userId) return;
@@ -227,6 +254,7 @@ export const removeBookmark = async (courseId: string, path: string) => {
   return data;
 };
 
+/** Returns all courses bookmarked by the given user (for the profile page). */
 export const getBookmarkedCourses = async (userId: string) => {
   const supabase = createSupabaseClient();
   const { data, error } = await supabase
@@ -236,5 +264,6 @@ export const getBookmarkedCourses = async (userId: string) => {
   if (error) {
     throw new Error(error.message);
   }
-  return data.map(({ courses }) => courses);
+  // Cast is safe: Supabase returns a single course object per row for this many-to-one join
+  return data.map(({ courses }) => courses as unknown as Course);
 };

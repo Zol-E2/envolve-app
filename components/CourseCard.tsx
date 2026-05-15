@@ -54,7 +54,7 @@ const handleBookmark = () => {
               isBookmarked ? "/icons/bookmark-filled.svg" : "/icons/bookmark.svg"
             }
             alt="bookmark"
-            width={12.5}
+            width={13}
             height={15}
           />
         </button>
@@ -66,8 +66,8 @@ const handleBookmark = () => {
         <Image
           src="/icons/clock.svg"
           alt="duration"
-          width={13.5}
-          height={13.5}
+          width={14}
+          height={14}
         />
         <p className="text-sm">{duration} minutes</p>
       </div>

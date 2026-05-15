@@ -15,6 +15,7 @@ const SearchInput = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
+    // Debounce URL updates so we don't push a new route on every keystroke
     const delayDebounceFn = setTimeout(() => {
       if (searchQuery) {
         const newUrl = formUrlQuery({
@@ -25,7 +26,8 @@ const SearchInput = () => {
 
         router.push(newUrl, { scroll: false });
       } else {
-        if (pathname === "/companions") {
+        // Remove the topic filter from the URL when the search is cleared
+        if (pathname === "/courses") {
           const newUrl = removeKeysFromUrlQuery({
             params: searchParams.toString(),
             keysToRemove: ["topic"],
@@ -35,6 +37,9 @@ const SearchInput = () => {
         }
       }
     }, 500);
+
+    // Clear the pending timeout if the query changes before it fires
+    return () => clearTimeout(delayDebounceFn);
   }, [searchQuery, router, searchParams, pathname]);
 
   return (

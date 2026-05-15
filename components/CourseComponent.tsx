@@ -9,6 +9,7 @@ import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import soundwaves from "@/constants/soundwaves.json";
 import { addToSessionHistory } from "@/lib/actions/course.actions";
 
+// Represents the current state of the Vapi voice call
 enum CallStatus {
   INACTIVE = "INACTIVE",
   CONNECTING = "CONNECTING",
@@ -33,6 +34,7 @@ const CourseComponent = ({
 
   const lottieRef = useRef<LottieRefCurrentProps>(null);
 
+  // Play / pause the soundwave animation based on whether the AI is speaking
   useEffect(() => {
     if (lottieRef) {
       if (isSpeaking) {
@@ -43,6 +45,7 @@ const CourseComponent = ({
     }
   }, [lottieRef, isSpeaking]);
 
+  // Wire up Vapi event listeners for the duration of the session
   useEffect(() => {
     const onCallStart = () => {
       setCallStatus(CallStatus.ACTIVE);
@@ -52,6 +55,7 @@ const CourseComponent = ({
       addToSessionHistory(courseId);
     };
 
+    // Only persist "final" transcript messages (not interim partials)
     const onMessage = (message: Message) => {
       if (message.type === "transcript" && message.transcriptType === "final") {
         const newMessage = { role: message.role, content: message.transcript };
@@ -75,6 +79,7 @@ const CourseComponent = ({
     vapi.on("speech-start", onSpeechStart);
     vapi.on("speech-end", onSpeechEnd);
 
+    // Remove all listeners when the component unmounts to prevent memory leaks
     return () => {
       vapi.off("call-start", onCallStart);
       vapi.off("call-end", onCallEnd);
@@ -102,7 +107,7 @@ const CourseComponent = ({
       clientMessages: ["transcript"],
       serverMessages: [],
     };
-    //@ts-expect-error
+    // @ts-expect-error — Vapi SDK types don't fully match the override shape
     vapi.start(configureAssistant(voice, style), assistantOverrides);
   };
 
@@ -119,6 +124,7 @@ const CourseComponent = ({
             className="course-avatar"
             style={{ backgroundColor: getSubjectColor(subject) }}
           >
+            {/* Show subject icon when idle or connecting */}
             <div
               className={cn(
                 "absolute transition-opacity duration-1000",
@@ -138,10 +144,11 @@ const CourseComponent = ({
                 className="max-sm:w-fit"
               />
             </div>
+            {/* Show animated soundwave when call is active */}
             <div
               className={cn(
                 "absolute transition-opacity duration-1000",
-                callStatus == CallStatus.ACTIVE ? "opacity-100" : "opacity-0"
+                callStatus === CallStatus.ACTIVE ? "opacity-100" : "opacity-0"
               )}
             >
               <Lottie
@@ -206,7 +213,8 @@ const CourseComponent = ({
             if (message.role === "assistant") {
               return (
                 <p key={index} className="max-sm:text-sm">
-                  {name.split(" ")[0].replace("/[.,]/g, ", "")}:{" "}
+                  {/* Strip punctuation from the tutor's first name for display */}
+                  {name.split(" ")[0].replace(/[.,]/g, "")}:{" "}
                   {message.content}
                 </p>
               );

@@ -1,3 +1,6 @@
+// Auth-dependent data fetching means this page must be server-rendered on every request
+export const dynamic = "force-dynamic";
+
 import CourseCard from "@/components/CourseCard";
 import CourseList from "@/components/CourseList";
 import CTA from "@/components/CTA";

@@ -54,10 +54,9 @@ const CourseForm = () => {
 
     if (course) {
       redirect(`/courses/${course.id}`);
-    } else {
-      alert("Failed to create course. Please try again.");
-      redirect("/");
     }
+    // If createCourse throws, the error propagates and the form stays mounted
+    // so the user can correct their input without losing it.
   };
 
   return (

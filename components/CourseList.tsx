@@ -6,9 +6,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { cn } from "@/lib/utils";
-import { getSubjectColor } from "@/lib/utils";
-import Link from "next/dist/client/link";
+import { cn, getSubjectColor } from "@/lib/utils";
+import Link from "next/link";
 import Image from "next/image";
 
 interface CourseListProps {
@@ -82,7 +81,7 @@ const CourseList = ({ title, courses, classNames }: CourseListProps) => {
               <TableCell>
                 <div className="flex items-center justify-end gap-2 w-full">
                   <p className="text-2xl">
-                    {duration} <span className="max-md:hidden">perc</span>
+                    {duration} <span className="max-md:hidden">min</span>
                   </p>
                   <Image
                     src={`/icons/clock.svg`}

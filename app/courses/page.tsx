@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getAllCourses } from "@/lib/actions/course.actions";
 import CourseCard from "@/components/CourseCard";
 import { getSubjectColor } from "@/lib/utils";

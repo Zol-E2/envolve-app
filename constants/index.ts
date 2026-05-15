@@ -1,3 +1,5 @@
+// Subjects available for selection when creating a course.
+// Each entry must have a matching SVG icon in /public/icons/{subject}.svg
 export const subjects = [
   "maths",
   "language",
@@ -7,6 +9,7 @@ export const subjects = [
   "economics",
 ];
 
+// Background colors used for subject badges and course avatars
 export const subjectsColors = {
   science: "#E5D0FF",
   maths: "#FFDA6E",
@@ -16,11 +19,14 @@ export const subjectsColors = {
   economics: "#C8FFDF",
 };
 
+// ElevenLabs voice IDs mapped by gender and conversation style.
+// Used by configureAssistant() in lib/utils.ts to build the Vapi assistant config.
 export const voices = {
   male: { casual: "2BJW5coyhAzSr8STdHbE", formal: "c6SfcYrb2t09NHXiT80T" },
   female: { casual: "ZIlrSGI4jZqobxRKprJz", formal: "sarah" },
 };
 
+// Static placeholder data — used for UI development only, not from the database
 export const recentSessions = [
   {
     id: "1",

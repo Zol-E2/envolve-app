@@ -60,7 +60,7 @@ const CourseSession = async ({ params }: CourseSessionPageProps) => {
           </div>
         </div>
         <div className="items-start text-2xl max-md:hidden">
-          {duration} perc
+          {duration} min
         </div>
       </article>
       <CourseComponent
