@@ -1,5 +1,10 @@
-import {withSentryConfig} from "@sentry/nextjs";
+import { withSentryConfig } from "@sentry/nextjs";
+import createNextIntlPlugin from "next-intl/plugin";
 import type { NextConfig } from "next";
+
+// Wires i18n/request.ts into the build so getRequestConfig() is picked up
+// automatically by every server component / getTranslations() call.
+const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
   images: {
@@ -9,7 +14,7 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withSentryConfig(nextConfig, {
+export default withSentryConfig(withNextIntl(nextConfig), {
   // For all available options, see:
   // https://www.npmjs.com/package/@sentry/webpack-plugin#options
 

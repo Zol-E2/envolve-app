@@ -1,11 +1,14 @@
 "use client";
 import { removeBookmark } from "@/lib/actions/course.actions";
 import { addBookmark } from "@/lib/actions/course.actions";
+import { getSubjectLabel } from "@/lib/utils";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+// Deliberately the plain Next.js hooks: revalidatePath() needs the real
+// locale-prefixed path (/en/courses), and router.refresh() is locale-agnostic.
 import { usePathname, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { startTransition, useState } from "react";
-
 
 interface CourseCardProps {
   id: string;
@@ -26,34 +29,39 @@ const CourseCard = ({
   color,
   bookmarked,
 }: CourseCardProps) => {
+  const t = useTranslations("CourseCard");
+  const tSubjects = useTranslations("Subjects");
+  const [isBookmarked, setIsBookmarked] = useState(bookmarked);
+  const router = useRouter();
+  const pathname = usePathname();
 
-const [isBookmarked, setIsBookmarked] = useState(bookmarked);
-const router = useRouter();
-const pathname = usePathname();
-
-const handleBookmark = () => {
-  startTransition(async () => {
-    if (isBookmarked) {
-      await removeBookmark(id, pathname);
-      setIsBookmarked(false);
-    } else {
-      await addBookmark(id, pathname);
-      setIsBookmarked(true);
-    }
-    router.refresh();
-  });
-};
+  const handleBookmark = () => {
+    startTransition(async () => {
+      if (isBookmarked) {
+        await removeBookmark(id, pathname);
+        setIsBookmarked(false);
+      } else {
+        await addBookmark(id, pathname);
+        setIsBookmarked(true);
+      }
+      router.refresh();
+    });
+  };
 
   return (
     <article className="course-card" style={{ backgroundColor: color }}>
       <div className="flex justify-between items-center">
-        <div className="subject-badge">{subject}</div>
-        <button className="course-bookmark" onClick={handleBookmark} title="bookmark">
+        <div className="subject-badge">{getSubjectLabel(tSubjects, subject)}</div>
+        <button
+          className="course-bookmark"
+          onClick={handleBookmark}
+          title={t("bookmark")}
+        >
           <Image
             src={
               isBookmarked ? "/icons/bookmark-filled.svg" : "/icons/bookmark.svg"
             }
-            alt="bookmark"
+            alt={t("bookmark")}
             width={13}
             height={15}
           />
@@ -69,12 +77,12 @@ const handleBookmark = () => {
           width={14}
           height={14}
         />
-        <p className="text-sm">{duration} minutes</p>
+        <p className="text-sm">{t("minutes", { count: duration })}</p>
       </div>
 
       <Link href={`/courses/${id}`} className="w-full">
         <button className="btn-primary w-full justify-center">
-          Launch Lesson
+          {t("launchLesson")}
         </button>
       </Link>
     </article>

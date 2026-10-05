@@ -1,16 +1,21 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+// usePathname comes from @/i18n/navigation so it is locale-stripped and the
+// "/courses" comparison below works on /en/courses and /hu/courses alike.
+// useRouter stays the plain Next.js one: formUrlQuery() builds its URL from
+// window.location, which already carries the locale prefix.
+import { usePathname } from "@/i18n/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { formUrlQuery, removeKeysFromUrlQuery } from "@jsmastery/utils";
 
 const SearchInput = () => {
+  const t = useTranslations("Courses");
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const query = searchParams.get("topic") || "";
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -46,7 +51,7 @@ const SearchInput = () => {
     <div className="relative border border-black rounded-lg items-center flex gap-2 px-2 py-1 h-fit">
       <Image src="/icons/search.svg" alt="search" width={15} height={15} />
       <input
-        placeholder="Search courses..."
+        placeholder={t("searchPlaceholder")}
         className="outline-none"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}

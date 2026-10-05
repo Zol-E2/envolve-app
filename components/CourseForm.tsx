@@ -23,22 +23,34 @@ import {
 import { subjects } from "@/constants";
 import { Textarea } from "./ui/textarea";
 import { createCourse } from "@/lib/actions/course.actions";
-import { redirect } from "next/navigation";
+import { getSubjectLabel } from "@/lib/utils";
+import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
+import { useMemo } from "react";
 
-const formSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
-  subject: z.string().min(1, { message: "Subject is required" }),
-  topic: z.string().min(1, { message: "Topic is required" }),
-  voice: z.string().min(1, { message: "Voice is required" }),
-  style: z.string().min(1, { message: "Style is required" }),
-  duration: z.coerce.number().min(1, { message: "Duration is required" }),
-});
+type FormTranslator = ReturnType<typeof useTranslations<"CourseForm">>;
+
+// Schema is built per render so validation messages follow the active locale
+const buildFormSchema = (t: FormTranslator) =>
+  z.object({
+    name: z.string().min(1, { message: t("nameRequired") }),
+    subject: z.string().min(1, { message: t("subjectRequired") }),
+    topic: z.string().min(1, { message: t("topicRequired") }),
+    voice: z.string().min(1, { message: t("voiceRequired") }),
+    style: z.string().min(1, { message: t("styleRequired") }),
+    duration: z.coerce.number().min(1, { message: t("durationRequired") }),
+  });
+
+type FormValues = z.infer<ReturnType<typeof buildFormSchema>>;
 
 const CourseForm = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema) as unknown as Resolver<
-      z.infer<typeof formSchema>
-    >,
+  const t = useTranslations("CourseForm");
+  const tSubjects = useTranslations("Subjects");
+  const router = useRouter();
+  const formSchema = useMemo(() => buildFormSchema(t), [t]);
+
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema) as unknown as Resolver<FormValues>,
     defaultValues: {
       name: "",
       subject: "",
@@ -49,11 +61,12 @@ const CourseForm = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: FormValues) => {
     const course = await createCourse(values);
 
     if (course) {
-      redirect(`/courses/${course.id}`);
+      // Locale-aware router: "/courses/:id" becomes "/hu/courses/:id" when needed
+      router.push(`/courses/${course.id}`);
     }
     // If createCourse throws, the error propagates and the form stays mounted
     // so the user can correct their input without losing it.
@@ -67,10 +80,10 @@ const CourseForm = () => {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>{t("name")}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Enter the name of the Course"
+                  placeholder={t("namePlaceholder")}
                   {...field}
                   className="input"
                 />
@@ -84,7 +97,7 @@ const CourseForm = () => {
           name="subject"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Subject</FormLabel>
+              <FormLabel>{t("subject")}</FormLabel>
               <FormControl>
                 <Select
                   onValueChange={field.onChange}
@@ -92,7 +105,7 @@ const CourseForm = () => {
                   defaultValue={field.value}
                 >
                   <SelectTrigger className="input capitalize">
-                    <SelectValue placeholder="Select the Subject" />
+                    <SelectValue placeholder={t("subjectPlaceholder")} />
                   </SelectTrigger>
                   <SelectContent>
                     {subjects.map((subject) => (
@@ -101,7 +114,7 @@ const CourseForm = () => {
                         value={subject}
                         className="capitalize"
                       >
-                        {subject}
+                        {getSubjectLabel(tSubjects, subject)}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -116,10 +129,10 @@ const CourseForm = () => {
           name="topic"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>What should the Course cover?</FormLabel>
+              <FormLabel>{t("topic")}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Ex. Algebra, World War II, Photosynthesis"
+                  placeholder={t("topicPlaceholder")}
                   {...field}
                   className="input"
                 />
@@ -133,7 +146,7 @@ const CourseForm = () => {
           name="voice"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Voice</FormLabel>
+              <FormLabel>{t("voice")}</FormLabel>
               <FormControl>
                 <Select
                   onValueChange={field.onChange}
@@ -141,11 +154,11 @@ const CourseForm = () => {
                   defaultValue={field.value}
                 >
                   <SelectTrigger className="input">
-                    <SelectValue placeholder="Select the Voice" />
+                    <SelectValue placeholder={t("voicePlaceholder")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="male">Male</SelectItem>
-                    <SelectItem value="female">Female</SelectItem>
+                    <SelectItem value="male">{t("voiceMale")}</SelectItem>
+                    <SelectItem value="female">{t("voiceFemale")}</SelectItem>
                   </SelectContent>
                 </Select>
               </FormControl>
@@ -158,7 +171,7 @@ const CourseForm = () => {
           name="style"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Style</FormLabel>
+              <FormLabel>{t("style")}</FormLabel>
               <FormControl>
                 <Select
                   onValueChange={field.onChange}
@@ -166,11 +179,11 @@ const CourseForm = () => {
                   defaultValue={field.value}
                 >
                   <SelectTrigger className="input">
-                    <SelectValue placeholder="Select the Style of the Voice" />
+                    <SelectValue placeholder={t("stylePlaceholder")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="formal">Formal</SelectItem>
-                    <SelectItem value="casual">Casual</SelectItem>
+                    <SelectItem value="formal">{t("styleFormal")}</SelectItem>
+                    <SelectItem value="casual">{t("styleCasual")}</SelectItem>
                   </SelectContent>
                 </Select>
               </FormControl>
@@ -183,7 +196,7 @@ const CourseForm = () => {
           name="duration"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Estimated Session Duration in Minutes</FormLabel>
+              <FormLabel>{t("duration")}</FormLabel>
               <FormControl>
                 <Input
                   type="number"
@@ -197,7 +210,7 @@ const CourseForm = () => {
           )}
         />
         <Button type="submit" className="w-full cursor-pointer">
-          Build the Course
+          {t("submit")}
         </Button>
       </form>
     </Form>

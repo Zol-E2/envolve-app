@@ -1,17 +1,21 @@
 import CourseForm from "@/components/CourseForm";
 import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+import { redirect } from "@/i18n/navigation";
+import { getLocale, getTranslations } from "next-intl/server";
 
 const NewCourse = async () => {
   const { userId } = await auth();
+  const locale = await getLocale();
   if (!userId) {
-    redirect('/sign-in');
+    redirect({ href: "/sign-in", locale });
   }
+
+  const t = await getTranslations("CourseBuilder");
 
   return (
     <main className="lg:w-1/3 md:w-2/3 items-center justify-center">
       <article className="w-full gap-4 flex flex-col">
-        <h1>Course Builder</h1>
+        <h1>{t("title")}</h1>
 
         <CourseForm />
       </article>

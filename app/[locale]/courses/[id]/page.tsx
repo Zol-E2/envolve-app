@@ -1,7 +1,8 @@
 import { getCourseById } from "@/lib/actions/course.actions";
-import { getSubjectColor } from "@/lib/utils";
+import { getSubjectColor, getSubjectLabel } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+import { redirect } from "@/i18n/navigation";
+import { getLocale, getTranslations } from "next-intl/server";
 import Image from "next/image";
 import CourseComponent from "@/components/CourseComponent";
 
@@ -11,16 +12,20 @@ interface CourseSessionPageProps {
 
 const CourseSession = async ({ params }: CourseSessionPageProps) => {
   const { id } = await params;
+  const locale = await getLocale();
+  const t = await getTranslations("CourseSession");
+  const tSubjects = await getTranslations("Subjects");
   const course = await getCourseById(id);
   const user = await currentUser();
 
   const { name, subject, topic, duration } = course;
 
+  // Locale-aware redirect keeps the user on /hu/... when they were browsing in Hungarian
   if (!user) {
-    redirect("/sign-in");
+    redirect({ href: "/sign-in", locale });
   }
   if (!name || !subject || !topic || !duration) {
-    redirect("/courses");
+    redirect({ href: "/courses", locale });
   }
 
   return (
@@ -54,13 +59,15 @@ const CourseSession = async ({ params }: CourseSessionPageProps) => {
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
               <p className="font-bold text-2xl">{name}</p>
-              <div className="subject-badge max-md:hidden">{subject}</div>
+              <div className="subject-badge max-md:hidden">
+                {getSubjectLabel(tSubjects, subject)}
+              </div>
             </div>
             <p className="text-lg">{topic}</p>
           </div>
         </div>
         <div className="items-start text-2xl max-md:hidden">
-          {duration} min
+          {t("min", { count: duration })}
         </div>
       </article>
       <CourseComponent

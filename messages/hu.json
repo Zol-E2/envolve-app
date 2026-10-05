@@ -1,0 +1,98 @@
+{
+  "Metadata": {
+    "title": "eNvolve",
+    "description": "Valós idejű AI oktatási platform"
+  },
+  "Navbar": {
+    "logoAlt": "Logó",
+    "signIn": "Bejelentkezés",
+    "home": "Főoldal",
+    "courses": "Kurzusok",
+    "profile": "Profil"
+  },
+  "LanguageSwitcher": {
+    "label": "Nyelv",
+    "en": "EN",
+    "hu": "HU"
+  },
+  "Home": {
+    "popularCourses": "Népszerű kurzusok",
+    "recentCourses": "Legutóbbi kurzusaid"
+  },
+  "CTA": {
+    "badge": "Kezdj el tanulni most",
+    "title": "Építsd fel és szabd testre a tanulási utadat!",
+    "description": "Csatlakozz az eNvolve-hoz még ma, és tedd meg az első lépést új készségek elsajátítása felé személyre szabott kurzusainkkal és interaktív óráinkkal.",
+    "button": "Új kurzus készítése"
+  },
+  "CourseCard": {
+    "bookmark": "Könyvjelző",
+    "minutes": "{count} perc",
+    "launchLesson": "Óra indítása"
+  },
+  "CourseList": {
+    "lessons": "Órák",
+    "subject": "Tantárgy",
+    "duration": "Időtartam",
+    "min": "perc"
+  },
+  "Courses": {
+    "title": "Kurzuskönyvtár",
+    "searchPlaceholder": "Kurzusok keresése...",
+    "subjectPlaceholder": "Tantárgy",
+    "allSubjects": "Minden tantárgy"
+  },
+  "Subjects": {
+    "maths": "Matematika",
+    "language": "Nyelv",
+    "science": "Természettudomány",
+    "history": "Történelem",
+    "coding": "Programozás",
+    "economics": "Közgazdaságtan",
+    "geography": "Földrajz",
+    "finance": "Pénzügy",
+    "business": "Üzlet"
+  },
+  "CourseBuilder": {
+    "title": "Kurzusszerkesztő"
+  },
+  "CourseForm": {
+    "name": "Név",
+    "namePlaceholder": "Add meg a kurzus nevét",
+    "nameRequired": "A név megadása kötelező",
+    "subject": "Tantárgy",
+    "subjectPlaceholder": "Válassz tantárgyat",
+    "subjectRequired": "A tantárgy kiválasztása kötelező",
+    "topic": "Miről szóljon a kurzus?",
+    "topicPlaceholder": "Pl. Algebra, II. világháború, Fotoszintézis",
+    "topicRequired": "A téma megadása kötelező",
+    "voice": "Hang",
+    "voicePlaceholder": "Válassz hangot",
+    "voiceRequired": "A hang kiválasztása kötelező",
+    "voiceMale": "Férfi",
+    "voiceFemale": "Női",
+    "style": "Stílus",
+    "stylePlaceholder": "Válaszd ki a hang stílusát",
+    "styleRequired": "A stílus kiválasztása kötelező",
+    "styleFormal": "Formális",
+    "styleCasual": "Közvetlen",
+    "duration": "Az óra becsült hossza percben",
+    "durationRequired": "Az időtartam megadása kötelező",
+    "submit": "Kurzus létrehozása"
+  },
+  "CourseSession": {
+    "min": "{count} perc",
+    "micOn": "Mikrofon bekapcsolása",
+    "micOff": "Mikrofon kikapcsolása",
+    "startSession": "Óra indítása",
+    "endSession": "Óra befejezése",
+    "connecting": "Kapcsolódás..."
+  },
+  "Profile": {
+    "lessonsCompleted": "Elvégzett órák",
+    "coursesCreated": "Létrehozott kurzusok",
+    "bookmarkedCourses": "Könyvjelzős kurzusok",
+    "recentSessions": "Legutóbbi órák",
+    "myCourses": "Saját kurzusaim"
+  }
+}

@@ -9,11 +9,16 @@ import {
   SelectValue,
 } from "./ui/select";
 import { subjects } from "@/constants";
+import { getSubjectLabel } from "@/lib/utils";
+// Plain Next.js router: formUrlQuery() returns a URL that already includes the locale prefix
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { formUrlQuery, removeKeysFromUrlQuery } from "@jsmastery/utils";
 
 const SubjectFilter = () => {
+  const t = useTranslations("Courses");
+  const tSubjects = useTranslations("Subjects");
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get("subject") || "";
@@ -40,13 +45,13 @@ const SubjectFilter = () => {
   return (
     <Select onValueChange={setSubject} value={subject}>
       <SelectTrigger className="input capitalize">
-        <SelectValue placeholder="Subject" />
+        <SelectValue placeholder={t("subjectPlaceholder")} />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="all">All subjects</SelectItem>
+        <SelectItem value="all">{t("allSubjects")}</SelectItem>
         {subjects.map((subject) => (
           <SelectItem key={subject} value={subject} className="capitalize">
-            {subject}
+            {getSubjectLabel(tSubjects, subject)}
           </SelectItem>
         ))}
       </SelectContent>

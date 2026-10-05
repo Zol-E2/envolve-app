@@ -1,12 +1,32 @@
-import { clerkMiddleware } from '@clerk/nextjs/server';
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import createMiddleware from "next-intl/middleware";
+import { routing } from "@/i18n/routing";
 
-export default clerkMiddleware();
+const intlMiddleware = createMiddleware(routing);
+
+// Routes that must never be locale-prefixed: API handlers and the Sentry
+// tunnel (`tunnelRoute: "/monitoring"` in next.config.ts). Clerk still runs
+// on them so auth() keeps working inside route handlers.
+const skipIntl = createRouteMatcher(["/api(.*)", "/trpc(.*)", "/monitoring(.*)"]);
+
+/**
+ * Middleware chain: Clerk wraps next-intl.
+ *
+ * 1. clerkMiddleware refreshes the auth session and exposes auth() downstream.
+ * 2. Inside its handler we return the next-intl response (locale detection,
+ *    redirect to /{locale}/..., NEXT_LOCALE cookie). Clerk merges its own
+ *    headers into that response, so locale redirects are never clobbered.
+ */
+export default clerkMiddleware((_auth, request) => {
+  if (skipIntl(request)) return;
+  return intlMiddleware(request);
+});
 
 export const config = {
   matcher: [
     // Skip Next.js internals and all static files, unless found in search params
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    "/((?!_next|[^?]*\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
     // Always run for API routes
-    '/(api|trpc)(.*)',
+    "/(api|trpc)(.*)",
   ],
 };

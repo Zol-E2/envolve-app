@@ -1,0 +1,98 @@
+{
+  "Metadata": {
+    "title": "eNvolve",
+    "description": "Real-time AI Teaching Platform"
+  },
+  "Navbar": {
+    "logoAlt": "Logo",
+    "signIn": "Sign In",
+    "home": "Home",
+    "courses": "Courses",
+    "profile": "Profile"
+  },
+  "LanguageSwitcher": {
+    "label": "Language",
+    "en": "EN",
+    "hu": "HU"
+  },
+  "Home": {
+    "popularCourses": "Popular Courses",
+    "recentCourses": "Your Recent Courses"
+  },
+  "CTA": {
+    "badge": "Start Learning Now",
+    "title": "Build and Personalize Your Learning Path!",
+    "description": "Join eNvolve today and take the first step towards mastering new skills with our tailored courses and interactive lessons.",
+    "button": "Build a New Course"
+  },
+  "CourseCard": {
+    "bookmark": "Bookmark",
+    "minutes": "{count} minutes",
+    "launchLesson": "Launch Lesson"
+  },
+  "CourseList": {
+    "lessons": "Lessons",
+    "subject": "Subject",
+    "duration": "Duration",
+    "min": "min"
+  },
+  "Courses": {
+    "title": "Course Library",
+    "searchPlaceholder": "Search courses...",
+    "subjectPlaceholder": "Subject",
+    "allSubjects": "All subjects"
+  },
+  "Subjects": {
+    "maths": "Maths",
+    "language": "Language",
+    "science": "Science",
+    "history": "History",
+    "coding": "Coding",
+    "economics": "Economics",
+    "geography": "Geography",
+    "finance": "Finance",
+    "business": "Business"
+  },
+  "CourseBuilder": {
+    "title": "Course Builder"
+  },
+  "CourseForm": {
+    "name": "Name",
+    "namePlaceholder": "Enter the name of the Course",
+    "nameRequired": "Name is required",
+    "subject": "Subject",
+    "subjectPlaceholder": "Select the Subject",
+    "subjectRequired": "Subject is required",
+    "topic": "What should the Course cover?",
+    "topicPlaceholder": "Ex. Algebra, World War II, Photosynthesis",
+    "topicRequired": "Topic is required",
+    "voice": "Voice",
+    "voicePlaceholder": "Select the Voice",
+    "voiceRequired": "Voice is required",
+    "voiceMale": "Male",
+    "voiceFemale": "Female",
+    "style": "Style",
+    "stylePlaceholder": "Select the Style of the Voice",
+    "styleRequired": "Style is required",
+    "styleFormal": "Formal",
+    "styleCasual": "Casual",
+    "duration": "Estimated Session Duration in Minutes",
+    "durationRequired": "Duration is required",
+    "submit": "Build the Course"
+  },
+  "CourseSession": {
+    "min": "{count} min",
+    "micOn": "Turn on microphone",
+    "micOff": "Turn off microphone",
+    "startSession": "Start Session",
+    "endSession": "End Session",
+    "connecting": "Connecting..."
+  },
+  "Profile": {
+    "lessonsCompleted": "Lessons completed",
+    "coursesCreated": "Courses created",
+    "bookmarkedCourses": "Bookmarked Courses",
+    "recentSessions": "Recent Sessions",
+    "myCourses": "My Courses"
+  }
+}

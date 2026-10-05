@@ -5,7 +5,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+import { redirect } from "@/i18n/navigation";
+import { getLocale, getTranslations } from "next-intl/server";
 import {
   getUserCourses,
   getUserSessions,
@@ -16,9 +17,11 @@ import CourseList from "@/components/CourseList";
 
 const Profile = async () => {
   const user = await currentUser();
+  const locale = await getLocale();
 
-  if (!user) redirect("/sign-in");
+  if (!user) redirect({ href: "/sign-in", locale });
 
+  const t = await getTranslations("Profile");
   const courses = await getUserCourses(user.id);
   const sessionHistory = await getUserSessions(user.id);
   const bookmarkedCourses = await getBookmarkedCourses(user.id);
@@ -53,46 +56,46 @@ const Profile = async () => {
               />
               <p className="text-2xl font-bold">{sessionHistory.length}</p>
             </div>
-            <div>Lessons completed</div>
+            <div>{t("lessonsCompleted")}</div>
           </div>
           <div className="border border-black rounded-lg p-3 gap-2 flex flex-col h-fit">
             <div className="flex gap-2 items-center">
               <Image src="/icons/cap.svg" alt="cap" width={22} height={22} />
               <p className="text-2xl font-bold">{courses.length}</p>
             </div>
-            <div>Courses created</div>
+            <div>{t("coursesCreated")}</div>
           </div>
         </div>
       </section>
       <Accordion type="multiple">
         <AccordionItem value="bookmarks">
           <AccordionTrigger className="text-2xl font-bold">
-            Bookmarked Courses {`(${bookmarkedCourses.length})`}
+            {t("bookmarkedCourses")} ({bookmarkedCourses.length})
           </AccordionTrigger>
           <AccordionContent>
             <CourseList
               courses={bookmarkedCourses}
-              title="Bookmarked Courses"
+              title={t("bookmarkedCourses")}
             />
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="recent">
           <AccordionTrigger className="text-2xl font-bold">
-            Recent Sessions
+            {t("recentSessions")}
           </AccordionTrigger>
           <AccordionContent>
             <CourseList
-              title="Recent Sessions"
+              title={t("recentSessions")}
               courses={sessionHistory}
             />
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="courses">
           <AccordionTrigger className="text-2xl font-bold">
-            My Courses {`(${courses.length})`}
+            {t("myCourses")} ({courses.length})
           </AccordionTrigger>
           <AccordionContent>
-            <CourseList title="My Courses" courses={courses} />
+            <CourseList title={t("myCourses")} courses={courses} />
           </AccordionContent>
         </AccordionItem>
       </Accordion>

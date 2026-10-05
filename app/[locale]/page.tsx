@@ -6,14 +6,16 @@ import CourseList from "@/components/CourseList";
 import CTA from "@/components/CTA";
 import { getAllCourses, getRecentSessions } from "@/lib/actions/course.actions";
 import { getSubjectColor } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
 
 const Page = async () => {
+  const t = await getTranslations("Home");
   const courses = await getAllCourses({ limit: 3 });
   const recentSessionsCourses = await getRecentSessions(10);
 
   return (
     <main>
-      <h1>Popular Courses</h1>
+      <h1>{t("popularCourses")}</h1>
 
       <section className="home-section">
         {courses.map((course) => (
@@ -32,7 +34,7 @@ const Page = async () => {
 
       <section className="home-section">
         <CourseList
-          title="Your Recent Courses"
+          title={t("recentCourses")}
           courses={recentSessionsCourses}
           classNames="w-2/3 max-lg:w-full"
         />

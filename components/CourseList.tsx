@@ -6,9 +6,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { cn, getSubjectColor } from "@/lib/utils";
-import Link from "next/link";
+import { cn, getSubjectColor, getSubjectLabel } from "@/lib/utils";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 interface CourseListProps {
   title: string;
@@ -17,6 +18,9 @@ interface CourseListProps {
 }
 
 const CourseList = ({ title, courses, classNames }: CourseListProps) => {
+  const t = useTranslations("CourseList");
+  const tSubjects = useTranslations("Subjects");
+
   return (
     <article className={cn("course-list", classNames)}>
       <h2 className="font-bold text-3xl">{title}</h2>
@@ -24,9 +28,9 @@ const CourseList = ({ title, courses, classNames }: CourseListProps) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="text-lg w-2/3">Lessons</TableHead>
-            <TableHead className="text-lg">Subject</TableHead>
-            <TableHead className="text-lg text-right">Duration</TableHead>
+            <TableHead className="text-lg w-2/3">{t("lessons")}</TableHead>
+            <TableHead className="text-lg">{t("subject")}</TableHead>
+            <TableHead className="text-lg text-right">{t("duration")}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -58,7 +62,7 @@ const CourseList = ({ title, courses, classNames }: CourseListProps) => {
               </TableCell>
               <TableCell>
                 <div className="subject-badge w-fit max-md:hidden">
-                  {subject}
+                  {getSubjectLabel(tSubjects, subject)}
                 </div>
                 <div
                   className="flex 
@@ -81,7 +85,7 @@ const CourseList = ({ title, courses, classNames }: CourseListProps) => {
               <TableCell>
                 <div className="flex items-center justify-end gap-2 w-full">
                   <p className="text-2xl">
-                    {duration} <span className="max-md:hidden">min</span>
+                    {duration} <span className="max-md:hidden">{t("min")}</span>
                   </p>
                   <Image
                     src={`/icons/clock.svg`}

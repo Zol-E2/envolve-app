@@ -8,6 +8,7 @@ import Image from "next/image";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import soundwaves from "@/constants/soundwaves.json";
 import { addToSessionHistory } from "@/lib/actions/course.actions";
+import { useTranslations } from "next-intl";
 
 // Represents the current state of the Vapi voice call
 enum CallStatus {
@@ -27,6 +28,7 @@ const CourseComponent = ({
   style,
   voice,
 }: CourseComponentProps) => {
+  const t = useTranslations("CourseSession");
   const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -185,7 +187,7 @@ const CourseComponent = ({
               height={36}
             />
             <p className="max-sm:hidden">
-              {isMuted ? "Turn on microphone" : "Turn off microphone"}
+              {isMuted ? t("micOn") : t("micOff")}
             </p>
           </button>
           <button
@@ -200,10 +202,10 @@ const CourseComponent = ({
             title="call"
           >
             {callStatus === CallStatus.ACTIVE
-              ? "End Session"
+              ? t("endSession")
               : callStatus === CallStatus.CONNECTING
-              ? "Connecting..."
-              : "Start Session"}
+              ? t("connecting")
+              : t("startSession")}
           </button>
         </div>
       </section>

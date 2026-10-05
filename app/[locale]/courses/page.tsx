@@ -5,8 +5,10 @@ import CourseCard from "@/components/CourseCard";
 import { getSubjectColor } from "@/lib/utils";
 import SearchInput from "@/components/Searchinput";
 import SubjectFilter from "@/components/SubjectFilter";
+import { getTranslations } from "next-intl/server";
 
 const Courses = async ({ searchParams }: SearchParams) => {
+  const t = await getTranslations("Courses");
   const filters = await searchParams;
   const subject = filters.subject ? filters.subject : "";
   const topic = filters.topic ? filters.topic : "";
@@ -16,7 +18,7 @@ const Courses = async ({ searchParams }: SearchParams) => {
   return (
     <main>
       <section className="flex justify-between gap-4 max-sm:flex-col">
-        <h1>Course Library</h1>
+        <h1>{t("title")}</h1>
         <div className="flex gap-4">
           <SearchInput />
           <SubjectFilter />
