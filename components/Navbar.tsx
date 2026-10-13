@@ -3,7 +3,7 @@ import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import NavItems from "./Navitems";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import NavAuth from "./NavAuth";
 import { useTranslations } from "next-intl";
 
 const Navbar = () => {
@@ -25,14 +25,7 @@ const Navbar = () => {
       <div className="flex items-center gap-8">
         <NavItems />
         <LanguageSwitcher />
-        <SignedOut>
-          <SignInButton>
-            <button className="btn-signin">{t("signIn")}</button>
-          </SignInButton>
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
+        <NavAuth />
       </div>
     </nav>
   );
