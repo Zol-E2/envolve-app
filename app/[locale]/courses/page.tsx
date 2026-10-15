@@ -34,6 +34,7 @@ const Courses = async ({ searchParams }: SearchParams) => {
             subject={course.subject}
             duration={course.duration}
             bookmarked={course.bookmarked}
+            language={course.language}
             color={getSubjectColor(course.subject)}
           />
         ))}

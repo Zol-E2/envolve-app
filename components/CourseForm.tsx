@@ -25,7 +25,7 @@ import { Textarea } from "./ui/textarea";
 import { createCourse } from "@/lib/actions/course.actions";
 import { getSubjectLabel } from "@/lib/utils";
 import { useRouter } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useMemo } from "react";
 
 type FormTranslator = ReturnType<typeof useTranslations<"CourseForm">>;
@@ -37,7 +37,7 @@ const buildFormSchema = (t: FormTranslator) =>
     subject: z.string().min(1, { message: t("subjectRequired") }),
     topic: z.string().min(1, { message: t("topicRequired") }),
     voice: z.string().min(1, { message: t("voiceRequired") }),
-    style: z.string().min(1, { message: t("styleRequired") }),
+    language: z.enum(["hu", "en"], { message: t("languageRequired") }),
     duration: z.coerce.number().min(1, { message: t("durationRequired") }),
   });
 
@@ -47,6 +47,8 @@ const CourseForm = () => {
   const t = useTranslations("CourseForm");
   const tSubjects = useTranslations("Subjects");
   const router = useRouter();
+  // New courses default to the language the teacher is using the app in
+  const locale = useLocale();
   const formSchema = useMemo(() => buildFormSchema(t), [t]);
 
   const form = useForm<FormValues>({
@@ -56,7 +58,7 @@ const CourseForm = () => {
       subject: "",
       topic: "",
       voice: "",
-      style: "",
+      language: locale,
       duration: 30,
     },
   });
@@ -168,10 +170,10 @@ const CourseForm = () => {
         />
         <FormField
           control={form.control}
-          name="style"
+          name="language"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("style")}</FormLabel>
+              <FormLabel>{t("language")}</FormLabel>
               <FormControl>
                 <Select
                   onValueChange={field.onChange}
@@ -179,11 +181,11 @@ const CourseForm = () => {
                   defaultValue={field.value}
                 >
                   <SelectTrigger className="input">
-                    <SelectValue placeholder={t("stylePlaceholder")} />
+                    <SelectValue placeholder={t("languagePlaceholder")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="formal">{t("styleFormal")}</SelectItem>
-                    <SelectItem value="casual">{t("styleCasual")}</SelectItem>
+                    <SelectItem value="hu">{t("languageHu")}</SelectItem>
+                    <SelectItem value="en">{t("languageEn")}</SelectItem>
                   </SelectContent>
                 </Select>
               </FormControl>

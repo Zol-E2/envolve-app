@@ -51,7 +51,7 @@ const CourseSession = async ({ params }: CourseSessionPageProps) => {
           >
             <Image
               src={`/icons/${subject}.svg`}
-              alt={subject}
+              alt={getSubjectLabel(tSubjects, subject)}
               width={35}
               height={35}
             />

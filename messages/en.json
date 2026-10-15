@@ -17,7 +17,7 @@
   },
   "Home": {
     "popularCourses": "Popular Courses",
-    "recentCourses": "Your Recent Courses"
+    "recentCourses": "Recent Lessons"
   },
   "CTA": {
     "badge": "Start Learning Now",
@@ -27,8 +27,10 @@
   },
   "CourseCard": {
     "bookmark": "Bookmark",
-    "minutes": "{count} minutes",
-    "launchLesson": "Launch Lesson"
+    "minutes": "{count, plural, one {# minute} other {# minutes}}",
+    "launchLesson": "Launch Lesson",
+    "lessonHu": "Lesson in Hungarian",
+    "lessonEn": "Lesson in English"
   },
   "CourseList": {
     "lessons": "Lessons",
@@ -71,11 +73,11 @@
     "voiceRequired": "Voice is required",
     "voiceMale": "Male",
     "voiceFemale": "Female",
-    "style": "Style",
-    "stylePlaceholder": "Select the Style of the Voice",
-    "styleRequired": "Style is required",
-    "styleFormal": "Formal",
-    "styleCasual": "Casual",
+    "language": "Lesson language",
+    "languagePlaceholder": "Select the lesson language",
+    "languageRequired": "Lesson language is required",
+    "languageHu": "Hungarian",
+    "languageEn": "English",
     "duration": "Estimated Session Duration in Minutes",
     "durationRequired": "Duration is required",
     "submit": "Build the Course"
@@ -94,5 +96,10 @@
     "bookmarkedCourses": "Bookmarked Courses",
     "recentSessions": "Recent Sessions",
     "myCourses": "My Courses"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "backHome": "Back to home"
   }
 }

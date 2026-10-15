@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>eNvolve Vapi Újítások</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,540;9..144,620;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF7F1; --surface:#FFFFFF; --surface-2:#F3ECE1;
+    --border:#E7DECE; --border-strong:#D8CBB2;
+    --text:#221C2E; --text-muted:#6B6278; --text-faint:#9A90A3;
+    --accent:#DD5B33; --accent-2:#5B4A96; --accent-2-ink:#FBF9FF;
+    --good:#1F8F63; --good-bg:#DEF3E7;
+    --warn:#A86E12; --warn-bg:#F7E9CF;
+    --bad:#B0432F; --bad-bg:#F6E1DA;
+    --info:#2F5578; --info-bg:#E1EAF2;
+    --code-bg:#2A2236; --code-fg:#EDE6F7; --code-dim:#9C90B2; --code-str:#F3A87D; --code-key:#A9D8C0; --code-del:#F19A8A; --code-add:#8FD3B4;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#171320; --surface:#1E1929; --surface-2:#251F33;
+      --border:#362E45; --border-strong:#453A57;
+      --text:#F3EEFA; --text-muted:#B3A8C4; --text-faint:#847997;
+      --accent:#F17B4E; --accent-2:#9C8CE0; --accent-2-ink:#1B1430;
+      --good:#5FCB9B; --good-bg:#173226;
+      --warn:#E3AC4E; --warn-bg:#332711;
+      --bad:#E38574; --bad-bg:#392019;
+      --info:#9DC2E4; --info-bg:#1B2A38;
+      --code-bg:#0F0C16; --code-fg:#EDE6F7; --code-dim:#8A7FA0; --code-str:#F3A87D; --code-key:#8FD3B4; --code-del:#F19A8A; --code-add:#8FD3B4;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#171320; --surface:#1E1929; --surface-2:#251F33;
+    --border:#362E45; --border-strong:#453A57;
+    --text:#F3EEFA; --text-muted:#B3A8C4; --text-faint:#847997;
+    --accent:#F17B4E; --accent-2:#9C8CE0; --accent-2-ink:#1B1430;
+    --good:#5FCB9B; --good-bg:#173226;
+    --warn:#E3AC4E; --warn-bg:#332711;
+    --bad:#E38574; --bad-bg:#392019;
+    --info:#9DC2E4; --info-bg:#1B2A38;
+    --code-bg:#0F0C16; --code-fg:#EDE6F7; --code-dim:#8A7FA0; --code-str:#F3A87D; --code-key:#8FD3B4; --code-del:#F19A8A; --code-add:#8FD3B4;
+    color-scheme: dark;
+  }
+
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif; -webkit-font-smoothing:antialiased; padding-inline:20px; padding-block:40px 80px;}
+  h1,h2,h3{font-family:'Fraunces', Georgia, 'Times New Roman', serif; font-weight:620; text-wrap:balance; margin:0; letter-spacing:-0.01em;}
+  .wrap{max-width:900px; margin-inline:auto;}
+  p{margin:0; line-height:1.62;}
+  a{color:var(--accent-2);}
+  a:focus-visible{outline:2px solid var(--accent-2); outline-offset:2px;}
+  code{font-family:'IBM Plex Mono', monospace; font-size:0.85em; background:var(--surface-2); border:1px solid var(--border); border-radius:5px; padding:1px 5px; overflow-wrap:anywhere;}
+  .eyebrow{font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.09em; text-transform:uppercase; color:var(--text-faint);}
+
+  .hero{padding-block:8px 32px; border-bottom:1px solid var(--border); margin-bottom:36px;}
+  .hero-kicker{display:flex; align-items:center; gap:10px; margin-bottom:18px;}
+  .logo-mark{width:34px; height:34px; border-radius:9px; background:linear-gradient(155deg, var(--accent), var(--accent-2)); display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Fraunces', serif; font-weight:700; font-size:1.05rem; flex-shrink:0;}
+  h1.title{font-size:clamp(1.9rem, 5vw, 2.6rem); line-height:1.1;}
+  .hero .lede{margin-top:14px; font-size:1.08rem; color:var(--text-muted); max-width:66ch;}
+  .meta-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:20px;}
+  .chip{display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:99px; border:1px solid var(--border-strong); background:var(--surface); font-family:'IBM Plex Mono', monospace; font-size:0.76rem; color:var(--text-muted);}
+
+  .verdict{margin-top:24px; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:18px 20px; display:flex; flex-direction:column; gap:14px;}
+  .verdict-head{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .verdict-badge{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; font-weight:600; padding:4px 10px; border-radius:99px; background:var(--warn-bg); color:var(--warn);}
+  .verdict p{font-size:0.97rem;}
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:10px;}
+  @media (max-width:680px){.stats{grid-template-columns:repeat(2,1fr);}}
+  .stat{background:var(--surface-2); border-radius:12px; padding:12px 14px;}
+  .stat .v{font-family:'Fraunces',serif; font-weight:700; font-size:1.6rem; line-height:1; font-variant-numeric:tabular-nums;}
+  .stat .v.good{color:var(--good);} .stat .v.bad{color:var(--bad);}
+  .stat .k{font-size:0.78rem; color:var(--text-muted); margin-top:6px; line-height:1.4;}
+
+  .toc{display:flex; flex-wrap:wrap; gap:8px 18px; padding:16px 20px; background:var(--surface-2); border:1px solid var(--border); border-radius:14px; margin-bottom:56px;}
+  .toc a{font-family:'IBM Plex Mono', monospace; font-size:0.8rem; color:var(--text-muted); text-decoration:none;}
+  .toc a:hover{color:var(--accent-2);}
+  .toc .n{color:var(--text-faint);}
+
+  section.block{margin-bottom:60px; scroll-margin-top:20px;}
+  .sec-head{display:flex; gap:16px; align-items:baseline; margin-bottom:18px;}
+  .sec-num{font-family:'IBM Plex Mono', monospace; font-size:0.95rem; color:var(--accent); flex-shrink:0;}
+  h2.sec-title{font-size:clamp(1.35rem, 3vw, 1.6rem);}
+  .sec-body{padding-left:calc(0.95rem + 16px); display:flex; flex-direction:column; gap:16px;}
+  @media (max-width:560px){.sec-body{padding-left:0;}}
+  .sec-lede{color:var(--text-muted); font-size:0.95rem;}
+
+  .good-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  @media (max-width:640px){.good-grid{grid-template-columns:1fr;}}
+  .good-item{background:var(--good-bg); border-radius:12px; padding:12px 14px; font-size:0.86rem; line-height:1.5; display:grid; grid-template-columns:18px 1fr; gap:8px;}
+  .good-item .ck{color:var(--good); font-weight:700; font-family:'IBM Plex Mono',monospace;}
+
+  /* finding cards */
+  .finding{background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--border-strong); border-radius:0 14px 14px 0; padding:16px 18px; display:flex; flex-direction:column; gap:10px; scroll-margin-top:20px;}
+  .finding.high{border-left-color:var(--bad);}
+  .finding.med{border-left-color:var(--warn);}
+  .finding.low{border-left-color:var(--info);}
+  .f-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;}
+  .f-title{display:flex; gap:10px; align-items:baseline;}
+  .f-id{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--text-faint); flex-shrink:0;}
+  .f-title h3{font-family:'IBM Plex Sans',sans-serif; font-weight:700; font-size:1rem; line-height:1.35;}
+  .sev{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; font-weight:600; padding:3px 9px; border-radius:99px; white-space:nowrap;}
+  .sev.high{background:var(--bad-bg); color:var(--bad);}
+  .sev.med{background:var(--warn-bg); color:var(--warn);}
+  .sev.low{background:var(--info-bg); color:var(--info);}
+  .f-loc{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--accent-2); overflow-wrap:anywhere;}
+  .f-row{display:grid; grid-template-columns:92px 1fr; gap:10px; font-size:0.87rem; line-height:1.55;}
+  .f-row .lbl{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--text-faint); padding-top:3px;}
+  @media (max-width:560px){.f-row{grid-template-columns:1fr; gap:2px;}}
+  pre{margin:0; background:var(--code-bg); color:var(--code-fg); border-radius:10px; padding:12px 14px; overflow-x:auto; font-family:'IBM Plex Mono',monospace; font-size:0.76rem; line-height:1.6;}
+  pre .c{color:var(--code-dim);} pre .s{color:var(--code-str);} pre .k{color:var(--code-key);}
+  pre .del{color:var(--code-del);} pre .add{color:var(--code-add);}
+  .demo{display:grid; grid-template-columns:1fr auto; gap:4px 14px; font-family:'IBM Plex Mono',monospace; font-size:0.76rem; background:var(--surface-2); border-radius:10px; padding:10px 14px;}
+  .demo .ok{color:var(--good);} .demo .no{color:var(--bad); font-weight:600;}
+
+  .tbl-wrap{overflow-x:auto; border:1px solid var(--border); border-radius:12px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:0.85rem; min-width:600px;}
+  th,td{text-align:left; padding:10px 13px; border-bottom:1px solid var(--border); vertical-align:top; line-height:1.5;}
+  th{font-family:'IBM Plex Mono',monospace; font-weight:500; font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-faint); background:var(--surface-2);}
+  tr:last-child td{border-bottom:0;}
+  td.mono{font-family:'IBM Plex Mono',monospace; font-size:0.76rem; color:var(--accent-2);}
+  td .new{color:var(--good); font-weight:600;}
+
+  .plan{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media (max-width:680px){.plan{grid-template-columns:1fr;}}
+  .plan-col{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px;}
+  .plan-col h3{font-family:'IBM Plex Sans',sans-serif; font-size:0.95rem; font-weight:700; margin-bottom:4px;}
+  .plan-col .eff{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--accent); margin-bottom:12px;}
+  .plan-col ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; font-size:0.86rem; line-height:1.45;}
+  .plan-col li{display:grid; grid-template-columns:18px 1fr; gap:8px;}
+  .plan-col .box{width:15px; height:15px; border:1.6px solid var(--border-strong); border-radius:4px; margin-top:2px;}
+  .plan-col .ref{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--text-faint);}
+
+  .callout{background:var(--surface-2); border:1px solid var(--border); border-left:3px solid var(--accent-2); border-radius:0 12px 12px 0; padding:14px 17px; font-size:0.88rem; line-height:1.6;}
+
+  footer{margin-top:64px; padding-top:22px; border-top:1px solid var(--border);}
+  .src-list{display:flex; flex-direction:column; gap:6px; margin-top:12px;}
+  .src-list a{font-size:0.85rem; text-decoration:none;}
+  .src-list a:hover{text-decoration:underline;}
+  .fineprint{margin-top:20px; font-size:0.78rem; color:var(--text-faint); line-height:1.55;}
+
+  /* --- additions for the Vapi research page --- */
+  :root{ --hu:#C2452A; --hu-bg:#FBE7DD; --en:#2F5578; --en-bg:#E1EAF2; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --hu:#F3A87D; --hu-bg:#3A2418; --en:#9DC2E4; --en-bg:#1B2A38; } }
+  :root[data-theme="dark"]{ --hu:#F3A87D; --hu-bg:#3A2418; --en:#9DC2E4; --en-bg:#1B2A38; }
+
+  .verdict-badge.good{background:var(--good-bg); color:var(--good);}
+  .stat .v{font-size:1.45rem;}
+  .label{font-weight:600; font-size:0.86rem; margin-bottom:8px;}
+
+  .cards{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media (max-width:680px){.cards{grid-template-columns:1fr;}}
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:15px 17px; display:flex; flex-direction:column; gap:8px;}
+  .card.hi{border-color:var(--accent-2);}
+  .card-top{display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;}
+  .date{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--text-faint);}
+  .pill{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; font-weight:600; padding:3px 9px; border-radius:99px; white-space:nowrap;}
+  .pill.good{background:var(--good-bg); color:var(--good);}
+  .pill.warn{background:var(--warn-bg); color:var(--warn);}
+  .pill.info{background:var(--info-bg); color:var(--info);}
+  .pill.bad{background:var(--bad-bg); color:var(--bad);}
+  .card h3{font-family:'IBM Plex Sans',sans-serif; font-size:0.97rem; font-weight:700; line-height:1.35;}
+  .card p{font-size:0.85rem; color:var(--text-muted); line-height:1.55;}
+  .fit{display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; padding-top:4px;}
+  .fit span{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; padding:3px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted);}
+  .fit .ok{background:var(--good-bg); color:var(--good);}
+  .fit .no{background:var(--bad-bg); color:var(--bad);}
+  .fit .maybe{background:var(--warn-bg); color:var(--warn);}
+
+  .opts{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+  @media (max-width:760px){.opts{grid-template-columns:1fr;}}
+  .opt{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px; display:flex; flex-direction:column; gap:9px;}
+  .opt.pick{border:2px solid var(--accent-2);}
+  .opt-top{display:flex; justify-content:space-between; align-items:center; gap:8px;}
+  .opt-letter{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--text-faint);}
+  .pick-badge{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; background:var(--accent-2); color:var(--accent-2-ink); padding:3px 8px; border-radius:99px;}
+  .opt h3{font-family:'IBM Plex Sans',sans-serif; font-size:0.97rem; font-weight:700;}
+  .opt-sub{font-size:0.8rem; color:var(--text-muted); line-height:1.45;}
+  .opt ul{margin:0; padding:0; list-style:none; font-size:0.82rem; line-height:1.5; display:flex; flex-direction:column; gap:5px;}
+  .opt li{display:grid; grid-template-columns:12px 1fr; gap:7px;}
+  .opt li .m{font-family:'IBM Plex Mono',monospace; font-weight:600;}
+  .opt li.p .m{color:var(--good);} .opt li.c .m{color:var(--bad);}
+
+  .tag{display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:0.68rem; padding:2px 7px; border-radius:5px; margin-right:4px; letter-spacing:0;}
+  .tag.hu{background:var(--hu-bg); color:var(--hu);} .tag.en{background:var(--en-bg); color:var(--en);}
+
+  .code-pair{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media (max-width:760px){.code-pair{grid-template-columns:1fr;}}
+  .code-pair > div{min-width:0;}
+
+  .steps{position:relative; padding-left:34px; display:flex; flex-direction:column; gap:10px;}
+  .steps::before{content:""; position:absolute; left:11px; top:8px; bottom:8px; width:2px; background:var(--border-strong);}
+  .step{position:relative; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px 15px;}
+  .step .dot{position:absolute; left:-34px; top:11px; width:24px; height:24px; border-radius:99px; background:var(--accent-2); color:var(--accent-2-ink); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:0.72rem; font-weight:600; border:3px solid var(--bg);}
+  .step-top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:baseline;}
+  .step .t{font-weight:700; font-size:0.92rem;}
+  .step .e{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--accent); white-space:nowrap;}
+  .step .d{font-size:0.84rem; color:var(--text-muted); margin-top:4px; line-height:1.5;}
+
+  .dec{display:flex; flex-direction:column; gap:10px;}
+  .dec-item{display:grid; grid-template-columns:auto 1fr; gap:14px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px;}
+  .dec-item .q{font-family:'Fraunces',serif; font-weight:700; color:var(--accent); font-size:1.2rem; line-height:1;}
+  .dec-item .t{font-weight:700; font-size:0.9rem; margin-bottom:4px;}
+  .dec-item .d{font-size:0.84rem; color:var(--text-muted); line-height:1.5;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-kicker">
+      <div class="logo-mark">e</div>
+      <span class="eyebrow">Kutatás · eNvolve × Vapi</span>
+    </div>
+    <h1 class="title">Mi változott a Vapi-ban, és hogyan könnyíti meg a kétnyelvűséget?</h1>
+    <p class="lede">Az eNvolve 2025 októberében, a Vapi Web SDK 2.5.0-s verziójával készült. Azóta több olyan újítás jött, ami a magyar és angol hangos órákat egyszerűbbé és biztonságosabbá teszi.</p>
+    <div class="meta-row">
+      <span class="chip">2026. október 12.</span>
+      <span class="chip">Vapi docs + What's New (2026. máj.–okt.)</span>
+      <span class="chip">SDK 2.5.0 → 2.7.1</span>
+    </div>
+    <div class="verdict">
+      <div class="verdict-head"><span class="verdict-badge good">Javaslat</span></div>
+      <p><strong>A nyelvenkénti beállításokat ne a kódban rakjuk össze, hanem a Vapi felületén, nyelvenként egy mentett asszisztensben.</strong> A kód csak kiválasztja a megfelelőt, és átadja a tantárgyat, a témát és a stílust. A magyar beszédfelismeréshez a Soniox új modellje a legjobb választás, mert az angol szakszavakat is helyesen leírja. A hanghoz az ElevenLabs Flash v2.5 vagy v4 Turbo illik, mert a korábban kiválasztott modellt azóta kivezették.</p>
+      <div class="stats">
+        <div class="stat"><div class="v">~60 → ~15</div><div class="k">sor az AI-beállításban a kódban</div></div>
+        <div class="stat"><div class="v good">0</div><div class="k">prompt a böngészőben (most minden látszik)</div></div>
+        <div class="stat"><div class="v">2</div><div class="k">mentett asszisztens: HU és EN</div></div>
+        <div class="stat"><div class="v bad">1</div><div class="k">kivezetett modell a backup ágban (<code>eleven_turbo_v2_5</code>)</div></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <a href="#most"><span class="n">01</span> Akkor és most</a>
+    <a href="#ujdonsagok"><span class="n">02</span> Újdonságok, amik számítanak</a>
+    <a href="#utak"><span class="n">03</span> Három felépítés</a>
+    <a href="#javaslat"><span class="n">04</span> A javasolt beállítás</a>
+    <a href="#kod"><span class="n">05</span> Így néz ki a kódban</a>
+    <a href="#lepesek"><span class="n">06</span> Lépések és kérdések</a>
+  </nav>
+
+  <!-- 01 -->
+  <section class="block" id="most">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Akkor és most</h2></div>
+    <div class="sec-body">
+      <p class="sec-lede">Mit használ most az eNvolve, és mi lenne ma a jobb választás ugyanarra a feladatra:</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Elem</th><th>Most a projektben</th><th>Ma elérhető</th><th>Miért jobb</th></tr></thead>
+          <tbody>
+            <tr><td><b>Asszisztens</b></td><td>A böngészőben összerakott, ideiglenes (transient) asszisztens</td><td class="new">Mentett asszisztens a Vapi-ban, verziózással</td><td>A prompt nem látszik a böngészőben, és kód-telepítés nélkül módosítható</td></tr>
+            <tr><td><b>Beszédfelismerés</b></td><td>Deepgram nova-3, <code>en</code></td><td class="new">Soniox <code>stt-rt-v5</code>, <code>["hu","en"]</code></td><td>Magyarul is jó, és ha a diák angol szót mond, azt is helyesen leírja</td></tr>
+            <tr><td><b>Hang</b></td><td>ElevenLabs, a modell nincs megadva</td><td class="new">ElevenLabs <code>eleven_flash_v2_5</code> vagy <code>eleven_v4_turbo</code></td><td>Mindkettő beszél magyarul; a backup ág <code>turbo_v2_5</code>-je kivezetett</td></tr>
+            <tr><td><b>Tanár-modell</b></td><td>GPT-4o</td><td class="new">GPT-5.6 Luna, vagy az újonnan megjelent GPT-6 Luna</td><td>Olcsóbb és gyorsabb (lásd a korábbi összehasonlítást)</td></tr>
+            <tr><td><b>Web SDK</b></td><td><code>@vapi-ai/web</code> 2.5.0</td><td class="new">2.7.1</td><td>Mikrofon-hangerő esemény, hálózati teszt hívás előtt, hibajavítások</td></tr>
+            <tr><td><b>Tesztelés</b></td><td>Csak kézzel</td><td class="new">Szimulációk és Evals a Vapi-ban</td><td>Magyar és angol óra automatikus próbája, a TDK-hoz is mérhető adat</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="block" id="ujdonsagok">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Újdonságok, amik számítanak</h2></div>
+    <div class="sec-body">
+      <div class="cards">
+
+        <article class="card hi">
+          <div class="card-top"><span class="date">2026. jún. 22.</span><span class="pill good">Nagyon hasznos</span></div>
+          <h3>Soniox <code>stt-rt-v5</code> beszédfelismerő</h3>
+          <p>Nyelvlistát lehet megadni (<code>languages: ["hu","en"]</code>), és a beszélgetésen belüli nyelvváltást is kezeli. Egy magyar programozásórán az „if-else” vagy „for ciklus” így nem torzul el. Szeptemberben jött hozzá alacsony megbízhatóságú átiratok szűrése is.</p>
+          <div class="fit"><span class="ok">Magyar: igen</span><span>Kódváltás: igen</span></div>
+        </article>
+
+        <article class="card">
+          <div class="card-top"><span class="date">már elérhető</span><span class="pill warn">Figyelem</span></div>
+          <h3>Deepgram nova-3: magyarul igen, vegyesen nem</h3>
+          <p>A nova-3 egy nyelvre beállítva tud magyarul (<code>language: "hu"</code>). A több nyelvet egyszerre kezelő <code>multi</code> mód viszont csak 10 nyelvet ismer, és a magyar nincs köztük. A Flux modell sem tud magyarul.</p>
+          <div class="fit"><span class="ok">Magyar: igen</span><span class="no">Kódváltás magyarral: nem</span></div>
+        </article>
+
+        <article class="card hi">
+          <div class="card-top"><span class="date">2026. okt. 5.</span><span class="pill good">Nagyon hasznos</span></div>
+          <h3>ElevenLabs v4 Turbo a Vapi-ban</h3>
+          <p>90+ nyelv, köztük a magyar, kb. 100 ms késleltetéssel és kifejezőbb hangsúlyozással. Az olcsóbb Flash v2.5 (32 nyelv, kb. 75 ms) is jó választás. A backup ágban használt <code>eleven_turbo_v2_5</code>-öt az ElevenLabs kivezette, és a Flash v2.5-öt ajánlja helyette.</p>
+          <div class="fit"><span class="ok">Magyar: igen</span><span>Kiválasztott hangok újrahasznosíthatók</span></div>
+        </article>
+
+        <article class="card">
+          <div class="card-top"><span class="date">2026. jún. 1.</span><span class="pill info">Kipróbálandó</span></div>
+          <h3>Vapi Voices V2, automatikus nyelvvel</h3>
+          <p>A Vapi saját hangjai (<code>version: 2</code>) kb. 50%-kal olcsóbbak, és a <code>language: "auto"</code> beállítással a beszélgetés nyelvén szólalnak meg. A dokumentáció 40+ nyelvet említ, de a magyart nem sorolja fel név szerint. Ezt a felületen kell ellenőrizni.</p>
+          <div class="fit"><span class="maybe">Magyar: nem igazolt</span></div>
+        </article>
+
+        <article class="card hi">
+          <div class="card-top"><span class="date">2026. aug. 17. és 31.</span><span class="pill good">Nagyon hasznos</span></div>
+          <h3>Verziózott asszisztensek, prompt-szerkesztő változókkal</h3>
+          <p>A mentett asszisztenseknek piszkozata és közzétett verziója van. A prompt-szerkesztő be tudja szúrni a változókat, és a <code>{{ topic }}</code>-hoz hasonló változók mellett feltételek is írhatók (<code>{% if style == "formal" %}</code>). Így a magázás és a tegezés egyetlen promptban kezelhető.</p>
+          <div class="fit"><span>Prompt módosítása kód-telepítés nélkül</span></div>
+        </article>
+
+        <article class="card hi">
+          <div class="card-top"><span class="date">biztonság</span><span class="pill bad">Fontos</span></div>
+          <h3>Nyilvános kulcs korlátozása</h3>
+          <p>A nyilvános kulcsnál beállítható, mely címekről (Allowed Origins) és mely asszisztensekkel (Allowed Assistants) használható. Az ideiglenes asszisztensek külön kapcsolóval engedélyezhetők. Most a teljes AI-beállítás a böngészőben áll össze, így bárki indíthat hívást a kulcsoddal tetszőleges beállítással, a te költségedre.</p>
+          <div class="fit"><span>Mentett asszisztenssel ez a kapcsoló kikapcsolható</span></div>
+        </article>
+
+        <article class="card">
+          <div class="card-top"><span class="date">2026. aug. 10. – szept. 28.</span><span class="pill info">TDK-hoz is jó</span></div>
+          <h3>Szimulációk és Evals</h3>
+          <p>A Vapi le tud játszani előre megírt diák-beszélgetéseket az asszisztenssel, és ellenőrzi, hogy a válasz megfelel-e a feltételeknek: magyarul marad, rövid, a témánál marad. Az eredmények megmaradnak, így a változtatások hatása mérhető. Ez a TDK módszertanához is hasznos.</p>
+        </article>
+
+        <article class="card">
+          <div class="card-top"><span class="date">2025. nov. – 2026. szept.</span><span class="pill info">Ajánlott</span></div>
+          <h3>Web SDK 2.7.1</h3>
+          <p>Nincs törő változás a 2.5.0 óta. Új a mikrofon-hangerő esemény: ezzel a diák látja, hogy a gép hallja őt, ami autizmussal vagy ADHD-val élő diákoknak kifejezetten megnyugtató. Új a hálózati teszt hívás előtt (iskolai wifinél hasznos), és javították a hibák továbbítását is.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="block" id="utak">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Három lehetséges felépítés</h2></div>
+    <div class="sec-body">
+      <div class="opts">
+        <div class="opt">
+          <div class="opt-top"><span class="opt-letter">A</span></div>
+          <h3>Nyelvenkénti profil a kódban</h3>
+          <p class="opt-sub">Az eredeti terv: minden beállítás a <code>lib/ai</code> mappában.</p>
+          <ul>
+            <li class="p"><span class="m">+</span><span>Minden a gitben van</span></li>
+            <li class="c"><span class="m">−</span><span>A prompt látszik a böngészőben</span></li>
+            <li class="c"><span class="m">−</span><span>Az ideiglenes asszisztens nyitva hagyja a kulcsot</span></li>
+            <li class="c"><span class="m">−</span><span>Minden promptmódosítás új telepítés</span></li>
+          </ul>
+        </div>
+        <div class="opt pick">
+          <div class="opt-top"><span class="opt-letter">B</span><span class="pick-badge">Javasolt</span></div>
+          <h3>Két mentett asszisztens a Vapi-ban</h3>
+          <p class="opt-sub">„eNvolve Tanár HU” és „eNvolve Tutor EN”, a kód a kurzus nyelve alapján választ.</p>
+          <ul>
+            <li class="p"><span class="m">+</span><span>Nyelvenként saját beszédfelismerő, hang, prompt</span></li>
+            <li class="p"><span class="m">+</span><span>A prompt rejtve marad, a kulcs korlátozható</span></li>
+            <li class="p"><span class="m">+</span><span>Promptváltás telepítés nélkül, verziózva</span></li>
+            <li class="p"><span class="m">+</span><span>Szimulációkkal tesztelhető</span></li>
+            <li class="c"><span class="m">−</span><span>A beállítás egy része a Vapi felületén él</span></li>
+          </ul>
+        </div>
+        <div class="opt">
+          <div class="opt-top"><span class="opt-letter">C</span></div>
+          <h3>Egy asszisztens, automatikus nyelvvel</h3>
+          <p class="opt-sub">Soniox nyelvfelismerés + automatikus hang, vagy beszédből beszéd modell (Realtime v2).</p>
+          <ul>
+            <li class="p"><span class="m">+</span><span>Egyetlen beállítás minden nyelvre</span></li>
+            <li class="c"><span class="m">−</span><span>A kurzus nyelve úgyis ismert, nem kell kitalálni</span></li>
+            <li class="c"><span class="m">−</span><span>A magyar automatikus hang nem igazolt</span></li>
+            <li class="c"><span class="m">−</span><span>Nehezebb kézben tartani, mit mond a tanár</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="callout">Az eNvolve-ban minden kurzusnak előre tudjuk a nyelvét. Ezért nem kell a nyelvet a beszédből kitalálni (C út), elég a megfelelő asszisztenst elindítani (B út). A C út egy későbbi nyelvgyakorló funkcióhoz lehet érdekes, ahol a diák szándékosan vált a két nyelv között.</p>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="block" id="javaslat">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">A javasolt beállítás</h2></div>
+    <div class="sec-body">
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Beállítás</th><th><span class="tag hu">HU</span> eNvolve Tanár</th><th><span class="tag en">EN</span> eNvolve Tutor</th></tr></thead>
+          <tbody>
+            <tr><td><b>Beszédfelismerés</b></td><td>Soniox <code>stt-rt-v5</code>, <code>["hu","en"]</code></td><td>Deepgram nova-3, <code>en</code> (marad)</td></tr>
+            <tr><td><b>Hang</b></td><td>ElevenLabs Flash v2.5 vagy v4 Turbo, a backup ág 4 magyar hangja</td><td>ElevenLabs, a mostani 4 hang</td></tr>
+            <tr><td><b>Tanár-modell</b></td><td colspan="2">GPT-5.6 Luna vagy GPT-6 Luna, minimális „gondolkodással” (próbaóra dönt)</td></tr>
+            <tr><td><b>Nyitómondat</b></td><td><code>{% if style == "formal" %}</code>Jó napot!<code>{% else %}</code>Szia!<code>{% endif %}</code> …</td><td>Hello, let's start…</td></tr>
+            <tr><td><b>Prompt</b></td><td>Magyarul megírva, magázás/tegezés feltétellel</td><td>A mostani angol prompt</td></tr>
+            <tr><td><b>Kódból jön</b></td><td colspan="2"><code>subject</code>, <code>topic</code>, <code>style</code> változók és a hang kiválasztása (férfi/női)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="block" id="kod">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Így néz ki a kódban</h2></div>
+    <div class="sec-body">
+      <div class="code-pair">
+        <div>
+          <p class="label">Most · <code>lib/utils.ts</code></p>
+<pre><span class="c">// ~60 sor: transcriber, voice, model,</span>
+<span class="c">// firstMessage és a teljes prompt</span>
+<span class="c">// a böngészőben áll össze</span>
+<span class="k">export const</span> configureAssistant = (voice, style) =&gt; {
+  …
+  transcriber: { provider: <span class="s">"deepgram"</span>, language: <span class="s">"en"</span> },
+  model: { model: <span class="s">"gpt-4o"</span>, messages: [ <span class="c">/* prompt */</span> ] },
+  …
+};
+vapi.start(configureAssistant(voice, style), overrides);</pre>
+        </div>
+        <div>
+          <p class="label">Javasolt · <code>lib/ai/assistants.ts</code></p>
+<pre><span class="k">export const</span> ASSISTANT_IDS = {
+  hu: process.env.NEXT_PUBLIC_VAPI_ASSISTANT_HU!,
+  en: process.env.NEXT_PUBLIC_VAPI_ASSISTANT_EN!,
+};
+
+<span class="c">// CourseComponent.tsx</span>
+vapi.start(ASSISTANT_IDS[language], {
+  variableValues: { subject, topic, style },
+  voice: { provider: <span class="s">"11labs"</span>,
+           voiceId: VOICES[language][voice][style] },
+});</pre>
+        </div>
+      </div>
+      <p class="callout">A <code>language</code> a <code>courses.language</code> oszlopból jön, amíg az nincs meg, a felület nyelvéből. A hangválasztás felülírását a Vapi API-dokumentáció a mezők között listázza, de az első próbán érdemes ellenőrizni, hogy hívásindításkor is elfogadja.</p>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="block" id="lepesek">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Lépések és nyitott kérdések</h2></div>
+    <div class="sec-body">
+      <div class="steps">
+        <div class="step"><div class="dot">1</div><div class="step-top"><span class="t">Próba a Vapi felületén</span><span class="e">1–2 óra</span></div><div class="d">Magyar asszisztens létrehozása, és egy 5 perces próbaóra Soniox-szal és Deepgram <code>hu</code>-val, ugyanazokkal a mondatokkal. Közben megnézni, hogy a Vapi Voices V2 tud-e magyarul.</div></div>
+        <div class="step"><div class="dot">2</div><div class="step-top"><span class="t">Két mentett asszisztens</span><span class="e">fél nap</span></div><div class="d">Magyar prompt magázás/tegezés feltétellel, angol prompt a mostaniból. Hang: Flash v2.5 vagy v4 Turbo, modell: Luna.</div></div>
+        <div class="step"><div class="dot">3</div><div class="step-top"><span class="t">Kód egyszerűsítése</span><span class="e">fél nap</span></div><div class="d"><code>configureAssistant</code> helyett asszisztens-ID és változók; SDK frissítése 2.7.1-re; <code>courses.language</code> oszlop.</div></div>
+        <div class="step"><div class="dot">4</div><div class="step-top"><span class="t">Kulcs lezárása</span><span class="e">15 perc</span></div><div class="d">Allowed Origins (Vercel domain + localhost), Allowed Assistants (a két ID), ideiglenes asszisztensek kikapcsolása.</div></div>
+        <div class="step"><div class="dot">5</div><div class="step-top"><span class="t">Szimulációk</span><span class="e">2–3 óra</span></div><div class="d">Pár diák-forgatókönyv nyelvenként: magyarul marad-e, rövid-e, követi-e a stílust.</div></div>
+      </div>
+      <div class="dec">
+        <div class="dec-item"><div class="q">?</div><div><div class="t">Hozzáfér a csapattársad a Vapi fiókhoz?</div><div class="d">A B útnál a prompt a Vapi felületén él. Ha mindketten szerkesztitek, kell egy közös fiók vagy szervezet, vagy legalább a prompt mentése a repóba is.</div></div></div>
+        <div class="dec-item"><div class="q">?</div><div><div class="t">Flash v2.5 vagy v4 Turbo?</div><div class="d">A Flash olcsóbb és gyorsabb, a v4 Turbo kifejezőbb. Gyerekeknél, tanulási nehézséggel élő diákoknál a nyugodt, tiszta hang többet számít, mint a drámaiság. A próbaóra döntsön.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="eyebrow">Források</p>
+    <div class="src-list">
+      <a href="https://docs.vapi.ai/whats-new" target="_blank" rel="noopener">Vapi — What's New (2026. máj.–okt.)</a>
+      <a href="https://docs.vapi.ai/customization/multilingual" target="_blank" rel="noopener">Vapi — Multilingual support</a>
+      <a href="https://docs.vapi.ai/providers/transcriber/soniox" target="_blank" rel="noopener">Vapi — Soniox transcriber</a>
+      <a href="https://docs.vapi.ai/providers/transcriber/deepgram" target="_blank" rel="noopener">Vapi — Deepgram transcriber</a>
+      <a href="https://developers.deepgram.com/docs/models-languages-overview" target="_blank" rel="noopener">Deepgram — Models &amp; Languages (multi mód nyelvei)</a>
+      <a href="https://soniox.com/docs/stt/concepts/supported-languages" target="_blank" rel="noopener">Soniox — Supported languages</a>
+      <a href="https://elevenlabs.io/docs/overview/models" target="_blank" rel="noopener">ElevenLabs — Models (v4 Turbo, Flash v2.5, turbo v2.5 kivezetés)</a>
+      <a href="https://docs.vapi.ai/providers/voice/vapi-voices" target="_blank" rel="noopener">Vapi — Vapi Voices V2</a>
+      <a href="https://docs.vapi.ai/assistants/dynamic-variables" target="_blank" rel="noopener">Vapi — Dynamic variables (Liquid)</a>
+      <a href="https://docs.vapi.ai/security-and-privacy/api-keys" target="_blank" rel="noopener">Vapi — API keys (nyilvános kulcs korlátozása)</a>
+      <a href="https://github.com/VapiAI/client-sdk-web/releases" target="_blank" rel="noopener">VapiAI/client-sdk-web — Releases</a>
+    </div>
+    <p class="fineprint">A Vapi What's New oldala 2026 májusától mutat bejegyzéseket; a korábbi változásokat a dátum nélküli changelog és az SDK kiadási jegyzetei alapján néztem át. A magyar minőséget egyik szolgáltató sem közli számszerűen, ezért a próbaóra elengedhetetlen.</p>
+  </footer>
+
+</div>
+</body>
+</html>

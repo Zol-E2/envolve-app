@@ -3,6 +3,7 @@ import { Bricolage_Grotesque } from "next/font/google";
 import "../globals.css";
 import Navbar from "@/components/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
+import { enUS, huHU } from "@clerk/localizations";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -10,7 +11,8 @@ import { routing } from "@/i18n/routing";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
-  subsets: ["latin"],
+  // latin-ext carries the Hungarian ő and ű glyphs
+  subsets: ["latin", "latin-ext"],
 });
 
 type LocaleLayoutProps = Readonly<{
@@ -54,6 +56,8 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <ClerkProvider
             appearance={{ variables: { colorPrimary: "#fe5933" } }}
+            // Clerk's own UI (sign-in, user menu, pricing) in the active language
+            localization={locale === "hu" ? huHU : enUS}
             // Keep Clerk redirects (SignInButton, sign-out) inside the active locale
             signInUrl={`/${locale}/sign-in`}
             afterSignOutUrl={`/${locale}`}

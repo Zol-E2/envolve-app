@@ -19,11 +19,12 @@ export const subjectsColors = {
   economics: "#C8FFDF",
 };
 
-// ElevenLabs voice IDs mapped by gender and conversation style.
-// Used by configureAssistant() in lib/utils.ts to build the Vapi assistant config.
+// ElevenLabs voice IDs per lesson language and gender.
+// Used by buildLessonCall() in lib/ai/assistants.ts; the voice model itself
+// (eleven_v4_turbo) is set on the saved Vapi assistants.
 export const voices = {
-  male: { casual: "2BJW5coyhAzSr8STdHbE", formal: "c6SfcYrb2t09NHXiT80T" },
-  female: { casual: "ZIlrSGI4jZqobxRKprJz", formal: "sarah" },
+  hu: { male: "TumdjBNWanlT3ysvclWh", female: "tnSpp4vdxKPjI9w0GnoV" },
+  en: { male: "2BJW5coyhAzSr8STdHbE", female: "ZIlrSGI4jZqobxRKprJz" },
 };
 
 // Static placeholder data — used for UI development only, not from the database

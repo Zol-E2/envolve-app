@@ -17,10 +17,10 @@
   },
   "Home": {
     "popularCourses": "Népszerű kurzusok",
-    "recentCourses": "Legutóbbi kurzusaid"
+    "recentCourses": "Legutóbbi órák"
   },
   "CTA": {
-    "badge": "Kezdj el tanulni most",
+    "badge": "Vágj bele még ma",
     "title": "Építsd fel és szabd testre a tanulási utadat!",
     "description": "Csatlakozz az eNvolve-hoz még ma, és tedd meg az első lépést új készségek elsajátítása felé személyre szabott kurzusainkkal és interaktív óráinkkal.",
     "button": "Új kurzus készítése"
@@ -28,7 +28,9 @@
   "CourseCard": {
     "bookmark": "Könyvjelző",
     "minutes": "{count} perc",
-    "launchLesson": "Óra indítása"
+    "launchLesson": "Óra megnyitása",
+    "lessonHu": "Magyar nyelvű óra",
+    "lessonEn": "Angol nyelvű óra"
   },
   "CourseList": {
     "lessons": "Órák",
@@ -44,7 +46,7 @@
   },
   "Subjects": {
     "maths": "Matematika",
-    "language": "Nyelv",
+    "language": "Nyelvek",
     "science": "Természettudomány",
     "history": "Történelem",
     "coding": "Programozás",
@@ -71,11 +73,11 @@
     "voiceRequired": "A hang kiválasztása kötelező",
     "voiceMale": "Férfi",
     "voiceFemale": "Női",
-    "style": "Stílus",
-    "stylePlaceholder": "Válaszd ki a hang stílusát",
-    "styleRequired": "A stílus kiválasztása kötelező",
-    "styleFormal": "Formális",
-    "styleCasual": "Közvetlen",
+    "language": "Az óra nyelve",
+    "languagePlaceholder": "Válaszd ki az óra nyelvét",
+    "languageRequired": "Az óra nyelvének kiválasztása kötelező",
+    "languageHu": "Magyar",
+    "languageEn": "Angol",
     "duration": "Az óra becsült hossza percben",
     "durationRequired": "Az időtartam megadása kötelező",
     "submit": "Kurzus létrehozása"
@@ -91,8 +93,13 @@
   "Profile": {
     "lessonsCompleted": "Elvégzett órák",
     "coursesCreated": "Létrehozott kurzusok",
-    "bookmarkedCourses": "Könyvjelzős kurzusok",
+    "bookmarkedCourses": "Mentett kurzusok",
     "recentSessions": "Legutóbbi órák",
     "myCourses": "Saját kurzusaim"
+  },
+  "NotFound": {
+    "title": "Az oldal nem található",
+    "description": "A keresett oldal nem létezik, vagy máshová került.",
+    "backHome": "Vissza a főoldalra"
   }
 }

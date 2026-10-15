@@ -48,7 +48,7 @@ const CourseList = ({ title, courses, classNames }: CourseListProps) => {
                     >
                       <Image
                         src={`/icons/${subject}.svg`}
-                        alt={subject}
+                        alt={getSubjectLabel(tSubjects, subject)}
                         width={35}
                         height={35}
                       />
@@ -76,7 +76,7 @@ const CourseList = ({ title, courses, classNames }: CourseListProps) => {
                 >
                   <Image
                     src={`/icons/${subject}.svg`}
-                    alt={subject}
+                    alt={getSubjectLabel(tSubjects, subject)}
                     width={18}
                     height={18}
                   />
@@ -89,7 +89,7 @@ const CourseList = ({ title, courses, classNames }: CourseListProps) => {
                   </p>
                   <Image
                     src={`/icons/clock.svg`}
-                    alt="minutes"
+                    alt={t("min")}
                     width={14}
                     height={14}
                     className="md:hidden"

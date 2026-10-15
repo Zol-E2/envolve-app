@@ -6,6 +6,6 @@ import { defineRouting } from "next-intl/routing";
  * so adding a new language is a one-line change.
  */
 export const routing = defineRouting({
-  locales: ["en", "hu"],
-  defaultLocale: "en",
+  locales: ["hu", "en"],
+  defaultLocale: "hu",
 });

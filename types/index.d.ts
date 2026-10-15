@@ -28,7 +28,7 @@ type Course = {
   topic: string;
   duration: number;
   voice: string;
-  style: string;
+  language: "hu" | "en";
   author: string;
   bookmarked: boolean;
   created_at?: string;
@@ -40,7 +40,7 @@ interface CreateCourse {
   subject: string;
   topic: string;
   voice: string;
-  style: string;
+  language: "hu" | "en";
   duration: number;
 }
 
@@ -94,5 +94,5 @@ interface CourseComponentProps {
   userName: string;
   userImage: string;
   voice: string;
-  style: string;
+  language: "hu" | "en";
 }

@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 "use client";
 
-import { cn, configureAssistant, getSubjectColor } from "@/lib/utils";
+import { cn, getSubjectColor, getSubjectLabel } from "@/lib/utils";
+import { buildLessonCall } from "@/lib/ai/assistants";
 import { vapi } from "@/lib/vapi.sdk";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
@@ -25,10 +25,11 @@ const CourseComponent = ({
   name,
   subject,
   topic,
-  style,
+  language,
   voice,
 }: CourseComponentProps) => {
   const t = useTranslations("CourseSession");
+  const tSubjects = useTranslations("Subjects");
   const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -100,17 +101,15 @@ const CourseComponent = ({
 
   const handleCall = async () => {
     setCallStatus(CallStatus.CONNECTING);
-    const assistantOverrides = {
-      variableValues: {
-        subject,
-        topic,
-        style,
-      },
-      clientMessages: ["transcript"],
-      serverMessages: [],
-    };
-    // @ts-expect-error — Vapi SDK types don't fully match the override shape
-    vapi.start(configureAssistant(voice, style), assistantOverrides);
+    // The saved Vapi assistant for the lesson language holds the prompt,
+    // transcriber, model and voice model; here we only fill in the lesson.
+    const { assistantId, overrides } = buildLessonCall({
+      language,
+      voice,
+      subject,
+      topic,
+    });
+    vapi.start(assistantId, overrides);
   };
 
   const handleDisconnect = () => {
@@ -140,7 +139,7 @@ const CourseComponent = ({
             >
               <Image
                 src={`/icons/${subject}.svg`}
-                alt={subject}
+                alt={getSubjectLabel(tSubjects, subject)}
                 width={150}
                 height={150}
                 className="max-sm:w-fit"
@@ -178,11 +177,13 @@ const CourseComponent = ({
             className="btn-mic"
             onClick={toggleMicrophone}
             disabled={callStatus !== CallStatus.ACTIVE}
-            title="mic"
+            // The text label is hidden on mobile, so the button needs its own accessible name
+            title={isMuted ? t("micOn") : t("micOff")}
+            aria-label={isMuted ? t("micOn") : t("micOff")}
           >
             <Image
               src={isMuted ? "/icons/mic-off.svg" : "/icons/mic-on.svg"}
-              alt="mic"
+              alt=""
               width={36}
               height={36}
             />
@@ -199,7 +200,6 @@ const CourseComponent = ({
             onClick={
               callStatus === CallStatus.ACTIVE ? handleDisconnect : handleCall
             }
-            title="call"
           >
             {callStatus === CallStatus.ACTIVE
               ? t("endSession")

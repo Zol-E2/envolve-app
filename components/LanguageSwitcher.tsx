@@ -19,8 +19,10 @@ const LanguageSwitcher = () => {
 
   const onSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const nextLocale = event.target.value as typeof locale;
+    // Keep the query string (?subject=…&topic=…) so search filters survive the switch
+    const search = window.location.search;
     startTransition(() => {
-      router.replace(pathname, { locale: nextLocale });
+      router.replace(`${pathname}${search}`, { locale: nextLocale });
     });
   };
 

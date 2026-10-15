@@ -18,6 +18,7 @@ interface CourseCardProps {
   duration: number;
   color: string;
   bookmarked: boolean;
+  language?: "hu" | "en";
 }
 
 const CourseCard = ({
@@ -28,6 +29,7 @@ const CourseCard = ({
   duration,
   color,
   bookmarked,
+  language,
 }: CourseCardProps) => {
   const t = useTranslations("CourseCard");
   const tSubjects = useTranslations("Subjects");
@@ -51,7 +53,18 @@ const CourseCard = ({
   return (
     <article className="course-card" style={{ backgroundColor: color }}>
       <div className="flex justify-between items-center">
-        <div className="subject-badge">{getSubjectLabel(tSubjects, subject)}</div>
+        <div className="flex items-center gap-2">
+          <div className="subject-badge">{getSubjectLabel(tSubjects, subject)}</div>
+          {language && (
+            <div
+              className="subject-badge"
+              title={t(language === "hu" ? "lessonHu" : "lessonEn")}
+              aria-label={t(language === "hu" ? "lessonHu" : "lessonEn")}
+            >
+              {language.toUpperCase()}
+            </div>
+          )}
+        </div>
         <button
           className="course-bookmark"
           onClick={handleBookmark}
@@ -73,7 +86,7 @@ const CourseCard = ({
       <div className="flex items-center gap-2">
         <Image
           src="/icons/clock.svg"
-          alt="duration"
+          alt=""
           width={14}
           height={14}
         />

@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>eNvolve Kétnyelvűsítés</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,540;9..144,620;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF7F1; --surface:#FFFFFF; --surface-2:#F3ECE1;
+    --border:#E7DECE; --border-strong:#D8CBB2;
+    --text:#221C2E; --text-muted:#6B6278; --text-faint:#9A90A3;
+    --accent:#DD5B33; --accent-ink:#FFF9F4;
+    --accent-2:#5B4A96; --accent-2-ink:#FBF9FF;
+    --good:#1F8F63; --good-bg:#DEF3E7;
+    --warn:#B4791B; --warn-bg:#F7E9CF;
+    --bad:#B0432F; --bad-bg:#F6E1DA;
+    --hu:#C2452A; --hu-bg:#FBE7DD;
+    --en:#2F5578; --en-bg:#E1EAF2;
+    --code-bg:#2A2236; --code-fg:#EDE6F7; --code-dim:#9C90B2; --code-str:#F3A87D; --code-key:#A9D8C0;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#171320; --surface:#1E1929; --surface-2:#251F33;
+      --border:#362E45; --border-strong:#453A57;
+      --text:#F3EEFA; --text-muted:#B3A8C4; --text-faint:#847997;
+      --accent:#F17B4E; --accent-ink:#221204;
+      --accent-2:#9C8CE0; --accent-2-ink:#1B1430;
+      --good:#5FCB9B; --good-bg:#173226;
+      --warn:#E3AC4E; --warn-bg:#332711;
+      --bad:#E38574; --bad-bg:#392019;
+      --hu:#F3A87D; --hu-bg:#3A2418;
+      --en:#9DC2E4; --en-bg:#1B2A38;
+      --code-bg:#0F0C16; --code-fg:#EDE6F7; --code-dim:#8A7FA0; --code-str:#F3A87D; --code-key:#8FD3B4;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#171320; --surface:#1E1929; --surface-2:#251F33;
+    --border:#362E45; --border-strong:#453A57;
+    --text:#F3EEFA; --text-muted:#B3A8C4; --text-faint:#847997;
+    --accent:#F17B4E; --accent-ink:#221204;
+    --accent-2:#9C8CE0; --accent-2-ink:#1B1430;
+    --good:#5FCB9B; --good-bg:#173226;
+    --warn:#E3AC4E; --warn-bg:#332711;
+    --bad:#E38574; --bad-bg:#392019;
+    --hu:#F3A87D; --hu-bg:#3A2418;
+    --en:#9DC2E4; --en-bg:#1B2A38;
+    --code-bg:#0F0C16; --code-fg:#EDE6F7; --code-dim:#8A7FA0; --code-str:#F3A87D; --code-key:#8FD3B4;
+    color-scheme: dark;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-inline:20px; padding-block:40px 80px;
+  }
+  h1,h2,h3{font-family:'Fraunces', Georgia, 'Times New Roman', serif; font-weight:620; text-wrap:balance; margin:0; letter-spacing:-0.01em;}
+  .wrap{max-width:900px; margin-inline:auto;}
+  p{margin:0; line-height:1.62;}
+  a{color:var(--accent-2);}
+  a:focus-visible{outline:2px solid var(--accent-2); outline-offset:2px;}
+  code{font-family:'IBM Plex Mono', monospace; font-size:0.86em; background:var(--surface-2); border:1px solid var(--border); border-radius:5px; padding:1px 5px;}
+  .eyebrow{font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.09em; text-transform:uppercase; color:var(--text-faint);}
+  .muted{color:var(--text-muted);}
+  .label{font-weight:600; font-size:0.9rem; margin-bottom:10px;}
+
+  /* hero */
+  .hero{padding-block:8px 34px; border-bottom:1px solid var(--border); margin-bottom:36px;}
+  .hero-kicker{display:flex; align-items:center; gap:10px; margin-bottom:18px;}
+  .logo-mark{width:34px; height:34px; border-radius:9px; background:linear-gradient(155deg, var(--accent), var(--accent-2)); display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Fraunces', serif; font-weight:700; font-size:1.05rem; flex-shrink:0;}
+  h1.title{font-size:clamp(1.9rem, 5vw, 2.7rem); line-height:1.1;}
+  .hero .lede{margin-top:14px; font-size:1.1rem; color:var(--text-muted); max-width:66ch;}
+  .meta-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:20px;}
+  .chip{display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:99px; border:1px solid var(--border-strong); background:var(--surface); font-family:'IBM Plex Mono', monospace; font-size:0.76rem; color:var(--text-muted);}
+
+  .answer{
+    margin-top:24px; display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:start;
+    background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:18px 20px;
+  }
+  .answer .flags{display:flex; gap:6px; padding-top:2px;}
+  .flag{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; font-weight:600; padding:3px 8px; border-radius:6px;}
+  .flag.hu{background:var(--hu-bg); color:var(--hu);}
+  .flag.en{background:var(--en-bg); color:var(--en);}
+  .answer p{font-size:0.98rem;}
+  @media (max-width:560px){.answer{grid-template-columns:1fr;}}
+
+  /* toc */
+  .toc{display:flex; flex-wrap:wrap; gap:8px 18px; padding:16px 20px; background:var(--surface-2); border:1px solid var(--border); border-radius:14px; margin-bottom:56px;}
+  .toc a{font-family:'IBM Plex Mono', monospace; font-size:0.8rem; color:var(--text-muted); text-decoration:none; display:inline-flex; gap:6px;}
+  .toc a:hover{color:var(--accent-2);}
+  .toc .n{color:var(--text-faint);}
+
+  /* sections */
+  section.block{margin-bottom:64px; scroll-margin-top:20px;}
+  .sec-head{display:flex; gap:16px; align-items:baseline; margin-bottom:20px;}
+  .sec-num{font-family:'IBM Plex Mono', monospace; font-size:0.95rem; color:var(--accent); flex-shrink:0;}
+  h2.sec-title{font-size:clamp(1.35rem, 3vw, 1.65rem);}
+  .sec-body{padding-left:calc(0.95rem + 16px); display:flex; flex-direction:column; gap:20px;}
+  @media (max-width:560px){.sec-body{padding-left:0;}}
+
+  /* stats */
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:10px;}
+  @media (max-width:680px){.stats{grid-template-columns:repeat(2,1fr);}}
+  .stat{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px;}
+  .stat .v{font-family:'Fraunces',serif; font-weight:700; font-size:1.9rem; line-height:1; font-variant-numeric:tabular-nums;}
+  .stat .k{font-size:0.8rem; color:var(--text-muted); margin-top:6px; line-height:1.4;}
+
+  .stack{display:flex; flex-wrap:wrap; gap:8px;}
+  .stack .chip b{color:var(--text); font-weight:600;}
+
+  /* tables */
+  .tbl-wrap{overflow-x:auto; border:1px solid var(--border); border-radius:12px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:0.86rem; min-width:560px;}
+  th,td{text-align:left; padding:11px 14px; border-bottom:1px solid var(--border); vertical-align:top; line-height:1.5;}
+  th{font-family:'IBM Plex Mono',monospace; font-weight:500; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-faint); background:var(--surface-2);}
+  tr:last-child td{border-bottom:0;}
+  td.file{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; white-space:nowrap; color:var(--accent-2);}
+
+  /* keep / drop */
+  .kd{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media (max-width:680px){.kd{grid-template-columns:1fr;}}
+  .kd-col{border-radius:14px; padding:16px 18px;}
+  .kd-col.keep{background:var(--good-bg);}
+  .kd-col.drop{background:var(--bad-bg);}
+  .kd-col h3{font-family:'IBM Plex Sans',sans-serif; font-size:0.92rem; font-weight:700; margin-bottom:10px;}
+  .kd-col.keep h3{color:var(--good);}
+  .kd-col.drop h3{color:var(--bad);}
+  .kd-col ul{margin:0; padding-left:18px; font-size:0.85rem; line-height:1.55; color:var(--text);}
+  .kd-col li + li{margin-top:6px;}
+
+  /* options */
+  .opts{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+  @media (max-width:760px){.opts{grid-template-columns:1fr;}}
+  .opt{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px; display:flex; flex-direction:column; gap:10px;}
+  .opt.pick{border:2px solid var(--accent-2);}
+  .opt-top{display:flex; justify-content:space-between; align-items:center; gap:8px;}
+  .opt-letter{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--text-faint);}
+  .pick-badge{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; background:var(--accent-2); color:var(--accent-2-ink); padding:3px 8px; border-radius:99px;}
+  .opt h3{font-family:'IBM Plex Sans',sans-serif; font-size:0.98rem; font-weight:700;}
+  .opt ul{margin:0; padding:0; list-style:none; font-size:0.82rem; line-height:1.5; display:flex; flex-direction:column; gap:5px;}
+  .opt li{display:grid; grid-template-columns:12px 1fr; gap:7px;}
+  .opt li .m{flex-shrink:0; font-family:'IBM Plex Mono',monospace; font-weight:600;}
+  .opt li.p .m{color:var(--good);}
+  .opt li.c .m{color:var(--bad);}
+  .meter{display:flex; gap:4px; align-items:center; font-size:0.74rem; color:var(--text-muted); font-family:'IBM Plex Mono',monospace; margin-top:auto; padding-top:6px; border-top:1px solid var(--border);}
+  .meter .bars{display:flex; gap:3px; margin-left:auto;}
+  .meter .bars i{width:14px; height:6px; border-radius:2px; background:var(--border-strong); display:block;}
+  .meter .bars i.on{background:var(--accent);}
+
+  /* diagram */
+  .axes{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  @media (max-width:720px){.axes{grid-template-columns:1fr;}}
+  .axis{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px;}
+  .axis h3{font-family:'IBM Plex Sans',sans-serif; font-size:0.95rem; font-weight:700; margin-bottom:2px;}
+  .axis .sub{font-size:0.8rem; color:var(--text-muted); margin-bottom:14px;}
+  .flow{display:flex; flex-direction:column; align-items:stretch; gap:0;}
+  .node{border:1px solid var(--border-strong); border-radius:10px; padding:9px 12px; font-size:0.82rem; background:var(--surface-2); line-height:1.4;}
+  .node b{font-weight:600;}
+  .node .mono{font-family:'IBM Plex Mono',monospace; font-size:0.76rem; color:var(--accent-2);}
+  .arrow{align-self:center; width:2px; height:16px; background:var(--border-strong); position:relative; margin-block:2px 6px;}
+  .arrow::after{content:""; position:absolute; left:-4px; bottom:-6px; border:5px solid transparent; border-top-color:var(--border-strong);}
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .node.hu{background:var(--hu-bg); border-color:transparent; color:var(--hu);}
+  .node.en{background:var(--en-bg); border-color:transparent; color:var(--en);}
+  .node.hu b, .node.en b{color:inherit;}
+
+  /* code */
+  pre{margin:0; background:var(--code-bg); color:var(--code-fg); border-radius:12px; padding:16px 18px; overflow-x:auto; font-family:'IBM Plex Mono',monospace; font-size:0.78rem; line-height:1.6;}
+  pre .c{color:var(--code-dim);}
+  pre .s{color:var(--code-str);}
+  pre .k{color:var(--code-key);}
+  .tree{font-size:0.8rem;}
+
+  /* AI table cells */
+  .tag{display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:0.7rem; padding:2px 7px; border-radius:5px; margin-right:4px;}
+  .tag.hu{background:var(--hu-bg); color:var(--hu);}
+  .tag.en{background:var(--en-bg); color:var(--en);}
+  .tag.ok{background:var(--good-bg); color:var(--good);}
+
+  .style-pair{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media (max-width:620px){.style-pair{grid-template-columns:1fr;}}
+  .bubble{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:14px 16px;}
+  .bubble .who{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--text-faint); margin-bottom:8px; display:flex; justify-content:space-between; gap:8px;}
+  .bubble .say{font-family:'Fraunces',serif; font-size:1.02rem; line-height:1.5; font-style:italic;}
+  .bubble .note{font-size:0.78rem; color:var(--text-muted); margin-top:8px;}
+
+  /* steps */
+  .steps{position:relative; padding-left:34px; display:flex; flex-direction:column; gap:12px;}
+  .steps::before{content:""; position:absolute; left:11px; top:8px; bottom:8px; width:2px; background:var(--border-strong);}
+  .step{position:relative; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:13px 16px;}
+  .step .dot{position:absolute; left:-34px; top:12px; width:24px; height:24px; border-radius:99px; background:var(--accent-2); color:var(--accent-2-ink); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:0.72rem; font-weight:600; border:3px solid var(--bg);}
+  .step-top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:baseline;}
+  .step .t{font-weight:700; font-size:0.93rem;}
+  .step .e{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--accent); white-space:nowrap;}
+  .step .d{font-size:0.84rem; color:var(--text-muted); margin-top:4px; line-height:1.5;}
+  .step .f{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--text-faint); margin-top:6px;}
+  .total{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; background:var(--accent-2); color:var(--accent-2-ink); border-radius:12px; padding:14px 18px;}
+  .total .big{font-family:'Fraunces',serif; font-weight:700; font-size:1.5rem;}
+  .total p{font-size:0.84rem; opacity:0.9;}
+
+  /* pitfalls */
+  .pits{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  @media (max-width:680px){.pits{grid-template-columns:1fr;}}
+  .pit{background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--warn); border-radius:0 12px 12px 0; padding:13px 15px;}
+  .pit.high{border-left-color:var(--bad);}
+  .pit .t{font-weight:700; font-size:0.88rem; margin-bottom:4px;}
+  .pit .d{font-size:0.82rem; color:var(--text-muted); line-height:1.5;}
+
+  /* decisions */
+  .dec{display:flex; flex-direction:column; gap:10px;}
+  .dec-item{display:grid; grid-template-columns:auto 1fr; gap:14px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px;}
+  .dec-item .q{font-family:'Fraunces',serif; font-weight:700; color:var(--accent); font-size:1.2rem; line-height:1;}
+  .dec-item .t{font-weight:700; font-size:0.9rem; margin-bottom:4px;}
+  .dec-item .d{font-size:0.84rem; color:var(--text-muted); line-height:1.5;}
+  .dec-item .r{margin-top:8px; font-size:0.82rem;}
+  .dec-item .r b{color:var(--accent-2);}
+
+  .callout{background:var(--surface-2); border:1px solid var(--border); border-left:3px solid var(--accent-2); border-radius:0 12px 12px 0; padding:15px 18px; font-size:0.9rem; line-height:1.6;}
+
+  footer{margin-top:70px; padding-top:24px; border-top:1px solid var(--border);}
+  .src-list{display:flex; flex-direction:column; gap:6px; margin-top:12px;}
+  .src-list a{font-size:0.85rem; text-decoration:none;}
+  .src-list a:hover{text-decoration:underline;}
+  .fineprint{margin-top:22px; font-size:0.76rem; color:var(--text-faint);}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-kicker">
+      <div class="logo-mark">e</div>
+      <span class="eyebrow">Technikai terv · eNvolve</span>
+    </div>
+    <h1 class="title">Magyarul is, angolul is: az eNvolve kétnyelvűsítése</h1>
+    <p class="lede">A kód átnézése alapján javasolt megoldás arra, hogyan legyen az app alapból magyar, miközben az angol működés is megmarad a nemzetközi pályázatokhoz.</p>
+    <div class="meta-row">
+      <span class="chip">2026. október 4.</span>
+      <span class="chip">Zol-E2/envolve-app · main</span>
+      <span class="chip">Next.js 16 · Clerk · Supabase · Vapi</span>
+    </div>
+    <div class="answer">
+      <div class="flags"><span class="flag hu">HU</span><span class="flag en">EN</span></div>
+      <p><strong>A javaslat röviden:</strong> a szövegeket ne cseréljük le, hanem emeljük ki őket két nyelvi fájlba (<code>hu.json</code>, <code>en.json</code>) a <strong>next-intl</strong> könyvtárral. Az AI-t pedig egy nyelvenkénti profil vezérelje (beszédfelismerés, hang, prompt), amit a <strong>kurzus nyelve</strong> választ ki. Így a magyar az alapértelmezés, az angol egy kapcsolóval elérhető marad, és egyetlen kódbázist kell karbantartani.</p>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <a href="#helyzet"><span class="n">01</span> Helyzetkép</a>
+    <a href="#backup"><span class="n">02</span> A korábbi próbálkozás</a>
+    <a href="#utak"><span class="n">03</span> Három lehetséges út</a>
+    <a href="#arch"><span class="n">04</span> Javasolt felépítés</a>
+    <a href="#ai"><span class="n">05</span> Az AI két nyelven</a>
+    <a href="#lepesek"><span class="n">06</span> Lépések</a>
+    <a href="#buktatok"><span class="n">07</span> Buktatók</a>
+    <a href="#dontesek"><span class="n">08</span> Nyitott döntések</a>
+  </nav>
+
+  <!-- 01 -->
+  <section class="block" id="helyzet">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Helyzetkép: hol van ma „beégetve” a nyelv?</h2></div>
+    <div class="sec-body">
+      <div class="stats">
+        <div class="stat"><div class="v">~60</div><div class="k">angol felületi szöveg a kódba írva</div></div>
+        <div class="stat"><div class="v">13</div><div class="k">érintett fájl (oldalak + komponensek)</div></div>
+        <div class="stat"><div class="v">0</div><div class="k">nyelvkezelő réteg (i18n) jelenleg</div></div>
+        <div class="stat"><div class="v">1</div><div class="k">függvény irányítja az AI-t: <code>configureAssistant</code></div></div>
+      </div>
+      <div class="stack">
+        <span class="chip"><b>Next.js</b> 16.2 App Router</span>
+        <span class="chip"><b>Clerk</b> 6.39 – belépés</span>
+        <span class="chip"><b>Supabase</b> – kurzusok, könyvjelzők</span>
+        <span class="chip"><b>Vapi</b> 2.5 – hangos óra</span>
+        <span class="chip"><b>Deepgram</b> nova-3 – beszédfelismerés</span>
+        <span class="chip"><b>ElevenLabs</b> – hang</span>
+        <span class="chip"><b>GPT-4o</b> – tanár-modell</span>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Fájl</th><th>Mi van benne angolul</th><th>Megoldás</th></tr></thead>
+          <tbody>
+            <tr><td class="file">lib/utils.ts</td><td>AI nyitómondat, rendszer-prompt, <code>language: "en"</code> a beszédfelismerőnél</td><td>Nyelvenkénti AI-profil (05. pont)</td></tr>
+            <tr><td class="file">constants/index.ts</td><td>Tantárgyak (<code>maths</code>, <code>science</code>…), ElevenLabs hang-ID-k</td><td>Kulcs marad, felirat fordul; hangok nyelvenként</td></tr>
+            <tr><td class="file">components/CourseForm.tsx</td><td>Űrlapcímkék, placeholderek, hibaüzenetek, Male/Female, Formal/Casual</td><td>next-intl + nyelvválasztó mező</td></tr>
+            <tr><td class="file">components/CourseComponent.tsx</td><td>Start/End Session, Connecting…, mikrofon gombok</td><td>next-intl</td></tr>
+            <tr><td class="file">components/*.tsx</td><td>Navigáció, kártyák, lista fejléc, CTA, kereső, szűrő</td><td>next-intl</td></tr>
+            <tr><td class="file">app/**/page.tsx</td><td>Oldalcímek, profil statisztikák, „min”</td><td>next-intl</td></tr>
+            <tr><td class="file">app/layout.tsx</td><td><code>&lt;html lang="en"&gt;</code>, metaadat, betűkészlet csak <code>latin</code></td><td>Dinamikus <code>lang</code>, <code>latin-ext</code></td></tr>
+            <tr><td class="file">Clerk komponensek</td><td>Belépés, felhasználói menü, árazás</td><td><code>@clerk/localizations</code> → <code>huHU</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="block" id="backup">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">A korábbi próbálkozás: a <code style="font-size:0.8em">backup-hungarian</code> ág</h2></div>
+    <div class="sec-body">
+      <p>A repóban már van egy két commitos magyarosítási ág. Ez a szövegeket és az AI-t közvetlenül magyarra írta át, ezért az angol működés elveszett volna. Jó részét viszont fel tudjuk használni.</p>
+      <div class="kd">
+        <div class="kd-col keep">
+          <h3>Átvesszük</h3>
+          <ul>
+            <li>A már lefordított felületi szövegeket — ezekből lesz a <code>hu.json</code> váza</li>
+            <li>A kiválasztott magyar ElevenLabs hangokat (4 hang-ID: férfi/női × formális/laza)</li>
+            <li>Az <code>eleven_turbo_v2_5</code> hangmodellt, ami támogatja a magyart</li>
+            <li>A magyar rendszer-prompt alapjait és a „csak magyarul válaszolj” utasítást</li>
+            <li>A Google/Gemini beszédfelismerő beállítást tartalék opcióként</li>
+          </ul>
+        </div>
+        <div class="kd-col drop">
+          <h3>Nem visszük tovább</h3>
+          <ul>
+            <li>Szövegek átírása a kódban — így az angol változat elveszne</li>
+            <li>Tantárgykulcsok és ikonfájlok ékezetes átnevezése (<code>matematika.svg</code>, <code>közgazdaságtan</code>) — a meglévő adatbázis-sorok és a <code>?subject=</code> szűrő eltörne</li>
+            <li>„Szia!” nyitómondat formális stílusnál is</li>
+            <li>A Next.js és React verziók visszaléptetése (a main ág már a frissebbet használja)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="block" id="utak">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Három lehetséges út</h2></div>
+    <div class="sec-body">
+      <div class="opts">
+        <div class="opt">
+          <div class="opt-top"><span class="opt-letter">A út</span></div>
+          <h3>Szövegek átírása magyarra</h3>
+          <ul>
+            <li class="p"><span class="m">+</span><span>Leggyorsabb első lépés</span></li>
+            <li class="c"><span class="m">−</span><span>Az angol változat elveszik</span></li>
+            <li class="c"><span class="m">−</span><span>Két nyelvhez két kódbázis kellene</span></li>
+            <li class="c"><span class="m">−</span><span>Pályázati demóhoz újra kellene fordítani</span></li>
+          </ul>
+          <div class="meter">munka<span class="bars"><i class="on"></i><i></i><i></i><i></i><i></i></span></div>
+        </div>
+        <div class="opt pick">
+          <div class="opt-top"><span class="opt-letter">B út</span><span class="pick-badge">Javasolt</span></div>
+          <h3>next-intl, nyelv sütiben</h3>
+          <ul>
+            <li class="p"><span class="m">+</span><span>Egy kódbázis, két nyelvi fájl</span></li>
+            <li class="p"><span class="m">+</span><span>Az útvonalak (<code>/courses</code>…) nem változnak</span></li>
+            <li class="p"><span class="m">+</span><span>Nem ütközik a Clerk middleware-rel</span></li>
+            <li class="p"><span class="m">+</span><span>Később átállítható a C útra</span></li>
+            <li class="c"><span class="m">−</span><span>Nincs külön <code>/en</code> link</span></li>
+          </ul>
+          <div class="meter">munka<span class="bars"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
+        </div>
+        <div class="opt">
+          <div class="opt-top"><span class="opt-letter">C út</span></div>
+          <h3>next-intl, nyelv az URL-ben</h3>
+          <ul>
+            <li class="p"><span class="m">+</span><span>Megosztható <code>/en</code> és <code>/hu</code> linkek</span></li>
+            <li class="p"><span class="m">+</span><span>Keresőoptimalizálás nyelvenként</span></li>
+            <li class="c"><span class="m">−</span><span>Minden oldalt át kell mozgatni <code>app/[locale]</code> alá</span></li>
+            <li class="c"><span class="m">−</span><span>Clerk és next-intl middleware összefésülése</span></li>
+          </ul>
+          <div class="meter">munka<span class="bars"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+        </div>
+      </div>
+      <p class="callout">Az app nagy része belépés mögött van, ezért a keresőoptimalizálás most nem szempont. A B út adja a legtöbbet a legkevesebb átalakítással. Ha később kell egy nyilvános angol landing oldal a pályázatokhoz, a nyelvi fájlok változatlanok maradnak, csak az útválasztás bővül.</p>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="block" id="arch">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Javasolt felépítés: két külön nyelvi tengely</h2></div>
+    <div class="sec-body">
+      <p>A legfontosabb felismerés: <strong>a felület nyelve és az óra nyelve két külön dolog</strong>. Egy magyar tanár készíthet angol nyelvű órát (pl. nyelvgyakorláshoz), egy angol pályázati bíráló pedig angol felületen nézhet meg egy magyar órát.</p>
+      <div class="axes">
+        <div class="axis">
+          <h3>1. Felület nyelve</h3>
+          <div class="sub">Felhasználónként, sütiben tárolva · alapból magyar</div>
+          <div class="flow">
+            <div class="node"><b>Nyelvváltó</b> a navigációban <span class="mono">HU / EN</span></div>
+            <div class="arrow"></div>
+            <div class="node"><span class="mono">NEXT_LOCALE</span> süti</div>
+            <div class="arrow"></div>
+            <div class="node"><span class="mono">i18n/request.ts</span> kiválasztja a fájlt</div>
+            <div class="arrow"></div>
+            <div class="split">
+              <div class="node hu"><b>hu.json</b></div>
+              <div class="node en"><b>en.json</b></div>
+            </div>
+            <div class="arrow"></div>
+            <div class="node">Oldalak, gombok, űrlapok, Clerk belépés</div>
+          </div>
+        </div>
+        <div class="axis">
+          <h3>2. Óra nyelve</h3>
+          <div class="sub">Kurzusonként, az adatbázisban · alapból a felület nyelve</div>
+          <div class="flow">
+            <div class="node"><b>Kurzusűrlap</b> új mező: <span class="mono">Óra nyelve</span></div>
+            <div class="arrow"></div>
+            <div class="node"><span class="mono">courses.language</span> oszlop (<span class="mono">'hu' | 'en'</span>)</div>
+            <div class="arrow"></div>
+            <div class="node"><span class="mono">configureAssistant(voice, style, language)</span></div>
+            <div class="arrow"></div>
+            <div class="split">
+              <div class="node hu"><b>AI_PROFILES.hu</b></div>
+              <div class="node en"><b>AI_PROFILES.en</b></div>
+            </div>
+            <div class="arrow"></div>
+            <div class="node">Beszédfelismerés, hang, prompt → Vapi</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="label">Új és módosuló fájlok</p>
+<pre class="tree"><span class="c">envolve/</span>
+├─ <span class="k">messages/</span>
+│  ├─ hu.json            <span class="c">← új · minden felületi szöveg magyarul</span>
+│  └─ en.json            <span class="c">← új · ugyanazok a kulcsok angolul</span>
+├─ <span class="k">i18n/</span>
+│  └─ request.ts         <span class="c">← új · süti alapján választ nyelvet</span>
+├─ <span class="k">lib/ai/</span>
+│  ├─ profiles.ts        <span class="c">← új · nyelvenkénti STT / hang / modell</span>
+│  └─ prompts.ts         <span class="c">← új · magyar és angol rendszer-prompt</span>
+├─ lib/actions/locale.actions.ts  <span class="c">← új · nyelvváltás (süti írása)</span>
+├─ components/LocaleSwitcher.tsx  <span class="c">← új</span>
+├─ lib/utils.ts          <span class="c">← configureAssistant kap egy language paramétert</span>
+├─ app/layout.tsx        <span class="c">← lang, NextIntlClientProvider, Clerk huHU</span>
+├─ next.config.ts        <span class="c">← next-intl plugin a Sentry mellé</span>
+└─ <span class="c">Supabase:</span> courses.language oszlop <span class="c">← default 'hu'</span></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="block" id="ai">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Az AI két nyelven</h2></div>
+    <div class="sec-body">
+      <p>A hangos óra négy elemből áll. Mindegyiknek van magyar és angol beállítása, és ezeket egy helyen, a <code>lib/ai/profiles.ts</code> fájlban tartjuk.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Elem</th><th>Angol</th><th>Magyar</th><th>Megjegyzés</th></tr></thead>
+          <tbody>
+            <tr><td><b>Beszédfelismerés</b></td><td>Deepgram nova-3, <code>en</code></td><td>Deepgram nova-3, <code>hu</code></td><td>A nova-3 már támogatja a magyart. Tartalék: a backup ágban kipróbált Google beállítás.</td></tr>
+            <tr><td><b>Hang</b></td><td>ElevenLabs, a mostani 4 hang</td><td>ElevenLabs, a backup ág 4 magyar hangja</td><td>Az <code>eleven_turbo_v2_5</code> modell 32 nyelvet beszél, köztük a magyart.</td></tr>
+            <tr><td><b>Tanár-modell</b></td><td>GPT-4o</td><td>GPT-4o</td><td>Jól beszél magyarul; a prompt kifejezetten előírja a nyelvet.</td></tr>
+            <tr><td><b>Rendszer-prompt</b></td><td>A mostani szöveg</td><td>Magyarul megírt, nem gépi fordítás</td><td>Később ide kerülnek az autizmus/ADHD profilok utasításai is.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <p class="label">A stílus magyarul magázás vagy tegezés is</p>
+        <div class="style-pair">
+          <div class="bubble">
+            <div class="who"><span>formal → magázás</span><span class="tag hu">HU</span></div>
+            <div class="say">„Jó napot! Kezdjük az órát. A mai témánk: a fotoszintézis.”</div>
+            <div class="note">A prompt előírja: „Magázd a tanulót, és használj udvarias, de egyszerű mondatokat.”</div>
+          </div>
+          <div class="bubble">
+            <div class="who"><span>casual → tegezés</span><span class="tag hu">HU</span></div>
+            <div class="say">„Szia! Vágjunk bele! Ma a fotoszintézisről beszélgetünk.”</div>
+            <div class="note">A prompt előírja: „Tegezd a tanulót, és beszélj barátságosan, lazán.”</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="label">Így néz ki a profil a kódban</p>
+<pre><span class="c">// lib/ai/profiles.ts</span>
+<span class="k">export const</span> AI_PROFILES = {
+  hu: {
+    transcriber: { provider: <span class="s">"deepgram"</span>, model: <span class="s">"nova-3"</span>, language: <span class="s">"hu"</span> },
+    voiceModel: <span class="s">"eleven_turbo_v2_5"</span>,
+    voices: { male: { casual: <span class="s">"…"</span>, formal: <span class="s">"…"</span> }, female: { … } }, <span class="c">// backup ágból</span>
+    firstMessage: {
+      formal: <span class="s">"Jó napot! Kezdjük az órát. A mai témánk: {{topic}}."</span>,
+      casual: <span class="s">"Szia! Vágjunk bele! Ma erről beszélgetünk: {{topic}}."</span>,
+    },
+    systemPrompt: HU_PROMPT,
+  },
+  en: { <span class="c">/* a mostani beállítások, változatlanul */</span> },
+} <span class="k">as const</span>;
+
+<span class="c">// lib/utils.ts</span>
+<span class="k">export const</span> configureAssistant = (voice, style, language: <span class="s">"hu"</span> | <span class="s">"en"</span> = <span class="s">"hu"</span>) => {
+  <span class="k">const</span> p = AI_PROFILES[language];
+  <span class="c">// … ugyanaz a Vapi objektum, csak p-ből töltve</span>
+};</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="block" id="lepesek">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Lépésről lépésre</h2></div>
+    <div class="sec-body">
+      <div class="steps">
+        <div class="step"><div class="dot">1</div><div class="step-top"><span class="t">Előkészítés</span><span class="e">1–2 óra</span></div><div class="d">Új ág (<code>feature/i18n</code>). <code>.gitattributes</code> a sorvégekre, mert most 34 fájl módosítottnak látszik tartalmi változás nélkül.</div><div class="f">.gitattributes</div></div>
+        <div class="step"><div class="dot">2</div><div class="step-top"><span class="t">next-intl alapok</span><span class="e">fél nap</span></div><div class="d">Telepítés, süti alapú nyelvválasztás, provider a layoutban, dinamikus <code>lang</code>, <code>latin-ext</code> betűkészlet.</div><div class="f">i18n/request.ts · next.config.ts · app/layout.tsx</div></div>
+        <div class="step"><div class="dot">3</div><div class="step-top"><span class="t">Szövegek kiemelése</span><span class="e">1 nap</span></div><div class="d">~60 szöveg kulcsokba szervezve. A magyar fordítások nagy része a backup ágból jön, csak át kell nézni.</div><div class="f">messages/hu.json · messages/en.json · 13 fájl</div></div>
+        <div class="step"><div class="dot">4</div><div class="step-top"><span class="t">Tantárgyak és Clerk</span><span class="e">2–3 óra</span></div><div class="d">A tantárgykulcsok angolul maradnak, csak a felirat fordul. Clerk felületek magyarul a <code>huHU</code> csomaggal.</div><div class="f">SubjectFilter · CourseForm · CourseCard · layout</div></div>
+        <div class="step"><div class="dot">5</div><div class="step-top"><span class="t">AI-profilok</span><span class="e">1 nap</span></div><div class="d">Profilok és promptok külön fájlban, <code>configureAssistant</code> nyelvi paraméterrel, magázás/tegezés.</div><div class="f">lib/ai/profiles.ts · lib/ai/prompts.ts · lib/utils.ts</div></div>
+        <div class="step"><div class="dot">6</div><div class="step-top"><span class="t">Óra nyelve az adatbázisban</span><span class="e">fél nap</span></div><div class="d"><code>language</code> oszlop a <code>courses</code> táblában (meglévő sorok: <code>'en'</code>), új mező az űrlapon, átadás a hangos órának.</div><div class="f">Supabase · CourseForm · courses/[id] · CourseComponent</div></div>
+        <div class="step"><div class="dot">7</div><div class="step-top"><span class="t">Nyelvváltó</span><span class="e">2–3 óra</span></div><div class="d">HU/EN kapcsoló a navigációban, ami a sütit írja és frissíti az oldalt.</div><div class="f">LocaleSwitcher.tsx · locale.actions.ts · Navbar</div></div>
+        <div class="step"><div class="dot">8</div><div class="step-top"><span class="t">Tesztelés mindkét nyelven</span><span class="e">1 nap</span></div><div class="d">Hangos óra magyarul és angolul, mindkét stílussal és hanggal; hosszú magyar szavak tördelése mobilon.</div><div class="f">kézi teszt · 4 kombináció nyelvenként</div></div>
+      </div>
+      <div class="total">
+        <div><div class="big">≈ 4–5 munkanap</div><p>Tájékoztató becslés egy fejlesztőre, a backup ág újrahasznosításával.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="block" id="buktatok">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Buktatók, amikre figyelni kell</h2></div>
+    <div class="sec-body">
+      <div class="pits">
+        <div class="pit high"><div class="t">Az „ő” és „ű” betűk</div><div class="d">A Bricolage Grotesque betűtípus most csak <code>latin</code> készlettel töltődik be. Az ő és ű a <code>latin-ext</code> részei, ezek nélkül más betűtípussal jelennek meg.</div></div>
+        <div class="pit high"><div class="t">Tantárgykulcsok maradjanak angolul</div><div class="d">A <code>maths</code>, <code>science</code> stb. az adatbázisban, az URL-ben és az ikonfájlnevekben azonosító. Csak a megjelenített felirat fordul.</div></div>
+        <div class="pit"><div class="t">Clerk részben angol marad</div><div class="d">A <code>huHU</code> lokalizáció a beágyazott belépést fordítja. A Clerk által hosztolt fiókoldal angol marad, és a funkció még kísérleti.</div></div>
+        <div class="pit"><div class="t">Űrlap-hibaüzenetek</div><div class="d">A zod sémában lévő „Name is required” típusú üzenetek is fordítandók: a sémát a komponensen belül, a fordítófüggvénnyel kell felépíteni.</div></div>
+        <div class="pit"><div class="t">Hosszabb magyar szavak</div><div class="d">„Kurzuskönyvtár”, „Becsült időtartam percben”: a gombok és fejlécek mobilon kitörhetnek. <code>hyphens: auto</code> a helyes <code>lang</code> attribútummal segít.</div></div>
+        <div class="pit"><div class="t">Az AI nyelvet válthat</div><div class="d">Ha a diák angol szót mond, a modell átválthat angolra. A promptban egyértelműen rögzíteni kell az óra nyelvét.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section class="block" id="dontesek">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Nyitott döntések</h2></div>
+    <div class="sec-body">
+      <div class="dec">
+        <div class="dec-item"><div class="q">?</div><div><div class="t">Kell-e most megosztható <code>/en</code> link?</div><div class="d">Ha egy pályázatban konkrét angol URL-t kell megadni, a C út kell. Ha elég, hogy a bíráló átkapcsol, a B út elég.</div><div class="r"><b>Javaslat:</b> most B, később szükség esetén C.</div></div></div>
+        <div class="dec-item"><div class="q">?</div><div><div class="t">Deepgram vagy Google a magyar beszédfelismeréshez?</div><div class="d">A Deepgram egységes maradna a két nyelvre, a Google beállítást viszont már kipróbáltad a backup ágban.</div><div class="r"><b>Javaslat:</b> 5 perces próbaóra mindkettővel, ugyanazokkal a mondatokkal.</div></div></div>
+        <div class="dec-item"><div class="q">?</div><div><div class="t">GPT-4o vagy Gemini 2.5 Flash a tanár-modellnek?</div><div class="d">A backup ágban Geminire váltottál. A kettő ára és válaszideje eltér, ami hangos beszélgetésnél érezhető.</div><div class="r"><b>Javaslat:</b> a profilban nyelvenként állítható legyen, és mérjük a válaszidőt.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="eyebrow">Források</p>
+    <div class="src-list">
+      <a href="https://next-intl.dev/docs/getting-started/app-router/without-i18n-routing" target="_blank" rel="noopener">next-intl — App Router beállítás útvonal nélküli nyelvkezeléssel</a>
+      <a href="https://clerk.com/docs/guides/customizing-clerk/localization" target="_blank" rel="noopener">Clerk — Localization (huHU)</a>
+      <a href="https://deepgram.com/learn/deepgram-expands-nova-3-with-11-new-languages-across-europe-and-asia" target="_blank" rel="noopener">Deepgram — Nova-3 bővítés, köztük a magyar</a>
+      <a href="https://elevenlabs.io/blog/introducing-turbo-v25" target="_blank" rel="noopener">ElevenLabs — Turbo v2.5, 32 nyelv</a>
+      <a href="https://github.com/Zol-E2/envolve-app" target="_blank" rel="noopener">Zol-E2/envolve-app — main és backup-hungarian ág</a>
+    </div>
+    <p class="fineprint">A becslések tájékoztató jellegűek. A szolgáltatók nyelvi támogatását érdemes a megvalósítás előtt a Vapi felületén is ellenőrizni.</p>
+  </footer>
+
+</div>
+</body>
+</html>

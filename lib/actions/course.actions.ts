@@ -10,6 +10,11 @@ import { revalidatePath } from "next/cache";
 /** Creates a new course row owned by the currently authenticated user. */
 export const createCourse = async (formData: CreateCourse) => {
     const { userId: author } = await auth();
+
+    // The lesson language picks the Vapi assistant, so only known values are stored
+    if (formData.language !== "hu" && formData.language !== "en") {
+        throw new Error(`Invalid lesson language: ${formData.language}`);
+    }
     const supabase = createSupabaseClient();
 
     const { data, error } = await supabase

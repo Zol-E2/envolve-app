@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>eNvolve i18n Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,540;9..144,620;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF7F1; --surface:#FFFFFF; --surface-2:#F3ECE1;
+    --border:#E7DECE; --border-strong:#D8CBB2;
+    --text:#221C2E; --text-muted:#6B6278; --text-faint:#9A90A3;
+    --accent:#DD5B33; --accent-2:#5B4A96; --accent-2-ink:#FBF9FF;
+    --good:#1F8F63; --good-bg:#DEF3E7;
+    --warn:#A86E12; --warn-bg:#F7E9CF;
+    --bad:#B0432F; --bad-bg:#F6E1DA;
+    --info:#2F5578; --info-bg:#E1EAF2;
+    --code-bg:#2A2236; --code-fg:#EDE6F7; --code-dim:#9C90B2; --code-str:#F3A87D; --code-key:#A9D8C0; --code-del:#F19A8A; --code-add:#8FD3B4;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#171320; --surface:#1E1929; --surface-2:#251F33;
+      --border:#362E45; --border-strong:#453A57;
+      --text:#F3EEFA; --text-muted:#B3A8C4; --text-faint:#847997;
+      --accent:#F17B4E; --accent-2:#9C8CE0; --accent-2-ink:#1B1430;
+      --good:#5FCB9B; --good-bg:#173226;
+      --warn:#E3AC4E; --warn-bg:#332711;
+      --bad:#E38574; --bad-bg:#392019;
+      --info:#9DC2E4; --info-bg:#1B2A38;
+      --code-bg:#0F0C16; --code-fg:#EDE6F7; --code-dim:#8A7FA0; --code-str:#F3A87D; --code-key:#8FD3B4; --code-del:#F19A8A; --code-add:#8FD3B4;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#171320; --surface:#1E1929; --surface-2:#251F33;
+    --border:#362E45; --border-strong:#453A57;
+    --text:#F3EEFA; --text-muted:#B3A8C4; --text-faint:#847997;
+    --accent:#F17B4E; --accent-2:#9C8CE0; --accent-2-ink:#1B1430;
+    --good:#5FCB9B; --good-bg:#173226;
+    --warn:#E3AC4E; --warn-bg:#332711;
+    --bad:#E38574; --bad-bg:#392019;
+    --info:#9DC2E4; --info-bg:#1B2A38;
+    --code-bg:#0F0C16; --code-fg:#EDE6F7; --code-dim:#8A7FA0; --code-str:#F3A87D; --code-key:#8FD3B4; --code-del:#F19A8A; --code-add:#8FD3B4;
+    color-scheme: dark;
+  }
+
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif; -webkit-font-smoothing:antialiased; padding-inline:20px; padding-block:40px 80px;}
+  h1,h2,h3{font-family:'Fraunces', Georgia, 'Times New Roman', serif; font-weight:620; text-wrap:balance; margin:0; letter-spacing:-0.01em;}
+  .wrap{max-width:900px; margin-inline:auto;}
+  p{margin:0; line-height:1.62;}
+  a{color:var(--accent-2);}
+  a:focus-visible{outline:2px solid var(--accent-2); outline-offset:2px;}
+  code{font-family:'IBM Plex Mono', monospace; font-size:0.85em; background:var(--surface-2); border:1px solid var(--border); border-radius:5px; padding:1px 5px; overflow-wrap:anywhere;}
+  .eyebrow{font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.09em; text-transform:uppercase; color:var(--text-faint);}
+
+  .hero{padding-block:8px 32px; border-bottom:1px solid var(--border); margin-bottom:36px;}
+  .hero-kicker{display:flex; align-items:center; gap:10px; margin-bottom:18px;}
+  .logo-mark{width:34px; height:34px; border-radius:9px; background:linear-gradient(155deg, var(--accent), var(--accent-2)); display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Fraunces', serif; font-weight:700; font-size:1.05rem; flex-shrink:0;}
+  h1.title{font-size:clamp(1.9rem, 5vw, 2.6rem); line-height:1.1;}
+  .hero .lede{margin-top:14px; font-size:1.08rem; color:var(--text-muted); max-width:66ch;}
+  .meta-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:20px;}
+  .chip{display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:99px; border:1px solid var(--border-strong); background:var(--surface); font-family:'IBM Plex Mono', monospace; font-size:0.76rem; color:var(--text-muted);}
+
+  .verdict{margin-top:24px; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:18px 20px; display:flex; flex-direction:column; gap:14px;}
+  .verdict-head{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .verdict-badge{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; font-weight:600; padding:4px 10px; border-radius:99px; background:var(--warn-bg); color:var(--warn);}
+  .verdict p{font-size:0.97rem;}
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:10px;}
+  @media (max-width:680px){.stats{grid-template-columns:repeat(2,1fr);}}
+  .stat{background:var(--surface-2); border-radius:12px; padding:12px 14px;}
+  .stat .v{font-family:'Fraunces',serif; font-weight:700; font-size:1.6rem; line-height:1; font-variant-numeric:tabular-nums;}
+  .stat .v.good{color:var(--good);} .stat .v.bad{color:var(--bad);}
+  .stat .k{font-size:0.78rem; color:var(--text-muted); margin-top:6px; line-height:1.4;}
+
+  .toc{display:flex; flex-wrap:wrap; gap:8px 18px; padding:16px 20px; background:var(--surface-2); border:1px solid var(--border); border-radius:14px; margin-bottom:56px;}
+  .toc a{font-family:'IBM Plex Mono', monospace; font-size:0.8rem; color:var(--text-muted); text-decoration:none;}
+  .toc a:hover{color:var(--accent-2);}
+  .toc .n{color:var(--text-faint);}
+
+  section.block{margin-bottom:60px; scroll-margin-top:20px;}
+  .sec-head{display:flex; gap:16px; align-items:baseline; margin-bottom:18px;}
+  .sec-num{font-family:'IBM Plex Mono', monospace; font-size:0.95rem; color:var(--accent); flex-shrink:0;}
+  h2.sec-title{font-size:clamp(1.35rem, 3vw, 1.6rem);}
+  .sec-body{padding-left:calc(0.95rem + 16px); display:flex; flex-direction:column; gap:16px;}
+  @media (max-width:560px){.sec-body{padding-left:0;}}
+  .sec-lede{color:var(--text-muted); font-size:0.95rem;}
+
+  .good-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  @media (max-width:640px){.good-grid{grid-template-columns:1fr;}}
+  .good-item{background:var(--good-bg); border-radius:12px; padding:12px 14px; font-size:0.86rem; line-height:1.5; display:grid; grid-template-columns:18px 1fr; gap:8px;}
+  .good-item .ck{color:var(--good); font-weight:700; font-family:'IBM Plex Mono',monospace;}
+
+  /* finding cards */
+  .finding{background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--border-strong); border-radius:0 14px 14px 0; padding:16px 18px; display:flex; flex-direction:column; gap:10px; scroll-margin-top:20px;}
+  .finding.high{border-left-color:var(--bad);}
+  .finding.med{border-left-color:var(--warn);}
+  .finding.low{border-left-color:var(--info);}
+  .f-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;}
+  .f-title{display:flex; gap:10px; align-items:baseline;}
+  .f-id{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--text-faint); flex-shrink:0;}
+  .f-title h3{font-family:'IBM Plex Sans',sans-serif; font-weight:700; font-size:1rem; line-height:1.35;}
+  .sev{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; font-weight:600; padding:3px 9px; border-radius:99px; white-space:nowrap;}
+  .sev.high{background:var(--bad-bg); color:var(--bad);}
+  .sev.med{background:var(--warn-bg); color:var(--warn);}
+  .sev.low{background:var(--info-bg); color:var(--info);}
+  .f-loc{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--accent-2); overflow-wrap:anywhere;}
+  .f-row{display:grid; grid-template-columns:92px 1fr; gap:10px; font-size:0.87rem; line-height:1.55;}
+  .f-row .lbl{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--text-faint); padding-top:3px;}
+  @media (max-width:560px){.f-row{grid-template-columns:1fr; gap:2px;}}
+  pre{margin:0; background:var(--code-bg); color:var(--code-fg); border-radius:10px; padding:12px 14px; overflow-x:auto; font-family:'IBM Plex Mono',monospace; font-size:0.76rem; line-height:1.6;}
+  pre .c{color:var(--code-dim);} pre .s{color:var(--code-str);} pre .k{color:var(--code-key);}
+  pre .del{color:var(--code-del);} pre .add{color:var(--code-add);}
+  .demo{display:grid; grid-template-columns:1fr auto; gap:4px 14px; font-family:'IBM Plex Mono',monospace; font-size:0.76rem; background:var(--surface-2); border-radius:10px; padding:10px 14px;}
+  .demo .ok{color:var(--good);} .demo .no{color:var(--bad); font-weight:600;}
+
+  .tbl-wrap{overflow-x:auto; border:1px solid var(--border); border-radius:12px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:0.85rem; min-width:600px;}
+  th,td{text-align:left; padding:10px 13px; border-bottom:1px solid var(--border); vertical-align:top; line-height:1.5;}
+  th{font-family:'IBM Plex Mono',monospace; font-weight:500; font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-faint); background:var(--surface-2);}
+  tr:last-child td{border-bottom:0;}
+  td.mono{font-family:'IBM Plex Mono',monospace; font-size:0.76rem; color:var(--accent-2);}
+  td .new{color:var(--good); font-weight:600;}
+
+  .plan{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media (max-width:680px){.plan{grid-template-columns:1fr;}}
+  .plan-col{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px;}
+  .plan-col h3{font-family:'IBM Plex Sans',sans-serif; font-size:0.95rem; font-weight:700; margin-bottom:4px;}
+  .plan-col .eff{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--accent); margin-bottom:12px;}
+  .plan-col ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; font-size:0.86rem; line-height:1.45;}
+  .plan-col li{display:grid; grid-template-columns:18px 1fr; gap:8px;}
+  .plan-col .box{width:15px; height:15px; border:1.6px solid var(--border-strong); border-radius:4px; margin-top:2px;}
+  .plan-col .ref{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--text-faint);}
+
+  .callout{background:var(--surface-2); border:1px solid var(--border); border-left:3px solid var(--accent-2); border-radius:0 12px 12px 0; padding:14px 17px; font-size:0.88rem; line-height:1.6;}
+
+  footer{margin-top:64px; padding-top:22px; border-top:1px solid var(--border);}
+  .src-list{display:flex; flex-direction:column; gap:6px; margin-top:12px;}
+  .src-list a{font-size:0.85rem; text-decoration:none;}
+  .src-list a:hover{text-decoration:underline;}
+  .fineprint{margin-top:20px; font-size:0.78rem; color:var(--text-faint); line-height:1.55;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-kicker">
+      <div class="logo-mark">e</div>
+      <span class="eyebrow">Kódátnézés · eNvolve</span>
+    </div>
+    <h1 class="title">Kódátnézés: a <code style="font-size:0.72em">feature/i18n-next-intl</code> ág</h1>
+    <p class="lede">A felület kétnyelvűsítése jó alapokra épült. Négy dolgot érdemes javítani, mielőtt bekerül a main ágba, és a hangos óra (AI) még teljesen angol.</p>
+    <div class="meta-row">
+      <span class="chip">commit 872e037</span>
+      <span class="chip">szerző: nmarci · 2026. okt. 5.</span>
+      <span class="chip">33 fájl · +1386 / −182</span>
+      <span class="chip">átnézve: 2026. okt. 12.</span>
+    </div>
+    <div class="verdict">
+      <div class="verdict-head"><span class="verdict-badge">Javítás után olvasztható be</span></div>
+      <p>A felület szövegei mindkét nyelven teljesek, a típusellenőrzés és a lint hiba nélkül lefut. Merge előtt javítandó: a magyar alapnyelv, a middleware egy apró, de alattomos hibája és a hiányzó <code>latin-ext</code> betűkészlet (ő, ű). A Clerk felületeinek magyarítása is ide tartozik. Az AI kétnyelvűsítése a következő nagyobb lépés.</p>
+      <div class="stats">
+        <div class="stat"><div class="v good">70/70</div><div class="k">fordítási kulcs mindkét nyelven, nincs hiányzó</div></div>
+        <div class="stat"><div class="v good">0</div><div class="k">TypeScript-hiba (<code>tsc --noEmit</code>)</div></div>
+        <div class="stat"><div class="v good">0</div><div class="k">ESLint-hiba, 1 figyelmeztetés</div></div>
+        <div class="stat"><div class="v bad">4</div><div class="k">magas prioritású tétel</div></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <a href="#jo"><span class="n">01</span> Ami jól sikerült</a>
+    <a href="#magas"><span class="n">02</span> Magas prioritás</a>
+    <a href="#kozepes"><span class="n">03</span> Közepes prioritás</a>
+    <a href="#alacsony"><span class="n">04</span> Kisebb javítások</a>
+    <a href="#forditas"><span class="n">05</span> Fordítási javaslatok</a>
+    <a href="#orokolt"><span class="n">06</span> Örökölt hibák</a>
+    <a href="#sorrend"><span class="n">07</span> Javasolt sorrend</a>
+  </nav>
+
+  <!-- 01 -->
+  <section class="block" id="jo">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Ami jól sikerült</h2></div>
+    <div class="sec-body">
+      <p class="sec-lede">Az ág az URL-alapú nyelvkezelést (<code>/hu/…</code>, <code>/en/…</code>) választotta. Ez több munka, mint a süti-alapú megoldás, de cserébe lesz megosztható angol link a pályázatokhoz, és szépen meg van csinálva.</p>
+      <div class="good-grid">
+        <div class="good-item"><span class="ck">✓</span><span>Egy helyen vannak a nyelvi beállítások (<code>i18n/routing.ts</code>), új nyelv hozzáadása egy sor.</span></div>
+        <div class="good-item"><span class="ck">✓</span><span>Típusbiztos fordítás (<code>global.d.ts</code>): elgépelt kulcsra a TypeScript hibát jelez.</span></div>
+        <div class="good-item"><span class="ck">✓</span><span>A Clerk és a next-intl middleware helyesen van összefűzve, az <code>/api</code> és a Sentry <code>/monitoring</code> útvonal kimarad.</span></div>
+        <div class="good-item"><span class="ck">✓</span><span>A tantárgykulcsok angolul maradtak (<code>maths</code>…), csak a felirat fordul. A <code>getSubjectLabel</code> ismeretlen értékre sem tör el.</span></div>
+        <div class="good-item"><span class="ck">✓</span><span>Az űrlap hibaüzenetei is fordulnak: a zod séma a komponensen belül, a fordítóval épül fel.</span></div>
+        <div class="good-item"><span class="ck">✓</span><span>Átirányításnál megmarad a nyelv (<code>redirect({ href, locale })</code>), a Clerk belépés is a helyes útvonalon fut.</span></div>
+        <div class="good-item"><span class="ck">✓</span><span>A kereső és a szűrő a nyelvi előtaggal együtt működik, a kódban magyarázó megjegyzések vannak.</span></div>
+        <div class="good-item"><span class="ck">✓</span><span>A magyar fordítások természetesek, nem gépiesek.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="block" id="magas">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Magas prioritás</h2></div>
+    <div class="sec-body">
+
+      <article class="finding high" id="h1">
+        <div class="f-top">
+          <div class="f-title"><span class="f-id">H1</span><h3>A hangos óra (AI) teljesen angol maradt</h3></div>
+          <span class="sev high">Magas · hiányzó funkció</span>
+        </div>
+        <div class="f-loc">lib/utils.ts:29–60 · configureAssistant()</div>
+        <div class="f-row"><span class="lbl">Mi a baj</span><span>A nyitómondat, a rendszer-prompt és a beszédfelismerő (<code>language: "en"</code>) változatlan. Magyar felületen is angolul szól a tanár, a diák magyar beszédét pedig angolként próbálja felismerni, ami használhatatlan átiratot ad.</span></div>
+        <div class="f-row"><span class="lbl">Javítás</span><span>Nyelvenkénti AI-profil a kétnyelvűsítési terv 05. pontja szerint, és a <code>courses</code> tábla kapjon egy <code>language</code> oszlopot. Rövid átmeneti megoldásnak elég, ha az óra az aktuális felületi nyelvet kapja meg.</span></div>
+<pre><span class="c">// CourseComponent.tsx – átmeneti megoldás</span>
+<span class="k">const</span> locale = useLocale();
+vapi.start(configureAssistant(voice, style, <span class="add">locale</span>), assistantOverrides);</pre>
+      </article>
+
+      <article class="finding high" id="h2">
+        <div class="f-top">
+          <div class="f-title"><span class="f-id">H2</span><h3>Az alapértelmezett nyelv angol, nem magyar</h3></div>
+          <span class="sev high">Magas · egyszerű</span>
+        </div>
+        <div class="f-loc">i18n/routing.ts:10</div>
+        <div class="f-row"><span class="lbl">Mi a baj</span><span>A <code>defaultLocale: "en"</code> miatt angolra kerül mindenki, akinek a böngészője nem magyart kér, illetve minden link előtag nélkül. A cél a magyar alapnyelv volt.</span></div>
+        <div class="f-row"><span class="lbl">Javítás</span><span>Ha a böngésző nyelvfelismerése bekapcsolva marad (alapból be van), az angol böngészőt használók továbbra is az angol változatot kapják.</span></div>
+<pre><span class="k">export const</span> routing = defineRouting({
+  locales: [<span class="s">"hu"</span>, <span class="s">"en"</span>],
+<span class="del">- defaultLocale: "en",</span>
+<span class="add">+ defaultLocale: "hu",</span>
+});</pre>
+      </article>
+
+      <article class="finding high" id="h3">
+        <div class="f-top">
+          <div class="f-title"><span class="f-id">H3</span><h3>Elveszett egy <code>\</code> a middleware matcherében</h3></div>
+          <span class="sev high">Magas · rejtett hiba</span>
+        </div>
+        <div class="f-loc">middleware.ts:28</div>
+        <div class="f-row"><span class="lbl">Mi a baj</span><span>Az idézőjelek cseréjénél (<code>'\\.'</code> → <code>"\."</code>) a JavaScript eldobja a backslasht, így a pont már <em>bármely</em> karaktert jelent. Minden útvonal, amiben előfordul pl. „doc”, „ico” vagy „zip”, kikerül a middleware alól. Ott nem fut a nyelvkezelés, és a Clerk <code>auth()</code> hibát dob.</span></div>
+        <div class="demo">
+          <span>/hu/courses</span><span class="ok">middleware fut</span>
+          <span>/hu/my-profile</span><span class="ok">middleware fut</span>
+          <span>/hu/docs</span><span class="no">KIMARAD</span>
+          <span>/logo.svg</span><span class="ok">kimarad (helyesen)</span>
+        </div>
+        <div class="f-row"><span class="lbl">Javítás</span><span>A dupla backslash visszaállítása:</span></div>
+<pre><span class="del">- "/((?!_next|[^?]*\.(?:html?|css|…)).*)",</span>
+<span class="add">+ "/((?!_next|[^?]*\\.(?:html?|css|…)).*)",</span></pre>
+      </article>
+
+      <article class="finding high" id="h4">
+        <div class="f-top">
+          <div class="f-title"><span class="f-id">H4</span><h3>Az „ő” és „ű” betűk más betűtípussal jelennek meg</h3></div>
+          <span class="sev high">Magas · látható hiba</span>
+        </div>
+        <div class="f-loc">app/[locale]/layout.tsx:13</div>
+        <div class="f-row"><span class="lbl">Mi a baj</span><span>A Bricolage Grotesque csak a <code>latin</code> készlettel töltődik be. Az ő és ű a <code>latin-ext</code> része, ezért pl. a „Főoldal”, „Időtartam”, „Kurzusszerkesztő” szavakban ezek a betűk tartalék betűtípussal, kilógva jelennek meg.</span></div>
+<pre>Bricolage_Grotesque({
+  variable: <span class="s">"--font-bricolage"</span>,
+<span class="del">- subsets: ["latin"],</span>
+<span class="add">+ subsets: ["latin", "latin-ext"],</span>
+});</pre>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="block" id="kozepes">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Közepes prioritás</h2></div>
+    <div class="sec-body">
+
+      <article class="finding med" id="m1">
+        <div class="f-top">
+          <div class="f-title"><span class="f-id">M1</span><h3>A Clerk felületei angolok maradtak</h3></div>
+          <span class="sev med">Közepes</span>
+        </div>
+        <div class="f-loc">app/[locale]/layout.tsx:55 · ClerkProvider</div>
+        <div class="f-row"><span class="lbl">Mi a baj</span><span>A belépés, a felhasználói menü és az előfizetési oldal <code>/hu</code> alatt is angol.</span></div>
+        <div class="f-row"><span class="lbl">Javítás</span><span><code>npm i @clerk/localizations</code>, majd a nyelv szerinti csomag átadása. A Clerk által hosztolt fiókoldal ettől angol marad.</span></div>
+<pre><span class="k">import</span> { huHU, enUS } <span class="k">from</span> <span class="s">"@clerk/localizations"</span>;
+&lt;ClerkProvider <span class="add">localization={locale === "hu" ? huHU : enUS}</span> …&gt;</pre>
+      </article>
+
+      <article class="finding med" id="m2">
+        <div class="f-top">
+          <div class="f-title"><span class="f-id">M2</span><h3>Nyelvváltáskor elvesznek a keresési szűrők</h3></div>
+          <span class="sev med">Közepes</span>
+        </div>
+        <div class="f-loc">components/LanguageSwitcher.tsx:23</div>
+        <div class="f-row"><span class="lbl">Mi a baj</span><span>A <code>router.replace(pathname, …)</code> csak az útvonalat viszi át. A <code>/hu/courses?subject=maths&amp;topic=algebra</code> oldalon nyelvet váltva a szűrés és a keresés eltűnik.</span></div>
+<pre><span class="k">const</span> searchParams = useSearchParams();
+router.replace(
+  <span class="add">{ pathname, query: Object.fromEntries(searchParams) }</span>,
+  { locale: nextLocale }
+);</pre>
+      </article>
+
+      <article class="finding med" id="m3">
+        <div class="f-top">
+          <div class="f-title"><span class="f-id">M3</span><h3>10 kép- és gombfelirat angol maradt</h3></div>
+          <span class="sev med">Közepes · akadálymentesség</span>
+        </div>
+        <div class="f-loc">my-profile/page.tsx:53, 63 · CourseCard:76 · CourseComponent:181, 185, 202 · CourseList:92 · CTA:13, 16 · Searchinput:52</div>
+        <div class="f-row"><span class="lbl">Mi a baj</span><span>Az <code>alt="checkmark"</code>, <code>title="call"</code> és hasonló szövegeket a képernyőolvasók felolvassák. A célközönség (tanulási nehézséggel élő diákok) gyakrabban használ felolvasót, így ez itt fontosabb az átlagnál.</span></div>
+        <div class="f-row"><span class="lbl">Javítás</span><span>Egy közös <code>A11y</code> névtér a nyelvi fájlokban. A pusztán díszítő képek kapjanak üres <code>alt=""</code>-t.</span></div>
+      </article>
+
+      <article class="finding med" id="m4">
+        <div class="f-top">
+          <div class="f-title"><span class="f-id">M4</span><h3>Nincs saját „Az oldal nem található” oldal</h3></div>
+          <span class="sev med">Közepes</span>
+        </div>
+        <div class="f-loc">app/[locale]/ · hiányzó fájlok</div>
+        <div class="f-row"><span class="lbl">Mi a baj</span><span>Ismeretlen címre (pl. <code>/hu/nincs-ilyen</code>) a Next.js alap 404-e jelenik meg, angolul, navigációs sáv nélkül.</span></div>
+        <div class="f-row"><span class="lbl">Javítás</span><span>A next-intl ajánlása szerint két kis fájl: <code>app/[locale]/not-found.tsx</code> (fordított 404) és <code>app/[locale]/[...rest]/page.tsx</code>, ami <code>notFound()</code>-ot hív.</span></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="block" id="alacsony">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Kisebb javítások</h2></div>
+    <div class="sec-body">
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Hol</th><th>Mi</th><th>Javítás</th></tr></thead>
+          <tbody>
+            <tr><td>L1</td><td class="mono">messages/en.json:30, 84</td><td>„1 minutes”: angolul nincs egyes/többes szám kezelés</td><td><code>{count, plural, one {# minute} other {# minutes}}</code></td></tr>
+            <tr><td>L2</td><td class="mono">CourseComponent.tsx:1</td><td>Fölösleges <code>eslint-disable</code> (az egyetlen lint-figyelmeztetés)</td><td>Sor törlése</td></tr>
+            <tr><td>L3</td><td class="mono">.next/types</td><td>A régi build típusai még a régi <code>app/</code> útvonalakra mutatnak, ezért a VS Code 11 hibát mutat</td><td><code>.next</code> mappa törlése, majd <code>npm run dev</code></td></tr>
+            <tr><td>L4</td><td class="mono">middleware.ts</td><td>A Next.js 16 már <code>proxy.ts</code> néven ajánlja ezt a fájlt</td><td>Átnevezés egy későbbi körben</td></tr>
+            <tr><td>L5</td><td class="mono">.gitattributes</td><td>Továbbra sincs; a helyi másolatban 32 fájl módosítottnak látszik pusztán a sorvégek miatt</td><td><code>* text=auto eol=lf</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="block" id="forditas">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Fordítási javaslatok</h2></div>
+    <div class="sec-body">
+      <p class="sec-lede">A <code>hu.json</code> jó minőségű. Néhány helyen ütközés vagy félreérthetőség van:</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Kulcs</th><th>Most</th><th>Javaslat</th><th>Miért</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">Subjects.language</td><td>Nyelv</td><td class="new">Nyelvek</td><td>Ütközik a nyelvváltó „Nyelv” feliratával</td></tr>
+            <tr><td class="mono">CourseCard.launchLesson</td><td>Óra indítása</td><td class="new">Óra megnyitása</td><td>Ugyanez az óra tényleges indítógombjának szövege is, pedig a kártya csak megnyitja az oldalt</td></tr>
+            <tr><td class="mono">Home.recentCourses</td><td>Legutóbbi kurzusaid</td><td class="new">Legutóbbi órák</td><td>A lista minden felhasználó óráit mutatja, nem csak a sajátodat</td></tr>
+            <tr><td class="mono">Profile.bookmarkedCourses</td><td>Könyvjelzős kurzusok</td><td class="new">Mentett kurzusok</td><td>Természetesebb</td></tr>
+            <tr><td class="mono">CTA.badge</td><td>Kezdj el tanulni most</td><td class="new">Vágj bele még ma</td><td>Rövidebb, gördülékenyebb</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="block" id="orokolt">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Örökölt hibák a main ágból</h2></div>
+    <div class="sec-body">
+      <p class="sec-lede">Ezeket nem ez az ág okozta, de az átnézés közben előjöttek. Külön javítási körben érdemes rendezni.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Hol</th><th>Mi történik</th><th>Javítás</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">courses/[id]/page.tsx:18</td><td>Nem létező kurzus-azonosítónál a <code>course</code> üres, az oldal 500-as hibával összeomlik</td><td>Ellenőrzés és <code>notFound()</code></td></tr>
+            <tr><td class="mono">SubjectFilter.tsx</td><td>Betöltéskor üres <code>?subject=</code> kerül az URL-be, és egy fölösleges előzmény-bejegyzés</td><td>Csak változáskor frissítse az URL-t</td></tr>
+            <tr><td class="mono">CourseForm.tsx</td><td>Ha a kurzus mentése hibát dob, a felhasználó nem kap visszajelzést</td><td><code>try/catch</code> + hibaüzenet</td></tr>
+            <tr><td class="mono">CourseCard.tsx:83–84</td><td>Gomb van egy link belsejében. A billentyűzetes navigációt és a felolvasókat összezavarja.</td><td>Csak a <code>Link</code> maradjon, gomb-stílussal</td></tr>
+            <tr><td class="mono">getRecentSessions()</td><td>Minden felhasználó óráit adja vissza, de „saját” listaként jelenik meg</td><td>Szűrés felhasználóra, vagy átnevezés</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="block" id="sorrend">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Javasolt sorrend</h2></div>
+    <div class="sec-body">
+      <div class="plan">
+        <div class="plan-col">
+          <h3>Merge előtt, ezen az ágon</h3>
+          <div class="eff">kb. fél nap</div>
+          <ul>
+            <li><span class="box"></span><span>Magyar alapnyelv <span class="ref">H2</span></span></li>
+            <li><span class="box"></span><span>Matcher backslash <span class="ref">H3</span></span></li>
+            <li><span class="box"></span><span><code>latin-ext</code> betűkészlet <span class="ref">H4</span></span></li>
+            <li><span class="box"></span><span>Clerk magyarul <span class="ref">M1</span></span></li>
+            <li><span class="box"></span><span>Szűrők megtartása nyelvváltáskor <span class="ref">M2</span></span></li>
+            <li><span class="box"></span><span>Fordítási javaslatok, „1 minutes” <span class="ref">05 · L1</span></span></li>
+          </ul>
+        </div>
+        <div class="plan-col">
+          <h3>Utána, élesítés előtt</h3>
+          <div class="eff">kb. 1–1,5 nap</div>
+          <ul>
+            <li><span class="box"></span><span>AI-profilok és <code>courses.language</code> <span class="ref">H1</span></span></li>
+            <li><span class="box"></span><span>Kép- és gombfeliratok fordítása <span class="ref">M3</span></span></li>
+            <li><span class="box"></span><span>Saját 404 oldal <span class="ref">M4</span></span></li>
+            <li><span class="box"></span><span><code>.gitattributes</code>, <code>.next</code> törlés <span class="ref">L3 · L5</span></span></li>
+            <li><span class="box"></span><span>Örökölt hibák külön ágon <span class="ref">06</span></span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="callout">Ha a Vercel a main ágból frissíti az élő oldalt, az AI-t (H1) érdemes még az élesítés előtt megcsinálni. Különben a magyar felületen angolul szólal meg a tanár.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p class="eyebrow">Hogyan készült</p>
+    <p class="fineprint" style="margin-top:10px">A teljes diffet soronként átnéztem (main ↔ 872e037). Lefuttattam a <code>tsc --noEmit</code>-et (a régi <code>.next</code> típusok nélkül) és az ESLint-et, összevetettem a két nyelvi fájl kulcsait, és Node-ban bemutattam a matcher-hibát. Böngészőben nem futtattam az appot, mert a fejlesztői szerver ebben a környezetben nem érte el a hálózatot. Érdemes egy kézi körrel is végigkattintani mindkét nyelven.</p>
+    <p class="eyebrow" style="margin-top:22px">Források</p>
+    <div class="src-list">
+      <a href="https://next-intl.dev/docs/environments/error-files" target="_blank" rel="noopener">next-intl — Error files (not-found kezelés)</a>
+      <a href="https://clerk.com/docs/guides/customizing-clerk/localization" target="_blank" rel="noopener">Clerk — Localization (huHU)</a>
+      <a href="https://nextjs.org/blog/next-16" target="_blank" rel="noopener">Next.js 16 — middleware → proxy</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
