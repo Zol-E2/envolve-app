@@ -21,10 +21,13 @@ const Profile = async () => {
 
   if (!user) redirect({ href: "/sign-in", locale });
 
-  const t = await getTranslations("Profile");
-  const courses = await getUserCourses(user.id);
-  const sessionHistory = await getUserSessions(user.id);
-  const bookmarkedCourses = await getBookmarkedCourses(user.id);
+  // Independent queries run in parallel instead of one after another
+  const [t, courses, sessionHistory, bookmarkedCourses] = await Promise.all([
+    getTranslations("Profile"),
+    getUserCourses(user.id),
+    getUserSessions(user.id),
+    getBookmarkedCourses(user.id),
+  ]);
 
   return (
     <main className="lg:w-3/4">

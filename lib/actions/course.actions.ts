@@ -142,20 +142,26 @@ export const addToSessionHistory = async (courseId: string) => {
   return data;
 };
 
-/** Returns the most recent sessions across all users (for the home page). */
+/**
+ * Returns the most recently used courses across all users (for the home page).
+ * session_history has one row per user and course, so the same course can show
+ * up several times; it is listed once, at its most recent session. Rows whose
+ * course has since been deleted are skipped.
+ */
 export const getRecentSessions = async (limit = 10) => {
     const supabase = createSupabaseClient();
     const {data, error} = await supabase
     .from('session_history')
     .select(`courses:course_id (*)`)
     .order('created_at', {ascending: false})
-    .limit(limit)
+    // Over-fetch so there are still enough distinct courses after de-duplication
+    .limit(limit * 3)
 
     if(error){
         throw new Error(error.message)
     }
     // Cast is safe: Supabase returns a single course object per row for this many-to-one join
-    return data.map(({ courses }) => courses as unknown as Course);
+    return uniqueCourses(data.map(({ courses }) => courses as unknown as Course | null)).slice(0, limit);
 }
 
 /** Returns the session history for a specific user (for the profile page). */
@@ -172,7 +178,17 @@ export const getUserSessions = async (userId: string, limit = 10) => {
         throw new Error(error.message)
     }
     // Cast is safe: Supabase returns a single course object per row for this many-to-one join
-    return data.map(({ courses }) => courses as unknown as Course);
+    return uniqueCourses(data.map(({ courses }) => courses as unknown as Course | null));
+}
+
+/** Drops missing (deleted) courses and keeps only the first row per course id. */
+const uniqueCourses = (rows: (Course | null)[]) => {
+    const seen = new Set<string>();
+    return rows.filter((course): course is Course => {
+        if (!course || seen.has(course.id)) return false;
+        seen.add(course.id);
+        return true;
+    });
 }
 
 /** Returns all courses created by the given user. */

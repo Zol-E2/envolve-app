@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>eNvolve Frissítési Terv</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,540;9..144,620;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF7F1; --surface:#FFFFFF; --surface-2:#F3ECE1;
+    --border:#E7DECE; --border-strong:#D8CBB2;
+    --text:#221C2E; --text-muted:#6B6278; --text-faint:#9A90A3;
+    --accent:#DD5B33; --accent-2:#5B4A96; --accent-2-ink:#FBF9FF;
+    --good:#1F8F63; --good-bg:#DEF3E7;
+    --warn:#A86E12; --warn-bg:#F7E9CF;
+    --bad:#B0432F; --bad-bg:#F6E1DA;
+    --info:#2F5578; --info-bg:#E1EAF2;
+    --code-bg:#2A2236; --code-fg:#EDE6F7; --code-dim:#9C90B2; --code-str:#F3A87D; --code-key:#A9D8C0; --code-del:#F19A8A; --code-add:#8FD3B4;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#171320; --surface:#1E1929; --surface-2:#251F33;
+      --border:#362E45; --border-strong:#453A57;
+      --text:#F3EEFA; --text-muted:#B3A8C4; --text-faint:#847997;
+      --accent:#F17B4E; --accent-2:#9C8CE0; --accent-2-ink:#1B1430;
+      --good:#5FCB9B; --good-bg:#173226;
+      --warn:#E3AC4E; --warn-bg:#332711;
+      --bad:#E38574; --bad-bg:#392019;
+      --info:#9DC2E4; --info-bg:#1B2A38;
+      --code-bg:#0F0C16; --code-fg:#EDE6F7; --code-dim:#8A7FA0; --code-str:#F3A87D; --code-key:#8FD3B4; --code-del:#F19A8A; --code-add:#8FD3B4;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#171320; --surface:#1E1929; --surface-2:#251F33;
+    --border:#362E45; --border-strong:#453A57;
+    --text:#F3EEFA; --text-muted:#B3A8C4; --text-faint:#847997;
+    --accent:#F17B4E; --accent-2:#9C8CE0; --accent-2-ink:#1B1430;
+    --good:#5FCB9B; --good-bg:#173226;
+    --warn:#E3AC4E; --warn-bg:#332711;
+    --bad:#E38574; --bad-bg:#392019;
+    --info:#9DC2E4; --info-bg:#1B2A38;
+    --code-bg:#0F0C16; --code-fg:#EDE6F7; --code-dim:#8A7FA0; --code-str:#F3A87D; --code-key:#8FD3B4; --code-del:#F19A8A; --code-add:#8FD3B4;
+    color-scheme: dark;
+  }
+
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif; -webkit-font-smoothing:antialiased; padding-inline:20px; padding-block:40px 80px;}
+  h1,h2,h3{font-family:'Fraunces', Georgia, 'Times New Roman', serif; font-weight:620; text-wrap:balance; margin:0; letter-spacing:-0.01em;}
+  .wrap{max-width:900px; margin-inline:auto;}
+  p{margin:0; line-height:1.62;}
+  a{color:var(--accent-2);}
+  a:focus-visible{outline:2px solid var(--accent-2); outline-offset:2px;}
+  code{font-family:'IBM Plex Mono', monospace; font-size:0.85em; background:var(--surface-2); border:1px solid var(--border); border-radius:5px; padding:1px 5px; overflow-wrap:anywhere;}
+  .eyebrow{font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.09em; text-transform:uppercase; color:var(--text-faint);}
+
+  .hero{padding-block:8px 32px; border-bottom:1px solid var(--border); margin-bottom:36px;}
+  .hero-kicker{display:flex; align-items:center; gap:10px; margin-bottom:18px;}
+  .logo-mark{width:34px; height:34px; border-radius:9px; background:linear-gradient(155deg, var(--accent), var(--accent-2)); display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Fraunces', serif; font-weight:700; font-size:1.05rem; flex-shrink:0;}
+  h1.title{font-size:clamp(1.9rem, 5vw, 2.6rem); line-height:1.1;}
+  .hero .lede{margin-top:14px; font-size:1.08rem; color:var(--text-muted); max-width:66ch;}
+  .meta-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:20px;}
+  .chip{display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:99px; border:1px solid var(--border-strong); background:var(--surface); font-family:'IBM Plex Mono', monospace; font-size:0.76rem; color:var(--text-muted);}
+
+  .verdict{margin-top:24px; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:18px 20px; display:flex; flex-direction:column; gap:14px;}
+  .verdict-head{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .verdict-badge{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; font-weight:600; padding:4px 10px; border-radius:99px; background:var(--warn-bg); color:var(--warn);}
+  .verdict p{font-size:0.97rem;}
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:10px;}
+  @media (max-width:680px){.stats{grid-template-columns:repeat(2,1fr);}}
+  .stat{background:var(--surface-2); border-radius:12px; padding:12px 14px;}
+  .stat .v{font-family:'Fraunces',serif; font-weight:700; font-size:1.6rem; line-height:1; font-variant-numeric:tabular-nums;}
+  .stat .v.good{color:var(--good);} .stat .v.bad{color:var(--bad);}
+  .stat .k{font-size:0.78rem; color:var(--text-muted); margin-top:6px; line-height:1.4;}
+
+  .toc{display:flex; flex-wrap:wrap; gap:8px 18px; padding:16px 20px; background:var(--surface-2); border:1px solid var(--border); border-radius:14px; margin-bottom:56px;}
+  .toc a{font-family:'IBM Plex Mono', monospace; font-size:0.8rem; color:var(--text-muted); text-decoration:none;}
+  .toc a:hover{color:var(--accent-2);}
+  .toc .n{color:var(--text-faint);}
+
+  section.block{margin-bottom:60px; scroll-margin-top:20px;}
+  .sec-head{display:flex; gap:16px; align-items:baseline; margin-bottom:18px;}
+  .sec-num{font-family:'IBM Plex Mono', monospace; font-size:0.95rem; color:var(--accent); flex-shrink:0;}
+  h2.sec-title{font-size:clamp(1.35rem, 3vw, 1.6rem);}
+  .sec-body{padding-left:calc(0.95rem + 16px); display:flex; flex-direction:column; gap:16px;}
+  @media (max-width:560px){.sec-body{padding-left:0;}}
+  .sec-lede{color:var(--text-muted); font-size:0.95rem;}
+
+  .good-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  @media (max-width:640px){.good-grid{grid-template-columns:1fr;}}
+  .good-item{background:var(--good-bg); border-radius:12px; padding:12px 14px; font-size:0.86rem; line-height:1.5; display:grid; grid-template-columns:18px 1fr; gap:8px;}
+  .good-item .ck{color:var(--good); font-weight:700; font-family:'IBM Plex Mono',monospace;}
+
+  /* finding cards */
+  .finding{background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--border-strong); border-radius:0 14px 14px 0; padding:16px 18px; display:flex; flex-direction:column; gap:10px; scroll-margin-top:20px;}
+  .finding.high{border-left-color:var(--bad);}
+  .finding.med{border-left-color:var(--warn);}
+  .finding.low{border-left-color:var(--info);}
+  .f-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;}
+  .f-title{display:flex; gap:10px; align-items:baseline;}
+  .f-id{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--text-faint); flex-shrink:0;}
+  .f-title h3{font-family:'IBM Plex Sans',sans-serif; font-weight:700; font-size:1rem; line-height:1.35;}
+  .sev{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; font-weight:600; padding:3px 9px; border-radius:99px; white-space:nowrap;}
+  .sev.high{background:var(--bad-bg); color:var(--bad);}
+  .sev.med{background:var(--warn-bg); color:var(--warn);}
+  .sev.low{background:var(--info-bg); color:var(--info);}
+  .f-loc{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--accent-2); overflow-wrap:anywhere;}
+  .f-row{display:grid; grid-template-columns:92px 1fr; gap:10px; font-size:0.87rem; line-height:1.55;}
+  .f-row .lbl{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--text-faint); padding-top:3px;}
+  @media (max-width:560px){.f-row{grid-template-columns:1fr; gap:2px;}}
+  pre{margin:0; background:var(--code-bg); color:var(--code-fg); border-radius:10px; padding:12px 14px; overflow-x:auto; font-family:'IBM Plex Mono',monospace; font-size:0.76rem; line-height:1.6;}
+  pre .c{color:var(--code-dim);} pre .s{color:var(--code-str);} pre .k{color:var(--code-key);}
+  pre .del{color:var(--code-del);} pre .add{color:var(--code-add);}
+  .demo{display:grid; grid-template-columns:1fr auto; gap:4px 14px; font-family:'IBM Plex Mono',monospace; font-size:0.76rem; background:var(--surface-2); border-radius:10px; padding:10px 14px;}
+  .demo .ok{color:var(--good);} .demo .no{color:var(--bad); font-weight:600;}
+
+  .tbl-wrap{overflow-x:auto; border:1px solid var(--border); border-radius:12px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:0.85rem; min-width:600px;}
+  th,td{text-align:left; padding:10px 13px; border-bottom:1px solid var(--border); vertical-align:top; line-height:1.5;}
+  th{font-family:'IBM Plex Mono',monospace; font-weight:500; font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-faint); background:var(--surface-2);}
+  tr:last-child td{border-bottom:0;}
+  td.mono{font-family:'IBM Plex Mono',monospace; font-size:0.76rem; color:var(--accent-2);}
+  td .new{color:var(--good); font-weight:600;}
+
+  .plan{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media (max-width:680px){.plan{grid-template-columns:1fr;}}
+  .plan-col{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px;}
+  .plan-col h3{font-family:'IBM Plex Sans',sans-serif; font-size:0.95rem; font-weight:700; margin-bottom:4px;}
+  .plan-col .eff{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--accent); margin-bottom:12px;}
+  .plan-col ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; font-size:0.86rem; line-height:1.45;}
+  .plan-col li{display:grid; grid-template-columns:18px 1fr; gap:8px;}
+  .plan-col .box{width:15px; height:15px; border:1.6px solid var(--border-strong); border-radius:4px; margin-top:2px;}
+  .plan-col .ref{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--text-faint);}
+
+  .callout{background:var(--surface-2); border:1px solid var(--border); border-left:3px solid var(--accent-2); border-radius:0 12px 12px 0; padding:14px 17px; font-size:0.88rem; line-height:1.6;}
+
+  footer{margin-top:64px; padding-top:22px; border-top:1px solid var(--border);}
+  .src-list{display:flex; flex-direction:column; gap:6px; margin-top:12px;}
+  .src-list a{font-size:0.85rem; text-decoration:none;}
+  .src-list a:hover{text-decoration:underline;}
+  .fineprint{margin-top:20px; font-size:0.78rem; color:var(--text-faint); line-height:1.55;}
+
+  /* --- additions for the Vapi research page --- */
+  :root{ --hu:#C2452A; --hu-bg:#FBE7DD; --en:#2F5578; --en-bg:#E1EAF2; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --hu:#F3A87D; --hu-bg:#3A2418; --en:#9DC2E4; --en-bg:#1B2A38; } }
+  :root[data-theme="dark"]{ --hu:#F3A87D; --hu-bg:#3A2418; --en:#9DC2E4; --en-bg:#1B2A38; }
+
+  .verdict-badge.good{background:var(--good-bg); color:var(--good);}
+  .stat .v{font-size:1.45rem;}
+  .label{font-weight:600; font-size:0.86rem; margin-bottom:8px;}
+
+  .cards{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media (max-width:680px){.cards{grid-template-columns:1fr;}}
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:15px 17px; display:flex; flex-direction:column; gap:8px;}
+  .card.hi{border-color:var(--accent-2);}
+  .card-top{display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;}
+  .date{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--text-faint);}
+  .pill{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; font-weight:600; padding:3px 9px; border-radius:99px; white-space:nowrap;}
+  .pill.good{background:var(--good-bg); color:var(--good);}
+  .pill.warn{background:var(--warn-bg); color:var(--warn);}
+  .pill.info{background:var(--info-bg); color:var(--info);}
+  .pill.bad{background:var(--bad-bg); color:var(--bad);}
+  .card h3{font-family:'IBM Plex Sans',sans-serif; font-size:0.97rem; font-weight:700; line-height:1.35;}
+  .card p{font-size:0.85rem; color:var(--text-muted); line-height:1.55;}
+  .fit{display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; padding-top:4px;}
+  .fit span{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; padding:3px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted);}
+  .fit .ok{background:var(--good-bg); color:var(--good);}
+  .fit .no{background:var(--bad-bg); color:var(--bad);}
+  .fit .maybe{background:var(--warn-bg); color:var(--warn);}
+
+  .opts{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+  @media (max-width:760px){.opts{grid-template-columns:1fr;}}
+  .opt{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px; display:flex; flex-direction:column; gap:9px;}
+  .opt.pick{border:2px solid var(--accent-2);}
+  .opt-top{display:flex; justify-content:space-between; align-items:center; gap:8px;}
+  .opt-letter{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--text-faint);}
+  .pick-badge{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; background:var(--accent-2); color:var(--accent-2-ink); padding:3px 8px; border-radius:99px;}
+  .opt h3{font-family:'IBM Plex Sans',sans-serif; font-size:0.97rem; font-weight:700;}
+  .opt-sub{font-size:0.8rem; color:var(--text-muted); line-height:1.45;}
+  .opt ul{margin:0; padding:0; list-style:none; font-size:0.82rem; line-height:1.5; display:flex; flex-direction:column; gap:5px;}
+  .opt li{display:grid; grid-template-columns:12px 1fr; gap:7px;}
+  .opt li .m{font-family:'IBM Plex Mono',monospace; font-weight:600;}
+  .opt li.p .m{color:var(--good);} .opt li.c .m{color:var(--bad);}
+
+  .tag{display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:0.68rem; padding:2px 7px; border-radius:5px; margin-right:4px; letter-spacing:0;}
+  .tag.hu{background:var(--hu-bg); color:var(--hu);} .tag.en{background:var(--en-bg); color:var(--en);}
+
+  .code-pair{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media (max-width:760px){.code-pair{grid-template-columns:1fr;}}
+  .code-pair > div{min-width:0;}
+
+  .steps{position:relative; padding-left:34px; display:flex; flex-direction:column; gap:10px;}
+  .steps::before{content:""; position:absolute; left:11px; top:8px; bottom:8px; width:2px; background:var(--border-strong);}
+  .step{position:relative; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px 15px;}
+  .step .dot{position:absolute; left:-34px; top:11px; width:24px; height:24px; border-radius:99px; background:var(--accent-2); color:var(--accent-2-ink); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:0.72rem; font-weight:600; border:3px solid var(--bg);}
+  .step-top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:baseline;}
+  .step .t{font-weight:700; font-size:0.92rem;}
+  .step .e{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--accent); white-space:nowrap;}
+  .step .d{font-size:0.84rem; color:var(--text-muted); margin-top:4px; line-height:1.5;}
+
+  .dec{display:flex; flex-direction:column; gap:10px;}
+  .dec-item{display:grid; grid-template-columns:auto 1fr; gap:14px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px;}
+  .dec-item .q{font-family:'Fraunces',serif; font-weight:700; color:var(--accent); font-size:1.2rem; line-height:1;}
+  .dec-item .t{font-weight:700; font-size:0.9rem; margin-bottom:4px;}
+  .dec-item .d{font-size:0.84rem; color:var(--text-muted); line-height:1.5;}
+
+  /* --- additions for the upgrade page --- */
+  .tl{display:flex; flex-direction:column; gap:8px;}
+  .tl-row{display:grid; grid-template-columns:120px 1fr auto; gap:12px; align-items:center; background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--border-strong); border-radius:0 12px 12px 0; padding:11px 14px;}
+  .tl-row.bad{border-left-color:var(--bad);} .tl-row.warn{border-left-color:var(--warn);} .tl-row.good{border-left-color:var(--good);}
+  .tl-v{font-family:'IBM Plex Mono',monospace; font-size:0.82rem; font-weight:600;}
+  .tl-d{font-size:0.85rem; color:var(--text-muted); line-height:1.45;}
+  @media (max-width:600px){.tl-row{grid-template-columns:1fr; gap:4px;} .tl-row .pill{justify-self:start;}}
+  .warn-txt{color:var(--warn); font-weight:600;}
+  .groups{display:flex; flex-direction:column; gap:12px;}
+  .group{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px; display:flex; flex-direction:column; gap:10px;}
+  .group.g1{border-color:var(--good);}
+  .group-head{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+  .group h3{font-family:'IBM Plex Sans',sans-serif; font-size:0.98rem; font-weight:700;}
+  .group > p{font-size:0.86rem; color:var(--text-muted);}
+  .pkgs{margin:0; padding-left:18px; font-size:0.85rem; line-height:1.6; display:flex; flex-direction:column; gap:4px;}
+  .pkgs em{color:var(--text-muted); font-style:normal;}
+  .sec-body > pre{margin-top:4px;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-kicker">
+      <div class="logo-mark">e</div>
+      <span class="eyebrow">Frissítési terv · eNvolve</span>
+    </div>
+    <h1 class="title">Frissítsük az egész projektet? Igen, de két lépésben</h1>
+    <p class="lede">A Daily hibájára három nappal ezelőtt megjelent a célzott megoldás: a Vapi Web SDK 3.0.0. A többi elavult csomag biztonságosan frissíthető, a nagy verzióváltásokat viszont külön érdemes megcsinálni.</p>
+    <div class="meta-row">
+      <span class="chip">2026. október 19.</span>
+      <span class="chip">npm outdated + csomagösszevetés</span>
+      <span class="chip">feature/i18n-next-intl</span>
+    </div>
+    <div class="verdict">
+      <div class="verdict-head"><span class="verdict-badge good">Javaslat</span></div>
+      <p><strong>Most:</strong> Vapi SDK 3.0.0 és a verzión belüli (minor/patch) frissítések, kódváltozás nélkül, kb. egy óra teszteléssel. <strong>Később, külön ágon:</strong> a 9 nagy verzióváltás, elsőként a Clerk 7, amire van automatikus átállító eszköz. Mindent egyszerre frissíteni azért kockázatos, mert hiba esetén nem derül ki, melyik csomag okozta.</p>
+      <div class="stats">
+        <div class="stat"><div class="v good">0.93</div><div class="k">Daily verzió a Vapi 3.0.0-ban (most: 0.87, eredetileg 0.84)</div></div>
+        <div class="stat"><div class="v good">0</div><div class="k">kódváltozás a Vapi 2.7.1 → 3.0.0 között (összevetve)</div></div>
+        <div class="stat"><div class="v">27</div><div class="k">elavult csomag a projektben</div></div>
+        <div class="stat"><div class="v bad">9</div><div class="k">nagy (major) verzióváltás, töréssel járhat</div></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <a href="#daily"><span class="n">01</span> A Daily helyzete</a>
+    <a href="#vapi3"><span class="n">02</span> Mi van a Vapi 3.0-ban</a>
+    <a href="#csomagok"><span class="n">03</span> A teljes projekt</a>
+    <a href="#erv"><span class="n">04</span> Miért két lépésben</a>
+    <a href="#lepesek"><span class="n">05</span> Lépések</a>
+  </nav>
+
+  <!-- 01 -->
+  <section class="block" id="daily">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">A Daily helyzete</h2></div>
+    <div class="sec-body">
+      <p class="sec-lede">A Vapi a hangkapcsolathoz a Daily nevű könyvtárat használja. A Daily rendszeresen emeli a legrégebbi támogatott verziót, és a régebbiekre hibát ír ki. Erről a hibáról volt szó a teszt során.</p>
+      <div class="tl">
+        <div class="tl-row bad"><span class="tl-v">daily-js 0.84</span><span class="tl-d">Vapi SDK 2.5.0 (a projekt eredeti állapota)</span><span class="pill bad">Nem támogatott</span></div>
+        <div class="tl-row warn"><span class="tl-v">daily-js 0.87</span><span class="tl-d">Vapi SDK 2.7.1 (a legutóbbi javításom). 2026. aug. 26. óta ez a legrégebbi támogatott verzió.</span><span class="pill warn">Hamarosan lejár</span></div>
+        <div class="tl-row warn"><span class="tl-v">daily-js 0.89</span><span class="tl-d">A Daily szerint ez is a támogatás vége felé jár</span><span class="pill warn">Lejár</span></div>
+        <div class="tl-row good"><span class="tl-v">daily-js 0.93</span><span class="tl-d">Vapi SDK 3.0.0, megjelent 2026. okt. 16-án</span><span class="pill good">Támogatott</span></div>
+      </div>
+      <p class="callout">A 0.87-re való frissítés eltüntette a hibaüzenetet, de csak rövid időre: ha a Daily 0.89-et a támogatás végéhez közelinek tartja, a 0.87 is hamarosan kiesik. A 3.0.0-s Vapi SDK a 0.93-at hozza, ami jóval tovább kitart.</p>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="block" id="vapi3">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Mi változott a Vapi 3.0.0-ban?</h2></div>
+    <div class="sec-body">
+      <p class="sec-lede">A 3.0.0-hoz még nincs kiadási jegyzet, ezért letöltöttem a 2.7.1-es és a 3.0.0-s csomagot, és fájlonként összevetettem őket.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Mit néztem</th><th>2.7.1</th><th>3.0.0</th><th>Eredmény</th></tr></thead>
+          <tbody>
+            <tr><td>A program kódja (<code>vapi.js</code>, <code>client.js</code>)</td><td colspan="2">azonos</td><td class="new">Nincs viselkedésbeli változás</td></tr>
+            <tr><td>A típusdefiníciók (<code>vapi.d.ts</code>, <code>api.d.ts</code>)</td><td colspan="2">azonos</td><td class="new">A mi kódunkhoz nem kell nyúlni</td></tr>
+            <tr><td><code>@daily-co/daily-js</code></td><td>^0.87.0</td><td>^0.93.0</td><td class="new">Ez a fő változás</td></tr>
+            <tr><td>Node.js minimum</td><td>18.0.0</td><td>22.14.0</td><td><span class="warn-txt">Ellenőrizni kell, ez miatt major a verzió</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="callout">A Node 22.14-es követelmény a fejlesztői gépedre és a Vercelre vonatkozik. Gépen: <code>node -v</code>. Vercelen: Project Settings → Build and Deployment → Node.js Version, ami legyen 22.x vagy újabb. A Daily 0.89-es törő változása csak saját magunk által hosztolt hívásmotorra vonatkozik, a Vapi ilyet nem használ.</p>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="block" id="csomagok">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">A teljes projekt: 27 elavult csomag, három csoportban</h2></div>
+    <div class="sec-body">
+      <div class="groups">
+        <div class="group g1">
+          <div class="group-head"><span class="pill good">1. lépés · most</span><h3>Biztonságos frissítések</h3></div>
+          <p>Verzión belüli (minor/patch) frissítések. A szemantikus verziózás szerint ezek nem törnek el semmit, csak hibákat javítanak és apróbb újításokat hoznak.</p>
+          <ul class="pkgs">
+            <li><b>@vapi-ai/web</b> 2.7.1 → 3.0.0 <em>(a Daily miatt, kódja azonos)</em></li>
+            <li><b>next</b> 16.2.6 → 16.4.2, <b>eslint-config-next</b> 16.0.1 → 16.4.2 <em>(a „stale” jelzés miatt)</em></li>
+            <li><b>react / react-dom</b> 19.2.6 → 19.3.1</li>
+            <li><b>@clerk/nextjs</b> 6.39.3 → 6.39.7, <b>@clerk/localizations</b> 3.37.9</li>
+            <li><b>@supabase/supabase-js</b> 2.79 → 2.118, <b>zod</b> 4.6.7, <b>react-hook-form</b> 7.90</li>
+            <li><b>@sentry/nextjs</b> 10.27 → 10.76, <b>tailwindcss</b> 4.3.3, Radix UI, tailwind-merge, @hookform/resolvers 5.9.2</li>
+          </ul>
+        </div>
+        <div class="group g2">
+          <div class="group-head"><span class="pill warn">2. lépés · külön ágon</span><h3>Nagy verzióváltások átállással</h3></div>
+          <p>Ezek törő változásokat hoznak, egyenként és teszteléssel kell őket átvinni.</p>
+          <ul class="pkgs">
+            <li><b>@clerk/nextjs 7</b> (Clerk Core 3) + <b>@clerk/localizations 4</b>. A <code>SignedIn</code>/<code>SignedOut</code> helyére <code>&lt;Show&gt;</code> kerül. Van automatikus eszköz: <code>npx @clerk/upgrade</code>. Bónusz: ebben javították a <code>SignInButton</code> hibáját, amit Marci a <code>NavAuth</code> komponenssel került meg.</li>
+            <li><b>@sentry/nextjs 11</b>, <b>lucide-react 1</b>, <b>lottie-react 3</b>, <b>@hookform/resolvers 6</b>: a kiadási jegyzetek alapján, egyenként.</li>
+          </ul>
+        </div>
+        <div class="group g3">
+          <div class="group-head"><span class="pill info">Egyelőre ne</span><h3>Eszközváltások</h3></div>
+          <ul class="pkgs">
+            <li><b>TypeScript 7</b>: teljesen új, Go nyelven írt fordító. Várjuk meg, amíg a Next.js hivatalosan támogatja.</li>
+            <li><b>ESLint 10</b>: az <code>eslint-config-next</code>-nek kell előbb hivatalosan támogatnia.</li>
+            <li><b>@types/node 26</b>: a futtatott Node-verzióhoz igazodjon (22), ne a legújabbhoz.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="block" id="erv">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Miért két lépésben?</h2></div>
+    <div class="sec-body">
+      <div class="opts">
+        <div class="opt">
+          <div class="opt-top"><span class="opt-letter">A</span></div>
+          <h3>Csak a Vapi SDK</h3>
+          <ul>
+            <li class="p"><span class="m">+</span><span>Megoldja a Daily-hibát</span></li>
+            <li class="p"><span class="m">+</span><span>Szinte nulla kockázat</span></li>
+            <li class="c"><span class="m">−</span><span>A többi elavult csomag biztonsági és hibajavításai kimaradnak</span></li>
+          </ul>
+        </div>
+        <div class="opt pick">
+          <div class="opt-top"><span class="opt-letter">B</span><span class="pick-badge">Javasolt</span></div>
+          <h3>Két lépésben</h3>
+          <ul>
+            <li class="p"><span class="m">+</span><span>Most: Daily-hiba megoldva, minden csomag a saját főverziója legújabbján</span></li>
+            <li class="p"><span class="m">+</span><span>Ha valami eltörik, tudjuk, melyik lépés okozta</span></li>
+            <li class="p"><span class="m">+</span><span>A TDK és a pilot előtt stabil marad az app</span></li>
+            <li class="c"><span class="m">−</span><span>A Clerk 7 átállás külön munkát igényel</span></li>
+          </ul>
+        </div>
+        <div class="opt">
+          <div class="opt-top"><span class="opt-letter">C</span></div>
+          <h3>Mindent egyszerre</h3>
+          <ul>
+            <li class="p"><span class="m">+</span><span>Egy körben naprakész lesz minden</span></li>
+            <li class="c"><span class="m">−</span><span>9 csomag törő változásai egyszerre jönnek</span></li>
+            <li class="c"><span class="m">−</span><span>Hiba esetén nehéz megtalálni az okát</span></li>
+            <li class="c"><span class="m">−</span><span>A TypeScript 7 és az ESLint 10 még nem biztosan kompatibilis</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="block" id="lepesek">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Lépések</h2></div>
+    <div class="sec-body">
+      <div class="steps">
+        <div class="step"><div class="dot">1</div><div class="step-top"><span class="t">Node-verzió ellenőrzése</span><span class="e">5 perc</span></div><div class="d">Gépen <code>node -v</code> legalább 22.14 legyen, Vercelen a Node.js Version 22.x vagy újabb.</div></div>
+        <div class="step"><div class="dot">2</div><div class="step-top"><span class="t">1. lépés: biztonságos frissítések</span><span class="e">kb. 1 óra tesztekkel</span></div><div class="d">Vapi 3.0.0, Next 16.4.2, a többi csomag a saját főverzióján belül. Utána: build, lint, és egy magyar és egy angol hangos óra kipróbálása.</div></div>
+        <div class="step"><div class="dot">3</div><div class="step-top"><span class="t">Merge és élesítés</span><span class="e">—</span></div><div class="d">A <code>feature/i18n-next-intl</code> ág a main-be, majd a nyilvános Vapi-kulcs lezárása.</div></div>
+        <div class="step"><div class="dot">4</div><div class="step-top"><span class="t">2. lépés: Clerk 7, külön ágon</span><span class="e">fél–egy nap</span></div><div class="d"><code>npx @clerk/upgrade</code>, utána a <code>NavAuth</code> kerülőmegoldás egyszerűsíthető. A többi nagy váltás ezután, egyenként.</div></div>
+      </div>
+<pre><span class="c"># 1. lépés: a projekt mappájában</span>
+npm install @vapi-ai/web@^3.0.0 next@^16.4.2 eslint-config-next@^16.4.2
+npm update
+npm run build
+npm run lint</pre>
+    </div>
+  </section>
+
+  <footer>
+    <p class="eyebrow">Források</p>
+    <div class="src-list">
+      <a href="https://docs.daily.co/changelog" target="_blank" rel="noopener">Daily — Changelog (legrégebbi támogatott daily-js verzió)</a>
+      <a href="https://www.npmjs.com/package/@vapi-ai/web" target="_blank" rel="noopener">npm — @vapi-ai/web (3.0.0, 2026. okt. 16.)</a>
+      <a href="https://github.com/VapiAI/client-sdk-web/releases" target="_blank" rel="noopener">VapiAI/client-sdk-web — Releases</a>
+      <a href="https://clerk.com/docs/guides/development/upgrading/upgrade-guides/core-3" target="_blank" rel="noopener">Clerk — Upgrading to Core 3</a>
+      <a href="https://github.com/clerk/javascript/pull/8556" target="_blank" rel="noopener">clerk/javascript #8556 — SignInButton javítás</a>
+    </div>
+    <p class="fineprint">A Vapi 2.7.1 és 3.0.0 összevetését a két npm-csomag letöltésével és fájlonkénti összehasonlításával végeztem, mert a 3.0.0-hoz még nincs kiadási jegyzet. Az elavult csomagok listája az <code>npm outdated</code> kimenete a projektben.</p>
+  </footer>
+
+</div>
+</body>
+</html>

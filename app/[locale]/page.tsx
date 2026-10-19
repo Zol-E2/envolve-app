@@ -9,9 +9,12 @@ import { getSubjectColor } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 
 const Page = async () => {
-  const t = await getTranslations("Home");
-  const courses = await getAllCourses({ limit: 3 });
-  const recentSessionsCourses = await getRecentSessions(10);
+  // Independent queries run in parallel instead of one after another
+  const [t, courses, recentSessionsCourses] = await Promise.all([
+    getTranslations("Home"),
+    getAllCourses({ limit: 3 }),
+    getRecentSessions(10),
+  ]);
 
   return (
     <main>

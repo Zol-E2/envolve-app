@@ -3,6 +3,7 @@ import { getSubjectColor, getSubjectLabel } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "@/i18n/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
 import Image from "next/image";
 import CourseComponent from "@/components/CourseComponent";
 
@@ -12,18 +13,25 @@ interface CourseSessionPageProps {
 
 const CourseSession = async ({ params }: CourseSessionPageProps) => {
   const { id } = await params;
-  const locale = await getLocale();
-  const t = await getTranslations("CourseSession");
-  const tSubjects = await getTranslations("Subjects");
-  const course = await getCourseById(id);
-  const user = await currentUser();
-
-  const { name, subject, topic, duration } = course;
+  // Independent lookups run in parallel instead of one after another.
+  // An unknown or malformed course id makes Supabase throw; treat it as "not found".
+  const [locale, t, tSubjects, course, user] = await Promise.all([
+    getLocale(),
+    getTranslations("CourseSession"),
+    getTranslations("Subjects"),
+    getCourseById(id).catch(() => null),
+    currentUser(),
+  ]);
 
   // Locale-aware redirect keeps the user on /hu/... when they were browsing in Hungarian
   if (!user) {
     redirect({ href: "/sign-in", locale });
   }
+  if (!course) {
+    notFound();
+  }
+
+  const { name, subject, topic, duration } = course;
   if (!name || !subject || !topic || !duration) {
     redirect({ href: "/courses", locale });
   }
