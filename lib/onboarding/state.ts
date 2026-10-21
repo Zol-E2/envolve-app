@@ -16,7 +16,8 @@ export const TOUR_IDS = [
   "newCourse",
   "lesson",
   "profile",
-  "subscription",
+  // "subscription": the plans page is not live yet; re-enable its tips
+  // (here, in tours.ts and on the page) once billing launches
   "signIn",
   "notFound",
 ] as const;
