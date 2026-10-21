@@ -14,6 +14,7 @@ import {
 } from "@/lib/actions/course.actions";
 import Image from "next/image";
 import CourseList from "@/components/CourseList";
+import PageTour from "@/components/onboarding/PageTour";
 
 const Profile = async () => {
   const user = await currentUser();
@@ -31,6 +32,7 @@ const Profile = async () => {
 
   return (
     <main className="lg:w-3/4">
+      <PageTour id="profile" />
       <section className="flex justify-between gap-4 max-sm:flex-col items-center">
         <div className="flex gap-4 items-center">
           <Image
@@ -48,7 +50,7 @@ const Profile = async () => {
             </p>
           </div>
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-4" data-tour="profile-stats">
           <div className="border border-black rounded-lg p-3 gap-2 flex flex-col h-fit">
             <div className="flex gap-2 items-center">
               <Image
@@ -71,7 +73,7 @@ const Profile = async () => {
         </div>
       </section>
       <Accordion type="multiple">
-        <AccordionItem value="bookmarks">
+        <AccordionItem value="bookmarks" data-tour="profile-bookmarks">
           <AccordionTrigger className="text-2xl font-bold">
             {t("bookmarkedCourses")} ({bookmarkedCourses.length})
           </AccordionTrigger>
@@ -79,10 +81,12 @@ const Profile = async () => {
             <CourseList
               courses={bookmarkedCourses}
               title={t("bookmarkedCourses")}
+              emptyMessage={t("bookmarksEmpty")}
+              emptyAction={{ href: "/courses", label: t("browseCourses") }}
             />
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem value="recent">
+        <AccordionItem value="recent" data-tour="profile-recent">
           <AccordionTrigger className="text-2xl font-bold">
             {t("recentSessions")}
           </AccordionTrigger>
@@ -90,15 +94,22 @@ const Profile = async () => {
             <CourseList
               title={t("recentSessions")}
               courses={sessionHistory}
+              emptyMessage={t("recentEmpty")}
+              emptyAction={{ href: "/courses", label: t("browseCourses") }}
             />
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem value="courses">
+        <AccordionItem value="courses" data-tour="profile-courses">
           <AccordionTrigger className="text-2xl font-bold">
             {t("myCourses")} ({courses.length})
           </AccordionTrigger>
           <AccordionContent>
-            <CourseList title={t("myCourses")} courses={courses} />
+            <CourseList
+              title={t("myCourses")}
+              courses={courses}
+              emptyMessage={t("myCoursesEmpty")}
+              emptyAction={{ href: "/courses/new", label: t("createCourse") }}
+            />
           </AccordionContent>
         </AccordionItem>
       </Accordion>

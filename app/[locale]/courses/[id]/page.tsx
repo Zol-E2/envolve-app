@@ -6,6 +6,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import CourseComponent from "@/components/CourseComponent";
+import PageTour from "@/components/onboarding/PageTour";
 
 interface CourseSessionPageProps {
   params: Promise<{ id: string }>;
@@ -38,6 +39,7 @@ const CourseSession = async ({ params }: CourseSessionPageProps) => {
 
   return (
     <main>
+      <PageTour id="lesson" />
       <article
         className="
         flex 

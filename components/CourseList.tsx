@@ -15,16 +15,39 @@ interface CourseListProps {
   title: string;
   courses?: Course[];
   classNames?: string;
+  /** data-tour target for the page tour */
+  tour?: string;
+  /** Shown instead of the table when there are no courses */
+  emptyMessage?: string;
+  emptyAction?: { href: string; label: string };
 }
 
-const CourseList = ({ title, courses, classNames }: CourseListProps) => {
+const CourseList = ({
+  title,
+  courses,
+  classNames,
+  tour,
+  emptyMessage,
+  emptyAction,
+}: CourseListProps) => {
   const t = useTranslations("CourseList");
   const tSubjects = useTranslations("Subjects");
 
   return (
-    <article className={cn("course-list", classNames)}>
+    <article className={cn("course-list", classNames)} data-tour={tour}>
       <h2 className="font-bold text-3xl">{title}</h2>
 
+      {!courses?.length ? (
+        // An empty table gives a new user nothing to do, so offer the next step
+        <div className="list-empty">
+          <p>{emptyMessage ?? t("empty")}</p>
+          {emptyAction && (
+            <Link href={emptyAction.href} className="btn-primary w-fit">
+              {emptyAction.label}
+            </Link>
+          )}
+        </div>
+      ) : (
       <Table>
         <TableHeader>
           <TableRow>
@@ -100,6 +123,7 @@ const CourseList = ({ title, courses, classNames }: CourseListProps) => {
           ))}
         </TableBody>
       </Table>
+      )}
     </article>
   );
 };

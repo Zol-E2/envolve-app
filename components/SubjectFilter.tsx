@@ -26,6 +26,11 @@ const SubjectFilter = () => {
   const [subject, setSubject] = useState(query);
 
   useEffect(() => {
+    // Skip when the URL already shows this subject (e.g. on first render);
+    // a redundant push re-renders the whole page for nothing
+    const wanted = subject === "all" ? "" : subject;
+    if (wanted === (searchParams.get("subject") ?? "")) return;
+
     let newUrl = "";
     if (subject === "all") {
       newUrl = removeKeysFromUrlQuery({
@@ -44,7 +49,7 @@ const SubjectFilter = () => {
 
   return (
     <Select onValueChange={setSubject} value={subject}>
-      <SelectTrigger className="input capitalize">
+      <SelectTrigger className="input capitalize" data-tour="courses-filter">
         <SelectValue placeholder={t("subjectPlaceholder")} />
       </SelectTrigger>
       <SelectContent>

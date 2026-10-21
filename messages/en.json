@@ -17,7 +17,9 @@
   },
   "Home": {
     "popularCourses": "Popular Courses",
-    "recentCourses": "Recent Lessons"
+    "recentCourses": "Recent Lessons",
+    "recentEmpty": "You haven't had a lesson yet. Pick a course above and press Launch Lesson.",
+    "browseCourses": "Browse courses"
   },
   "CTA": {
     "badge": "Start Learning Now",
@@ -36,13 +38,17 @@
     "lessons": "Lessons",
     "subject": "Subject",
     "duration": "Duration",
-    "min": "min"
+    "min": "min",
+    "empty": "Nothing here yet."
   },
   "Courses": {
     "title": "Course Library",
     "searchPlaceholder": "Search courses...",
     "subjectPlaceholder": "Subject",
-    "allSubjects": "All subjects"
+    "allSubjects": "All subjects",
+    "emptySearch": "No results. Try a different word or subject.",
+    "emptyAll": "There are no courses yet. Build the first one!",
+    "createFirst": "Build a new course"
   },
   "Subjects": {
     "maths": "Maths",
@@ -80,7 +86,12 @@
     "languageEn": "English",
     "duration": "Estimated Session Duration in Minutes",
     "durationRequired": "Duration is required",
-    "submit": "Build the Course"
+    "submit": "Build the Course",
+    "nameHint": "A short name you will recognise. E.g. Fractions practice",
+    "topicHint": "Describe in 1–2 sentences what the tutor should talk about.",
+    "voiceHint": "Whether the tutor speaks with a male or a female voice.",
+    "languageHint": "The tutor will speak this language.",
+    "durationHint": "10–15 minutes is plenty to start with."
   },
   "CourseSession": {
     "min": "{count} min",
@@ -88,18 +99,219 @@
     "micOff": "Turn off microphone",
     "startSession": "Start Session",
     "endSession": "End Session",
-    "connecting": "Connecting..."
+    "connecting": "Connecting...",
+    "statusReady": "When you are ready, click Start Session.",
+    "statusConnecting": "Connecting to your tutor…",
+    "statusTutorSpeaking": "The tutor is talking",
+    "statusYourTurn": "Your turn, go ahead and talk",
+    "statusMuted": "Your microphone is off",
+    "statusEnded": "The lesson has ended. You can start again at any time.",
+    "statusMicBlocked": "The microphone is blocked",
+    "micBlockedTitle": "I can't reach your microphone",
+    "micBlockedHelp": "Click the lock icon at the left of the address bar, set Microphone to Allow, then reload the page."
   },
   "Profile": {
     "lessonsCompleted": "Lessons completed",
     "coursesCreated": "Courses created",
     "bookmarkedCourses": "Bookmarked Courses",
     "recentSessions": "Recent Sessions",
-    "myCourses": "My Courses"
+    "myCourses": "My Courses",
+    "bookmarksEmpty": "No saved courses yet. Use the bookmark icon on a course card to save one.",
+    "recentEmpty": "You haven't had a lesson yet.",
+    "myCoursesEmpty": "You haven't built a course yet.",
+    "createCourse": "Build a new course",
+    "browseCourses": "Browse courses"
   },
   "NotFound": {
     "title": "Page not found",
     "description": "The page you are looking for does not exist or has been moved.",
     "backHome": "Back to home"
+  },
+  "Tour": {
+    "next": "Next",
+    "back": "Back",
+    "done": "Done",
+    "close": "Close the tour",
+    "readAloud": "Read aloud",
+    "helpStart": "Tips for this page",
+    "home": {
+      "intro": {
+        "title": "Welcome to the home page!",
+        "text": "Let me show you where things are. It takes 5 short steps, and you can close it at any time."
+      },
+      "popular": {
+        "title": "Courses",
+        "text": "A course is a spoken lesson with the AI tutor. To try one, click Launch Lesson."
+      },
+      "create": {
+        "title": "Your own course",
+        "text": "Here you can build your own course. You decide what the lesson is about."
+      },
+      "recent": {
+        "title": "Recent lessons",
+        "text": "This shows the lessons you have already started, so you can pick them up again quickly."
+      },
+      "help": {
+        "title": "Help at any time",
+        "text": "If you get stuck, press the question mark. The tour of the page starts again."
+      }
+    },
+    "newCourse": {
+      "intro": {
+        "title": "Building a new course",
+        "text": "You only need to fill in a few fields. Each one has a short tip underneath."
+      },
+      "topic": {
+        "title": "What is it about?",
+        "text": "Describe in 1–2 sentences what the tutor should talk about. For example: adding fractions."
+      },
+      "voice": {
+        "title": "The tutor's voice",
+        "text": "Choose whether the tutor speaks with a male or a female voice."
+      },
+      "language": {
+        "title": "Lesson language",
+        "text": "The tutor will speak this language. You can practise in Hungarian too."
+      },
+      "submit": {
+        "title": "All done!",
+        "text": "When everything is filled in, press this button. You can start the lesson right after."
+      }
+    },
+    "lesson": {
+      "tutor": {
+        "title": "This is your tutor",
+        "text": "When the tutor speaks, you will see sound waves here."
+      },
+      "start": {
+        "title": "How to start the lesson",
+        "text": "Click this button. Your browser will ask to use the microphone. Choose Allow."
+      },
+      "status": {
+        "title": "Who is talking?",
+        "text": "This line always shows whether the tutor is talking or it is your turn."
+      },
+      "mute": {
+        "title": "Taking a break",
+        "text": "If you need a break, you can turn your microphone off here. The tutor cannot hear you then."
+      },
+      "transcript": {
+        "title": "Everything is written down",
+        "text": "Here you can read what you both said, so you don't have to remember anything. When you are done, press End Session."
+      }
+    },
+    "courses": {
+      "search": {
+        "title": "Search",
+        "text": "Type a topic or a course name and the list narrows down by itself."
+      },
+      "filter": {
+        "title": "By subject",
+        "text": "Here you can show the courses of a single subject only."
+      },
+      "language": {
+        "title": "Lesson language",
+        "text": "This label shows which language the tutor speaks: HU for Hungarian, EN for English."
+      },
+      "bookmark": {
+        "title": "Saving",
+        "text": "Use the bookmark to save a course. You will find saved courses on your Profile page."
+      },
+      "launch": {
+        "title": "Ready to start",
+        "text": "This button opens the lesson."
+      }
+    },
+    "profile": {
+      "stats": {
+        "title": "Your progress",
+        "text": "Here you can see how many lessons you have done and how many courses you have built."
+      },
+      "bookmarks": {
+        "title": "Saved courses",
+        "text": "Click this row to open the list of your saved courses."
+      },
+      "recent": {
+        "title": "Recent lessons",
+        "text": "Here you will find the lessons you have already started."
+      },
+      "courses": {
+        "title": "Your courses",
+        "text": "The courses you have built. You can start any of them again from here."
+      },
+      "account": {
+        "title": "Your account",
+        "text": "Click your picture to change your account details or to sign out."
+      }
+    },
+    "subscription": {
+      "intro": {
+        "title": "Plans",
+        "text": "This page shows the eNvolve plans."
+      },
+      "plans": {
+        "title": "Choosing a plan",
+        "text": "Each card shows what the plan includes and what it costs. Before choosing a paid plan, talk it over with your parents or your teacher."
+      }
+    },
+    "signIn": {
+      "box": {
+        "title": "Signing in",
+        "text": "Choose a way to sign in in this box. If you do not have an account yet, you can sign up at the bottom of the box."
+      },
+      "language": {
+        "title": "Language",
+        "text": "Here you can switch between Hungarian and English."
+      }
+    },
+    "notFound": {
+      "home": {
+        "title": "Lost?",
+        "text": "This page does not exist. This button takes you back to the home page, or you can pick something from the menu above."
+      }
+    }
+  },
+  "Welcome": {
+    "metaTitle": "Welcome",
+    "progress": "Step {current} of {total}",
+    "skip": "Skip",
+    "back": "Back",
+    "next": "Next",
+    "readAloud": "Read aloud",
+    "intro": {
+      "title": "Hi! This is eNvolve",
+      "text": "Here you learn by talking with an AI tutor. You pick the topic, the tutor explains it and asks you questions too.",
+      "point1": "You can ask as many questions as you like.",
+      "point2": "There are no grades, and there is no need to hurry.",
+      "point3": "This introduction takes about 2 minutes."
+    },
+    "lesson": {
+      "title": "How a lesson works",
+      "step1": "Pick a course, or build a new one.",
+      "step2": "Press Start Session.",
+      "step3": "Talk with the tutor. When you are done, press End Session.",
+      "note": "During the lesson, a line of text always shows whether the tutor is talking or it is your turn."
+    },
+    "mic": {
+      "title": "Let's test your microphone",
+      "text": "In a lesson you talk out loud with the tutor, so you need a microphone. When you press the button, your browser asks for permission. Choose Allow.",
+      "start": "Test my microphone",
+      "asking": "Look at the top of your browser and choose Allow.",
+      "listening": "Say something, for example: Hello!",
+      "heard": "I can hear you! Your microphone works.",
+      "meterLabel": "Volume",
+      "stop": "Stop the test",
+      "deniedTitle": "The microphone is blocked",
+      "deniedHelp": "Click the lock icon at the left of the address bar, find Microphone and set it to Allow. Then reload the page.",
+      "unavailable": "We could not find a microphone. Plug one in, or try another browser.",
+      "retry": "Try again",
+      "later": "You can also do this later, before your first lesson."
+    },
+    "ready": {
+      "title": "You're ready!",
+      "text": "Start with your own course, or pick one that already exists. If you get stuck, the question mark button in the menu bar is always there to help.",
+      "create": "Build my first course",
+      "browse": "Browse courses"
+    }
   }
 }

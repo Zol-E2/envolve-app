@@ -9,6 +9,7 @@ import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import soundwaves from "@/constants/soundwaves.json";
 import { addToSessionHistory } from "@/lib/actions/course.actions";
 import { useTranslations } from "next-intl";
+import { getMicPermission } from "@/lib/onboarding/microphone";
 
 // Represents the current state of the Vapi voice call
 enum CallStatus {
@@ -34,6 +35,8 @@ const CourseComponent = ({
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [messages, setMessages] = useState<SavedMessage[]>([]);
+  // Set when the browser blocks the microphone, so we can explain how to fix it
+  const [micBlocked, setMicBlocked] = useState(false);
 
   const lottieRef = useRef<LottieRefCurrentProps>(null);
 
@@ -73,7 +76,15 @@ const CourseComponent = ({
       setIsSpeaking(false);
     };
 
-    const onError = (error: Error) => console.log("Error: ", error);
+    const onError = async (error: Error) => {
+      console.log("Error: ", error);
+      // A blocked microphone is the most common reason a lesson fails to start
+      if ((await getMicPermission()) === "denied") setMicBlocked(true);
+      // Don't leave the button pulsing on "Connecting..." forever
+      setCallStatus((current) =>
+        current === CallStatus.CONNECTING ? CallStatus.INACTIVE : current
+      );
+    };
 
     vapi.on("call-start", onCallStart);
     vapi.on("call-end", onCallEnd);
@@ -100,6 +111,12 @@ const CourseComponent = ({
   };
 
   const handleCall = async () => {
+    // Explain a blocked microphone up front instead of failing silently
+    if ((await getMicPermission()) === "denied") {
+      setMicBlocked(true);
+      return;
+    }
+    setMicBlocked(false);
     setCallStatus(CallStatus.CONNECTING);
     // The saved Vapi assistant for the lesson language holds the prompt,
     // transcriber, model and voice model; here we only fill in the lesson.
@@ -117,10 +134,25 @@ const CourseComponent = ({
     vapi.stop();
   };
 
+  // One plain sentence telling the student what is happening right now
+  const statusText = micBlocked
+    ? t("statusMicBlocked")
+    : callStatus === CallStatus.CONNECTING
+    ? t("statusConnecting")
+    : callStatus === CallStatus.ACTIVE
+    ? isMuted
+      ? t("statusMuted")
+      : isSpeaking
+      ? t("statusTutorSpeaking")
+      : t("statusYourTurn")
+    : callStatus === CallStatus.ENDED
+    ? t("statusEnded")
+    : t("statusReady");
+
   return (
     <section className="flex flex-col h-[70vh]">
       <section className="flex gap-8 max-sm:flex-col">
-        <div className="course-section">
+        <div className="course-section" data-tour="lesson-tutor">
           <div
             className="course-avatar"
             style={{ backgroundColor: getSubjectColor(subject) }}
@@ -161,6 +193,18 @@ const CourseComponent = ({
             </div>
           </div>
           <p className="font-bold text-2xl">{name}</p>
+          <p
+            className={cn(
+              "lesson-status",
+              callStatus === CallStatus.ACTIVE && !isMuted && !isSpeaking && "lesson-status-turn",
+              micBlocked && "lesson-status-alert"
+            )}
+            role="status"
+            aria-live="polite"
+            data-tour="lesson-status"
+          >
+            {statusText}
+          </p>
         </div>
         <div className="user-section">
           <div className="user-avatar">
@@ -175,6 +219,7 @@ const CourseComponent = ({
           </div>
           <button
             className="btn-mic"
+            data-tour="lesson-mute"
             onClick={toggleMicrophone}
             disabled={callStatus !== CallStatus.ACTIVE}
             // The text label is hidden on mobile, so the button needs its own accessible name
@@ -192,6 +237,7 @@ const CourseComponent = ({
             </p>
           </button>
           <button
+            data-tour="lesson-start"
             className={cn(
               "rounded-lg py-2 cursor-pointer transition-color w-full text-white",
               callStatus === CallStatus.ACTIVE ? "bg-red-700" : "bg-primary",
@@ -209,7 +255,13 @@ const CourseComponent = ({
           </button>
         </div>
       </section>
-      <section className="transcript">
+      {micBlocked && (
+        <div className="help-box mt-4" role="alert">
+          <p className="font-bold">{t("micBlockedTitle")}</p>
+          <p>{t("micBlockedHelp")}</p>
+        </div>
+      )}
+      <section className="transcript" data-tour="lesson-transcript">
         <div className="transcript-message no-scrollbar">
           {messages.map((message, index) => {
             if (message.role === "assistant") {

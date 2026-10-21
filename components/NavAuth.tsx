@@ -22,7 +22,9 @@ const NavAuth = () => {
         </SignInButton>
       </SignedOut>
       <SignedIn>
-        <UserButton />
+        <span className="flex" data-tour="nav-account">
+          <UserButton />
+        </span>
       </SignedIn>
     </>
   );

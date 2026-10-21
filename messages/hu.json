@@ -17,7 +17,9 @@
   },
   "Home": {
     "popularCourses": "Népszerű kurzusok",
-    "recentCourses": "Legutóbbi órák"
+    "recentCourses": "Legutóbbi órák",
+    "recentEmpty": "Még nem volt órád. Válassz egy kurzust fent, és nyomd meg az Óra megnyitása gombot.",
+    "browseCourses": "Kurzusok böngészése"
   },
   "CTA": {
     "badge": "Vágj bele még ma",
@@ -36,13 +38,17 @@
     "lessons": "Órák",
     "subject": "Tantárgy",
     "duration": "Időtartam",
-    "min": "perc"
+    "min": "perc",
+    "empty": "Még nincs itt semmi."
   },
   "Courses": {
     "title": "Kurzuskönyvtár",
     "searchPlaceholder": "Kurzusok keresése...",
     "subjectPlaceholder": "Tantárgy",
-    "allSubjects": "Minden tantárgy"
+    "allSubjects": "Minden tantárgy",
+    "emptySearch": "Nincs találat. Próbálj másik szót vagy tantárgyat.",
+    "emptyAll": "Még nincs kurzus. Készítsd el az elsőt!",
+    "createFirst": "Új kurzus készítése"
   },
   "Subjects": {
     "maths": "Matematika",
@@ -80,7 +86,12 @@
     "languageEn": "Angol",
     "duration": "Az óra becsült hossza percben",
     "durationRequired": "Az időtartam megadása kötelező",
-    "submit": "Kurzus létrehozása"
+    "submit": "Kurzus létrehozása",
+    "nameHint": "Rövid név, amiről felismered. Pl. Törtek gyakorlása",
+    "topicHint": "Írd le 1–2 mondatban, miről beszélgessen veled a tanár.",
+    "voiceHint": "Férfi vagy női hangon beszéljen a tanár.",
+    "languageHint": "Ezen a nyelven fog beszélni a tanár.",
+    "durationHint": "Kezdésnek 10–15 perc is elég."
   },
   "CourseSession": {
     "min": "{count} perc",
@@ -88,18 +99,219 @@
     "micOff": "Mikrofon kikapcsolása",
     "startSession": "Óra indítása",
     "endSession": "Óra befejezése",
-    "connecting": "Kapcsolódás..."
+    "connecting": "Kapcsolódás...",
+    "statusReady": "Ha készen állsz, kattints az Óra indítása gombra.",
+    "statusConnecting": "Kapcsolódás a tanárhoz…",
+    "statusTutorSpeaking": "A tanár beszél",
+    "statusYourTurn": "Te jössz, beszélj nyugodtan",
+    "statusMuted": "A mikrofonod ki van kapcsolva",
+    "statusEnded": "Az óra véget ért. Bármikor újrakezdheted.",
+    "statusMicBlocked": "A mikrofon le van tiltva",
+    "micBlockedTitle": "Nem érem el a mikrofonodat",
+    "micBlockedHelp": "Kattints a lakat ikonra a címsor bal oldalán, állítsd a Mikrofont Engedélyezésre, majd töltsd újra az oldalt."
   },
   "Profile": {
     "lessonsCompleted": "Elvégzett órák",
     "coursesCreated": "Létrehozott kurzusok",
     "bookmarkedCourses": "Mentett kurzusok",
     "recentSessions": "Legutóbbi órák",
-    "myCourses": "Saját kurzusaim"
+    "myCourses": "Saját kurzusaim",
+    "bookmarksEmpty": "Még nincs mentett kurzusod. A kurzuskártyán a könyvjelző ikonnal menthetsz.",
+    "recentEmpty": "Még nem volt órád.",
+    "myCoursesEmpty": "Még nem készítettél kurzust.",
+    "createCourse": "Új kurzus készítése",
+    "browseCourses": "Kurzusok böngészése"
   },
   "NotFound": {
     "title": "Az oldal nem található",
     "description": "A keresett oldal nem létezik, vagy máshová került.",
     "backHome": "Vissza a főoldalra"
+  },
+  "Tour": {
+    "next": "Tovább",
+    "back": "Vissza",
+    "done": "Kész",
+    "close": "Bemutató bezárása",
+    "readAloud": "Felolvasás",
+    "helpStart": "Tippek ehhez az oldalhoz",
+    "home": {
+      "intro": {
+        "title": "Üdv a kezdőlapon!",
+        "text": "Megmutatom, mit hol találsz. Ez 5 rövid lépés, és bármikor bezárhatod."
+      },
+      "popular": {
+        "title": "Kurzusok",
+        "text": "Egy kurzus egy beszélgetős óra az AI-tanárral. Ha kipróbálnál egyet, kattints az Óra megnyitása gombra."
+      },
+      "create": {
+        "title": "Saját kurzus",
+        "text": "Itt saját kurzust készíthetsz. Te döntöd el, miről szóljon az óra."
+      },
+      "recent": {
+        "title": "Legutóbbi órák",
+        "text": "Itt látod az órákat, amiket már elkezdtél. Innen gyorsan folytathatod őket."
+      },
+      "help": {
+        "title": "Segítség bármikor",
+        "text": "Ha elakadsz, nyomd meg a kérdőjelet. Az oldal bemutatója újra elindul."
+      }
+    },
+    "newCourse": {
+      "intro": {
+        "title": "Új kurzus készítése",
+        "text": "Néhány mezőt kell kitöltened. Mindegyik alatt találsz egy rövid tippet."
+      },
+      "topic": {
+        "title": "Miről szóljon?",
+        "text": "Írd le 1–2 mondatban, miről beszélgessen veled a tanár. Például: törtek összeadása."
+      },
+      "voice": {
+        "title": "A tanár hangja",
+        "text": "Válaszd ki, hogy férfi vagy női hangon beszéljen a tanár."
+      },
+      "language": {
+        "title": "Az óra nyelve",
+        "text": "Ezen a nyelven fog beszélni a tanár. Angolul is gyakorolhatsz."
+      },
+      "submit": {
+        "title": "Kész is!",
+        "text": "Ha mindent kitöltöttél, nyomd meg ezt a gombot. Utána rögtön indíthatod az órát."
+      }
+    },
+    "lesson": {
+      "tutor": {
+        "title": "Ez a tanárod",
+        "text": "Amikor a tanár beszél, itt hanghullámokat látsz."
+      },
+      "start": {
+        "title": "Így kezded az órát",
+        "text": "Kattints erre a gombra. A böngésző megkérdezi, használhatja-e a mikrofont. Válaszd az Engedélyezés gombot."
+      },
+      "status": {
+        "title": "Ki beszél most?",
+        "text": "Ez a felirat mindig megmutatja, hogy a tanár beszél, vagy te jössz."
+      },
+      "mute": {
+        "title": "Szünet",
+        "text": "Ha szünetet tartanál, itt kikapcsolhatod a mikrofonodat. Ilyenkor a tanár nem hall."
+      },
+      "transcript": {
+        "title": "Minden le van írva",
+        "text": "Itt olvashatod, amit mondtatok, így nem kell semmit megjegyezned. Ha végeztél, nyomd meg az Óra befejezése gombot."
+      }
+    },
+    "courses": {
+      "search": {
+        "title": "Keresés",
+        "text": "Írj be egy témát vagy egy kurzusnevet, és a lista magától szűkül."
+      },
+      "filter": {
+        "title": "Tantárgy szerint",
+        "text": "Itt beállíthatod, hogy csak egy tantárgy kurzusait lásd."
+      },
+      "language": {
+        "title": "Az óra nyelve",
+        "text": "Ez a jelölés mutatja, milyen nyelven beszél a tanár: HU magyarul, EN angolul."
+      },
+      "bookmark": {
+        "title": "Mentés",
+        "text": "A könyvjelzővel elmentheted a kurzust. A mentett kurzusokat a Profil oldalon találod."
+      },
+      "launch": {
+        "title": "Indulhat az óra",
+        "text": "Ezzel a gombbal nyitod meg az órát."
+      }
+    },
+    "profile": {
+      "stats": {
+        "title": "Az eredményeid",
+        "text": "Itt látod, hány órát végeztél el, és hány kurzust készítettél."
+      },
+      "bookmarks": {
+        "title": "Mentett kurzusok",
+        "text": "Kattints erre a sorra, és lenyílik a mentett kurzusaid listája."
+      },
+      "recent": {
+        "title": "Legutóbbi órák",
+        "text": "Itt találod az órákat, amiket már elkezdtél."
+      },
+      "courses": {
+        "title": "Saját kurzusaid",
+        "text": "Az általad készített kurzusok. Innen bármelyiket újra elindíthatod."
+      },
+      "account": {
+        "title": "A fiókod",
+        "text": "A képedre kattintva módosíthatod a fiókod adatait, vagy kijelentkezhetsz."
+      }
+    },
+    "subscription": {
+      "intro": {
+        "title": "Csomagok",
+        "text": "Ezen az oldalon az eNvolve csomagjait látod."
+      },
+      "plans": {
+        "title": "Csomag választása",
+        "text": "Minden kártyán látod, mit tartalmaz a csomag és mennyibe kerül. Mielőtt fizetős csomagot választasz, beszéld meg a szüleiddel vagy a tanároddal."
+      }
+    },
+    "signIn": {
+      "box": {
+        "title": "Bejelentkezés",
+        "text": "Válassz egy bejelentkezési módot ebben a dobozban. Ha még nincs fiókod, a doboz alján tudsz regisztrálni."
+      },
+      "language": {
+        "title": "Nyelv",
+        "text": "Itt válthatsz magyar és angol nyelv között."
+      }
+    },
+    "notFound": {
+      "home": {
+        "title": "Eltévedtél?",
+        "text": "Ez az oldal nem létezik. Ezzel a gombbal visszajutsz a főoldalra, vagy válassz a fenti menüből."
+      }
+    }
+  },
+  "Welcome": {
+    "metaTitle": "Üdvözlünk",
+    "progress": "{current} / {total} lépés",
+    "skip": "Kihagyás",
+    "back": "Vissza",
+    "next": "Tovább",
+    "readAloud": "Felolvasás",
+    "intro": {
+      "title": "Szia! Ez az eNvolve",
+      "text": "Itt egy AI-tanárral tanulhatsz, beszélgetve. Te választod ki a témát, ő elmagyarázza, és kérdez is tőled.",
+      "point1": "Annyiszor kérdezhetsz, ahányszor csak szeretnél.",
+      "point2": "Nincs osztályzat, és nem kell sietned.",
+      "point3": "Ez a bemutató körülbelül 2 perc."
+    },
+    "lesson": {
+      "title": "Így zajlik egy óra",
+      "step1": "Válassz egy kurzust, vagy készíts egy újat.",
+      "step2": "Nyomd meg az Óra indítása gombot.",
+      "step3": "Beszélgess a tanárral. Ha végeztél, nyomd meg az Óra befejezése gombot.",
+      "note": "Óra közben egy felirat mindig mutatja, hogy a tanár beszél, vagy te jössz."
+    },
+    "mic": {
+      "title": "Próbáljuk ki a mikrofont",
+      "text": "Az órán hangosan beszélgetsz a tanárral, ehhez kell a mikrofon. Ha megnyomod a gombot, a böngésző engedélyt kér. Válaszd az Engedélyezés gombot.",
+      "start": "Mikrofon kipróbálása",
+      "asking": "Nézd meg a böngésző felső részét, és válaszd az Engedélyezés gombot.",
+      "listening": "Mondj valamit, például: Szia!",
+      "heard": "Hallak! A mikrofon működik.",
+      "meterLabel": "Hangerő",
+      "stop": "Próba befejezése",
+      "deniedTitle": "A mikrofon le van tiltva",
+      "deniedHelp": "Kattints a lakat ikonra a címsor bal oldalán, keresd meg a Mikrofon sort, és állítsd Engedélyezésre. Utána töltsd újra az oldalt.",
+      "unavailable": "Nem találtunk mikrofont. Csatlakoztass egyet, vagy próbáld ki egy másik böngészőben.",
+      "retry": "Újrapróbálom",
+      "later": "Ezt később is kipróbálhatod, az első órád előtt."
+    },
+    "ready": {
+      "title": "Készen állsz!",
+      "text": "Kezdheted egy saját kurzussal, vagy választhatsz a meglévők közül. Ha elakadsz, a menüsorban lévő kérdőjel gomb mindig segít.",
+      "create": "Első kurzusom elkészítése",
+      "browse": "Kurzusok böngészése"
+    }
   }
 }

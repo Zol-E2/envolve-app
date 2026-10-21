@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -90,6 +91,7 @@ const CourseForm = () => {
                   className="input"
                 />
               </FormControl>
+              <FormDescription>{t("nameHint")}</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -130,7 +132,7 @@ const CourseForm = () => {
           control={form.control}
           name="topic"
           render={({ field }) => (
-            <FormItem>
+            <FormItem data-tour="course-topic">
               <FormLabel>{t("topic")}</FormLabel>
               <FormControl>
                 <Textarea
@@ -139,6 +141,7 @@ const CourseForm = () => {
                   className="input"
                 />
               </FormControl>
+              <FormDescription>{t("topicHint")}</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -147,7 +150,7 @@ const CourseForm = () => {
           control={form.control}
           name="voice"
           render={({ field }) => (
-            <FormItem>
+            <FormItem data-tour="course-voice">
               <FormLabel>{t("voice")}</FormLabel>
               <FormControl>
                 <Select
@@ -164,6 +167,7 @@ const CourseForm = () => {
                   </SelectContent>
                 </Select>
               </FormControl>
+              <FormDescription>{t("voiceHint")}</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -172,7 +176,7 @@ const CourseForm = () => {
           control={form.control}
           name="language"
           render={({ field }) => (
-            <FormItem>
+            <FormItem data-tour="course-language">
               <FormLabel>{t("language")}</FormLabel>
               <FormControl>
                 <Select
@@ -189,6 +193,7 @@ const CourseForm = () => {
                   </SelectContent>
                 </Select>
               </FormControl>
+              <FormDescription>{t("languageHint")}</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -207,11 +212,18 @@ const CourseForm = () => {
                   className="input"
                 />
               </FormControl>
+              <FormDescription>{t("durationHint")}</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full cursor-pointer">
+        <Button
+          type="submit"
+          className="w-full cursor-pointer"
+          data-tour="course-submit"
+          // Prevents a double click from creating the same course twice
+          disabled={form.formState.isSubmitting}
+        >
           {t("submit")}
         </Button>
       </form>

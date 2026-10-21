@@ -6,7 +6,7 @@ const CTA = () => {
   const t = useTranslations("CTA");
 
   return (
-    <section className="cta-section">
+    <section className="cta-section" data-tour="home-create">
       <div className="cta-badge">{t("badge")}</div>
       <h2 className="text-3xl font-bold">{t("title")}</h2>
       <p>{t("description")}</p>

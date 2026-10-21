@@ -8,6 +8,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import TourProvider from "@/components/onboarding/TourProvider";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -62,8 +63,11 @@ export default async function LocaleLayout({
             signInUrl={`/${locale}/sign-in`}
             afterSignOutUrl={`/${locale}`}
           >
-            <Navbar />
-            {children}
+            {/* Page tours need the signed-in user, so they live inside Clerk */}
+            <TourProvider>
+              <Navbar />
+              {children}
+            </TourProvider>
           </ClerkProvider>
         </NextIntlClientProvider>
       </body>

@@ -58,6 +58,7 @@ const CourseCard = ({
           {language && (
             <div
               className="subject-badge"
+              data-tour="card-language"
               title={t(language === "hu" ? "lessonHu" : "lessonEn")}
               aria-label={t(language === "hu" ? "lessonHu" : "lessonEn")}
             >
@@ -67,6 +68,7 @@ const CourseCard = ({
         </div>
         <button
           className="course-bookmark"
+          data-tour="card-bookmark"
           onClick={handleBookmark}
           title={t("bookmark")}
         >
@@ -93,7 +95,7 @@ const CourseCard = ({
         <p className="text-sm">{t("minutes", { count: duration })}</p>
       </div>
 
-      <Link href={`/courses/${id}`} className="w-full">
+      <Link href={`/courses/${id}`} className="w-full" data-tour="card-launch">
         <button className="btn-primary w-full justify-center">
           {t("launchLesson")}
         </button>

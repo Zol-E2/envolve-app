@@ -28,6 +28,7 @@ const LanguageSwitcher = () => {
 
   return (
     <select
+      data-tour="nav-language"
       aria-label={t("label")}
       value={locale}
       onChange={onSelectChange}

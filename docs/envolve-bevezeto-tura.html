@@ -1,0 +1,654 @@
+<title>eNvolve Bevezető Túra</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,540;9..144,620;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF7F1; --surface:#FFFFFF; --surface-2:#F3ECE1;
+    --border:#E7DECE; --border-strong:#D8CBB2;
+    --text:#221C2E; --text-muted:#6B6278; --text-faint:#9A90A3;
+    --accent:#DD5B33; --accent-2:#5B4A96; --accent-2-ink:#FBF9FF;
+    --good:#1F8F63; --good-bg:#DEF3E7;
+    --warn:#A86E12; --warn-bg:#F7E9CF;
+    --bad:#B0432F; --bad-bg:#F6E1DA;
+    --info:#2F5578; --info-bg:#E1EAF2;
+    --code-bg:#2A2236; --code-fg:#EDE6F7; --code-dim:#9C90B2; --code-str:#F3A87D; --code-key:#A9D8C0; --code-del:#F19A8A; --code-add:#8FD3B4;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#171320; --surface:#1E1929; --surface-2:#251F33;
+      --border:#362E45; --border-strong:#453A57;
+      --text:#F3EEFA; --text-muted:#B3A8C4; --text-faint:#847997;
+      --accent:#F17B4E; --accent-2:#9C8CE0; --accent-2-ink:#1B1430;
+      --good:#5FCB9B; --good-bg:#173226;
+      --warn:#E3AC4E; --warn-bg:#332711;
+      --bad:#E38574; --bad-bg:#392019;
+      --info:#9DC2E4; --info-bg:#1B2A38;
+      --code-bg:#0F0C16; --code-fg:#EDE6F7; --code-dim:#8A7FA0; --code-str:#F3A87D; --code-key:#8FD3B4; --code-del:#F19A8A; --code-add:#8FD3B4;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#171320; --surface:#1E1929; --surface-2:#251F33;
+    --border:#362E45; --border-strong:#453A57;
+    --text:#F3EEFA; --text-muted:#B3A8C4; --text-faint:#847997;
+    --accent:#F17B4E; --accent-2:#9C8CE0; --accent-2-ink:#1B1430;
+    --good:#5FCB9B; --good-bg:#173226;
+    --warn:#E3AC4E; --warn-bg:#332711;
+    --bad:#E38574; --bad-bg:#392019;
+    --info:#9DC2E4; --info-bg:#1B2A38;
+    --code-bg:#0F0C16; --code-fg:#EDE6F7; --code-dim:#8A7FA0; --code-str:#F3A87D; --code-key:#8FD3B4; --code-del:#F19A8A; --code-add:#8FD3B4;
+    color-scheme: dark;
+  }
+
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif; -webkit-font-smoothing:antialiased; padding-inline:20px; padding-block:40px 80px;}
+  h1,h2,h3{font-family:'Fraunces', Georgia, 'Times New Roman', serif; font-weight:620; text-wrap:balance; margin:0; letter-spacing:-0.01em;}
+  .wrap{max-width:900px; margin-inline:auto;}
+  p{margin:0; line-height:1.62;}
+  a{color:var(--accent-2);}
+  a:focus-visible{outline:2px solid var(--accent-2); outline-offset:2px;}
+  code{font-family:'IBM Plex Mono', monospace; font-size:0.85em; background:var(--surface-2); border:1px solid var(--border); border-radius:5px; padding:1px 5px; overflow-wrap:anywhere;}
+  .eyebrow{font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.09em; text-transform:uppercase; color:var(--text-faint);}
+
+  .hero{padding-block:8px 32px; border-bottom:1px solid var(--border); margin-bottom:36px;}
+  .hero-kicker{display:flex; align-items:center; gap:10px; margin-bottom:18px;}
+  .logo-mark{width:34px; height:34px; border-radius:9px; background:linear-gradient(155deg, var(--accent), var(--accent-2)); display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Fraunces', serif; font-weight:700; font-size:1.05rem; flex-shrink:0;}
+  h1.title{font-size:clamp(1.9rem, 5vw, 2.6rem); line-height:1.1;}
+  .hero .lede{margin-top:14px; font-size:1.08rem; color:var(--text-muted); max-width:66ch;}
+  .meta-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:20px;}
+  .chip{display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:99px; border:1px solid var(--border-strong); background:var(--surface); font-family:'IBM Plex Mono', monospace; font-size:0.76rem; color:var(--text-muted);}
+
+  .verdict{margin-top:24px; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:18px 20px; display:flex; flex-direction:column; gap:14px;}
+  .verdict-head{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .verdict-badge{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; font-weight:600; padding:4px 10px; border-radius:99px; background:var(--warn-bg); color:var(--warn);}
+  .verdict p{font-size:0.97rem;}
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:10px;}
+  @media (max-width:680px){.stats{grid-template-columns:repeat(2,1fr);}}
+  .stat{background:var(--surface-2); border-radius:12px; padding:12px 14px;}
+  .stat .v{font-family:'Fraunces',serif; font-weight:700; font-size:1.6rem; line-height:1; font-variant-numeric:tabular-nums;}
+  .stat .v.good{color:var(--good);} .stat .v.bad{color:var(--bad);}
+  .stat .k{font-size:0.78rem; color:var(--text-muted); margin-top:6px; line-height:1.4;}
+
+  .toc{display:flex; flex-wrap:wrap; gap:8px 18px; padding:16px 20px; background:var(--surface-2); border:1px solid var(--border); border-radius:14px; margin-bottom:56px;}
+  .toc a{font-family:'IBM Plex Mono', monospace; font-size:0.8rem; color:var(--text-muted); text-decoration:none;}
+  .toc a:hover{color:var(--accent-2);}
+  .toc .n{color:var(--text-faint);}
+
+  section.block{margin-bottom:60px; scroll-margin-top:20px;}
+  .sec-head{display:flex; gap:16px; align-items:baseline; margin-bottom:18px;}
+  .sec-num{font-family:'IBM Plex Mono', monospace; font-size:0.95rem; color:var(--accent); flex-shrink:0;}
+  h2.sec-title{font-size:clamp(1.35rem, 3vw, 1.6rem);}
+  .sec-body{padding-left:calc(0.95rem + 16px); display:flex; flex-direction:column; gap:16px;}
+  @media (max-width:560px){.sec-body{padding-left:0;}}
+  .sec-lede{color:var(--text-muted); font-size:0.95rem;}
+
+  .good-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  @media (max-width:640px){.good-grid{grid-template-columns:1fr;}}
+  .good-item{background:var(--good-bg); border-radius:12px; padding:12px 14px; font-size:0.86rem; line-height:1.5; display:grid; grid-template-columns:18px 1fr; gap:8px;}
+  .good-item .ck{color:var(--good); font-weight:700; font-family:'IBM Plex Mono',monospace;}
+
+  /* finding cards */
+  .finding{background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--border-strong); border-radius:0 14px 14px 0; padding:16px 18px; display:flex; flex-direction:column; gap:10px; scroll-margin-top:20px;}
+  .finding.high{border-left-color:var(--bad);}
+  .finding.med{border-left-color:var(--warn);}
+  .finding.low{border-left-color:var(--info);}
+  .f-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;}
+  .f-title{display:flex; gap:10px; align-items:baseline;}
+  .f-id{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--text-faint); flex-shrink:0;}
+  .f-title h3{font-family:'IBM Plex Sans',sans-serif; font-weight:700; font-size:1rem; line-height:1.35;}
+  .sev{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; font-weight:600; padding:3px 9px; border-radius:99px; white-space:nowrap;}
+  .sev.high{background:var(--bad-bg); color:var(--bad);}
+  .sev.med{background:var(--warn-bg); color:var(--warn);}
+  .sev.low{background:var(--info-bg); color:var(--info);}
+  .f-loc{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--accent-2); overflow-wrap:anywhere;}
+  .f-row{display:grid; grid-template-columns:92px 1fr; gap:10px; font-size:0.87rem; line-height:1.55;}
+  .f-row .lbl{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--text-faint); padding-top:3px;}
+  @media (max-width:560px){.f-row{grid-template-columns:1fr; gap:2px;}}
+  pre{margin:0; background:var(--code-bg); color:var(--code-fg); border-radius:10px; padding:12px 14px; overflow-x:auto; font-family:'IBM Plex Mono',monospace; font-size:0.76rem; line-height:1.6;}
+  pre .c{color:var(--code-dim);} pre .s{color:var(--code-str);} pre .k{color:var(--code-key);}
+  pre .del{color:var(--code-del);} pre .add{color:var(--code-add);}
+  .demo{display:grid; grid-template-columns:1fr auto; gap:4px 14px; font-family:'IBM Plex Mono',monospace; font-size:0.76rem; background:var(--surface-2); border-radius:10px; padding:10px 14px;}
+  .demo .ok{color:var(--good);} .demo .no{color:var(--bad); font-weight:600;}
+
+  .tbl-wrap{overflow-x:auto; border:1px solid var(--border); border-radius:12px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:0.85rem; min-width:600px;}
+  th,td{text-align:left; padding:10px 13px; border-bottom:1px solid var(--border); vertical-align:top; line-height:1.5;}
+  th{font-family:'IBM Plex Mono',monospace; font-weight:500; font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-faint); background:var(--surface-2);}
+  tr:last-child td{border-bottom:0;}
+  td.mono{font-family:'IBM Plex Mono',monospace; font-size:0.76rem; color:var(--accent-2);}
+  td .new{color:var(--good); font-weight:600;}
+
+  .plan{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media (max-width:680px){.plan{grid-template-columns:1fr;}}
+  .plan-col{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px;}
+  .plan-col h3{font-family:'IBM Plex Sans',sans-serif; font-size:0.95rem; font-weight:700; margin-bottom:4px;}
+  .plan-col .eff{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--accent); margin-bottom:12px;}
+  .plan-col ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; font-size:0.86rem; line-height:1.45;}
+  .plan-col li{display:grid; grid-template-columns:18px 1fr; gap:8px;}
+  .plan-col .box{width:15px; height:15px; border:1.6px solid var(--border-strong); border-radius:4px; margin-top:2px;}
+  .plan-col .ref{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--text-faint);}
+
+  .callout{background:var(--surface-2); border:1px solid var(--border); border-left:3px solid var(--accent-2); border-radius:0 12px 12px 0; padding:14px 17px; font-size:0.88rem; line-height:1.6;}
+
+  footer{margin-top:64px; padding-top:22px; border-top:1px solid var(--border);}
+  .src-list{display:flex; flex-direction:column; gap:6px; margin-top:12px;}
+  .src-list a{font-size:0.85rem; text-decoration:none;}
+  .src-list a:hover{text-decoration:underline;}
+  .fineprint{margin-top:20px; font-size:0.78rem; color:var(--text-faint); line-height:1.55;}
+
+  /* --- additions for the Vapi research page --- */
+  :root{ --hu:#C2452A; --hu-bg:#FBE7DD; --en:#2F5578; --en-bg:#E1EAF2; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --hu:#F3A87D; --hu-bg:#3A2418; --en:#9DC2E4; --en-bg:#1B2A38; } }
+  :root[data-theme="dark"]{ --hu:#F3A87D; --hu-bg:#3A2418; --en:#9DC2E4; --en-bg:#1B2A38; }
+
+  .verdict-badge.good{background:var(--good-bg); color:var(--good);}
+  .stat .v{font-size:1.45rem;}
+  .label{font-weight:600; font-size:0.86rem; margin-bottom:8px;}
+
+  .cards{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media (max-width:680px){.cards{grid-template-columns:1fr;}}
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:15px 17px; display:flex; flex-direction:column; gap:8px;}
+  .card.hi{border-color:var(--accent-2);}
+  .card-top{display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;}
+  .date{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--text-faint);}
+  .pill{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; font-weight:600; padding:3px 9px; border-radius:99px; white-space:nowrap;}
+  .pill.good{background:var(--good-bg); color:var(--good);}
+  .pill.warn{background:var(--warn-bg); color:var(--warn);}
+  .pill.info{background:var(--info-bg); color:var(--info);}
+  .pill.bad{background:var(--bad-bg); color:var(--bad);}
+  .card h3{font-family:'IBM Plex Sans',sans-serif; font-size:0.97rem; font-weight:700; line-height:1.35;}
+  .card p{font-size:0.85rem; color:var(--text-muted); line-height:1.55;}
+  .fit{display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; padding-top:4px;}
+  .fit span{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; padding:3px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted);}
+  .fit .ok{background:var(--good-bg); color:var(--good);}
+  .fit .no{background:var(--bad-bg); color:var(--bad);}
+  .fit .maybe{background:var(--warn-bg); color:var(--warn);}
+
+  .opts{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+  @media (max-width:760px){.opts{grid-template-columns:1fr;}}
+  .opt{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px; display:flex; flex-direction:column; gap:9px;}
+  .opt.pick{border:2px solid var(--accent-2);}
+  .opt-top{display:flex; justify-content:space-between; align-items:center; gap:8px;}
+  .opt-letter{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--text-faint);}
+  .pick-badge{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; background:var(--accent-2); color:var(--accent-2-ink); padding:3px 8px; border-radius:99px;}
+  .opt h3{font-family:'IBM Plex Sans',sans-serif; font-size:0.97rem; font-weight:700;}
+  .opt-sub{font-size:0.8rem; color:var(--text-muted); line-height:1.45;}
+  .opt ul{margin:0; padding:0; list-style:none; font-size:0.82rem; line-height:1.5; display:flex; flex-direction:column; gap:5px;}
+  .opt li{display:grid; grid-template-columns:12px 1fr; gap:7px;}
+  .opt li .m{font-family:'IBM Plex Mono',monospace; font-weight:600;}
+  .opt li.p .m{color:var(--good);} .opt li.c .m{color:var(--bad);}
+
+  .tag{display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:0.68rem; padding:2px 7px; border-radius:5px; margin-right:4px; letter-spacing:0;}
+  .tag.hu{background:var(--hu-bg); color:var(--hu);} .tag.en{background:var(--en-bg); color:var(--en);}
+
+  .code-pair{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media (max-width:760px){.code-pair{grid-template-columns:1fr;}}
+  .code-pair > div{min-width:0;}
+
+  .steps{position:relative; padding-left:34px; display:flex; flex-direction:column; gap:10px;}
+  .steps::before{content:""; position:absolute; left:11px; top:8px; bottom:8px; width:2px; background:var(--border-strong);}
+  .step{position:relative; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px 15px;}
+  .step .dot{position:absolute; left:-34px; top:11px; width:24px; height:24px; border-radius:99px; background:var(--accent-2); color:var(--accent-2-ink); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:0.72rem; font-weight:600; border:3px solid var(--bg);}
+  .step-top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:baseline;}
+  .step .t{font-weight:700; font-size:0.92rem;}
+  .step .e{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--accent); white-space:nowrap;}
+  .step .d{font-size:0.84rem; color:var(--text-muted); margin-top:4px; line-height:1.5;}
+
+  .dec{display:flex; flex-direction:column; gap:10px;}
+  .dec-item{display:grid; grid-template-columns:auto 1fr; gap:14px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px;}
+  .dec-item .q{font-family:'Fraunces',serif; font-weight:700; color:var(--accent); font-size:1.2rem; line-height:1;}
+  .dec-item .t{font-weight:700; font-size:0.9rem; margin-bottom:4px;}
+  .dec-item .d{font-size:0.84rem; color:var(--text-muted); line-height:1.5;}
+
+  /* --- additions for the upgrade page --- */
+  .tl{display:flex; flex-direction:column; gap:8px;}
+  .tl-row{display:grid; grid-template-columns:120px 1fr auto; gap:12px; align-items:center; background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--border-strong); border-radius:0 12px 12px 0; padding:11px 14px;}
+  .tl-row.bad{border-left-color:var(--bad);} .tl-row.warn{border-left-color:var(--warn);} .tl-row.good{border-left-color:var(--good);}
+  .tl-v{font-family:'IBM Plex Mono',monospace; font-size:0.82rem; font-weight:600;}
+  .tl-d{font-size:0.85rem; color:var(--text-muted); line-height:1.45;}
+  @media (max-width:600px){.tl-row{grid-template-columns:1fr; gap:4px;} .tl-row .pill{justify-self:start;}}
+  .warn-txt{color:var(--warn); font-weight:600;}
+  .groups{display:flex; flex-direction:column; gap:12px;}
+  .group{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px; display:flex; flex-direction:column; gap:10px;}
+  .group.g1{border-color:var(--good);}
+  .group-head{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+  .group h3{font-family:'IBM Plex Sans',sans-serif; font-size:0.98rem; font-weight:700;}
+  .group > p{font-size:0.86rem; color:var(--text-muted);}
+  .pkgs{margin:0; padding-left:18px; font-size:0.85rem; line-height:1.6; display:flex; flex-direction:column; gap:4px;}
+  .pkgs em{color:var(--text-muted); font-style:normal;}
+  .sec-body > pre{margin-top:4px;}
+
+  /* --- additions for the onboarding page --- */
+  body{padding-inline:0; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px));}
+  .note{font-size:0.8rem; color:var(--text-faint); line-height:1.5;}
+  tr.pick-row td{background:var(--good-bg);}
+  .journey{display:grid; grid-template-columns:repeat(5,1fr); gap:10px; counter-reset:j;}
+  @media (max-width:860px){.journey{grid-template-columns:1fr 1fr;}}
+  @media (max-width:520px){.journey{grid-template-columns:1fr;}}
+  .j-step{counter-increment:j; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:14px 15px; display:flex; flex-direction:column; gap:6px; min-width:0;}
+  .j-step.hot{border:2px solid var(--bad);}
+  .j-step::before{content:counter(j); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; font-weight:600; width:22px; height:22px; border-radius:99px; background:var(--surface-2); color:var(--text-muted); display:flex; align-items:center; justify-content:center;}
+  .j-step.hot::before{background:var(--bad-bg); color:var(--bad);}
+  .j-where{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--accent);}
+  .j-step h3{font-family:'IBM Plex Sans',sans-serif; font-size:0.92rem; font-weight:700; line-height:1.3;}
+  .j-step p{font-size:0.82rem; color:var(--text-muted); line-height:1.5;}
+
+  .layers{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media (max-width:680px){.layers{grid-template-columns:1fr;}}
+  .layer{background:var(--surface); border:1px solid var(--border); border-top:4px solid var(--border-strong); border-radius:4px 4px 14px 14px; padding:15px 17px; display:flex; flex-direction:column; gap:8px; min-width:0;}
+  .layer.l1{border-top-color:var(--accent);} .layer.l2{border-top-color:var(--accent-2);} .layer.l3{border-top-color:var(--good);} .layer.l4{border-top-color:var(--info);}
+  .layer-top{display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;}
+  .layer-when{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--text-faint);}
+  .layer h3{font-family:'IBM Plex Sans',sans-serif; font-size:0.98rem; font-weight:700;}
+  .layer p{font-size:0.85rem; color:var(--text-muted); line-height:1.55;}
+
+  .mock{background:var(--surface-2); border:1px solid var(--border-strong); border-radius:16px; overflow:hidden;}
+  .mock-bar{display:flex; align-items:center; gap:14px; padding:10px 14px; background:var(--surface); border-bottom:1px solid var(--border); font-size:0.8rem; opacity:0.45;}
+  .mock-logo{font-family:'Fraunces',serif; font-weight:700;}
+  .mock-nav{color:var(--text-muted); flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .mock-help{width:24px; height:24px; border-radius:99px; border:1.5px solid var(--accent-2); color:var(--accent-2); display:flex; align-items:center; justify-content:center; font-weight:700;}
+  .mock-body{display:grid; grid-template-columns:1.3fr 1fr; gap:14px; padding:16px; align-items:start;}
+  @media (max-width:600px){.mock-body{grid-template-columns:1fr;}}
+  .dim{opacity:0.35;}
+  .mock-card{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:22px; display:flex; flex-direction:column; align-items:center; gap:10px; font-weight:700; font-size:0.9rem;}
+  .mock-avatar{width:84px; height:84px; border-radius:16px; background:var(--accent);}
+  .mock-avatar.small{width:44px; height:44px; border-radius:10px; background:var(--accent-2);}
+  .mock-side{display:flex; flex-direction:column; gap:10px;}
+  .mock-user{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px; display:flex; align-items:center; gap:10px; font-weight:700; font-size:0.85rem;}
+  .mock-btn{border:1px solid var(--border-strong); border-radius:12px; padding:11px; text-align:center; font-size:0.85rem; font-weight:600; background:var(--surface);}
+  .mock-btn.primary{background:var(--accent); color:#fff; border-color:var(--accent);}
+  .mock-btn.spot{position:relative; box-shadow:0 0 0 4px var(--bg), 0 0 0 7px var(--accent-2);}
+  .pop{grid-column:2; position:relative; background:var(--surface); border:1px solid var(--accent-2); border-radius:14px; padding:14px 15px; display:flex; flex-direction:column; gap:9px; box-shadow:0 10px 30px -12px rgba(30,20,50,0.35);}
+  @media (max-width:600px){.pop{grid-column:1;}}
+  .pop-arrow{position:absolute; top:-8px; left:50%; width:14px; height:14px; background:var(--surface); border-left:1px solid var(--accent-2); border-top:1px solid var(--accent-2); transform:translateX(-50%) rotate(45deg);}
+  .pop-head{display:flex; justify-content:space-between; gap:8px; font-size:0.92rem;}
+  .pop-x{color:var(--text-faint);}
+  .pop p{font-size:0.84rem; line-height:1.5; color:var(--text);}
+  .pop-foot{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .pop-prog{font-family:'IBM Plex Mono',monospace; font-size:0.74rem; color:var(--text-muted); font-variant-numeric:tabular-nums;}
+  .pop-read{font-size:0.74rem; color:var(--accent-2); border:1px solid var(--accent-2); border-radius:99px; padding:2px 9px;}
+  .pop-btns{margin-left:auto; display:flex; gap:6px;}
+  .pb{font-size:0.78rem; border:1px solid var(--border-strong); border-radius:8px; padding:5px 11px;}
+  .pb.main{background:var(--accent-2); border-color:var(--accent-2); color:var(--accent-2-ink); font-weight:600;}
+  .mock-transcript{margin:0 16px 16px; background:var(--surface); border:1px dashed var(--border-strong); border-radius:12px; padding:18px; font-size:0.8rem; color:var(--text-muted);}
+
+  .rules{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  @media (max-width:680px){.rules{grid-template-columns:1fr;}}
+  .rule{display:grid; grid-template-columns:104px 1fr; gap:12px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-size:0.85rem; line-height:1.5; color:var(--text-muted);}
+  .rule strong{color:var(--text);}
+  .r-k{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--accent-2); padding-top:3px;}
+  @media (max-width:420px){.rule{grid-template-columns:1fr; gap:4px;}}
+  @media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important;}}
+</style>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-kicker">
+      <div class="logo-mark">e</div>
+      <span class="eyebrow">Bevezető funkció · eNvolve</span>
+    </div>
+    <h1 class="title">Hogyan tanulja meg egy új felhasználó az eNvolve-ot?</h1>
+    <p class="lede">Az új diák most egy kurzuslistát lát magyarázat nélkül, és az óra indításakor a böngésző váratlanul mikrofon-engedélyt kér. Négy egymásra épülő megoldást javaslok. Mindegyik kicsi, és együtt fedik le az első belépéstől az első óra végéig tartó utat.</p>
+    <div class="meta-row">
+      <span class="chip">2026. október 21.</span>
+      <span class="chip">eszközök + akadálymentességi irányelvek</span>
+      <span class="chip">Next 16 · React 19 · next-intl</span>
+    </div>
+    <div class="verdict">
+      <div class="verdict-head"><span class="verdict-badge good">Javaslat</span></div>
+      <p><strong>Saját fejlesztés a Driver.js könyvtárral</strong>, rövid, oldalankénti túrákkal, egy üdvözlő képernyővel és mikrofonteszttel, valamint segítő szövegekkel az üres oldalakon. A Driver.js ingyenes (MIT licenc), nagyon kicsi, és nincs React-függősége, így a React 19 és a Next 16 nem okoz gondot. A fizetős no-code eszközök havi 100 dollárnál kezdődnek, és kevésbé szabhatók az autista és ADHD-s diákokra.</p>
+      <div class="stats">
+        <div class="stat"><div class="v good">7,5 kB</div><div class="k">a Driver.js mérete tömörítve, függőségek nélkül</div></div>
+        <div class="stat"><div class="v good">0 Ft</div><div class="k">licencdíj (MIT), cégként is használható</div></div>
+        <div class="stat"><div class="v">3–5</div><div class="k">lépés egy túrában, oldalanként külön</div></div>
+        <div class="stat"><div class="v">6–8 nap</div><div class="k">fejlesztés összesen, az opcionális részekkel együtt</div></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Tartalom">
+    <a href="#elakadas"><span class="n">1</span> Hol akad el?</a>
+    <a href="#retegek"><span class="n">2</span> A négy réteg</a>
+    <a href="#elonezet"><span class="n">3</span> Így nézne ki</a>
+    <a href="#eszkozok"><span class="n">4</span> Eszközök</a>
+    <a href="#opciok"><span class="n">5</span> Opciók</a>
+    <a href="#akadalymentes"><span class="n">6</span> Akadálymentesség</a>
+    <a href="#kod"><span class="n">7</span> Kód és tárolás</a>
+    <a href="#utemterv"><span class="n">8</span> Ütemterv</a>
+    <a href="#dontesek"><span class="n">9</span> Döntések</a>
+  </nav>
+
+  <!-- 1 -->
+  <section class="block" id="elakadas">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Hol akad el egy új felhasználó?</h2></div>
+    <div class="sec-body">
+      <p class="sec-lede">A jelenlegi kód alapján ezen az öt ponton nem kap magyarázatot. A sorrend egy új diák útját követi.</p>
+      <div class="journey">
+        <div class="j-step">
+          <span class="j-where">Kezdőlap</span>
+          <h3>Mi az a kurzus?</h3>
+          <p>A „Népszerű kurzusok” lista nem mondja el, hogy egy kurzus egy hangos óra az AI-tanárral, és hogy saját kurzust is lehet készíteni.</p>
+        </div>
+        <div class="j-step">
+          <span class="j-where">Kezdőlap</span>
+          <h3>Üres „Legutóbbi órák”</h3>
+          <p>Egy új fióknak nincs előzménye, ezért a lista üres. Itt kellene lennie az első lépésnek: „Indítsd el az első órádat”.</p>
+        </div>
+        <div class="j-step">
+          <span class="j-where">Új kurzus</span>
+          <h3>Mit írjak a mezőkbe?</h3>
+          <p>A téma, tárgy, hang, nyelv és időtartam mezőknél nincs példa. Nem derül ki, hogy a téma alapján fog beszélni az AI.</p>
+        </div>
+        <div class="j-step hot">
+          <span class="j-where">Óra</span>
+          <h3>Váratlan mikrofon-kérés</h3>
+          <p>Az „Óra indítása” után a böngésző engedélyt kér. Ha a diák a „Letiltás” gombra kattint, az óra nem indul, és nem tudja, miért.</p>
+        </div>
+        <div class="j-step">
+          <span class="j-where">Óra</span>
+          <h3>Mikor beszélhetek?</h3>
+          <p>Nem egyértelmű, mikor beszél az AI, mire jó a némítás gomb, és hogy az átirat végig olvasható.</p>
+        </div>
+      </div>
+      <div class="callout">A legfontosabb a 4. pont. Ha az engedélyt egyszer letiltják, a böngésző többé nem kérdez rá magától, és a diák csak a beállításokban tudja visszakapcsolni. Ezért előre kell szólni neki, és ki kell próbáltatni vele a mikrofont még az óra előtt.</div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="block" id="retegek">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">A négy réteg</h2></div>
+    <div class="sec-body">
+      <p class="sec-lede">Nem egy nagy, hosszú túra, hanem négy kisebb elem. Mindegyik akkor jelenik meg, amikor szükség van rá, és mindegyik kihagyható.</p>
+      <div class="layers">
+        <div class="layer l1">
+          <div class="layer-top"><span class="layer-when">egyszer, első belépéskor</span><span class="pill good">alap</span></div>
+          <h3>Üdvözlő képernyő + mikrofonteszt</h3>
+          <p>Három rövid kártya: mi az eNvolve, hogyan zajlik egy óra, és egy mikrofonpróba hangerő-jelzővel. Itt kéri a böngésző az engedélyt, és a diák előre tudja, hogy erre számítson.</p>
+          <div class="fit"><span>/welcome oldal</span><span>getUserMedia</span><span>kihagyható</span></div>
+        </div>
+        <div class="layer l2">
+          <div class="layer-top"><span class="layer-when">első látogatáskor, oldalanként</span><span class="pill good">alap</span></div>
+          <h3>Interaktív túra</h3>
+          <p>A Driver.js kiemeli a gombokat, és egyenként elmagyarázza őket, 3–5 lépésben. Három túra lesz: a kezdőlapon, az új kurzus űrlapján és az óra oldalán.</p>
+          <div class="fit"><span>Driver.js</span><span>„?” gomb: újraindítás</span><span>HU / EN</span></div>
+        </div>
+        <div class="layer l3">
+          <div class="layer-top"><span class="layer-when">mindig látszik</span><span class="pill good">alap</span></div>
+          <h3>Segítség a helyszínen</h3>
+          <p>Üres oldalakon egy-egy következő lépés, mezőtippek példákkal, és állapotüzenetek az órán, például „Most a tanár beszél” vagy „Te jössz”.</p>
+          <div class="fit"><span>üres állapotok</span><span>mezőtippek</span><span>állapotjelző</span></div>
+        </div>
+        <div class="layer l4">
+          <div class="layer-top"><span class="layer-when">ha a diák kéri</span><span class="pill info">opcionális</span></div>
+          <h3>Hangos bemutató óra</h3>
+          <p>Egy külön Vapi-asszisztens 2 percben, beszélgetve mutatja be az alkalmazást. Ezt egyik versenytárs sem tudja, és azoknak a diákoknak is segít, akiknek nehéz az olvasás.</p>
+          <div class="fit"><span>3. Vapi-asszisztens</span><span class="maybe">percdíjas</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="block" id="elonezet">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Így nézne ki az óra oldalán</h2></div>
+    <div class="sec-body">
+      <p class="sec-lede">Vázlat a túra második lépéséről. A kiemelt gomb körül a többi rész elsötétül, a buborék rövid, és mindig ugyanott vannak a gombjai.</p>
+      <div class="mock" role="img" aria-label="Vázlat: az óra oldala, kiemelt Óra indítása gombbal és egy magyarázó buborékkal">
+        <div class="mock-bar"><span class="mock-logo">eNvolve</span><span class="mock-nav">Kezdőlap · Kurzusok · Profil</span><span class="mock-help">?</span></div>
+        <div class="mock-body">
+          <div class="mock-card dim"><div class="mock-avatar"></div><span>Matek tanár</span></div>
+          <div class="mock-side">
+            <div class="mock-user dim"><div class="mock-avatar small"></div><span>Zoli</span></div>
+            <div class="mock-btn dim">Mikrofon némítása</div>
+            <div class="mock-btn primary spot">Óra indítása</div>
+          </div>
+          <div class="pop">
+            <div class="pop-arrow"></div>
+            <div class="pop-head"><strong>Így kezded az órát</strong><span class="pop-x" aria-hidden="true">×</span></div>
+            <p>Kattints erre a gombra. A böngésző megkérdezi, használhatja-e a mikrofont. Válaszd az <b>Engedélyezés</b> gombot.</p>
+            <div class="pop-foot">
+              <span class="pop-prog">2 / 5</span>
+              <span class="pop-read">Felolvasás</span>
+              <span class="pop-btns"><span class="pb">Vissza</span><span class="pb main">Tovább</span></span>
+            </div>
+          </div>
+        </div>
+        <div class="mock-transcript dim">Átirat helye…</div>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Kiemelt elem</th><th>Szöveg (magyarul)</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">1</td><td class="mono">tanár képe</td><td>Ez a tanárod. Amikor beszél, a kép megmozdul.</td></tr>
+            <tr><td class="mono">2</td><td class="mono">Óra indítása</td><td>Ezzel kezded az órát. A böngésző engedélyt kér a mikrofonhoz: válaszd az Engedélyezés gombot.</td></tr>
+            <tr><td class="mono">3</td><td class="mono">némítás</td><td>Ha szünetet tartanál, itt tudod lenémítani magad. A tanár ilyenkor nem hall.</td></tr>
+            <tr><td class="mono">4</td><td class="mono">átirat</td><td>Itt olvashatod, amit mondtatok. Nem kell semmit megjegyezned.</td></tr>
+            <tr><td class="mono">5</td><td class="mono">Óra vége</td><td>Ha végeztél, itt fejezed be. Bármikor újrakezdheted.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="block" id="eszkozok">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Milyen eszközzel?</h2></div>
+    <div class="sec-body">
+      <p class="sec-lede">Hat nyílt forráskódú könyvtárat és két fizetős szolgáltatást néztem meg. A licenc azért fontos, mert az eNvolve-ból startup lehet. Az AGPL licencű könyvtárakért cégként fizetni kell.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Eszköz</th><th>Licenc</th><th>Méret</th><th>Utolsó kiadás</th><th>Megfelel?</th><th>Megjegyzés</th></tr></thead>
+          <tbody>
+            <tr class="pick-row"><td><strong>Driver.js</strong></td><td class="mono">MIT</td><td class="mono">7,5 kB</td><td class="mono">1.9.0 · 2026. okt.</td><td><span class="pill good">ajánlott</span></td><td>Nincs függősége, és bármilyen keretrendszerrel működik. Gombfeliratok, haladásjelző és animáció állítható.</td></tr>
+            <tr><td><strong>React Joyride</strong></td><td class="mono">MIT</td><td class="mono">25,6 kB</td><td class="mono">3.2.0 · 2026. júl.</td><td><span class="pill good">jó</span></td><td>React 16.8–19. Fókuszcsapda, billentyűzet és ARIA támogatás. Háromszor nagyobb, de React-szerűbb.</td></tr>
+            <tr><td><strong>NextStep.js</strong></td><td class="mono">MIT</td><td class="mono">+ motion</td><td class="mono">aktív</td><td><span class="pill warn">lehet</span></td><td>Next.js-re készült, több oldalon átívelő túrát is tud. Szükséges hozzá a motion animációs csomag.</td></tr>
+            <tr><td><strong>Onborda</strong></td><td class="mono">MIT</td><td class="mono">2,3 kB + Framer Motion</td><td class="mono">1.2.5 · 2024. dec.</td><td><span class="pill bad">nem</span></td><td>Közel két éve nem frissült.</td></tr>
+            <tr><td><strong>Shepherd.js</strong></td><td class="mono">AGPL / fizetős</td><td class="mono">15,3 kB</td><td class="mono">15.3.0 · 2026. aug.</td><td><span class="pill bad">nem</span></td><td>Cégként kereskedelmi licenc kell: 50 dollártól.</td></tr>
+            <tr><td><strong>Intro.js</strong></td><td class="mono">AGPL / fizetős</td><td class="mono">19,2 kB</td><td class="mono">8.6.0 · 2026. szept.</td><td><span class="pill bad">nem</span></td><td>Kereskedelmi licenc 9,99 dollártól egy projektre.</td></tr>
+            <tr><td><strong>Product Fruits</strong></td><td class="mono">SaaS</td><td class="mono">külső script</td><td class="mono">—</td><td><span class="pill warn">később</span></td><td>No-code szerkesztő. Kb. 96 dollár/hó 1500 aktív felhasználóig.</td></tr>
+            <tr><td><strong>UserGuiding</strong></td><td class="mono">SaaS</td><td class="mono">külső script</td><td class="mono">—</td><td><span class="pill bad">nem</span></td><td>Kb. 249 dollár/hó-tól. Diákprojektnek túl drága.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">A méretek tömörített JavaScriptet jelentenek, CSS nélkül (Bundlephobia, 2026. október). A SaaS-árak a gyártók összehasonlító oldalairól származnak, és változhatnak.</p>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="block" id="opciok">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Három megvalósítási opció</h2></div>
+    <div class="sec-body">
+      <div class="opts">
+        <div class="opt pick">
+          <div class="opt-top"><span class="opt-letter">A</span><span class="pick-badge">ajánlott</span></div>
+          <h3>Saját fejlesztés Driver.js-sel</h3>
+          <p class="opt-sub">Mind a négy réteg, saját komponensekkel, a meglévő next-intl fordításokkal.</p>
+          <ul>
+            <li class="p"><span class="m">+</span>Ingyenes, kicsi, és teljesen testre szabható.</li>
+            <li class="p"><span class="m">+</span>Minden szöveg a hu.json és en.json fájlban van.</li>
+            <li class="p"><span class="m">+</span>Az akadálymentességi szabályokat pontosan be lehet tartani.</li>
+            <li class="p"><span class="m">+</span>Nincs külső szolgáltató, ami adatot gyűjtene a diákokról.</li>
+            <li class="c"><span class="m">−</span>A szövegeket kódban kell módosítani, nem egy felületen.</li>
+          </ul>
+        </div>
+        <div class="opt">
+          <div class="opt-top"><span class="opt-letter">B</span></div>
+          <h3>Saját fejlesztés React Joyride-dal</h3>
+          <p class="opt-sub">Ugyanaz, mint az A, de React-komponensként működő túrakönyvtárral.</p>
+          <ul>
+            <li class="p"><span class="m">+</span>Hook alapú vezérlés, sok kész funkció.</li>
+            <li class="p"><span class="m">+</span>Beépített fókuszcsapda és billentyűzet-kezelés.</li>
+            <li class="c"><span class="m">−</span>Háromszor nagyobb.</li>
+            <li class="c"><span class="m">−</span>Erősebben kötődik a React verziójához, ezért frissítéskor gondot okozhat.</li>
+          </ul>
+        </div>
+        <div class="opt">
+          <div class="opt-top"><span class="opt-letter">C</span></div>
+          <h3>No-code szolgáltatás (Product Fruits)</h3>
+          <p class="opt-sub">Külső script, a túrákat egy webes szerkesztőben lehet összekattintani.</p>
+          <ul>
+            <li class="p"><span class="m">+</span>Kódolás nélkül módosítható, ezt nmarci is tudja szerkeszteni.</li>
+            <li class="p"><span class="m">+</span>Beépített statisztikák.</li>
+            <li class="c"><span class="m">−</span>Kb. 96 dollár/hó-tól.</li>
+            <li class="c"><span class="m">−</span>Diákok adatai egy harmadik félnél (GDPR, kiskorúak).</li>
+            <li class="c"><span class="m">−</span>Kevésbé szabható az autista és ADHD-s diákokra.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="block" id="akadalymentes">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Szabályok autista, ADHD-s és tanulási nehézséggel élő diákoknak</h2></div>
+    <div class="sec-body">
+      <p class="sec-lede">A W3C kognitív akadálymentességi (COGA) irányelveiből, a túrára lefordítva. Ezek a TDK-dolgozatban is jól hivatkozhatók.</p>
+      <div class="rules">
+        <div class="rule"><span class="r-k">Fókusz</span><div><strong>Egy lépés, egy dolog.</strong> Legfeljebb 3–5 lépés túránként, egy lépésben egy gomb, két rövid mondat.</div></div>
+        <div class="rule"><span class="r-k">Tájékozódás</span><div><strong>Mindig látszik, hol tart.</strong> Haladásjelző („2 / 5”), és a gombok mindig ugyanott vannak.</div></div>
+        <div class="rule"><span class="r-k">Tempó</span><div><strong>Nincs időkorlát.</strong> Nincs automatikus továbblépés. A diák lép tovább, amikor készen áll.</div></div>
+        <div class="rule"><span class="r-k">Kontroll</span><div><strong>Bármikor kihagyható és újraindítható.</strong> A navigációs sávban lévő „?” gombbal a túra újra elindul.</div></div>
+        <div class="rule"><span class="r-k">Kiszámíthatóság</span><div><strong>Előre szól.</strong> A mikrofon-kérés előtt elmondja, mi fog történni, és mit kell választani.</div></div>
+        <div class="rule"><span class="r-k">Nyelv</span><div><strong>Egyszerű mondatok.</strong> Tegeződve, szakszavak nélkül, ikon és szöveg együtt.</div></div>
+        <div class="rule"><span class="r-k">Olvasás</span><div><strong>Felolvasás gomb.</strong> A lépés szövegét a böngésző felolvassa, vagy előre elkészített ElevenLabs-hangfájl szól ugyanazzal a hanggal, mint a tanár.</div></div>
+        <div class="rule"><span class="r-k">Inger</span><div><strong>Csökkentett mozgás.</strong> Ha a gépen be van kapcsolva a „kevesebb animáció”, a túra animáció nélkül fut. Nincs villogás és nincs automatikus hang.</div></div>
+        <div class="rule"><span class="r-k">Kezelés</span><div><strong>Billentyűzettel is megy.</strong> Nyilak és Esc a túrában, nagy kattintható gombok.</div></div>
+        <div class="rule"><span class="r-k">Emlékezet</span><div><strong>Nem kell megjegyezni.</strong> Ami a túrában elhangzott, az kis segítő szövegként a helyén marad.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="block" id="kod">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Kód és tárolás</h2></div>
+    <div class="sec-body">
+      <p class="sec-lede">A kiemelendő elemek egy <code>data-tour</code> attribútumot kapnak, így a túra nem törik el, ha a CSS-osztályok változnak. A szövegek egy új <code>Tour</code> részbe kerülnek a fordítási fájlokban.</p>
+      <div class="code-pair">
+        <div>
+          <p class="label">components/tour/useTour.ts (vázlat)</p>
+<pre><span class="s">"use client"</span>;
+<span class="k">import</span> { driver } <span class="k">from</span> <span class="s">"driver.js"</span>;
+<span class="k">import</span> <span class="s">"driver.js/dist/driver.css"</span>;
+
+<span class="k">export function</span> useTour(id: TourId) {
+  <span class="k">const</span> t = useTranslations(<span class="s">"Tour"</span>);
+  <span class="k">const</span> { user } = useUser();
+
+  <span class="k">const</span> start = () =&gt; {
+    <span class="k">const</span> calm = matchMedia(
+      <span class="s">"(prefers-reduced-motion: reduce)"</span>).matches;
+    driver({
+      showProgress: <span class="k">true</span>,
+      progressText: <span class="s">"{{current}} / {{total}}"</span>,
+      nextBtnText: t(<span class="s">"next"</span>),
+      prevBtnText: t(<span class="s">"back"</span>),
+      doneBtnText: t(<span class="s">"done"</span>),
+      animate: !calm,
+      steps: TOURS[id].map((key) =&gt; ({
+        element: <span class="s">`[data-tour="${key}"]`</span>,
+        popover: {
+          title: t(<span class="s">`${id}.${key}.title`</span>),
+          description: t(<span class="s">`${id}.${key}.text`</span>),
+        },
+      })),
+      <span class="c">// megjegyzi, hogy ezt a túrát már látta</span>
+      onDestroyed: () =&gt; markSeen(user, id),
+    }).drive();
+  };
+  <span class="k">return</span> { start };
+}</pre>
+        </div>
+        <div>
+          <p class="label">Használat az óra oldalán</p>
+<pre><span class="c">// CourseComponent.tsx</span>
+&lt;button
+  data-tour=<span class="s">"start-session"</span>
+  className=<span class="s">"btn-primary"</span>
+  onClick={handleCall}&gt;
+  {t(<span class="s">"startSession"</span>)}
+&lt;/button&gt;
+
+<span class="c">// első látogatáskor magától indul</span>
+useEffect(() =&gt; {
+  <span class="k">if</span> (!hasSeen(user, <span class="s">"lesson"</span>)) start();
+}, [user]);</pre>
+          <p class="label" style="margin-top:14px">messages/hu.json</p>
+<pre><span class="k">"Tour"</span>: {
+  <span class="k">"next"</span>: <span class="s">"Tovább"</span>,
+  <span class="k">"back"</span>: <span class="s">"Vissza"</span>,
+  <span class="k">"done"</span>: <span class="s">"Kész"</span>,
+  <span class="k">"lesson"</span>: {
+    <span class="k">"start-session"</span>: {
+      <span class="k">"title"</span>: <span class="s">"Így kezded az órát"</span>,
+      <span class="k">"text"</span>: <span class="s">"Kattints erre a gombra…"</span>
+    }
+  }
+}</pre>
+        </div>
+      </div>
+      <p class="label">Hol tároljuk, hogy ki mit látott már?</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Hely</th><th>Előny</th><th>Hátrány</th><th>Mire</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Böngésző (localStorage)</strong></td><td>Egy sor kód.</td><td>Új gépen vagy telefonon újra megjelenik.</td><td><span class="pill warn">csak prototípus</span></td></tr>
+            <tr class="pick-row"><td><strong>Clerk felhasználói adat (unsafeMetadata)</strong></td><td>Minden eszközön megmarad, nem kell hozzá adatbázis-módosítás.</td><td>A felhasználó maga is írhatja, ezért jogosultságra nem jó.</td><td><span class="pill good">túrák állapota</span></td></tr>
+            <tr><td><strong>Supabase tábla (onboarding_events)</strong></td><td>Mérhető: hányan fejezik be, hol lépnek ki.</td><td>Migráció, és adatkezelési tájékoztató kell hozzá.</td><td><span class="pill info">TDK-mérés</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">A mikrofonteszthez nem kell külön könyvtár. A böngésző <code>getUserMedia</code> funkciója kéri az engedélyt, egy <code>AnalyserNode</code> pedig kirajzolja a hangerőt. Ha a diák letiltja, a képernyő megmutatja, hogyan tudja visszakapcsolni (lakat ikon a címsorban → Mikrofon → Engedélyezés).</div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="block" id="utemterv">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Ütemterv</h2></div>
+    <div class="sec-body">
+      <p class="sec-lede">Külön ágon, például <code>feature/onboarding</code>, a 2. fázisú csomagfrissítéstől függetlenül.</p>
+      <div class="steps">
+        <div class="step"><div class="dot">1</div><div class="step-top"><span class="t">Előkészítés</span><span class="e">0,5 nap</span></div><div class="d"><code>npm install driver.js</code>, <code>data-tour</code> attribútumok a gombokra, <code>Tour</code> rész a hu.json és en.json fájlban.</div></div>
+        <div class="step"><div class="dot">2</div><div class="step-top"><span class="t">Üdvözlő képernyő + mikrofonteszt</span><span class="e">1–1,5 nap</span></div><div class="d">Új <code>/welcome</code> oldal három kártyával. Első belépéskor ide irányít, és a végén az első kurzushoz visz.</div></div>
+        <div class="step"><div class="dot">3</div><div class="step-top"><span class="t">Három túra + „?” gomb</span><span class="e">1,5–2 nap</span></div><div class="d">Kezdőlap, új kurzus, óra. A súgógomb a navigációs sávban mindig az aktuális oldal túráját indítja.</div></div>
+        <div class="step"><div class="dot">4</div><div class="step-top"><span class="t">Üres állapotok, mezőtippek, állapotjelző</span><span class="e">1 nap</span></div><div class="d">„Még nincs órád”, példák a kurzusűrlapon, és az óra közben a „Most a tanár beszél” / „Te jössz” jelzés.</div></div>
+        <div class="step"><div class="dot">5</div><div class="step-top"><span class="t">Felolvasás és hangos bemutató óra</span><span class="e">1–2 nap · opcionális</span></div><div class="d">Felolvasás gomb a buborékban, és egy harmadik Vapi-asszisztens a 2 perces bemutatóhoz.</div></div>
+        <div class="step"><div class="dot">6</div><div class="step-top"><span class="t">Mérés a TDK-hoz</span><span class="e">0,5 nap · opcionális</span></div><div class="d">Események a Supabase-ben: túra indult, lépés, kihagyva, befejezve. Ebből kiderül, hol akadnak el a diákok.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="block" id="dontesek">
+    <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Amiről nektek kell dönteni</h2></div>
+    <div class="sec-body">
+      <div class="dec">
+        <div class="dec-item"><span class="q">?</span><div><div class="t">Kötelező legyen az üdvözlő képernyő?</div><div class="d">Javaslat: első belépéskor megjelenik, de egy gombbal kihagyható. A kötelező lépések az ADHD-s diákoknál könnyen lemorzsolódáshoz vezetnek.</div></div></div>
+        <div class="dec-item"><span class="q">?</span><div><div class="t">Kell külön túra a tanároknak?</div><div class="d">Most még nincs tanári szerepkör az alkalmazásban. Ha lesz, ugyanez a rendszer kap egy második túrakészletet.</div></div></div>
+        <div class="dec-item"><span class="q">?</span><div><div class="t">Legyen hangos bemutató óra?</div><div class="d">Ez a legkülönlegesebb rész, de minden indítás Vapi-perceket fogyaszt. Lehet ingyenes, például az előfizetési korlátba nem beleszámító, egyszeri bemutató.</div></div></div>
+        <div class="dec-item"><span class="q">?</span><div><div class="t">Mérjük-e a túrák használatát?</div><div class="d">A TDK-hoz nagyon hasznos adat. Kiskorú diákoknál viszont adatkezelési tájékoztató és szülői hozzájárulás kell, ezért érdemes anonim eseményekkel kezdeni.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="eyebrow">Források</p>
+    <div class="src-list">
+      <a href="https://flownavi.com/blog/javascript-product-tour-libraries" target="_blank" rel="noopener">FlowNavi — 6 Best JavaScript Product Tour Libraries (licencek és méretek, 2026. okt.)</a>
+      <a href="https://www.chameleon.io/blog/javascript-product-tours" target="_blank" rel="noopener">Chameleon — Best JavaScript Product Tour Libraries (2026)</a>
+      <a href="https://usertourkit.com/blog/product-tour-tool-nextjs-app-router" target="_blank" rel="noopener">Tour Kit — Product tour tools with Next.js App Router (a szerző saját eszközét is ajánlja)</a>
+      <a href="https://cdn.jsdelivr.net/gh/gilbarbara/react-joyride@main/README.md" target="_blank" rel="noopener">React Joyride — README (v3, React 16.8–19)</a>
+      <a href="https://nextstepjs.com/docs/nextjs" target="_blank" rel="noopener">NextStep.js — Next.js dokumentáció</a>
+      <a href="https://github.com/shipshapecode/shepherd" target="_blank" rel="noopener">Shepherd.js — GitHub (licencfeltételek)</a>
+      <a href="https://introjs.com/docs/getting-started/license" target="_blank" rel="noopener">Intro.js — Licenc</a>
+      <a href="https://userguiding.com/blog/product-fruits-pricing" target="_blank" rel="noopener">UserGuiding — Product Fruits pricing (versenytárs összehasonlítása)</a>
+      <a href="https://clerk.com/docs/guides/development/add-onboarding-flow" target="_blank" rel="noopener">Clerk — Add custom onboarding to your authentication flow</a>
+      <a href="https://accessibility.education.gov.uk/guidelines/coga" target="_blank" rel="noopener">UK Department for Education — Cognitive accessibility (COGA) guidelines</a>
+    </div>
+    <p class="fineprint">Az elakadási pontokat az eNvolve jelenlegi kódjából (kezdőlap, CourseForm, CourseComponent) gyűjtöttem. A becsült napok egy fejlesztőre vonatkoznak, teszteléssel együtt.</p>
+  </footer>
+
+</div>

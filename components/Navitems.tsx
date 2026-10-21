@@ -16,7 +16,7 @@ const NavItems = () => {
   const t = useTranslations("Navbar");
 
   return (
-    <nav className="flex items-center gap-4">
+    <nav className="flex items-center gap-4 max-sm:gap-2 max-sm:text-sm">
       {navItems.map(({ key, link }) => (
         <Link
           href={link}

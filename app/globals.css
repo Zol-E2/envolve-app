@@ -213,6 +213,74 @@ body {
   .transcript-fade {
     @apply pointer-events-none absolute bottom-0 left-0 right-0 h-40 max-sm:h-20 bg-linear-to-t from-background via-background/90 to-transparent z-10;
   }
+
+  /* --- Onboarding: help button, status line, empty states, welcome --- */
+  .btn-help {
+    @apply size-10 max-sm:size-8 shrink-0 rounded-full border-2 border-black flex items-center justify-center text-lg font-bold cursor-pointer bg-white hover:bg-black hover:text-white transition-colors;
+  }
+  .btn-outline {
+    @apply border border-black rounded-xl px-4 py-2 cursor-pointer bg-white hover:bg-secondary disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2;
+  }
+  .lesson-status {
+    @apply rounded-4xl border border-black px-4 py-2 text-lg font-semibold text-center mb-4 max-sm:text-base;
+  }
+  .lesson-status-turn {
+    @apply bg-primary text-white border-primary;
+  }
+  .lesson-status-alert {
+    @apply bg-red-50 text-red-800 border-red-700;
+  }
+  .help-box {
+    @apply flex flex-col gap-2 rounded-2xl border-2 border-red-700 bg-red-50 text-red-900 px-5 py-4 text-lg leading-relaxed;
+  }
+  .list-empty {
+    @apply flex flex-col items-start gap-4 pt-6 text-lg leading-relaxed;
+  }
+  .welcome-shell {
+    @apply w-full max-w-3xl flex flex-col gap-6;
+  }
+  .welcome-progress {
+    @apply text-base font-semibold text-muted-foreground;
+  }
+  .welcome-skip {
+    @apply text-base underline underline-offset-4 cursor-pointer px-2 py-1 rounded-md;
+  }
+  .welcome-dots {
+    @apply flex gap-2;
+  }
+  .welcome-dots li {
+    @apply h-2 flex-1 rounded-full bg-border;
+  }
+  .welcome-dots li.is-done {
+    @apply bg-primary;
+  }
+  .welcome-card {
+    @apply rounded-4xl border border-black bg-white px-8 py-8 flex flex-col gap-6 min-h-[340px] max-sm:px-5;
+  }
+  .welcome-title {
+    @apply text-3xl font-bold outline-none;
+  }
+  .welcome-lead {
+    @apply text-xl leading-relaxed max-w-prose;
+  }
+  .welcome-note {
+    @apply text-lg leading-relaxed text-muted-foreground;
+  }
+  .welcome-list {
+    @apply flex flex-col gap-2 text-lg list-disc pl-6;
+  }
+  .welcome-steps {
+    @apply flex flex-col gap-3 text-xl list-decimal pl-7 leading-relaxed;
+  }
+  .mic-meter {
+    @apply h-5 w-full max-w-md rounded-full border border-black bg-secondary overflow-hidden;
+  }
+  .mic-meter-fill {
+    @apply h-full bg-cta-gold motion-safe:transition-[width] motion-safe:duration-75;
+  }
+  .mic-meter-fill-ok {
+    @apply bg-green-600;
+  }
 }
 
 @layer utilities {
@@ -223,4 +291,76 @@ body {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+}
+/*
+ * Guided tour (driver.js). Kept outside @layer on purpose: driver.css is
+ * unlayered, and unlayered rules always beat layered ones. Larger text and
+ * buttons than the library default, in the app's own colours.
+ */
+.driver-popover.envolve-tour {
+  font-family: var(--font-bricolage), "Bricolage Grotesque", sans-serif;
+  color: #1a1a1a;
+  max-width: 360px;
+  padding: 20px;
+  border: 1px solid #000;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.18);
+}
+.envolve-tour .driver-popover-title {
+  font-size: 20px;
+  line-height: 1.3;
+  padding-right: 32px;
+}
+.envolve-tour .driver-popover-description {
+  font-size: 16px;
+  line-height: 1.55;
+  margin-top: 8px;
+}
+.envolve-tour .driver-popover-footer {
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+.envolve-tour .driver-popover-progress-text {
+  font-size: 14px;
+  color: #555;
+  font-variant-numeric: tabular-nums;
+}
+.envolve-tour .driver-popover-footer-btn {
+  font-size: 15px;
+  line-height: 1.2;
+  padding: 9px 14px;
+  border: 1px solid #000;
+  border-radius: 12px;
+  text-shadow: none;
+}
+.envolve-tour .driver-popover-next-btn {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+.envolve-tour .driver-popover-next-btn:hover,
+.envolve-tour .driver-popover-next-btn:focus {
+  background-color: #e4471f;
+}
+.envolve-tour .envolve-tour-read {
+  border-color: var(--primary);
+  color: #b8381a;
+}
+.envolve-tour .driver-popover-close-btn {
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  font-size: 24px;
+  line-height: 36px;
+  color: #555;
+}
+.envolve-tour button:focus-visible {
+  outline: 3px solid #000;
+  outline-offset: 0;
+}
+.envolve-tour .driver-popover-navigation-btns button + button {
+  margin-left: 6px;
 }
