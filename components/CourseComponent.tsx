@@ -192,7 +192,9 @@ const CourseComponent = ({
               />
             </div>
           </div>
-          <p className="font-bold text-2xl">{name}</p>
+          <p className="font-bold text-2xl" lang={language}>
+            {name}
+          </p>
           <p
             className={cn(
               "lesson-status",
@@ -262,7 +264,8 @@ const CourseComponent = ({
         </div>
       )}
       <section className="transcript" data-tour="lesson-transcript">
-        <div className="transcript-message no-scrollbar">
+        {/* The conversation happens in the lesson language */}
+        <div className="transcript-message no-scrollbar" lang={language}>
           {messages.map((message, index) => {
             if (message.role === "assistant") {
               return (

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import {
   Accordion,
   AccordionContent,
@@ -15,6 +16,11 @@ import {
 import Image from "next/image";
 import CourseList from "@/components/CourseList";
 import PageTour from "@/components/onboarding/PageTour";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Metadata");
+  return { title: t("profile") };
+}
 
 const Profile = async () => {
   const user = await currentUser();

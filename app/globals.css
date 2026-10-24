@@ -136,6 +136,15 @@ body {
   h1 {
     @apply text-3xl font-bold;
   }
+  /* Long Hungarian compounds ("Kurzuskönyvtár") must not overflow on phones.
+     Only headings are hyphenated: split words in running text are harder to
+     read for students with dyslexia. Needs the correct lang attribute. */
+  h1,
+  h2,
+  h3 {
+    hyphens: auto;
+    overflow-wrap: break-word;
+  }
 }
 
 @layer components {

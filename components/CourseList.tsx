@@ -57,7 +57,7 @@ const CourseList = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {courses?.map(({ id, name, subject, duration, topic }) => (
+          {courses?.map(({ id, name, subject, duration, topic, language }) => (
             <TableRow key={id}>
               <TableCell>
                 <Link href={`/courses/${id}`}>
@@ -76,7 +76,7 @@ const CourseList = ({
                         height={35}
                       />
                     </div>
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2" lang={language}>
                       <p className="font-bold text-2xl">{name}</p>
                       <p className="text-lg">{topic}</p>
                     </div>

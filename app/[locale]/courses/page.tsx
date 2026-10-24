@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 export const dynamic = "force-dynamic";
 
 import { getAllCourses } from "@/lib/actions/course.actions";
@@ -8,6 +9,11 @@ import SubjectFilter from "@/components/SubjectFilter";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import PageTour from "@/components/onboarding/PageTour";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Metadata");
+  return { title: t("courses") };
+}
 
 const Courses = async ({ searchParams }: SearchParams) => {
   const t = await getTranslations("Courses");

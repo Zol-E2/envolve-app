@@ -4,7 +4,7 @@ import WelcomeFlow from "@/components/onboarding/WelcomeFlow";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Welcome");
-  return { title: `${t("metaTitle")} · eNvolve` };
+  return { title: t("metaTitle") };
 }
 
 // First-visit introduction; the home page redirects here until it is finished

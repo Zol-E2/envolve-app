@@ -1,5 +1,12 @@
+import { getTranslations } from "next-intl/server";
+import type { Metadata } from "next";
 import { SignIn } from "@clerk/nextjs";
 import PageTour from "@/components/onboarding/PageTour";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Metadata");
+  return { title: t("signIn") };
+}
 
 interface SignInPageProps {
   params: Promise<{ locale: string }>;

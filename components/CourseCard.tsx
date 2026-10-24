@@ -83,8 +83,14 @@ const CourseCard = ({
         </button>
       </div>
 
-      <h2 className="text-2xl font-bold">{name}</h2>
-      <p className="text-sm">{topic}</p>
+      {/* Course content is in the lesson language, which may differ from the
+          interface; lang lets read-aloud and screen readers pronounce it right */}
+      <h2 className="text-2xl font-bold" lang={language}>
+        {name}
+      </h2>
+      <p className="text-sm" lang={language}>
+        {topic}
+      </p>
       <div className="flex items-center gap-2">
         <Image
           src="/icons/clock.svg"

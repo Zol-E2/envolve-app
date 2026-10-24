@@ -65,14 +65,15 @@ const CourseForm = () => {
   });
 
   const onSubmit = async (values: FormValues) => {
-    const course = await createCourse(values);
-
-    if (course) {
+    try {
+      const course = await createCourse(values);
       // Locale-aware router: "/courses/:id" becomes "/hu/courses/:id" when needed
-      router.push(`/courses/${course.id}`);
+      if (course) router.push(`/courses/${course.id}`);
+    } catch (error) {
+      console.error("Course not saved:", error);
+      // The form keeps every value, so the student only has to press save again
+      form.setError("root", { message: t("submitError") });
     }
-    // If createCourse throws, the error propagates and the form stays mounted
-    // so the user can correct their input without losing it.
   };
 
   return (
@@ -217,6 +218,11 @@ const CourseForm = () => {
             </FormItem>
           )}
         />
+        {form.formState.errors.root && (
+          <p className="help-box" role="alert">
+            {form.formState.errors.root.message}
+          </p>
+        )}
         <Button
           type="submit"
           className="w-full cursor-pointer"

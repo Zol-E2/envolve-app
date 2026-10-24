@@ -1,7 +1,11 @@
 {
   "Metadata": {
     "title": "eNvolve",
-    "description": "Valós idejű AI oktatási platform"
+    "description": "Valós idejű AI oktatási platform",
+    "courses": "Kurzuskönyvtár",
+    "newCourse": "Új kurzus",
+    "profile": "Profil",
+    "signIn": "Bejelentkezés"
   },
   "Navbar": {
     "logoAlt": "Logó",
@@ -91,7 +95,8 @@
     "topicHint": "Írd le 1–2 mondatban, miről beszélgessen veled a tanár.",
     "voiceHint": "Férfi vagy női hangon beszéljen a tanár.",
     "languageHint": "Ezen a nyelven fog beszélni a tanár.",
-    "durationHint": "Kezdésnek 10–15 perc is elég."
+    "durationHint": "Kezdésnek 10–15 perc is elég.",
+    "submitError": "Nem sikerült elmenteni a kurzust. Az adataid megmaradtak: ellenőrizd az internetkapcsolatot, és nyomd meg újra a gombot."
   },
   "CourseSession": {
     "min": "{count} perc",
@@ -313,5 +318,11 @@
       "create": "Első kurzusom elkészítése",
       "browse": "Kurzusok böngészése"
     }
+  },
+  "Error": {
+    "title": "Valami hiba történt",
+    "description": "Ez nem a te hibád. Próbáld újra, és ha továbbra sem működik, gyere vissza egy kicsit később.",
+    "retry": "Újrapróbálom",
+    "backHome": "Vissza a főoldalra"
   }
 }

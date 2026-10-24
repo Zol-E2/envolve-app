@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint && npm run check:i18n",
+    "check:i18n": "node scripts/check-messages.mjs"
   },
   "engines": {
     "node": ">=22.14.0"

@@ -1,7 +1,11 @@
 {
   "Metadata": {
     "title": "eNvolve",
-    "description": "Real-time AI Teaching Platform"
+    "description": "Real-time AI Teaching Platform",
+    "courses": "Course Library",
+    "newCourse": "New Course",
+    "profile": "Profile",
+    "signIn": "Sign In"
   },
   "Navbar": {
     "logoAlt": "Logo",
@@ -91,7 +95,8 @@
     "topicHint": "Describe in 1–2 sentences what the tutor should talk about.",
     "voiceHint": "Whether the tutor speaks with a male or a female voice.",
     "languageHint": "The tutor will speak this language.",
-    "durationHint": "10–15 minutes is plenty to start with."
+    "durationHint": "10–15 minutes is plenty to start with.",
+    "submitError": "The course could not be saved. Your answers are still here: check your internet connection and press the button again."
   },
   "CourseSession": {
     "min": "{count} min",
@@ -313,5 +318,11 @@
       "create": "Build my first course",
       "browse": "Browse courses"
     }
+  },
+  "Error": {
+    "title": "Something went wrong",
+    "description": "This is not your fault. Try again, and if it still does not work, come back a little later.",
+    "retry": "Try again",
+    "backHome": "Back to the home page"
   }
 }

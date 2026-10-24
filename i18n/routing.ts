@@ -9,3 +9,11 @@ export const routing = defineRouting({
   locales: ["hu", "en"],
   defaultLocale: "hu",
 });
+
+/**
+ * Hungarian is the primary language for now: visitors who have not picked a
+ * language get Hungarian whatever their browser is set to. A language chosen
+ * with the switcher is still remembered (NEXT_LOCALE cookie).
+ * Set to true to greet new visitors in their browser's language instead.
+ */
+export const FOLLOW_BROWSER_LANGUAGE = false;

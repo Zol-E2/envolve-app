@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { cache } from "react";
 import { getCourseById } from "@/lib/actions/course.actions";
 import { getSubjectColor, getSubjectLabel } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs/server";
@@ -12,15 +14,30 @@ interface CourseSessionPageProps {
   params: Promise<{ id: string }>;
 }
 
+// One database lookup per request, shared by the tab title and the page.
+// An unknown or malformed course id makes Supabase throw; treat it as "not found".
+const loadCourse = cache((id: string) => getCourseById(id).catch(() => null));
+
+export async function generateMetadata({
+  params,
+}: CourseSessionPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const [course, t] = await Promise.all([
+    loadCourse(id),
+    getTranslations("NotFound"),
+  ]);
+  // A missing course renders the 404 page, so give the tab the same title
+  return { title: course?.name ?? t("title") };
+}
+
 const CourseSession = async ({ params }: CourseSessionPageProps) => {
   const { id } = await params;
-  // Independent lookups run in parallel instead of one after another.
-  // An unknown or malformed course id makes Supabase throw; treat it as "not found".
+  // Independent lookups run in parallel instead of one after another
   const [locale, t, tSubjects, course, user] = await Promise.all([
     getLocale(),
     getTranslations("CourseSession"),
     getTranslations("Subjects"),
-    getCourseById(id).catch(() => null),
+    loadCourse(id),
     currentUser(),
   ]);
 
@@ -32,7 +49,7 @@ const CourseSession = async ({ params }: CourseSessionPageProps) => {
     notFound();
   }
 
-  const { name, subject, topic, duration } = course;
+  const { name, subject, topic, duration, language } = course;
   if (!name || !subject || !topic || !duration) {
     redirect({ href: "/courses", locale });
   }
@@ -68,12 +85,16 @@ const CourseSession = async ({ params }: CourseSessionPageProps) => {
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
-              <p className="font-bold text-2xl">{name}</p>
+              <p className="font-bold text-2xl" lang={language}>
+                {name}
+              </p>
               <div className="subject-badge max-md:hidden">
                 {getSubjectLabel(tSubjects, subject)}
               </div>
             </div>
-            <p className="text-lg">{topic}</p>
+            <p className="text-lg" lang={language}>
+              {topic}
+            </p>
           </div>
         </div>
         <div className="items-start text-2xl max-md:hidden">

@@ -1,6 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "@/i18n/routing";
+import { withPrimaryLanguage } from "@/i18n/primaryLanguage";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -16,10 +17,12 @@ const skipIntl = createRouteMatcher(["/api(.*)", "/trpc(.*)", "/monitoring(.*)"]
  * 2. Inside its handler we return the next-intl response (locale detection,
  *    redirect to /{locale}/..., NEXT_LOCALE cookie). Clerk merges its own
  *    headers into that response, so locale redirects are never clobbered.
+ *    withPrimaryLanguage() keeps Hungarian as the default for new visitors
+ *    (see FOLLOW_BROWSER_LANGUAGE in i18n/routing.ts).
  */
 export default clerkMiddleware((_auth, request) => {
   if (skipIntl(request)) return;
-  return intlMiddleware(request);
+  return intlMiddleware(withPrimaryLanguage(request));
 });
 
 export const config = {
