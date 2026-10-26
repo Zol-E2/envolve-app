@@ -23,6 +23,20 @@ export const VAPI_ASSISTANT_IDS: Record<LessonLanguage, string> = {
     "8b18d6c9-5220-459a-8f52-c9f7ddbc00d5", // eNvolve Tutor EN
 };
 
+/**
+ * Spoken app introduction on the welcome screen ("eNvolve Bemutató HU" /
+ * "eNvolve Demo EN" in the Vapi dashboard). Uses the interface language.
+ * Calls are capped at 5 minutes in the assistant settings.
+ */
+export const VAPI_DEMO_ASSISTANT_IDS: Record<LessonLanguage, string> = {
+  hu:
+    process.env.NEXT_PUBLIC_VAPI_ASSISTANT_DEMO_HU ||
+    "37bde5e9-7ebc-4fec-9dc6-46c12d24039b", // eNvolve Bemutató HU
+  en:
+    process.env.NEXT_PUBLIC_VAPI_ASSISTANT_DEMO_EN ||
+    "567d5c4e-7d1b-470e-9c92-caeb3e1dcf9a", // eNvolve Demo EN
+};
+
 // Must match the voice model set on the saved assistants. Cast because the
 // @vapi-ai/web 2.5 type definitions predate eleven_v4_turbo.
 const VOICE_MODEL = "eleven_v4_turbo" as ElevenLabsVoice["model"];

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
 import "../globals.css";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
 import { enUS, huHU } from "@clerk/localizations";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
@@ -68,6 +69,7 @@ export default async function LocaleLayout({
             <TourProvider>
               <Navbar />
               {children}
+              <Footer />
             </TourProvider>
           </ClerkProvider>
         </NextIntlClientProvider>

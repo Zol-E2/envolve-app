@@ -20,6 +20,7 @@ export const TOUR_IDS = [
   // (here, in tours.ts and on the page) once billing launches
   "signIn",
   "notFound",
+  "legal",
 ] as const;
 export type TourId = (typeof TOUR_IDS)[number];
 

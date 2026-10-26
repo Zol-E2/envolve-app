@@ -14,6 +14,7 @@ const onboardingEventSchema = z.object({
     "subscription",
     "signIn",
     "notFound",
+    "legal",
   ]),
   event: z.enum([
     "start",

@@ -274,6 +274,12 @@
         "title": "Eltévedtél?",
         "text": "Ez az oldal nem létezik. Ezzel a gombbal visszajutsz a főoldalra, vagy válassz a fenti menüből."
       }
+    },
+    "legal": {
+      "intro": {
+        "title": "Jogi információk",
+        "text": "Itt olvashatod, hogyan kezeljük az adataidat, és mire figyelj az alkalmazás használatakor. Ha kérdésed van, az oldalon találod, hova írhatsz."
+      }
     }
   },
   "Welcome": {
@@ -317,6 +323,19 @@
       "text": "Kezdheted egy saját kurzussal, vagy választhatsz a meglévők közül. Ha elakadsz, a menüsorban lévő kérdőjel gomb mindig segít.",
       "create": "Első kurzusom elkészítése",
       "browse": "Kurzusok böngészése"
+    },
+    "demo": {
+      "title": "Hangos bemutató",
+      "text": "Ha szeretnéd, egy hang 2–3 percben elmondja, hogyan működik az alkalmazás, és kérdezhetsz is tőle. Ehhez a mikrofon is kell.",
+      "start": "Bemutató indítása",
+      "restart": "Újra meghallgatom",
+      "stop": "Bemutató befejezése",
+      "connecting": "Kapcsolódás…",
+      "speaking": "A bemutató beszél",
+      "yourTurn": "Te jössz, kérdezz nyugodtan",
+      "ended": "A bemutató véget ért.",
+      "micBlockedTitle": "A mikrofon le van tiltva",
+      "micBlockedHelp": "Kattints a lakat ikonra a címsor bal oldalán, állítsd a Mikrofont Engedélyezésre, majd töltsd újra az oldalt."
     }
   },
   "Error": {
@@ -324,5 +343,12 @@
     "description": "Ez nem a te hibád. Próbáld újra, és ha továbbra sem működik, gyere vissza egy kicsit később.",
     "retry": "Újrapróbálom",
     "backHome": "Vissza a főoldalra"
+  },
+  "Legal": {
+    "privacy": "Adatvédelmi tájékoztató",
+    "terms": "Felhasználási feltételek",
+    "footerLabel": "Jogi információk",
+    "updated": "Hatályos: {date, date, long}",
+    "draft": "Ez a dokumentum még tervezet: az adatkezelő adatai hiányoznak, és jogi átnézésre vár."
   }
 }

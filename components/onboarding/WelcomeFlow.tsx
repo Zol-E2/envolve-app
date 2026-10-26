@@ -10,6 +10,7 @@ import { mergeOnboarding, writeLocalOnboarding } from "@/lib/onboarding/state";
 import { speak, stopSpeaking, useCanSpeak } from "@/lib/onboarding/speech";
 import { logOnboardingEvent } from "@/lib/actions/onboarding.actions";
 import MicTest, { type MicResult } from "./MicTest";
+import DemoCall from "./DemoCall";
 
 const STEPS = ["intro", "lesson", "mic", "ready"] as const;
 type Destination = "/" | "/courses" | "/courses/new";
@@ -159,6 +160,7 @@ const WelcomeFlow = () => {
         {step === "ready" && (
           <div className="flex flex-col gap-5">
             <p className="welcome-lead">{t("ready.text")}</p>
+            <DemoCall />
             <div className="flex flex-wrap gap-3">
               <button
                 type="button"

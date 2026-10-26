@@ -70,6 +70,7 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
     { key: "language", target: "nav-language", side: "bottom", align: "end" },
   ],
   notFound: [{ key: "home", target: "notfound-home" }],
+  legal: [{ key: "intro" }],
 };
 
 /**
@@ -85,4 +86,6 @@ export const TOUR_AUTO_START: Record<TourId, boolean> = {
   // subscription: true,
   signIn: true,
   notFound: false,
+  // Legal pages are read on purpose; the tip only explains where to get help
+  legal: false,
 };

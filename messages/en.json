@@ -274,6 +274,12 @@
         "title": "Lost?",
         "text": "This page does not exist. This button takes you back to the home page, or you can pick something from the menu above."
       }
+    },
+    "legal": {
+      "intro": {
+        "title": "Legal information",
+        "text": "Here you can read how we handle your data and what to keep in mind when using the app. If you have a question, the page tells you where to write."
+      }
     }
   },
   "Welcome": {
@@ -317,6 +323,19 @@
       "text": "Start with your own course, or pick one that already exists. If you get stuck, the question mark button in the menu bar is always there to help.",
       "create": "Build my first course",
       "browse": "Browse courses"
+    },
+    "demo": {
+      "title": "Spoken introduction",
+      "text": "If you like, a voice explains in 2–3 minutes how the app works, and you can ask it questions too. You need your microphone for this.",
+      "start": "Start the introduction",
+      "restart": "Listen again",
+      "stop": "End demo",
+      "connecting": "Connecting…",
+      "speaking": "The guide is talking",
+      "yourTurn": "Your turn, feel free to ask",
+      "ended": "The introduction has ended.",
+      "micBlockedTitle": "The microphone is blocked",
+      "micBlockedHelp": "Click the lock icon at the left of the address bar, set Microphone to Allow, then reload the page."
     }
   },
   "Error": {
@@ -324,5 +343,12 @@
     "description": "This is not your fault. Try again, and if it still does not work, come back a little later.",
     "retry": "Try again",
     "backHome": "Back to the home page"
+  },
+  "Legal": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "footerLabel": "Legal information",
+    "updated": "Effective: {date, date, long}",
+    "draft": "This document is still a draft: the data controller details are missing and it is awaiting legal review."
   }
 }

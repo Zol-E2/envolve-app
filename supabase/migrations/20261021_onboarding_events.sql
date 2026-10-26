@@ -19,7 +19,7 @@ alter table public.onboarding_events
   drop constraint if exists onboarding_events_flow_check;
 alter table public.onboarding_events
   add constraint onboarding_events_flow_check check (
-    flow in ('welcome', 'home', 'courses', 'newCourse', 'lesson', 'profile', 'subscription', 'signIn', 'notFound')
+    flow in ('welcome', 'home', 'courses', 'newCourse', 'lesson', 'profile', 'subscription', 'signIn', 'notFound', 'legal')
   );
 
 alter table public.onboarding_events enable row level security;

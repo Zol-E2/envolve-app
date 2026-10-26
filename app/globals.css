@@ -281,6 +281,30 @@ body {
   .welcome-steps {
     @apply flex flex-col gap-3 text-xl list-decimal pl-7 leading-relaxed;
   }
+  .demo-box {
+    @apply flex flex-col gap-3 rounded-2xl border border-black bg-secondary px-5 py-4;
+  }
+  .legal {
+    @apply flex flex-col gap-4 text-lg leading-relaxed;
+  }
+  .legal h2 {
+    @apply text-2xl font-bold mt-6;
+  }
+  .legal ul {
+    @apply list-disc pl-6 flex flex-col gap-2;
+  }
+  .legal-updated {
+    @apply text-base text-muted-foreground;
+  }
+  .legal-intro {
+    @apply text-xl;
+  }
+  .site-footer {
+    @apply mx-auto w-full max-w-[1400px] px-14 py-8 mt-8 border-t border-border flex flex-wrap items-center justify-between gap-4 text-sm text-muted-foreground max-sm:px-4;
+  }
+  .site-footer a {
+    @apply underline-offset-4 hover:underline;
+  }
   .mic-meter {
     @apply h-5 w-full max-w-md rounded-full border border-black bg-secondary overflow-hidden;
   }
