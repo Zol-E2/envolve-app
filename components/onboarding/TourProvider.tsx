@@ -28,6 +28,7 @@ import {
   stopSpeaking,
   subscribeToVoices,
 } from "@/lib/onboarding/speech";
+import { joinForSpeech } from "@/lib/onboarding/speechText.mjs";
 import { logOnboardingEvent } from "@/lib/actions/onboarding.actions";
 
 interface TourContextValue {
@@ -149,18 +150,16 @@ const TourProvider = ({ children }: { children: ReactNode }) => {
         // A stray click beside the bubble should not throw the tour away;
         // the × button and Esc still close it
         overlayClickBehavior: "none",
-        onPopoverRender: (popover) => {
-          if (!canSpeak(locale)) return;
+        onPopoverRender: (popover, { state }) => {
+          // Built from the step's texts, exactly like the recording script
+          const step = state.activeStep?.popover;
+          const speech = joinForSpeech([step?.title ?? "", step?.description ?? ""]);
+          if (!canSpeak(locale, speech)) return;
           const readButton = document.createElement("button");
           readButton.type = "button";
           readButton.className = "driver-popover-footer-btn envolve-tour-read";
           readButton.textContent = t("readAloud");
-          readButton.addEventListener("click", () =>
-            speak(
-              `${popover.title.textContent ?? ""}. ${popover.description.textContent ?? ""}`,
-              locale
-            )
-          );
+          readButton.addEventListener("click", () => speak(speech, locale));
           popover.footer.insertBefore(readButton, popover.footerButtons);
         },
         onHighlightStarted: () => stopSpeaking(),

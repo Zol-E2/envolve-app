@@ -8,6 +8,7 @@ import { useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { mergeOnboarding, writeLocalOnboarding } from "@/lib/onboarding/state";
 import { speak, stopSpeaking, useCanSpeak } from "@/lib/onboarding/speech";
+import { WELCOME_SPEECH, joinForSpeech } from "@/lib/onboarding/speechText.mjs";
 import { logOnboardingEvent } from "@/lib/actions/onboarding.actions";
 import MicTest, { type MicResult } from "./MicTest";
 import DemoCall from "./DemoCall";
@@ -28,7 +29,6 @@ const WelcomeFlow = () => {
   const canRead = useCanSpeak(locale);
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const firstRender = useRef(true);
   const step = STEPS[index];
@@ -87,9 +87,11 @@ const WelcomeFlow = () => {
     void logOnboardingEvent({ flow: "welcome", event, locale });
   };
 
+  // The card's texts only, not its buttons or the mic test status, so the
+  // same sentence can be played from the recording
   const readAloud = () => {
-    const text = cardRef.current?.innerText;
-    if (text) speak(text, locale);
+    const text = t as unknown as (key: string) => string;
+    speak(joinForSpeech(WELCOME_SPEECH[step].map((key) => text(`${step}.${key}`))), locale);
   };
 
   return (
@@ -114,7 +116,7 @@ const WelcomeFlow = () => {
         ))}
       </ol>
 
-      <div className="welcome-card" ref={cardRef}>
+      <div className="welcome-card">
         <h1 id="welcome-heading" ref={headingRef} tabIndex={-1} className="welcome-title">
           {t(`${step}.title`)}
         </h1>

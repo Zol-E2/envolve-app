@@ -6,8 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint && npm run check:i18n",
-    "check:i18n": "node scripts/check-messages.mjs"
+    "lint": "eslint && npm run check:i18n && npm run check:speech",
+    "check:i18n": "node scripts/check-messages.mjs",
+    "check:speech": "node scripts/generate-speech.mjs --check",
+    "speech:generate": "node scripts/generate-speech.mjs"
   },
   "engines": {
     "node": ">=22.14.0"
