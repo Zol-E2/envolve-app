@@ -1,28 +1,24 @@
 "use client";
-import { cn } from "@/lib/utils";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { isActive, mainNav } from "@/lib/navigation";
 
-// `key` doubles as the translation key inside the "Navbar" namespace
-const navItems = [
-  { key: "home", link: "/" },
-  { key: "courses", link: "/courses" },
-  { key: "profile", link: "/my-profile" },
-] as const;
-
+/** Desktop navigation in the header; phones use <MobileTabBar> instead. */
 const NavItems = () => {
   // Locale-stripped pathname ("/courses" even on /hu/courses) so active-link matching keeps working
   const pathname = usePathname();
   const t = useTranslations("Navbar");
 
   return (
-    <nav className="flex items-center gap-4 max-sm:gap-2 max-sm:text-sm">
-      {navItems.map(({ key, link }) => (
+    <nav className="nav-links" aria-label={t("mainNav")}>
+      {mainNav.map(({ key, href, icon: Icon }) => (
         <Link
-          href={link}
+          href={href}
           key={key}
-          className={cn(pathname === link && "text-primary font-semibold")}
+          className="nav-link"
+          aria-current={isActive(href, pathname) ? "page" : undefined}
         >
+          <Icon className="size-5" aria-hidden />
           {t(key)}
         </Link>
       ))}

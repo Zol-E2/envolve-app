@@ -33,7 +33,7 @@ const LanguageSwitcher = () => {
       value={locale}
       onChange={onSelectChange}
       disabled={isPending}
-      className="border border-black rounded-4xl px-3 py-2 text-sm font-semibold bg-white cursor-pointer disabled:opacity-50"
+      className="lang-select"
     >
       {routing.locales.map((code) => (
         <option key={code} value={code}>

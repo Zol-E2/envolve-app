@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Plus } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 
@@ -8,13 +9,12 @@ const CTA = () => {
   return (
     <section className="cta-section" data-tour="home-create">
       <div className="cta-badge">{t("badge")}</div>
-      <h2 className="text-3xl font-bold">{t("title")}</h2>
-      <p>{t("description")}</p>
-      <Image src="/images/cta.svg" alt="" width={362} height={232} />
-      {/* Link wraps the entire button so the whole element is clickable */}
-      <Link href="/courses/new" className="btn-primary">
-        <Image src="/icons/plus.svg" alt="" width={12} height={12} />
-        <p>{t("button")}</p>
+      <h2 className="text-[26px] leading-tight font-extrabold">{t("title")}</h2>
+      <p className="text-lg text-white/85">{t("description")}</p>
+      <Image src="/images/cta.svg" alt="" width={300} height={192} className="max-sm:w-[220px]" />
+      <Link href="/courses/new" className="btn-primary w-full">
+        <Plus className="size-5" aria-hidden />
+        {t("button")}
       </Link>
     </section>
   );

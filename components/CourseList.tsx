@@ -1,15 +1,8 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { cn, getSubjectColor, getSubjectLabel } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
+import { cn, getSubjectLabel } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
+import SubjectTile from "./SubjectTile";
 
 interface CourseListProps {
   title: string;
@@ -17,11 +10,15 @@ interface CourseListProps {
   classNames?: string;
   /** data-tour target for the page tour */
   tour?: string;
-  /** Shown instead of the table when there are no courses */
+  /** Shown instead of the list when there are no courses */
   emptyMessage?: string;
   emptyAction?: { href: string; label: string };
 }
 
+/**
+ * A simple list instead of a table: one row per course, the whole row is
+ * one big tap target, and it reads the same on a phone as on a desktop.
+ */
 const CourseList = ({
   title,
   courses,
@@ -35,10 +32,10 @@ const CourseList = ({
 
   return (
     <article className={cn("course-list", classNames)} data-tour={tour}>
-      <h2 className="font-bold text-3xl">{title}</h2>
+      <h2 className="text-2xl font-bold max-sm:text-xl">{title}</h2>
 
       {!courses?.length ? (
-        // An empty table gives a new user nothing to do, so offer the next step
+        // An empty list gives a new user nothing to do, so offer the next step
         <div className="list-empty">
           <p>{emptyMessage ?? t("empty")}</p>
           {emptyAction && (
@@ -48,81 +45,27 @@ const CourseList = ({
           )}
         </div>
       ) : (
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="text-lg w-2/3">{t("lessons")}</TableHead>
-            <TableHead className="text-lg">{t("subject")}</TableHead>
-            <TableHead className="text-lg text-right">{t("duration")}</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {courses?.map(({ id, name, subject, duration, topic, language }) => (
-            <TableRow key={id}>
-              <TableCell>
-                <Link href={`/courses/${id}`}>
-                  <div className="flex items-center gap-2">
-                    <div
-                      className="size-[72px] 
-                    flex items-center 
-                    justify-center 
-                    rounded-lg max-md:hidden"
-                      style={{ backgroundColor: getSubjectColor(subject) }}
-                    >
-                      <Image
-                        src={`/icons/${subject}.svg`}
-                        alt={getSubjectLabel(tSubjects, subject)}
-                        width={35}
-                        height={35}
-                      />
-                    </div>
-                    <div className="flex flex-col gap-2" lang={language}>
-                      <p className="font-bold text-2xl">{name}</p>
-                      <p className="text-lg">{topic}</p>
-                    </div>
-                  </div>
-                </Link>
-              </TableCell>
-              <TableCell>
-                <div className="subject-badge w-fit max-md:hidden">
-                  {getSubjectLabel(tSubjects, subject)}
-                </div>
-                <div
-                  className="flex 
-                items-center 
-                justify-center 
-                rounded-lg 
-                w-fit 
-                p-2 
-                md:hidden"
-                  style={{ backgroundColor: getSubjectColor(subject) }}
-                >
-                  <Image
-                    src={`/icons/${subject}.svg`}
-                    alt={getSubjectLabel(tSubjects, subject)}
-                    width={18}
-                    height={18}
-                  />
-                </div>
-              </TableCell>
-              <TableCell>
-                <div className="flex items-center justify-end gap-2 w-full">
-                  <p className="text-2xl">
-                    {duration} <span className="max-md:hidden">{t("min")}</span>
-                  </p>
-                  <Image
-                    src={`/icons/clock.svg`}
-                    alt={t("min")}
-                    width={14}
-                    height={14}
-                    className="md:hidden"
-                  />
-                </div>
-              </TableCell>
-            </TableRow>
+        <ul className="flex flex-col">
+          {courses.map(({ id, name, subject, duration, language }, index) => (
+            <li key={`${id}-${index}`}>
+              <Link href={`/courses/${id}`} className="course-row group">
+                <SubjectTile subject={subject} size="sm" />
+                <span className="flex min-w-0 flex-1 flex-col">
+                  <span className="text-lg leading-snug font-bold group-hover:underline" lang={language}>
+                    {name}
+                  </span>
+                  <span className="text-[15px] text-muted-foreground">
+                    {getSubjectLabel(tSubjects, subject)} · {duration} {t("min")}
+                    {language && ` · ${language.toUpperCase()}`}
+                  </span>
+                </span>
+                <span className="course-row-go" aria-hidden>
+                  <ArrowRight className="size-5" />
+                </span>
+              </Link>
+            </li>
           ))}
-        </TableBody>
-      </Table>
+        </ul>
       )}
     </article>
   );

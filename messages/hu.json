@@ -12,7 +12,10 @@
     "signIn": "Bejelentkezés",
     "home": "Főoldal",
     "courses": "Kurzusok",
-    "profile": "Profil"
+    "profile": "Profil",
+    "newCourse": "Új kurzus",
+    "help": "Segítség",
+    "mainNav": "Fő menü"
   },
   "LanguageSwitcher": {
     "label": "Nyelv",
@@ -36,7 +39,9 @@
     "minutes": "{count} perc",
     "launchLesson": "Óra megnyitása",
     "lessonHu": "Magyar nyelvű óra",
-    "lessonEn": "Angol nyelvű óra"
+    "lessonEn": "Angol nyelvű óra",
+    "save": "Mentés",
+    "saved": "Mentve"
   },
   "CourseList": {
     "lessons": "Órák",

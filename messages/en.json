@@ -12,7 +12,10 @@
     "signIn": "Sign In",
     "home": "Home",
     "courses": "Courses",
-    "profile": "Profile"
+    "profile": "Profile",
+    "newCourse": "New course",
+    "help": "Help",
+    "mainNav": "Main menu"
   },
   "LanguageSwitcher": {
     "label": "Language",
@@ -36,7 +39,9 @@
     "minutes": "{count, plural, one {# minute} other {# minutes}}",
     "launchLesson": "Launch Lesson",
     "lessonHu": "Lesson in Hungarian",
-    "lessonEn": "Lesson in English"
+    "lessonEn": "Lesson in English",
+    "save": "Save",
+    "saved": "Saved"
   },
   "CourseList": {
     "lessons": "Lessons",

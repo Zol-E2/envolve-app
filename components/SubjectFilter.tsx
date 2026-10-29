@@ -49,7 +49,7 @@ const SubjectFilter = () => {
 
   return (
     <Select onValueChange={setSubject} value={subject}>
-      <SelectTrigger className="input capitalize" data-tour="courses-filter">
+      <SelectTrigger className="input" data-tour="courses-filter">
         <SelectValue placeholder={t("subjectPlaceholder")} />
       </SelectTrigger>
       <SelectContent>

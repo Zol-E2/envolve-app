@@ -32,7 +32,7 @@ const Page = async () => {
       <PageTour id="home" />
       <h1>{t("popularCourses")}</h1>
 
-      <section className="home-section" data-tour="home-popular">
+      <section className="courses-grid" data-tour="home-popular">
         {courses.map((course) => (
           <CourseCard
             key={course.id}
@@ -52,7 +52,7 @@ const Page = async () => {
         <CourseList
           title={t("recentCourses")}
           courses={recentSessionsCourses}
-          classNames="w-2/3 max-lg:w-full"
+          classNames="lg:flex-1"
           tour="home-recent"
           emptyMessage={t("recentEmpty")}
           emptyAction={{ href: "/courses", label: t("browseCourses") }}

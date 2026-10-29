@@ -1,10 +1,12 @@
 "use client";
 
-import { cn, getSubjectColor, getSubjectLabel } from "@/lib/utils";
+import { cn, getSubjectColor } from "@/lib/utils";
 import { buildLessonCall } from "@/lib/ai/assistants";
 import { vapi } from "@/lib/vapi.sdk";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { Mic, MicOff } from "lucide-react";
+import { SubjectIcon } from "./SubjectTile";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import soundwaves from "@/constants/soundwaves.json";
 import { addToSessionHistory } from "@/lib/actions/course.actions";
@@ -30,7 +32,6 @@ const CourseComponent = ({
   voice,
 }: CourseComponentProps) => {
   const t = useTranslations("CourseSession");
-  const tSubjects = useTranslations("Subjects");
   const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -169,12 +170,10 @@ const CourseComponent = ({
                   "opacity-100 animate-pulse"
               )}
             >
-              <Image
-                src={`/icons/${subject}.svg`}
-                alt={getSubjectLabel(tSubjects, subject)}
-                width={150}
-                height={150}
-                className="max-sm:w-fit"
+              <SubjectIcon
+                subject={subject}
+                className="size-28 max-sm:size-14"
+                strokeWidth={1.75}
               />
             </div>
             {/* Show animated soundwave when call is active */}
@@ -228,12 +227,11 @@ const CourseComponent = ({
             title={isMuted ? t("micOn") : t("micOff")}
             aria-label={isMuted ? t("micOn") : t("micOff")}
           >
-            <Image
-              src={isMuted ? "/icons/mic-off.svg" : "/icons/mic-on.svg"}
-              alt=""
-              width={36}
-              height={36}
-            />
+            {isMuted ? (
+              <MicOff className="size-8" aria-hidden />
+            ) : (
+              <Mic className="size-8" aria-hidden />
+            )}
             <p className="max-sm:hidden">
               {isMuted ? t("micOn") : t("micOff")}
             </p>

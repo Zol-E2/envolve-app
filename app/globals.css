@@ -1,140 +1,187 @@
-@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * eNvolve design tokens.
+ *
+ * Built for children with learning difficulties (dyslexia, ADHD, autism):
+ * an off-white background instead of glaring white, dark navy text instead of
+ * black, every text colour at least 4.5:1 on its background, and the same
+ * colour always meaning the same thing ("your turn" is always blue, "done"
+ * always green). See docs in the design draft for the reasoning.
+ *
+ * Palette A ("warm", eNvolve orange) is active. Palette B ("calm", teal) is
+ * kept as a backup: set data-palette="calm" on <html> to try it, and load the
+ * Lexend font in app/[locale]/layout.tsx if it becomes the default.
+ */
 :root {
-  --primary: #fe5933;
+  --background: #fbf6ee;
+  --foreground: #1e2b3a;
+  --card: #ffffff;
+  --card-foreground: #1e2b3a;
+  --popover: #ffffff;
+  --popover-foreground: #1e2b3a;
 
-  --cta: #2c2c2c;
-  --cta-gold: #fccc41;
-  --radius: 0.625rem;
-  --background: #f9f9f9;
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --primary: #c7461a; /* white text on it: 4.9:1 */
+  --primary-foreground: #ffffff;
+  --primary-soft: #ffe3d3;
+  --primary-deep: #9a3412;
+
+  --secondary: #f3ece2;
+  --secondary-foreground: #1e2b3a;
+  --muted: #f3ece2;
+  --muted-foreground: #4a5568;
+  --accent: #ffe3d3;
+  --accent-foreground: #9a3412;
+
+  /* Meaningful colours, always paired with an icon and a word */
+  --turn: #1f6fb8; /* "your turn" / active */
+  --turn-soft: #dceafb;
+  --turn-deep: #1e4f86;
+  --ok: #1f5e3a; /* done */
+  --ok-soft: #ddf1e4;
+  --warn: #7a4a00; /* due soon, stuck */
+  --warn-soft: #fff0c9;
+  --destructive: #b42318; /* errors */
+  --destructive-soft: #fdecea;
+
+  --cta: #1e2b3a;
+  --cta-gold: #ffe08a;
+
+  --border: #e8dccd;
+  --input: #e8dccd;
+  --ring: #c7461a;
+  --radius: 1rem;
+
+  /* shadcn/ui leftovers (charts, sidebar) mapped onto the palette */
+  --chart-1: #c7461a;
+  --chart-2: #1f6fb8;
+  --chart-3: #1f5e3a;
+  --chart-4: #ffe08a;
+  --chart-5: #e3d4ff;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1e2b3a;
+  --sidebar-primary: #c7461a;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #ffe3d3;
+  --sidebar-accent-foreground: #9a3412;
+  --sidebar-border: #e8dccd;
+  --sidebar-ring: #c7461a;
+}
+
+/* Backup palette B: calm teal (see the comment above) */
+:root[data-palette="calm"] {
+  --background: #f1f6f4;
+  --foreground: #1b2a33;
+  --card-foreground: #1b2a33;
+  --popover-foreground: #1b2a33;
+  --primary: #0e7c6b;
+  --primary-soft: #d3eee8;
+  --primary-deep: #0b5e52;
+  --secondary: #e6efec;
+  --secondary-foreground: #1b2a33;
+  --muted: #e6efec;
+  --muted-foreground: #4b5d66;
+  --accent: #d3eee8;
+  --accent-foreground: #0b5e52;
+  --turn: #5b4bc4;
+  --turn-soft: #e7e3fb;
+  --turn-deep: #3f3391;
+  --cta: #1b2a33;
+  --border: #d5e2de;
+  --input: #d5e2de;
+  --ring: #0e7c6b;
+  --font-display: var(--font-lexend, var(--font-body));
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-deep: var(--primary-deep);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-turn: var(--turn);
+  --color-turn-soft: var(--turn-soft);
+  --color-turn-deep: var(--turn-deep);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-destructive: var(--destructive);
+  --color-destructive-soft: var(--destructive-soft);
   --color-cta: var(--cta);
   --color-cta-gold: var(--cta-gold);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-bricolage: "Bricolage Grotesque", sans-serif;
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
   --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-}
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 
-body {
-  font-family: var(--font-bricolage);
-}
+  /* Fonts come from next/font in app/[locale]/layout.tsx */
+  --font-sans: var(--font-body), "Segoe UI", system-ui, sans-serif;
+  --font-display: var(--font-heading), "Segoe UI", system-ui, sans-serif;
+  --font-bricolage: var(--font-heading), "Segoe UI", system-ui, sans-serif;
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-lg: calc(var(--radius) - 2px);
+  --radius-xl: var(--radius);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    /* 18px, 1.6 line height, slightly opened letter spacing: dyslexia-friendly
+       reading settings (Dyslexia Scotland, BDA style guides) */
+    font-size: 1.125rem;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
   }
   main {
-    @apply mx-auto px-14 flex flex-col gap-8 bg-background h-full max-w-[1400px] pt-10 max-sm:px-2 mb-5;
+    @apply mx-auto flex w-full max-w-[1200px] flex-col gap-8 px-10 pt-8 pb-10 max-md:px-6 max-sm:gap-6 max-sm:px-4 max-sm:pt-5;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: 0;
+    line-height: 1.2;
+    text-wrap: balance;
   }
   h1 {
-    @apply text-3xl font-bold;
+    @apply text-4xl font-extrabold max-sm:text-[28px];
   }
   /* Long Hungarian compounds ("Kurzuskönyvtár") must not overflow on phones.
      Only headings are hyphenated: split words in running text are harder to
@@ -145,153 +192,251 @@ body {
     hyphens: auto;
     overflow-wrap: break-word;
   }
+  :focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 2px;
+  }
+  /* Calm by default for users who asked their device for less motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer components {
-  .home-section {
-    @apply flex gap-4 justify-between items-start w-full max-lg:flex-col-reverse max-lg:items-center;
+  /* --- Header, desktop navigation, mobile tab bar --- */
+  .site-header {
+    @apply border-b border-border bg-card;
   }
-  .courses-grid {
-    @apply flex flex-wrap gap-4 w-full max-md:justify-center justify-between;
+  .site-header-inner {
+    @apply mx-auto flex w-full max-w-[1200px] items-center gap-6 px-10 py-3 max-md:gap-3 max-md:px-6 max-sm:px-4 max-sm:py-2.5;
   }
-  .course-card {
-    @apply flex flex-col rounded-4xl border border-black px-4 py-4 gap-5 w-full lg:max-w-[410px] justify-between;
+  .brand {
+    @apply flex shrink-0 items-center rounded-lg;
   }
-  .subject-badge {
-    @apply bg-black text-white rounded-4xl text-sm px-2 py-1 capitalize;
+  .nav-links {
+    @apply flex items-center gap-1 max-md:hidden;
   }
-  .course-bookmark {
-    @apply px-2 bg-black rounded-4xl flex items-center h-full aspect-square cursor-pointer;
+  .nav-link {
+    @apply flex h-11 items-center gap-2 rounded-xl px-4 text-[17px] font-bold text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground;
   }
-  .input {
-    @apply border-black! bg-white! focus-visible:ring-0! focus-visible:border-black! w-full!;
+  .nav-link[aria-current="page"] {
+    @apply bg-primary-soft text-primary-deep;
   }
-  .rounded-border {
-    @apply rounded-4xl border border-black;
+  .header-actions {
+    @apply ml-auto flex items-center gap-3 max-sm:gap-2;
   }
-  .cta-section {
-    @apply bg-cta text-white rounded-4xl px-7 py-10 flex flex-col items-center text-center gap-5 w-1/3 max-lg:w-1/2 max-md:w-full;
+  .btn-help {
+    @apply flex h-11 shrink-0 cursor-pointer items-center gap-2 rounded-full border-2 border-border bg-card px-4 text-base font-bold text-foreground transition-colors hover:border-foreground disabled:cursor-default disabled:opacity-60 max-sm:h-10 max-sm:px-3 max-sm:text-[15px];
   }
-  .cta-badge {
-    @apply bg-cta-gold rounded-4xl px-3 py-1.5 text-black;
-  }
-  .btn-primary {
-    @apply bg-primary text-white rounded-xl cursor-pointer px-4 py-2 flex items-center gap-2;
-  }
-  .navbar {
-    @apply flex items-center justify-between mx-auto w-full px-14 py-4 bg-white max-sm:px-4;
+  .lang-select {
+    @apply h-11 cursor-pointer rounded-xl border-2 border-border bg-card px-2.5 text-[15px] font-bold disabled:opacity-50 max-sm:h-10;
   }
   .btn-signin {
-    @apply border border-black rounded-4xl px-4 py-2.5 text-sm font-semibold flex items-center gap-2 cursor-pointer;
+    @apply flex h-11 cursor-pointer items-center gap-2 rounded-full bg-foreground px-5 text-base font-bold text-card max-sm:h-10 max-sm:px-4;
   }
-  .course-list {
-    @apply rounded-4xl border border-black px-7 pt-7 pb-10 max-lg:w-full bg-white;
+  .tabbar {
+    @apply fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 gap-1 border-t border-border bg-card px-2 pt-2 md:hidden;
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
   }
-  .course-limit {
-    @apply items-center justify-center flex flex-col gap-4 w-full 2xl:w-1/2 pt-20 text-center;
+  .tab {
+    @apply grid justify-items-center gap-0.5 rounded-2xl px-1 py-1.5 text-[13px] leading-tight font-bold text-muted-foreground;
   }
-
-  .course-section {
-    @apply border-2 border-orange-500 w-2/3 max-sm:w-full flex flex-col gap-4 justify-center items-center rounded-lg;
+  .tab[aria-current="page"] {
+    @apply bg-primary-soft text-primary-deep;
   }
-
-  .course-avatar {
-    @apply size-[300px] flex items-center justify-center rounded-lg max-sm:size-[100px] mt-4;
-  }
-  .course-lottie {
-    @apply size-[300px] max-sm:size-[100px];
+  /* Keeps the end of the page clear of the fixed tab bar */
+  .tabbar-spacer {
+    @apply md:hidden;
+    height: calc(env(safe-area-inset-bottom, 0px) + 76px);
   }
 
-  .user-section {
-    @apply flex flex-col gap-4 w-1/3 max-sm:w-full max-sm:flex-row;
-  }
-  .user-avatar {
-    @apply border-2 border-black flex flex-col gap-4 items-center rounded-lg py-8 max-sm:hidden;
-  }
-
-  .btn-mic {
-    @apply border-2 border-black rounded-lg flex flex-col gap-2 items-center py-8 max-sm:py-2 cursor-pointer w-full;
-  }
-
-  .transcript {
-    @apply relative flex flex-col gap-4 w-full items-center pt-10 grow overflow-hidden;
-  }
-  .transcript-message {
-    @apply overflow-y-auto w-full flex flex-col gap-4 max-sm:gap-2 pr-2 h-full text-2xl;
-  }
-  .transcript-fade {
-    @apply pointer-events-none absolute bottom-0 left-0 right-0 h-40 max-sm:h-20 bg-linear-to-t from-background via-background/90 to-transparent z-10;
-  }
-
-  /* --- Onboarding: help button, status line, empty states, welcome --- */
-  .btn-help {
-    @apply size-10 max-sm:size-8 shrink-0 rounded-full border-2 border-black flex items-center justify-center text-lg font-bold cursor-pointer bg-white hover:bg-black hover:text-white transition-colors;
+  /* --- Buttons --- */
+  .btn-primary {
+    @apply inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-2 text-lg font-bold text-primary-foreground transition-colors hover:bg-primary-deep disabled:cursor-not-allowed disabled:opacity-50;
   }
   .btn-outline {
-    @apply border border-black rounded-xl px-4 py-2 cursor-pointer bg-white hover:bg-secondary disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2;
+    @apply inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-2xl border-2 border-border bg-card px-5 py-2 text-lg font-bold text-foreground transition-colors hover:border-foreground disabled:cursor-not-allowed disabled:opacity-40;
+  }
+  .btn-soft {
+    @apply inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-2xl bg-primary-soft px-5 py-2 text-lg font-bold text-primary-deep transition-colors hover:bg-primary hover:text-primary-foreground;
+  }
+
+  /* --- Cards and lists --- */
+  .card {
+    @apply rounded-3xl border border-border bg-card p-6 max-sm:rounded-[20px] max-sm:p-4;
+  }
+  .rounded-border {
+    @apply rounded-3xl border border-border bg-card;
+  }
+  .courses-grid {
+    @apply grid w-full grid-cols-3 gap-5 max-lg:grid-cols-2 max-sm:grid-cols-1 max-sm:gap-4;
+  }
+  .home-section {
+    @apply flex w-full items-start gap-6 max-lg:flex-col;
+  }
+  .course-card {
+    @apply flex w-full flex-col gap-4 rounded-3xl border border-border bg-card p-5 max-sm:rounded-[20px] max-sm:p-4;
+  }
+  .course-card-head {
+    @apply flex items-center gap-3;
+  }
+  .subject-tile {
+    @apply flex shrink-0 items-center justify-center rounded-2xl text-foreground;
+  }
+  .subject-badge {
+    @apply inline-flex h-8 items-center rounded-full bg-secondary px-3 text-[15px] font-bold whitespace-nowrap;
+  }
+  .pill {
+    @apply inline-flex h-8 items-center gap-1.5 rounded-full border border-border bg-background px-3 text-[15px] font-bold whitespace-nowrap text-muted-foreground;
+  }
+  .course-bookmark {
+    @apply flex min-h-12 shrink-0 cursor-pointer items-center justify-center gap-2 rounded-2xl border-2 border-border bg-card px-4 text-base font-bold text-foreground transition-colors hover:border-foreground;
+  }
+  .course-bookmark[aria-pressed="true"] {
+    @apply border-primary-soft bg-primary-soft text-primary-deep;
+  }
+  .course-list {
+    @apply flex w-full flex-col gap-4 rounded-3xl border border-border bg-card p-6 max-sm:rounded-[20px] max-sm:p-4;
+  }
+  .course-row {
+    @apply flex items-center gap-4 border-t border-border py-3 first:border-t-0;
+  }
+  .course-row-go {
+    @apply flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-primary-deep;
+  }
+  .course-limit {
+    @apply flex w-full flex-col items-center justify-center gap-4 pt-20 text-center 2xl:w-1/2;
+  }
+  .input {
+    @apply min-h-14! w-full! rounded-2xl! border-2! border-border! bg-card! px-4! text-lg! focus-visible:border-foreground! focus-visible:ring-0!;
+  }
+  .search-box {
+    @apply flex h-14 w-full items-center gap-3 rounded-2xl border-2 border-border bg-card px-4 text-muted-foreground focus-within:border-foreground;
+  }
+  .search-box input {
+    @apply h-full w-full min-w-0 bg-transparent text-lg text-foreground outline-none placeholder:text-muted-foreground;
+  }
+
+  /* --- Call to action (dark card on the home page) --- */
+  .cta-section {
+    @apply flex w-full flex-col items-center gap-5 rounded-3xl bg-cta px-7 py-9 text-center text-white lg:max-w-[380px] max-sm:rounded-[20px] max-sm:px-5 max-sm:py-7;
+  }
+  .cta-badge {
+    @apply rounded-full bg-cta-gold px-3 py-1.5 text-sm font-bold text-foreground;
+  }
+
+  /* --- Lesson page (layout redesign follows in a later step) --- */
+  .course-section {
+    @apply flex w-2/3 flex-col items-center justify-center gap-4 rounded-3xl border border-border bg-card p-6 max-md:w-full max-sm:p-4;
+  }
+  .course-avatar {
+    @apply relative mt-4 flex size-[260px] items-center justify-center rounded-full max-sm:size-[120px];
+  }
+  .course-lottie {
+    @apply size-[260px] max-sm:size-[120px];
+  }
+  .user-section {
+    @apply flex w-1/3 flex-col gap-4 max-md:w-full max-md:flex-row;
+  }
+  .user-avatar {
+    @apply flex flex-col items-center gap-4 rounded-3xl border border-border bg-card py-8 max-md:hidden;
+  }
+  .btn-mic {
+    @apply flex min-h-12 w-full cursor-pointer flex-col items-center gap-2 rounded-2xl border-2 border-border bg-card py-6 font-bold disabled:cursor-not-allowed disabled:opacity-50 max-md:py-3;
+  }
+  .transcript {
+    @apply relative flex w-full grow flex-col items-center overflow-hidden pt-8;
+  }
+  .transcript-message {
+    @apply flex h-full w-full flex-col gap-4 overflow-y-auto pr-2 text-xl leading-relaxed max-sm:gap-3 max-sm:text-lg;
+  }
+  .transcript-fade {
+    @apply pointer-events-none absolute right-0 bottom-0 left-0 z-10 h-40 bg-linear-to-t from-background via-background/90 to-transparent max-sm:h-20;
   }
   .lesson-status {
-    @apply rounded-4xl border border-black px-4 py-2 text-lg font-semibold text-center mb-4 max-sm:text-base;
+    @apply mb-4 flex min-h-14 w-full items-center justify-center rounded-2xl bg-turn-soft px-4 py-3 text-center text-lg font-extrabold text-turn-deep max-sm:text-base;
   }
   .lesson-status-turn {
-    @apply bg-primary text-white border-primary;
+    @apply bg-turn text-white;
   }
   .lesson-status-alert {
-    @apply bg-red-50 text-red-800 border-red-700;
+    @apply bg-destructive-soft text-destructive;
   }
+
+  /* --- Help, empty states --- */
   .help-box {
-    @apply flex flex-col gap-2 rounded-2xl border-2 border-red-700 bg-red-50 text-red-900 px-5 py-4 text-lg leading-relaxed;
+    @apply flex flex-col gap-2 rounded-2xl border-2 border-destructive bg-destructive-soft px-5 py-4 text-lg leading-relaxed text-destructive;
   }
   .list-empty {
-    @apply flex flex-col items-start gap-4 pt-6 text-lg leading-relaxed;
+    @apply flex flex-col items-start gap-4 pt-2 text-lg leading-relaxed;
   }
+
+  /* --- Welcome flow --- */
   .welcome-shell {
-    @apply w-full max-w-3xl flex flex-col gap-6;
+    @apply flex w-full max-w-3xl flex-col gap-6;
   }
   .welcome-progress {
-    @apply text-base font-semibold text-muted-foreground;
+    @apply text-base font-bold text-muted-foreground;
   }
   .welcome-skip {
-    @apply text-base underline underline-offset-4 cursor-pointer px-2 py-1 rounded-md;
+    @apply min-h-11 cursor-pointer rounded-xl px-3 text-base font-bold text-muted-foreground underline underline-offset-4;
   }
   .welcome-dots {
     @apply flex gap-2;
   }
   .welcome-dots li {
-    @apply h-2 flex-1 rounded-full bg-border;
+    @apply h-2.5 flex-1 rounded-full bg-border;
   }
   .welcome-dots li.is-done {
     @apply bg-primary;
   }
   .welcome-card {
-    @apply rounded-4xl border border-black bg-white px-8 py-8 flex flex-col gap-6 min-h-[340px] max-sm:px-5;
+    @apply flex min-h-[340px] flex-col gap-6 rounded-3xl border border-border bg-card px-8 py-8 max-sm:min-h-0 max-sm:rounded-[20px] max-sm:px-5 max-sm:py-6;
   }
   .welcome-title {
-    @apply text-3xl font-bold outline-none;
+    @apply text-3xl font-extrabold outline-none max-sm:text-[26px];
   }
   .welcome-lead {
-    @apply text-xl leading-relaxed max-w-prose;
+    @apply max-w-prose text-xl leading-relaxed max-sm:text-lg;
   }
   .welcome-note {
     @apply text-lg leading-relaxed text-muted-foreground;
   }
   .welcome-list {
-    @apply flex flex-col gap-2 text-lg list-disc pl-6;
+    @apply flex list-disc flex-col gap-2 pl-6 text-lg;
   }
   .welcome-steps {
-    @apply flex flex-col gap-3 text-xl list-decimal pl-7 leading-relaxed;
+    @apply flex list-decimal flex-col gap-3 pl-7 text-xl leading-relaxed max-sm:text-lg;
   }
   .demo-box {
-    @apply flex flex-col gap-3 rounded-2xl border border-black bg-secondary px-5 py-4;
+    @apply flex flex-col gap-3 rounded-2xl border border-border bg-secondary px-5 py-4;
   }
+  .mic-meter {
+    @apply h-5 w-full max-w-md overflow-hidden rounded-full border border-border bg-secondary;
+  }
+  .mic-meter-fill {
+    @apply h-full bg-cta-gold motion-safe:transition-[width] motion-safe:duration-75;
+  }
+  .mic-meter-fill-ok {
+    @apply bg-ok;
+  }
+
+  /* --- Legal pages and footer --- */
   .legal {
     @apply flex flex-col gap-4 text-lg leading-relaxed;
   }
   .legal h2 {
-    @apply text-2xl font-bold mt-6;
+    @apply mt-6 text-2xl font-bold;
   }
   .legal ul {
-    @apply list-disc pl-6 flex flex-col gap-2;
+    @apply flex list-disc flex-col gap-2 pl-6;
   }
   .legal-updated {
     @apply text-base text-muted-foreground;
@@ -300,19 +445,10 @@ body {
     @apply text-xl;
   }
   .site-footer {
-    @apply mx-auto w-full max-w-[1400px] px-14 py-8 mt-8 border-t border-border flex flex-wrap items-center justify-between gap-4 text-sm text-muted-foreground max-sm:px-4;
+    @apply mx-auto mt-8 flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-4 border-t border-border px-10 py-8 text-base text-muted-foreground max-md:px-6 max-sm:px-4;
   }
   .site-footer a {
     @apply underline-offset-4 hover:underline;
-  }
-  .mic-meter {
-    @apply h-5 w-full max-w-md rounded-full border border-black bg-secondary overflow-hidden;
-  }
-  .mic-meter-fill {
-    @apply h-full bg-cta-gold motion-safe:transition-[width] motion-safe:duration-75;
-  }
-  .mic-meter-fill-ok {
-    @apply bg-green-600;
   }
 }
 
@@ -325,27 +461,30 @@ body {
     scrollbar-width: none;
   }
 }
+
 /*
  * Guided tour (driver.js). Kept outside @layer on purpose: driver.css is
  * unlayered, and unlayered rules always beat layered ones. Larger text and
  * buttons than the library default, in the app's own colours.
  */
 .driver-popover.envolve-tour {
-  font-family: var(--font-bricolage), "Bricolage Grotesque", sans-serif;
-  color: #1a1a1a;
-  max-width: 360px;
+  font-family: var(--font-body), "Segoe UI", system-ui, sans-serif;
+  color: var(--foreground);
+  background: var(--card);
+  max-width: min(380px, calc(100vw - 24px));
   padding: 20px;
-  border: 1px solid #000;
-  border-radius: 20px;
-  box-shadow: 0 12px 32px rgb(0 0 0 / 0.18);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: 0 12px 32px rgb(30 43 58 / 0.18);
 }
 .envolve-tour .driver-popover-title {
-  font-size: 20px;
+  font-family: var(--font-heading), "Segoe UI", system-ui, sans-serif;
+  font-size: 21px;
   line-height: 1.3;
   padding-right: 32px;
 }
 .envolve-tour .driver-popover-description {
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.55;
   margin-top: 8px;
 }
@@ -355,44 +494,51 @@ body {
   margin-top: 18px;
 }
 .envolve-tour .driver-popover-progress-text {
-  font-size: 14px;
-  color: #555;
+  font-size: 15px;
+  color: var(--muted-foreground);
   font-variant-numeric: tabular-nums;
 }
 .envolve-tour .driver-popover-footer-btn {
-  font-size: 15px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
   line-height: 1.2;
-  padding: 9px 14px;
-  border: 1px solid #000;
-  border-radius: 12px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  background: var(--card);
+  color: var(--foreground);
   text-shadow: none;
 }
 .envolve-tour .driver-popover-next-btn {
   background-color: var(--primary);
   border-color: var(--primary);
-  color: #fff;
+  color: var(--primary-foreground);
 }
 .envolve-tour .driver-popover-next-btn:hover,
 .envolve-tour .driver-popover-next-btn:focus {
-  background-color: #e4471f;
+  background-color: var(--primary-deep);
+  border-color: var(--primary-deep);
 }
 .envolve-tour .envolve-tour-read {
-  border-color: var(--primary);
-  color: #b8381a;
+  border-color: var(--primary-soft);
+  background: var(--primary-soft);
+  color: var(--primary-deep);
 }
 .envolve-tour .driver-popover-close-btn {
   top: 8px;
   right: 8px;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  font-size: 24px;
-  line-height: 36px;
-  color: #555;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  font-size: 26px;
+  line-height: 40px;
+  color: var(--muted-foreground);
 }
 .envolve-tour button:focus-visible {
-  outline: 3px solid #000;
-  outline-offset: 0;
+  outline: 3px solid var(--ring);
+  outline-offset: 1px;
 }
 .envolve-tour .driver-popover-navigation-btns button + button {
   margin-left: 6px;

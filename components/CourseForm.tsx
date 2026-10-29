@@ -109,7 +109,7 @@ const CourseForm = () => {
                   value={field.value}
                   defaultValue={field.value}
                 >
-                  <SelectTrigger className="input capitalize">
+                  <SelectTrigger className="input">
                     <SelectValue placeholder={t("subjectPlaceholder")} />
                   </SelectTrigger>
                   <SelectContent>

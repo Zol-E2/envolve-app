@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { cache } from "react";
 import { getCourseById } from "@/lib/actions/course.actions";
-import { getSubjectColor, getSubjectLabel } from "@/lib/utils";
+import { getSubjectLabel } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "@/i18n/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import Image from "next/image";
+import { Clock } from "lucide-react";
+import SubjectTile from "@/components/SubjectTile";
 import CourseComponent from "@/components/CourseComponent";
 import PageTour from "@/components/onboarding/PageTour";
 
@@ -57,49 +58,20 @@ const CourseSession = async ({ params }: CourseSessionPageProps) => {
   return (
     <main>
       <PageTour id="lesson" />
-      <article
-        className="
-        flex 
-        rounded-border 
-        justify-between 
-        p-6 
-        max-md:flex-col"
-      >
-        <div className="flex items-center gap-2">
-          <div
-            className="
-            size-[72px]
-            flex
-            items-center
-            justify-center
-            rounded-lg
-            max-md:hidden"
-            style={{ backgroundColor: getSubjectColor(subject) }}
-          >
-            <Image
-              src={`/icons/${subject}.svg`}
-              alt={getSubjectLabel(tSubjects, subject)}
-              width={35}
-              height={35}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <p className="font-bold text-2xl" lang={language}>
-                {name}
-              </p>
-              <div className="subject-badge max-md:hidden">
-                {getSubjectLabel(tSubjects, subject)}
-              </div>
-            </div>
-            <p className="text-lg" lang={language}>
-              {topic}
-            </p>
-          </div>
+      <article className="card flex items-center gap-4 max-sm:gap-3">
+        <SubjectTile subject={subject} />
+        <div className="flex min-w-0 flex-1 flex-col gap-1">
+          <h1 className="text-2xl max-sm:text-xl" lang={language}>
+            {name}
+          </h1>
+          <p className="line-clamp-2 text-base text-muted-foreground" lang={language}>
+            {getSubjectLabel(tSubjects, subject)} · {topic}
+          </p>
         </div>
-        <div className="items-start text-2xl max-md:hidden">
+        <span className="pill max-sm:hidden">
+          <Clock className="size-4" aria-hidden />
           {t("min", { count: duration })}
-        </div>
+        </span>
       </article>
       <CourseComponent
         {...course}

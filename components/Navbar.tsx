@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import NavItems from "./Navitems";
@@ -7,30 +6,36 @@ import NavAuth from "./NavAuth";
 import HelpButton from "./onboarding/HelpButton";
 import { useTranslations } from "next-intl";
 
+/**
+ * Same layout on every page (logo, menu, help, language, account), so
+ * nothing moves around between pages. On phones the menu moves to the
+ * bottom tab bar and only the logo and the buttons stay up here.
+ */
 const Navbar = () => {
   // useTranslations also works in (non-async) Server Components
   const t = useTranslations("Navbar");
 
   return (
-    <nav className="navbar">
-      <Link href="/">
-        <div className="flex items-center gap-2.5 cursor-pointer">
+    <header className="site-header">
+      <div className="site-header-inner">
+        <Link href="/" className="brand" aria-label={t("home")}>
           <Image
             src="/images/logo.svg"
             alt={t("logoAlt")}
-            width={100}
-            height={70}
-            className="max-sm:w-[72px]"
+            width={110}
+            height={77}
+            priority
+            className="h-auto w-[110px] max-sm:w-[84px]"
           />
-        </div>
-      </Link>
-      <div className="flex items-center gap-8 max-sm:gap-3">
+        </Link>
         <NavItems />
-        <HelpButton />
-        <LanguageSwitcher />
-        <NavAuth />
+        <div className="header-actions">
+          <HelpButton />
+          <LanguageSwitcher />
+          <NavAuth />
+        </div>
       </div>
-    </nav>
+    </header>
   );
 };
 

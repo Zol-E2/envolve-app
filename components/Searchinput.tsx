@@ -4,7 +4,7 @@
 // which already carries the locale prefix.
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import { Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { formUrlQuery, removeKeysFromUrlQuery } from "@jsmastery/utils";
 
@@ -50,15 +50,12 @@ const SearchInput = () => {
   }, [searchQuery, router, searchParams]);
 
   return (
-    <div
-      className="relative border border-black rounded-lg items-center flex gap-2 px-2 py-1 h-fit"
-      data-tour="courses-search"
-    >
-      <Image src="/icons/search.svg" alt="" width={15} height={15} />
+    <div className="search-box" data-tour="courses-search">
+      <Search className="size-5 shrink-0" aria-hidden />
       <input
+        type="search"
         placeholder={t("searchPlaceholder")}
         aria-label={t("searchPlaceholder")}
-        className="outline-none"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />

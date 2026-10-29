@@ -1,5 +1,5 @@
 // Subjects available for selection when creating a course.
-// Each entry must have a matching SVG icon in /public/icons/{subject}.svg
+// Each one needs an icon in components/SubjectTile.tsx (SUBJECT_ICONS).
 export const subjects = [
   "maths",
   "language",
@@ -9,14 +9,15 @@ export const subjects = [
   "economics",
 ];
 
-// Background colors used for subject badges and course avatars
+// Pastel background colours for subject tiles, always shown with the
+// subject's icon (dark navy icon on these: 9:1 or more)
 export const subjectsColors = {
-  science: "#E5D0FF",
-  maths: "#FFDA6E",
-  language: "#BDE7FF",
-  coding: "#FFC8E4",
-  history: "#FFECC8",
-  economics: "#C8FFDF",
+  science: "#E3D4FF",
+  maths: "#FFE08A",
+  language: "#BFE3FF",
+  coding: "#FFCCE5",
+  history: "#FFD9B8",
+  economics: "#C9F0DA",
 };
 
 // ElevenLabs voice IDs per lesson language and gender.

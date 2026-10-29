@@ -26,11 +26,15 @@ const Courses = async ({ searchParams }: SearchParams) => {
   return (
     <main>
       <PageTour id="courses" />
-      <section className="flex justify-between gap-4 max-sm:flex-col">
+      <section className="flex flex-col gap-4">
         <h1>{t("title")}</h1>
-        <div className="flex gap-4">
-          <SearchInput />
-          <SubjectFilter />
+        <div className="flex gap-3 max-sm:flex-col">
+          <div className="flex-1">
+            <SearchInput />
+          </div>
+          <div className="sm:w-64">
+            <SubjectFilter />
+          </div>
         </div>
       </section>
       {courses.length === 0 && (
