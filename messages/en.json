@@ -23,16 +23,49 @@
     "hu": "HU"
   },
   "Home": {
-    "popularCourses": "Popular Courses",
-    "recentCourses": "Recent Lessons",
-    "recentEmpty": "You haven't had a lesson yet. Pick a course above and press Launch Lesson.",
+    "hello": "Hi, {name}!",
+    "helloNoName": "Hi!",
+    "subtitleContinue": "Pick up where you left off, or choose something new.",
+    "subtitleStart": "Choose a course and let’s begin!",
+    "continueLabel": "Pick up where you left off",
+    "startLesson": "Start lesson",
+    "minutes": "{count} min",
+    "startLabel": "Start here",
+    "startTitle": "No lessons yet",
+    "startText": "Choose a course from the library, or build your own in four short steps.",
+    "createCourse": "Build your own course",
+    "recentCourses": "Your earlier lessons",
+    "recentOnlyOne": "This is your only lesson so far. Continue it with the button above.",
+    "recentEmpty": "No lessons yet. Choose a course below and press Start lesson.",
+    "weekTitle": "This week",
+    "weekdays": {
+      "d0": "M",
+      "d1": "T",
+      "d2": "W",
+      "d3": "T",
+      "d4": "F",
+      "d5": "S",
+      "d6": "S"
+    },
+    "weekdaysLong": {
+      "d0": "Monday",
+      "d1": "Tuesday",
+      "d2": "Wednesday",
+      "d3": "Thursday",
+      "d4": "Friday",
+      "d5": "Saturday",
+      "d6": "Sunday"
+    },
+    "dayDone": "you had a lesson",
+    "dayOpen": "no lesson yet",
+    "weekSummary": "{count, plural, =0 {No lessons yet this week. Today could be a good day!} one {You learned on 1 day this week. Well done!} other {You learned on # days this week. Well done!}}",
+    "popularCourses": "Popular courses",
     "browseCourses": "Browse courses"
   },
   "CTA": {
-    "badge": "Start Learning Now",
-    "title": "Build and Personalize Your Learning Path!",
-    "description": "Join eNvolve today and take the first step towards mastering new skills with our tailored courses and interactive lessons.",
-    "button": "Build a New Course"
+    "title": "Build your own course",
+    "description": "You decide what to talk about with the tutor. Four short questions and you are done.",
+    "button": "Create a new course"
   },
   "CourseCard": {
     "bookmark": "Bookmark",
@@ -204,12 +237,12 @@
         "text": "Here you can build your own course. You decide what the lesson is about."
       },
       "recent": {
-        "title": "Recent lessons",
-        "text": "This shows the lessons you have already started, so you can pick them up again quickly."
+        "title": "Your earlier lessons",
+        "text": "Here are the lessons you have already started. You can continue them quickly from here."
       },
       "help": {
-        "title": "Help at any time",
-        "text": "If you get stuck, press the question mark. The tour of the page starts again."
+        "title": "Help any time",
+        "text": "If you get stuck, press the Help button. The tips for the page start again."
       }
     },
     "newCourse": {

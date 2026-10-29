@@ -142,28 +142,6 @@ export const addToSessionHistory = async (courseId: string) => {
   return data;
 };
 
-/**
- * Returns the most recently used courses across all users (for the home page).
- * session_history has one row per user and course, so the same course can show
- * up several times; it is listed once, at its most recent session. Rows whose
- * course has since been deleted are skipped.
- */
-export const getRecentSessions = async (limit = 10) => {
-    const supabase = createSupabaseClient();
-    const {data, error} = await supabase
-    .from('session_history')
-    .select(`courses:course_id (*)`)
-    .order('created_at', {ascending: false})
-    // Over-fetch so there are still enough distinct courses after de-duplication
-    .limit(limit * 3)
-
-    if(error){
-        throw new Error(error.message)
-    }
-    // Cast is safe: Supabase returns a single course object per row for this many-to-one join
-    return uniqueCourses(data.map(({ courses }) => courses as unknown as Course | null)).slice(0, limit);
-}
-
 /** Returns the session history for a specific user (for the profile page). */
 export const getUserSessions = async (userId: string, limit = 10) => {
     const supabase = createSupabaseClient();
@@ -179,6 +157,23 @@ export const getUserSessions = async (userId: string, limit = 10) => {
     }
     // Cast is safe: Supabase returns a single course object per row for this many-to-one join
     return uniqueCourses(data.map(({ courses }) => courses as unknown as Course | null));
+}
+
+/**
+ * When the user had lessons since `since` (for the home page's week row).
+ * session_history keeps one row per course with its latest time, so a course
+ * repeated on several days counts for the last of them.
+ */
+export const getLessonTimes = async (userId: string, since: Date) => {
+    const supabase = createSupabaseClient();
+    const { data, error } = await supabase
+    .from('session_history')
+    .select('created_at')
+    .eq('user_id', userId)
+    .gte('created_at', since.toISOString());
+
+    if (error) return [];
+    return data.map(({ created_at }) => created_at as string);
 }
 
 /** Drops missing (deleted) courses and keeps only the first row per course id. */

@@ -426,12 +426,43 @@
     @apply flex flex-wrap items-center gap-3;
   }
 
+  /* --- Home page --- */
+  .today-card {
+    @apply grid items-center gap-x-6 gap-y-4 rounded-3xl border-2 border-primary bg-card p-6 sm:grid-cols-[auto_minmax(0,1fr)] lg:grid-cols-[auto_minmax(0,1fr)_auto] max-sm:grid-cols-[auto_minmax(0,1fr)] max-sm:rounded-[22px] max-sm:p-4;
+  }
+  .today-title {
+    @apply leading-tight font-extrabold;
+    font-size: clamp(1.375rem, 1rem + 1.4vw, 1.75rem);
+  }
+  /* Full width under the text on phones and tablets, beside it on desktops */
+  .today-action {
+    @apply col-span-full lg:col-span-1 max-lg:w-full;
+  }
+  .btn-primary.today-action {
+    @apply min-h-14 text-xl lg:px-7;
+  }
+  .week-row {
+    @apply grid grid-cols-7 gap-1;
+  }
+  .week-day {
+    @apply flex flex-col items-center gap-1.5 text-sm font-bold text-muted-foreground;
+  }
+  .week-dot {
+    @apply flex size-9 items-center justify-center rounded-full border-2 border-dashed border-border max-[360px]:size-8;
+  }
+  .week-day.is-done .week-dot {
+    @apply border-0 bg-ok-soft text-ok;
+  }
+  .week-day.is-today {
+    @apply text-foreground;
+  }
+  .week-day.is-today .week-dot {
+    @apply border-solid border-primary;
+  }
+
   /* --- Call to action (dark card on the home page) --- */
   .cta-section {
-    @apply flex w-full flex-col items-center gap-5 rounded-3xl bg-cta px-7 py-9 text-center text-white lg:max-w-[380px] max-sm:rounded-[20px] max-sm:px-5 max-sm:py-7;
-  }
-  .cta-badge {
-    @apply rounded-full bg-cta-gold px-3 py-1.5 text-sm font-bold text-foreground;
+    @apply flex w-full flex-col items-start gap-4 rounded-3xl bg-cta p-6 text-white max-sm:rounded-[20px] max-sm:p-5;
   }
 
   /* --- Lesson page (layout redesign follows in a later step) --- */

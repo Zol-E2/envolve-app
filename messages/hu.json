@@ -23,15 +23,48 @@
     "hu": "HU"
   },
   "Home": {
+    "hello": "Szia, {name}!",
+    "helloNoName": "Szia!",
+    "subtitleContinue": "Folytathatod, ahol abbahagytad, vagy választhatsz újat.",
+    "subtitleStart": "Válassz egy kurzust, és kezdjük!",
+    "continueLabel": "Folytasd, ahol abbahagytad",
+    "startLesson": "Óra indítása",
+    "minutes": "{count} perc",
+    "startLabel": "Kezdd itt",
+    "startTitle": "Még nem volt órád",
+    "startText": "Válassz egy kurzust a könyvtárból, vagy készíts egy sajátot négy rövid lépésben.",
+    "createCourse": "Saját kurzus készítése",
+    "recentCourses": "Korábbi óráid",
+    "recentOnlyOne": "Eddig ez az egy órád volt. Fent egy gombnyomással folytathatod.",
+    "recentEmpty": "Még nem volt órád. Válassz egy kurzust lent, és nyomd meg az Óra megnyitása gombot.",
+    "weekTitle": "Ezen a héten",
+    "weekdays": {
+      "d0": "H",
+      "d1": "K",
+      "d2": "Sze",
+      "d3": "Cs",
+      "d4": "P",
+      "d5": "Szo",
+      "d6": "V"
+    },
+    "weekdaysLong": {
+      "d0": "Hétfő",
+      "d1": "Kedd",
+      "d2": "Szerda",
+      "d3": "Csütörtök",
+      "d4": "Péntek",
+      "d5": "Szombat",
+      "d6": "Vasárnap"
+    },
+    "dayDone": "volt órád",
+    "dayOpen": "még nem volt órád",
+    "weekSummary": "{count, plural, =0 {Ezen a héten még nem volt órád. Ma jó nap lehet rá!} other {Ezen a héten # napon tanultál. Ügyes vagy!}}",
     "popularCourses": "Népszerű kurzusok",
-    "recentCourses": "Legutóbbi órák",
-    "recentEmpty": "Még nem volt órád. Válassz egy kurzust fent, és nyomd meg az Óra megnyitása gombot.",
     "browseCourses": "Kurzusok böngészése"
   },
   "CTA": {
-    "badge": "Vágj bele még ma",
-    "title": "Építsd fel és szabd testre a tanulási utadat!",
-    "description": "Csatlakozz az eNvolve-hoz még ma, és tedd meg az első lépést új készségek elsajátítása felé személyre szabott kurzusainkkal és interaktív óráinkkal.",
+    "title": "Készíts saját kurzust",
+    "description": "Te döntöd el, miről beszélgess a tanárral. Négy rövid kérdés, és kész.",
     "button": "Új kurzus készítése"
   },
   "CourseCard": {
@@ -204,12 +237,12 @@
         "text": "Itt saját kurzust készíthetsz. Te döntöd el, miről szóljon az óra."
       },
       "recent": {
-        "title": "Legutóbbi órák",
+        "title": "Korábbi óráid",
         "text": "Itt látod az órákat, amiket már elkezdtél. Innen gyorsan folytathatod őket."
       },
       "help": {
         "title": "Segítség bármikor",
-        "text": "Ha elakadsz, nyomd meg a kérdőjelet. Az oldal bemutatója újra elindul."
+        "text": "Ha elakadsz, nyomd meg a Segítség gombot. Az oldal tippjei újra elindulnak."
       }
     },
     "newCourse": {
