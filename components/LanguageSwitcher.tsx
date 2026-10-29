@@ -3,9 +3,16 @@
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { useTransition, type ChangeEvent } from "react";
+import { useTransition } from "react";
+
+// Each language named in itself, so a student who cannot read the current
+// interface language still recognises their own
+const AUTONYMS: Record<string, string> = { hu: "Magyar", en: "English" };
 
 /**
+ * Two buttons (HU | EN) instead of a dropdown: one tap, both choices always
+ * visible, and the same look on every device.
+ *
  * Swaps the locale prefix of the current URL in place (/en/courses → /hu/courses).
  * usePathname() from @/i18n/navigation is already locale-stripped, so we can
  * hand it straight back to router.replace() together with the new locale.
@@ -17,8 +24,8 @@ const LanguageSwitcher = () => {
   const t = useTranslations("LanguageSwitcher");
   const [isPending, startTransition] = useTransition();
 
-  const onSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const nextLocale = event.target.value as typeof locale;
+  const switchTo = (nextLocale: (typeof routing.locales)[number]) => {
+    if (nextLocale === locale) return;
     // Keep the query string (?subject=…&topic=…) so search filters survive the switch
     const search = window.location.search;
     startTransition(() => {
@@ -27,20 +34,22 @@ const LanguageSwitcher = () => {
   };
 
   return (
-    <select
-      data-tour="nav-language"
-      aria-label={t("label")}
-      value={locale}
-      onChange={onSelectChange}
-      disabled={isPending}
-      className="lang-select"
-    >
+    <div className="lang-toggle" role="group" aria-label={t("label")} data-tour="nav-language">
       {routing.locales.map((code) => (
-        <option key={code} value={code}>
+        <button
+          key={code}
+          type="button"
+          lang={code}
+          aria-pressed={code === locale}
+          disabled={isPending}
+          onClick={() => switchTo(code)}
+          title={AUTONYMS[code]}
+        >
           {t(code)}
-        </option>
+          <span className="sr-only"> ({AUTONYMS[code]})</span>
+        </button>
       ))}
-    </select>
+    </div>
   );
 };
 

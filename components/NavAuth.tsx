@@ -23,7 +23,8 @@ const NavAuth = () => {
       </SignedOut>
       <SignedIn>
         <span className="flex" data-tour="nav-account">
-          <UserButton />
+          {/* Same height as the buttons next to it, easier to tap */}
+          <UserButton appearance={{ elements: { userButtonAvatarBox: "size-10 max-sm:size-9" } }} />
         </span>
       </SignedIn>
     </>
