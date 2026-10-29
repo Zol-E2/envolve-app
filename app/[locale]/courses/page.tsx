@@ -6,9 +6,11 @@ import CourseCard from "@/components/CourseCard";
 import { getSubjectColor } from "@/lib/utils";
 import SearchInput from "@/components/Searchinput";
 import SubjectFilter from "@/components/SubjectFilter";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import PageTour from "@/components/onboarding/PageTour";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "@/i18n/navigation";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Metadata");
@@ -16,6 +18,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const Courses = async ({ searchParams }: SearchParams) => {
+  // The library is only for signed-in students (the database allows nothing else)
+  const { userId } = await auth();
+  if (!userId) redirect({ href: "/sign-in", locale: await getLocale() });
+
   const t = await getTranslations("Courses");
   const filters = await searchParams;
   const subject = filters.subject ? filters.subject : "";

@@ -13,15 +13,16 @@ import { useRouter } from "@/i18n/navigation";
 import { speak, stopSpeaking, useCanSpeak } from "@/lib/onboarding/speech";
 import { COURSE_FORM_SPEECH, joinForSpeech } from "@/lib/onboarding/speechText.mjs";
 import SubjectTile from "./SubjectTile";
+import { LIMITS } from "@/lib/validation";
 
 type FormTranslator = ReturnType<typeof useTranslations<"CourseForm">>;
 
 // Schema is built per render so validation messages follow the active locale
 const buildFormSchema = (t: FormTranslator) =>
   z.object({
-    name: z.string().trim().min(1, { message: t("nameRequired") }),
+    name: z.string().trim().min(1, { message: t("nameRequired") }).max(LIMITS.name),
     subject: z.string().min(1, { message: t("subjectRequired") }),
-    topic: z.string().trim().min(1, { message: t("topicRequired") }),
+    topic: z.string().trim().min(1, { message: t("topicRequired") }).max(LIMITS.topic),
     voice: z.string().min(1, { message: t("voiceRequired") }),
     language: z.enum(["hu", "en"], { message: t("languageRequired") }),
     duration: z.coerce.number().min(1, { message: t("durationRequired") }),
@@ -183,6 +184,7 @@ const CourseForm = () => {
               <textarea
                 id="course-topic"
                 rows={3}
+                maxLength={LIMITS.topic}
                 className="field"
                 placeholder={t("topicPlaceholder")}
                 aria-invalid={!!errors.topic}
@@ -209,6 +211,7 @@ const CourseForm = () => {
               </label>
               <input
                 id="course-name"
+                maxLength={LIMITS.name}
                 className="field"
                 placeholder={t("namePlaceholder")}
                 aria-invalid={!!errors.name}

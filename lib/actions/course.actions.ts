@@ -4,26 +4,54 @@ import { auth } from "@clerk/nextjs/server";
 import { createSupabaseClient } from "../supabase";
 import type { PostgrestError } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
+import {
+  LIMITS,
+  cleanSearch,
+  cleanSubject,
+  courseInputSchema,
+  isUuid,
+  safeAppPath,
+} from "../validation";
+
+// Every function in this file is a server action: a browser can call it
+// directly with any arguments it likes. So each one checks who is signed in
+// and validates its input itself, and the database policies (RLS) are the
+// last line of defence behind that.
+
+/** The signed-in user id, or null */
+const currentUserId = async () => (await auth()).userId ?? null;
 
 // ─── Course CRUD ──────────────────────────────────────────────────────────────
 
 /** Creates a new course row owned by the currently authenticated user. */
 export const createCourse = async (formData: CreateCourse) => {
-    const { userId: author } = await auth();
+    const author = await currentUserId();
+    if (!author) throw new Error("Not signed in");
 
-    // The lesson language picks the Vapi assistant, so only known values are stored
-    if (formData.language !== "hu" && formData.language !== "en") {
-        throw new Error(`Invalid lesson language: ${formData.language}`);
-    }
+    // Validate and clean on the server: lengths, known subjects, voices,
+    // languages and a sensible lesson length
+    const parsed = courseInputSchema.safeParse(formData);
+    if (!parsed.success) throw new Error("Invalid course data");
+
     const supabase = createSupabaseClient();
+
+    // A simple brake on scripted spam: at most N new courses per day
+    const since = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
+    const { count, error: countError } = await supabase
+      .from('courses')
+      .select('id', { count: 'exact', head: true })
+      .eq('author', author)
+      .gte('created_at', since);
+    if (countError) throw new Error('Failed to create course');
+    if ((count ?? 0) >= LIMITS.coursesPerDay) throw new Error('Too many new courses today');
 
     const { data, error } = await supabase
     .from('courses')
-    .insert({...formData, author })
+    .insert({ ...parsed.data, author })
     .select();
 
     if (error || !data) {
-        throw new Error(error?.message || 'Failed to create course');
+        throw new Error('Failed to create course');
     }
 
     return data[0];
@@ -38,26 +66,30 @@ export const getAllCourses = async (
 ) => {
   const supabase = createSupabaseClient();
 
+  // Search text comes from the URL, so it is cleaned before it becomes part
+  // of a query (see cleanSearch); the subject must be one we know
+  const safeSubject = cleanSubject(subject);
+  const safeTopic = cleanSearch(topic);
+  const safeLimit = Math.min(Math.max(Math.trunc(Number(limit)) || 10, 1), 50);
+  const safePage = Math.max(Math.trunc(Number(page)) || 1, 1);
+
   let query = supabase.from("courses").select();
 
-  if (subject && topic) {
-    query = query
-      .ilike("subject", `%${subject}%`)
-      .or(`topic.ilike.%${topic}%, name.ilike.%${topic}%`);
-  } else if (subject) {
-    query = query.ilike("subject", `%${subject}%`);
-  } else if (topic) {
-    query = query.or(`topic.ilike.%${topic}%, name.ilike.%${topic}%`);
+  if (safeSubject) query = query.eq("subject", safeSubject);
+  if (safeTopic) {
+    query = query.or(`topic.ilike.%${safeTopic}%,name.ilike.%${safeTopic}%`);
   }
 
-  query = query.range((page - 1) * limit, page * limit - 1);
+  query = query
+    .order("created_at", { ascending: false })
+    .range((safePage - 1) * safeLimit, safePage * safeLimit - 1);
 
   const { data: courses, error } = await query;
   if (error || !courses) {
     throw new Error(error?.message || "Failed to fetch courses");
   }
 
-  const { userId } = await auth();
+  const userId = await currentUserId();
   if (!userId || courses.length === 0) {
     return courses.map((c) => ({ ...c, bookmarked: false }));
   }
@@ -80,6 +112,8 @@ export const getAllCourses = async (
 
 /** Fetches a single course by its UUID. Throws if not found. */
 export const getCourseById = async (id: string) => {
+    // Ids come from the URL; anything that is not a UUID cannot be a course
+    if (!isUuid(id)) return null;
     const supabase = createSupabaseClient();
     const { data, error } = await supabase
     .from('courses')
@@ -100,8 +134,8 @@ export const getCourseById = async (id: string) => {
  * Uses upsert so repeated visits only refresh the timestamp.
  */
 export const addToSessionHistory = async (courseId: string) => {
-  const { userId } = await auth();
-  if (!userId || !courseId) return null;
+  const userId = await currentUserId();
+  if (!userId || !isUuid(courseId)) return null;
   const supabase = createSupabaseClient();
 
   // Confirm the course exists before inserting the history row
@@ -144,6 +178,8 @@ export const addToSessionHistory = async (courseId: string) => {
 
 /** Returns the session history for a specific user (for the profile page). */
 export const getUserSessions = async (userId: string, limit = 10) => {
+    // Only your own history, whatever id a caller passes in
+    if (userId !== (await currentUserId())) return [];
     const supabase = createSupabaseClient();
     const {data, error} = await supabase
     .from('session_history')
@@ -165,6 +201,7 @@ export const getUserSessions = async (userId: string, limit = 10) => {
  * repeated on several days counts for the last of them.
  */
 export const getLessonTimes = async (userId: string, since: Date) => {
+    if (userId !== (await currentUserId())) return [];
     const supabase = createSupabaseClient();
     const { data, error } = await supabase
     .from('session_history')
@@ -188,6 +225,7 @@ const uniqueCourses = (rows: (Course | null)[]) => {
 
 /** Returns all courses created by the given user. */
 export const getUserCourses = async (userId: string) => {
+    if (userId !== (await currentUserId())) return [];
     const supabase = createSupabaseClient();
     const {data, error} = await supabase
     .from('courses')
@@ -237,8 +275,8 @@ export const getUserCourses = async (userId: string) => {
  * Silently ignores duplicate key errors (idempotent).
  */
 export const addBookmark = async (courseId: string, path: string) => {
-  const { userId } = await auth();
-  if (!userId) return;
+  const userId = await currentUserId();
+  if (!userId || !isUuid(courseId)) return;
 
   const supabase = createSupabaseClient();
   const { data, error } = await supabase
@@ -249,14 +287,15 @@ export const addBookmark = async (courseId: string, path: string) => {
     throw new Error(error.message);
   }
 
-  revalidatePath(path);
+  const safePath = safeAppPath(path);
+  if (safePath) revalidatePath(safePath);
   return data;
 };
 
 /** Removes the bookmark for the current user and revalidates the given path. */
 export const removeBookmark = async (courseId: string, path: string) => {
-  const { userId } = await auth();
-  if (!userId) return;
+  const userId = await currentUserId();
+  if (!userId || !isUuid(courseId)) return;
   const supabase = createSupabaseClient();
   const { data, error } = await supabase
     .from("bookmarks")
@@ -266,12 +305,14 @@ export const removeBookmark = async (courseId: string, path: string) => {
   if (error) {
     throw new Error(error.message);
   }
-  revalidatePath(path);
+  const safePath = safeAppPath(path);
+  if (safePath) revalidatePath(safePath);
   return data;
 };
 
 /** Returns all courses bookmarked by the given user (for the profile page). */
 export const getBookmarkedCourses = async (userId: string) => {
+  if (userId !== (await currentUserId())) return [];
   const supabase = createSupabaseClient();
   const { data, error } = await supabase
     .from("bookmarks")

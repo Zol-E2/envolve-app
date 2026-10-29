@@ -6,7 +6,31 @@ import type { NextConfig } from "next";
 // automatically by every server component / getTranslations() call.
 const withNextIntl = createNextIntlPlugin();
 
+// Browser security headers for every page:
+// - no embedding in other sites' frames (clickjacking)
+// - no MIME sniffing, no full URLs leaked to other sites
+// - only the microphone may be used, and only by eNvolve itself
+// - HTTPS only, for two years
+// A full Content-Security-Policy is a later step: Clerk, Vapi, Daily and
+// Sentry need a carefully tested list of allowed hosts.
+const securityHeaders = [
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "Content-Security-Policy", value: "frame-ancestors 'none'; base-uri 'self'; object-src 'none'" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  {
+    key: "Permissions-Policy",
+    value: "microphone=(self), camera=(), geolocation=(), payment=(), usb=(), interest-cohort=()",
+  },
+  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
+];
+
 const nextConfig: NextConfig = {
+  // Do not advertise the framework in every response
+  poweredByHeader: false,
+  async headers() {
+    return [{ source: "/:path*", headers: securityHeaders }];
+  },
   images: {
     remotePatterns: [
       { hostname: "img.clerk.com" },

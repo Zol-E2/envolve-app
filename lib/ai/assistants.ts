@@ -2,6 +2,7 @@ import type { AssistantOverrides, ElevenLabsVoice } from "@vapi-ai/web/dist/api"
 import { voices } from "@/constants";
 import huMessages from "@/messages/hu.json";
 import enMessages from "@/messages/en.json";
+import { cleanPromptText } from "@/lib/validation";
 
 export type LessonLanguage = "hu" | "en";
 
@@ -69,9 +70,11 @@ export const buildLessonCall = ({
   return {
     assistantId: VAPI_ASSISTANT_IDS[lang],
     overrides: {
+      // The topic is written by a student and goes into the tutor's prompt,
+      // so it is cleaned (no template markers, bounded length) first
       variableValues: {
         subject: getLessonSubjectLabel(lang, subject),
-        topic,
+        topic: cleanPromptText(topic),
       },
       voice: {
         provider: "11labs",
