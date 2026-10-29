@@ -168,8 +168,13 @@
     line-height: 1.6;
     letter-spacing: 0.01em;
   }
+  /* Spacing and heading sizes grow smoothly with the window instead of
+     jumping at breakpoints, so resizing never produces an awkward in-between */
   main {
-    @apply mx-auto flex w-full max-w-[1200px] flex-col gap-8 px-10 pt-8 pb-10 max-md:px-6 max-sm:gap-6 max-sm:px-4 max-sm:pt-5;
+    @apply mx-auto flex w-full max-w-[1200px] flex-col pb-10;
+    gap: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+    padding-top: clamp(1.25rem, 0.75rem + 1.5vw, 2rem);
+    padding-inline: clamp(1rem, 4vw, 2.5rem);
   }
   h1,
   h2,
@@ -181,7 +186,8 @@
     text-wrap: balance;
   }
   h1 {
-    @apply text-4xl font-extrabold max-sm:text-[28px];
+    @apply font-extrabold;
+    font-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.5rem);
   }
   /* Long Hungarian compounds ("Kurzuskönyvtár") must not overflow on phones.
      Only headings are hyphenated: split words in running text are harder to
@@ -215,13 +221,14 @@
     @apply border-b border-border bg-card;
   }
   .site-header-inner {
-    @apply mx-auto flex w-full max-w-[1200px] items-center gap-6 px-10 py-3 max-md:gap-3 max-md:px-6 max-sm:px-4 max-sm:py-2.5;
+    @apply mx-auto flex w-full max-w-[1200px] items-center gap-6 py-3 max-lg:gap-3 max-sm:py-2.5;
+    padding-inline: clamp(1rem, 4vw, 2.5rem);
   }
   .brand {
     @apply flex shrink-0 items-center rounded-lg;
   }
   .nav-links {
-    @apply flex items-center gap-1 max-md:hidden;
+    @apply flex items-center gap-1 max-lg:hidden;
   }
   .nav-link {
     @apply flex h-11 items-center gap-2 rounded-xl px-4 text-[17px] font-bold text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground;
@@ -242,7 +249,7 @@
     @apply flex h-11 cursor-pointer items-center gap-2 rounded-full bg-foreground px-5 text-base font-bold text-card max-sm:h-10 max-sm:px-4;
   }
   .tabbar {
-    @apply fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 gap-1 border-t border-border bg-card px-2 pt-2 md:hidden;
+    @apply fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 gap-1 border-t border-border bg-card px-2 pt-2 lg:hidden;
     padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
   }
   .tab {
@@ -253,7 +260,7 @@
   }
   /* Keeps the end of the page clear of the fixed tab bar */
   .tabbar-spacer {
-    @apply md:hidden;
+    @apply lg:hidden;
     height: calc(env(safe-area-inset-bottom, 0px) + 76px);
   }
 
@@ -275,14 +282,17 @@
   .rounded-border {
     @apply rounded-3xl border border-border bg-card;
   }
+  /* As many columns as fit (cards at least ~300px wide), from 1 on a phone
+     to 3 on a desktop, at any window size */
   .courses-grid {
-    @apply grid w-full grid-cols-3 gap-5 max-lg:grid-cols-2 max-sm:grid-cols-1 max-sm:gap-4;
+    @apply grid w-full gap-5 max-sm:gap-4;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
   }
   .home-section {
     @apply flex w-full items-start gap-6 max-lg:flex-col;
   }
   .course-card {
-    @apply flex w-full flex-col gap-4 rounded-3xl border border-border bg-card p-5 max-sm:rounded-[20px] max-sm:p-4;
+    @apply @container flex w-full min-w-0 flex-col gap-4 rounded-3xl border border-border bg-card p-5 max-sm:rounded-[20px] max-sm:p-4;
   }
   .course-card-head {
     @apply flex items-center gap-3;
@@ -370,6 +380,11 @@
     @apply bg-destructive-soft text-destructive;
   }
 
+  /* Loading placeholders: a soft, slow pulse (none with reduced motion) */
+  .skeleton {
+    @apply bg-secondary motion-safe:animate-pulse;
+  }
+
   /* --- Help, empty states --- */
   .help-box {
     @apply flex flex-col gap-2 rounded-2xl border-2 border-destructive bg-destructive-soft px-5 py-4 text-lg leading-relaxed text-destructive;
@@ -445,7 +460,8 @@
     @apply text-xl;
   }
   .site-footer {
-    @apply mx-auto mt-8 flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-4 border-t border-border px-10 py-8 text-base text-muted-foreground max-md:px-6 max-sm:px-4;
+    @apply mx-auto mt-8 flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-4 border-t border-border py-8 text-base text-muted-foreground;
+    padding-inline: clamp(1rem, 4vw, 2.5rem);
   }
   .site-footer a {
     @apply underline-offset-4 hover:underline;

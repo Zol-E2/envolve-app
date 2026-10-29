@@ -19,13 +19,16 @@ const Navbar = () => {
     <header className="site-header">
       <div className="site-header-inner">
         <Link href="/" className="brand" aria-label={t("home")}>
+          {/* PNG instead of the original SVG (which wraps two large PNGs):
+              next/image can then serve a small, sized WebP/AVIF */}
           <Image
-            src="/images/logo.svg"
+            src="/images/logo.png"
             alt={t("logoAlt")}
-            width={110}
-            height={77}
+            width={480}
+            height={92}
             priority
-            className="h-auto w-[110px] max-sm:w-[84px]"
+            sizes="120px"
+            className="h-auto w-[120px] max-sm:w-[96px]"
           />
         </Link>
         <NavItems />

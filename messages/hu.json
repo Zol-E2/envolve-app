@@ -355,5 +355,8 @@
     "footerLabel": "Jogi információk",
     "updated": "Hatályos: {date, date, long}",
     "draft": "Ez a dokumentum még tervezet: az adatkezelő adatai hiányoznak, és jogi átnézésre vár."
+  },
+  "Common": {
+    "loading": "Betöltés…"
   }
 }

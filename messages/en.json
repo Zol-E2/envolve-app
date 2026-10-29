@@ -355,5 +355,8 @@
     "footerLabel": "Legal information",
     "updated": "Effective: {date, date, long}",
     "draft": "This document is still a draft: the data controller details are missing and it is awaiting legal review."
+  },
+  "Common": {
+    "loading": "Loading…"
   }
 }

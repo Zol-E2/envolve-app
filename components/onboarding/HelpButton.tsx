@@ -32,7 +32,7 @@ const HelpButton = () => {
     >
       <CircleHelp className="size-5" aria-hidden />
       {/* A visible word, not just "?": icons alone are easy to misread */}
-      <span>{tNav("help")}</span>
+      <span className="max-[380px]:sr-only">{tNav("help")}</span>
     </button>
   );
 };

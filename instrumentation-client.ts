@@ -7,27 +7,18 @@ import * as Sentry from "@sentry/nextjs";
 Sentry.init({
   dsn: "https://43f5cae6ac188b335a8efa1742e3ef3a@o4510290447171584.ingest.de.sentry.io/4510290452021328",
 
-  // Add optional integrations for additional features
-  integrations: [
-    Sentry.replayIntegration(),
-  ],
+  // No session replay: it records the screen of our users, who are children,
+  // and adds a large script to every page. Error reports are enough.
 
-  // Define how likely traces are sampled. Adjust this value in production, or use tracesSampler for greater control.
-  tracesSampleRate: 1,
+  // Trace 10% of page loads and navigations
+  tracesSampleRate: 0.1,
+
   // Enable logs to be sent to Sentry
   enableLogs: true,
 
-  // Define how likely Replay events are sampled.
-  // This sets the sample rate to be 10%. You may want this to be 100% while
-  // in development and sample at a lower rate in production
-  replaysSessionSampleRate: 0.1,
-
-  // Define how likely Replay events are sampled when an error occurs.
-  replaysOnErrorSampleRate: 1.0,
-
-  // Enable sending user PII (Personally Identifiable Information)    
-  // https://docs.sentry.io/platforms/javascript/guides/nextjs/configuration/options/#sendDefaultPii
-  sendDefaultPii: true,
+  // Our users are children: never send IP addresses, cookies or other
+  // personal data with error reports (see the privacy policy)
+  sendDefaultPii: false,
 });
 
 export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;

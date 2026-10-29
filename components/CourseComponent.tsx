@@ -7,8 +7,13 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Mic, MicOff } from "lucide-react";
 import { SubjectIcon } from "./SubjectTile";
-import Lottie, { LottieRefCurrentProps } from "lottie-react";
+import dynamic from "next/dynamic";
+import type { LottieRefCurrentProps } from "lottie-react";
 import soundwaves from "@/constants/soundwaves.json";
+
+// The sound-wave animation library is large and only needed once a lesson
+// is running, so it loads separately instead of slowing down the page
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 import { addToSessionHistory } from "@/lib/actions/course.actions";
 import { useTranslations } from "next-intl";
 import { getMicPermission } from "@/lib/onboarding/microphone";

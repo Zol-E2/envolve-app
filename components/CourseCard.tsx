@@ -106,7 +106,8 @@ const CourseCard = ({
           ) : (
             <Bookmark className="size-5" aria-hidden />
           )}
-          {isBookmarked ? t("saved") : t("save")}
+          {/* In a narrow card only the icon shows; the word stays for screen readers */}
+          <span className="@max-[19rem]:sr-only">{isBookmarked ? t("saved") : t("save")}</span>
         </button>
       </div>
     </article>
