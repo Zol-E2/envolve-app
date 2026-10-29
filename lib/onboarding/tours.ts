@@ -53,11 +53,15 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
     { key: "next", target: "course-next", side: "top", align: "end" },
   ],
   lesson: [
+    { key: "intro" },
     { key: "tutor", target: "lesson-tutor" },
-    { key: "start", target: "lesson-start" },
     { key: "status", target: "lesson-status" },
-    { key: "mute", target: "lesson-mute" },
+    { key: "timer", target: "lesson-timer" },
+    { key: "start", target: "lesson-start", side: "top" },
+    { key: "mute", target: "lesson-mute", side: "top" },
+    { key: "stuck", target: "lesson-stuck" },
     { key: "transcript", target: "lesson-transcript", side: "top" },
+    { key: "exit", target: "lesson-exit", side: "top" },
   ],
   profile: [
     { key: "stats", target: "profile-stats" },

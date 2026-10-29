@@ -184,8 +184,8 @@
   },
   "CourseSession": {
     "min": "{count} perc",
-    "micOn": "Mikrofon bekapcsolása",
-    "micOff": "Mikrofon kikapcsolása",
+    "micOn": "Folytatás",
+    "micOff": "Szünet",
     "startSession": "Óra indítása",
     "endSession": "Óra befejezése",
     "connecting": "Kapcsolódás...",
@@ -197,7 +197,17 @@
     "statusEnded": "Az óra véget ért. Bármikor újrakezdheted.",
     "statusMicBlocked": "A mikrofon le van tiltva",
     "micBlockedTitle": "Nem érem el a mikrofonodat",
-    "micBlockedHelp": "Kattints a lakat ikonra a címsor bal oldalán, állítsd a Mikrofont Engedélyezésre, majd töltsd újra az oldalt."
+    "micBlockedHelp": "Kattints a lakat ikonra a címsor bal oldalán, állítsd a Mikrofont Engedélyezésre, majd töltsd újra az oldalt.",
+    "back": "Vissza a kurzusokhoz",
+    "elapsedLabel": "Eltelt idő",
+    "elapsed": "{minutes} / {total} perc",
+    "stuckTitle": "Ha elakadsz, mondd ezt:",
+    "transcriptTitle": "Amit eddig mondtatok",
+    "transcriptEmpty": "Az óra szövege itt jelenik meg, amint elkezditek. Így semmit nem kell fejben tartanod.",
+    "you": "Te",
+    "tutor": "Tanár",
+    "micOffHint": "mikrofon ki",
+    "micOnHint": "mikrofon be"
   },
   "Profile": {
     "lessonsCompleted": "Elvégzett órák",
@@ -280,25 +290,41 @@
       }
     },
     "lesson": {
+      "intro": {
+        "title": "Itt tanulsz a tanárral",
+        "text": "Ezen az oldalon beszélgetsz az AI-tanárral. Megmutatom, mi mire való. Bármikor bezárhatod az X gombbal."
+      },
       "tutor": {
         "title": "Ez a tanárod",
-        "text": "Amikor a tanár beszél, itt hanghullámokat látsz."
-      },
-      "start": {
-        "title": "Így kezded az órát",
-        "text": "Kattints erre a gombra. A böngésző megkérdezi, használhatja-e a mikrofont. Válaszd az Engedélyezés gombot."
+        "text": "A színes kör a tanárod. Amikor beszél, hullámok mozognak benne. Alatta egy sáv mutatja, mi történik éppen."
       },
       "status": {
         "title": "Ki beszél most?",
-        "text": "Ez a felirat mindig megmutatja, hogy a tanár beszél, vagy te jössz."
+        "text": "Ez a sáv mindig megmutatja, mi történik. Erős kék, ha te jössz: ilyenkor beszélj nyugodtan. Halványkék, ha a tanár beszél: ilyenkor figyelj."
+      },
+      "timer": {
+        "title": "Az idő",
+        "text": "A zöld sáv mutatja, mennyi idő telt el az órából. Nem kell sietned: az órát bármikor befejezheted."
+      },
+      "start": {
+        "title": "Így kezded az órát",
+        "text": "Nyomd meg ezt a gombot. A böngésző megkérdezi, használhatja-e a mikrofont: válaszd az Engedélyezés gombot. Ha végeztél, ugyanitt fejezed be az órát."
       },
       "mute": {
         "title": "Szünet",
-        "text": "Ha szünetet tartanál, itt kikapcsolhatod a mikrofonodat. Ilyenkor a tanár nem hall."
+        "text": "Ha szünetet tartanál, nyomd meg ezt a gombot. Ilyenkor a tanár nem hall téged. Ha folytatnád, nyomd meg újra."
+      },
+      "stuck": {
+        "title": "Ha elakadsz",
+        "text": "Ha valamit nem értesz, mondd ki hangosan az egyik mondatot. A tanár másképp elmagyarázza, lassabban beszél, vagy példát mond."
       },
       "transcript": {
         "title": "Minden le van írva",
-        "text": "Itt olvashatod, amit mondtatok, így nem kell semmit megjegyezned. Ha végeztél, nyomd meg az Óra befejezése gombot."
+        "text": "Itt olvashatod, amit mondtatok, így nem kell semmit megjegyezned. A legújabb mondat mindig alul van."
+      },
+      "exit": {
+        "title": "Kilépés",
+        "text": "Ezzel a gombbal visszamész a kurzusokhoz. Ha még tart az óra, előbb nyomd meg az Óra befejezése gombot."
       }
     },
     "courses": {

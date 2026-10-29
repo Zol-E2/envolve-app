@@ -95,4 +95,6 @@ interface CourseComponentProps {
   userImage: string;
   voice: string;
   language: "hu" | "en";
+  /** Planned lesson length in minutes, for the progress bar */
+  duration?: number;
 }

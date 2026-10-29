@@ -184,10 +184,10 @@
   },
   "CourseSession": {
     "min": "{count} min",
-    "micOn": "Turn on microphone",
-    "micOff": "Turn off microphone",
-    "startSession": "Start Session",
-    "endSession": "End Session",
+    "micOn": "Continue",
+    "micOff": "Pause",
+    "startSession": "Start lesson",
+    "endSession": "End lesson",
     "connecting": "Connecting...",
     "statusReady": "When you are ready, click Start Session.",
     "statusConnecting": "Connecting to your tutor…",
@@ -197,7 +197,17 @@
     "statusEnded": "The lesson has ended. You can start again at any time.",
     "statusMicBlocked": "The microphone is blocked",
     "micBlockedTitle": "I can't reach your microphone",
-    "micBlockedHelp": "Click the lock icon at the left of the address bar, set Microphone to Allow, then reload the page."
+    "micBlockedHelp": "Click the lock icon at the left of the address bar, set Microphone to Allow, then reload the page.",
+    "back": "Back to courses",
+    "elapsedLabel": "Time",
+    "elapsed": "{minutes} / {total} min",
+    "stuckTitle": "If you get stuck, say:",
+    "transcriptTitle": "What you have said so far",
+    "transcriptEmpty": "The words of the lesson appear here once you start, so you do not have to remember anything.",
+    "you": "You",
+    "tutor": "Tutor",
+    "micOffHint": "microphone off",
+    "micOnHint": "microphone on"
   },
   "Profile": {
     "lessonsCompleted": "Lessons completed",
@@ -280,25 +290,41 @@
       }
     },
     "lesson": {
+      "intro": {
+        "title": "This is where you learn with the tutor",
+        "text": "On this page you talk with the AI tutor. Let me show you what everything is for. You can close this any time with the X button."
+      },
       "tutor": {
         "title": "This is your tutor",
-        "text": "When the tutor speaks, you will see sound waves here."
+        "text": "The coloured circle is your tutor. When it speaks, waves move inside it. The bar below shows what is happening right now."
+      },
+      "status": {
+        "title": "Who is speaking?",
+        "text": "This bar always shows what is happening. Strong blue means it is your turn: speak calmly. Light blue means the tutor is speaking: listen."
+      },
+      "timer": {
+        "title": "The time",
+        "text": "The green bar shows how much of the lesson has passed. There is no need to hurry: you can end the lesson any time."
       },
       "start": {
         "title": "How to start the lesson",
-        "text": "Click this button. Your browser will ask to use the microphone. Choose Allow."
-      },
-      "status": {
-        "title": "Who is talking?",
-        "text": "This line always shows whether the tutor is talking or it is your turn."
+        "text": "Press this button. Your browser asks whether it may use the microphone: choose Allow. When you are done, you end the lesson with the same button."
       },
       "mute": {
-        "title": "Taking a break",
-        "text": "If you need a break, you can turn your microphone off here. The tutor cannot hear you then."
+        "title": "Pause",
+        "text": "If you need a break, press this button. The tutor cannot hear you then. To continue, press it again."
+      },
+      "stuck": {
+        "title": "If you get stuck",
+        "text": "If you do not understand something, say one of these sentences out loud. The tutor explains it another way, speaks more slowly, or gives an example."
       },
       "transcript": {
         "title": "Everything is written down",
-        "text": "Here you can read what you both said, so you don't have to remember anything. When you are done, press End Session."
+        "text": "Here you can read what you both said, so you do not have to remember anything. The newest sentence is always at the bottom."
+      },
+      "exit": {
+        "title": "Leaving",
+        "text": "This button takes you back to the courses. If the lesson is still running, press End lesson first."
       }
     },
     "courses": {

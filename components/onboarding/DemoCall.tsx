@@ -6,7 +6,6 @@ import { vapi } from "@/lib/vapi.sdk";
 import { VAPI_DEMO_ASSISTANT_IDS, isLessonLanguage } from "@/lib/ai/assistants";
 import { getMicPermission } from "@/lib/onboarding/microphone";
 import { stopSpeaking } from "@/lib/onboarding/speech";
-import { cn } from "@/lib/utils";
 
 type DemoStatus = "idle" | "connecting" | "active" | "ended";
 
@@ -94,10 +93,8 @@ const DemoCall = () => {
 
       {statusText && (
         <p
-          className={cn(
-            "lesson-status w-fit mb-0",
-            status === "active" && !isSpeaking && "lesson-status-turn"
-          )}
+          className="lesson-status w-fit min-h-12 text-lg"
+          data-tone={status === "active" ? (isSpeaking ? "tutor" : "you") : status === "ended" ? "done" : "wait"}
           role="status"
           aria-live="polite"
         >
