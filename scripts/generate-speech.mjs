@@ -1,4 +1,4 @@
-// Records the read-aloud texts (page tips and welcome cards) with an
+// Records the read-aloud texts (page tips, welcome cards, course builder) with an
 // ElevenLabs voice, so "Read aloud" sounds natural instead of using the
 // browser's built-in voice.
 //
@@ -12,7 +12,7 @@
 // recording fall back to the browser's voice, so nothing breaks in between.
 import { existsSync, mkdirSync, readFileSync, readdirSync, unlinkSync, writeFileSync } from "node:fs";
 import { IntlMessageFormat } from "intl-messageformat";
-import { WELCOME_SPEECH, joinForSpeech, speechId } from "../lib/onboarding/speechText.mjs";
+import { COURSE_FORM_SPEECH, WELCOME_SPEECH, joinForSpeech, speechId } from "../lib/onboarding/speechText.mjs";
 
 const root = new URL("../", import.meta.url);
 const manifestUrl = new URL("lib/onboarding/speech-manifest.json", root);
@@ -71,6 +71,11 @@ const speechTexts = (locale) => {
   // Welcome cards
   for (const [card, keys] of Object.entries(WELCOME_SPEECH)) {
     texts.push(joinForSpeech(keys.map((key) => format(messages.Welcome[card][key], locale))));
+  }
+
+  // Course builder questions
+  for (const keys of Object.values(COURSE_FORM_SPEECH)) {
+    texts.push(joinForSpeech(keys.map((key) => format(messages.CourseForm[key], locale))));
   }
 
   return new Map(texts.map((text) => [speechId(text), text]));

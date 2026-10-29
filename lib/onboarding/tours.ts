@@ -38,10 +38,9 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
   ],
   newCourse: [
     { key: "intro" },
-    { key: "topic", target: "course-topic" },
-    { key: "voice", target: "course-voice" },
-    { key: "language", target: "course-language" },
-    { key: "submit", target: "course-submit", side: "top" },
+    { key: "steps", target: "course-steps" },
+    { key: "read", target: "course-read", side: "top" },
+    { key: "next", target: "course-next", side: "top", align: "end" },
   ],
   lesson: [
     { key: "tutor", target: "lesson-tutor" },

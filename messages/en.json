@@ -71,37 +71,83 @@
     "business": "Business"
   },
   "CourseBuilder": {
-    "title": "Course Builder"
+    "title": "New course"
   },
   "CourseForm": {
-    "name": "Name",
     "namePlaceholder": "Enter the name of the Course",
     "nameRequired": "Name is required",
     "subject": "Subject",
-    "subjectPlaceholder": "Select the Subject",
     "subjectRequired": "Subject is required",
-    "topic": "What should the Course cover?",
+    "topic": "The topic",
     "topicPlaceholder": "Ex. Algebra, World War II, Photosynthesis",
     "topicRequired": "Topic is required",
-    "voice": "Voice",
-    "voicePlaceholder": "Select the Voice",
+    "voice": "The tutor’s voice",
     "voiceRequired": "Voice is required",
     "voiceMale": "Male",
     "voiceFemale": "Female",
     "language": "Lesson language",
-    "languagePlaceholder": "Select the lesson language",
     "languageRequired": "Lesson language is required",
     "languageHu": "Hungarian",
     "languageEn": "English",
-    "duration": "Estimated Session Duration in Minutes",
+    "duration": "Lesson length",
     "durationRequired": "Duration is required",
     "submit": "Build the Course",
     "nameHint": "A short name you will recognise. E.g. Fractions practice",
-    "topicHint": "Describe in 1–2 sentences what the tutor should talk about.",
-    "voiceHint": "Whether the tutor speaks with a male or a female voice.",
-    "languageHint": "The tutor will speak this language.",
-    "durationHint": "10–15 minutes is plenty to start with.",
-    "submitError": "The course could not be saved. Your answers are still here: check your internet connection and press the button again."
+    "topicHint": "Write it in one or two sentences. It does not have to be perfect: the tutor will ask at the start of the lesson.",
+    "voiceHint": "Choose the tutor’s voice and the language they speak.",
+    "submitError": "The course could not be saved. Your answers are still here: check your internet connection and press the button again.",
+    "progressLabel": "Course builder steps",
+    "stepSubject": "Subject",
+    "stepTopic": "Topic",
+    "stepVoice": "Voice and language",
+    "stepLength": "Length",
+    "stepOf": "Step {current} of {total}",
+    "subjectQuestion": "Which subject would you like to practise?",
+    "subjectHint": "Pick one. You can always make another course later.",
+    "topicQuestion": "What should the tutor talk with you about?",
+    "ideasLabel": "Ideas if you get stuck:",
+    "nameLabel": "Give it a short name",
+    "voiceQuestion": "What should the lesson be like?",
+    "lengthQuestion": "How long should the lesson be?",
+    "lengthHint": "10 to 15 minutes is plenty to start with. You can end the lesson any time.",
+    "minutes": "{count} min",
+    "summaryTitle": "Your course at a glance",
+    "back": "Back",
+    "next": "Next",
+    "readAloud": "Read aloud",
+    "submitting": "Creating…",
+    "ideas": {
+      "maths": {
+        "a": "Adding fractions",
+        "b": "Practising times tables",
+        "c": "Percentages when shopping"
+      },
+      "language": {
+        "a": "Introducing yourself in English",
+        "b": "The English past tense",
+        "c": "Animal names in English"
+      },
+      "science": {
+        "a": "The water cycle",
+        "b": "How does the heart work?",
+        "c": "The planets of the Solar System"
+      },
+      "history": {
+        "a": "The Hungarian conquest",
+        "b": "Ancient Egypt",
+        "c": "The Battle of Mohács"
+      },
+      "coding": {
+        "a": "What is an algorithm?",
+        "b": "Loops in Scratch",
+        "c": "How does a website work?"
+      },
+      "economics": {
+        "a": "Budgeting pocket money",
+        "b": "What is inflation?",
+        "c": "What is a bank account for?"
+      }
+    }
   },
   "CourseSession": {
     "min": "{count} min",
@@ -168,24 +214,20 @@
     },
     "newCourse": {
       "intro": {
-        "title": "Building a new course",
-        "text": "You only need to fill in a few fields. Each one has a short tip underneath."
+        "title": "A new course, step by step",
+        "text": "Four short questions, one at a time. You can always go back; what you typed stays."
       },
-      "topic": {
-        "title": "What is it about?",
-        "text": "Describe in 1–2 sentences what the tutor should talk about. For example: adding fractions."
+      "steps": {
+        "title": "See where you are",
+        "text": "The bar at the top shows the steps. Finished ones get a tick."
       },
-      "voice": {
-        "title": "The tutor's voice",
-        "text": "Choose whether the tutor speaks with a male or a female voice."
+      "read": {
+        "title": "Read aloud",
+        "text": "If you would rather not read, press this button and we read the question to you."
       },
-      "language": {
-        "title": "Lesson language",
-        "text": "The tutor will speak this language. You can practise in Hungarian too."
-      },
-      "submit": {
-        "title": "All done!",
-        "text": "When everything is filled in, press this button. You can start the lesson right after."
+      "next": {
+        "title": "Next",
+        "text": "When you have answered, this button brings the next question. On the last step it creates the course."
       }
     },
     "lesson": {

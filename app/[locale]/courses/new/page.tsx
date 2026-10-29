@@ -20,13 +20,10 @@ const NewCourse = async () => {
   const t = await getTranslations("CourseBuilder");
 
   return (
-    <main className="lg:w-1/3 md:w-2/3 items-center justify-center">
+    <main className="max-w-3xl">
       <PageTour id="newCourse" />
-      <article className="w-full gap-4 flex flex-col">
-        <h1>{t("title")}</h1>
-
-        <CourseForm />
-      </article>
+      <h1>{t("title")}</h1>
+      <CourseForm />
     </main>
   );
 };

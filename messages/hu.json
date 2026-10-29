@@ -71,37 +71,83 @@
     "business": "Üzlet"
   },
   "CourseBuilder": {
-    "title": "Kurzusszerkesztő"
+    "title": "Új kurzus"
   },
   "CourseForm": {
-    "name": "Név",
     "namePlaceholder": "Add meg a kurzus nevét",
     "nameRequired": "A név megadása kötelező",
     "subject": "Tantárgy",
-    "subjectPlaceholder": "Válassz tantárgyat",
     "subjectRequired": "A tantárgy kiválasztása kötelező",
-    "topic": "Miről szóljon a kurzus?",
+    "topic": "A téma",
     "topicPlaceholder": "Pl. Algebra, II. világháború, Fotoszintézis",
     "topicRequired": "A téma megadása kötelező",
-    "voice": "Hang",
-    "voicePlaceholder": "Válassz hangot",
+    "voice": "A tanár hangja",
     "voiceRequired": "A hang kiválasztása kötelező",
     "voiceMale": "Férfi",
     "voiceFemale": "Női",
     "language": "Az óra nyelve",
-    "languagePlaceholder": "Válaszd ki az óra nyelvét",
     "languageRequired": "Az óra nyelvének kiválasztása kötelező",
     "languageHu": "Magyar",
     "languageEn": "Angol",
-    "duration": "Az óra becsült hossza percben",
+    "duration": "Az óra hossza",
     "durationRequired": "Az időtartam megadása kötelező",
     "submit": "Kurzus létrehozása",
     "nameHint": "Rövid név, amiről felismered. Pl. Törtek gyakorlása",
-    "topicHint": "Írd le 1–2 mondatban, miről beszélgessen veled a tanár.",
-    "voiceHint": "Férfi vagy női hangon beszéljen a tanár.",
-    "languageHint": "Ezen a nyelven fog beszélni a tanár.",
-    "durationHint": "Kezdésnek 10–15 perc is elég.",
-    "submitError": "Nem sikerült elmenteni a kurzust. Az adataid megmaradtak: ellenőrizd az internetkapcsolatot, és nyomd meg újra a gombot."
+    "topicHint": "Írd le 1–2 mondatban. Nem baj, ha nem tökéletes: a tanár az óra elején rákérdez.",
+    "voiceHint": "Válaszd ki a tanár hangját, és hogy milyen nyelven beszéljen.",
+    "submitError": "Nem sikerült elmenteni a kurzust. Az adataid megmaradtak: ellenőrizd az internetkapcsolatot, és nyomd meg újra a gombot.",
+    "progressLabel": "A kurzuskészítés lépései",
+    "stepSubject": "Tantárgy",
+    "stepTopic": "Téma",
+    "stepVoice": "Hang és nyelv",
+    "stepLength": "Hossz",
+    "stepOf": "{current}. lépés / {total}",
+    "subjectQuestion": "Melyik tantárgyat szeretnéd gyakorolni?",
+    "subjectHint": "Válassz egyet. Később bármikor készíthetsz másik kurzust is.",
+    "topicQuestion": "Miről beszélgessen veled a tanár?",
+    "ideasLabel": "Ötletek, ha elakadnál:",
+    "nameLabel": "Adj neki egy rövid nevet",
+    "voiceQuestion": "Milyen legyen az óra?",
+    "lengthQuestion": "Mennyi ideig tartson az óra?",
+    "lengthHint": "Kezdésnek 10–15 perc is elég. Az órát bármikor befejezheted.",
+    "minutes": "{count} perc",
+    "summaryTitle": "Így néz ki a kurzusod",
+    "back": "Vissza",
+    "next": "Tovább",
+    "readAloud": "Felolvasás",
+    "submitting": "Létrehozás…",
+    "ideas": {
+      "maths": {
+        "a": "Törtek összeadása",
+        "b": "Szorzótábla gyakorlása",
+        "c": "Százalékszámítás a boltban"
+      },
+      "language": {
+        "a": "Bemutatkozás angolul",
+        "b": "Az angol múlt idő",
+        "c": "Állatok nevei angolul"
+      },
+      "science": {
+        "a": "A víz körforgása",
+        "b": "Hogyan működik a szív?",
+        "c": "A Naprendszer bolygói"
+      },
+      "history": {
+        "a": "A honfoglalás",
+        "b": "Az ókori Egyiptom",
+        "c": "A mohácsi csata"
+      },
+      "coding": {
+        "a": "Mi az az algoritmus?",
+        "b": "Ciklusok a Scratchben",
+        "c": "Hogyan működik egy weboldal?"
+      },
+      "economics": {
+        "a": "Hogyan osszam be a zsebpénzem?",
+        "b": "Mi az az infláció?",
+        "c": "Mire jó a bankszámla?"
+      }
+    }
   },
   "CourseSession": {
     "min": "{count} perc",
@@ -168,24 +214,20 @@
     },
     "newCourse": {
       "intro": {
-        "title": "Új kurzus készítése",
-        "text": "Néhány mezőt kell kitöltened. Mindegyik alatt találsz egy rövid tippet."
+        "title": "Új kurzus, lépésenként",
+        "text": "Négy rövid kérdés jön, egyszerre csak egy. Bármikor visszaléphetsz, a beírt szöveg megmarad."
       },
-      "topic": {
-        "title": "Miről szóljon?",
-        "text": "Írd le 1–2 mondatban, miről beszélgessen veled a tanár. Például: törtek összeadása."
+      "steps": {
+        "title": "Itt látod, hol tartasz",
+        "text": "A felső sáv mutatja a lépéseket. Ami kész, az pipát kap."
       },
-      "voice": {
-        "title": "A tanár hangja",
-        "text": "Válaszd ki, hogy férfi vagy női hangon beszéljen a tanár."
+      "read": {
+        "title": "Felolvasás",
+        "text": "Ha nem szeretnél olvasni, nyomd meg ezt a gombot, és felolvassuk a kérdést."
       },
-      "language": {
-        "title": "Az óra nyelve",
-        "text": "Ezen a nyelven fog beszélni a tanár. Angolul is gyakorolhatsz."
-      },
-      "submit": {
-        "title": "Kész is!",
-        "text": "Ha mindent kitöltöttél, nyomd meg ezt a gombot. Utána rögtön indíthatod az órát."
+      "next": {
+        "title": "Tovább",
+        "text": "Ha válaszoltál, ezzel a gombbal jön a következő kérdés. Az utolsó lépésben itt hozod létre a kurzust."
       }
     },
     "lesson": {

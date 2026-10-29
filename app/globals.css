@@ -334,6 +334,92 @@
     @apply h-full w-full min-w-0 bg-transparent text-lg text-foreground outline-none placeholder:text-muted-foreground;
   }
 
+  /* --- Course builder (one question per step) --- */
+  .form-steps {
+    @apply flex items-center gap-2;
+  }
+  .form-step {
+    @apply flex flex-1 items-center gap-2 text-base font-bold whitespace-nowrap text-muted-foreground last:flex-none;
+  }
+  .form-step:not(:last-child)::after {
+    @apply h-[3px] min-w-3 flex-1 rounded-full bg-border content-[''];
+  }
+  .form-step[data-state="done"]::after {
+    @apply bg-ok;
+  }
+  .form-step-dot {
+    @apply flex size-9 shrink-0 items-center justify-center rounded-full border-2 border-border bg-card text-base;
+  }
+  .form-step[data-state="done"] .form-step-dot {
+    @apply border-transparent bg-ok-soft text-ok;
+  }
+  .form-step[data-state="now"] {
+    @apply text-foreground;
+  }
+  .form-step[data-state="now"] .form-step-dot {
+    @apply border-primary bg-primary text-primary-foreground;
+  }
+  /* Labels only where there is room; the card repeats the current one */
+  .form-step-label {
+    @apply max-md:hidden;
+  }
+  .form-card {
+    @apply flex flex-col gap-5 rounded-3xl border border-border bg-card p-8 max-sm:rounded-[20px] max-sm:p-5;
+  }
+  .form-eyebrow {
+    @apply text-sm font-bold tracking-[0.07em] text-primary-deep uppercase;
+  }
+  .form-question {
+    @apply font-extrabold outline-none;
+    font-size: clamp(1.5rem, 1.1rem + 1.4vw, 1.875rem);
+  }
+  .form-hint {
+    @apply flex gap-2.5 rounded-2xl bg-turn-soft px-4 py-3 text-[17px] leading-snug text-turn-deep;
+  }
+  .field-label {
+    @apply text-lg font-bold;
+  }
+  .field {
+    @apply min-h-14 w-full rounded-2xl border-2 border-border bg-card px-4 py-3 text-lg text-foreground outline-none placeholder:text-muted-foreground focus:border-foreground aria-invalid:border-destructive;
+  }
+  textarea.field {
+    @apply resize-y leading-relaxed;
+  }
+  .field-error {
+    @apply text-base font-bold text-destructive;
+  }
+  .choice-grid {
+    @apply grid gap-3;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
+  }
+  .choice {
+    @apply flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl border-2 border-border bg-card px-4 py-2.5 text-lg font-bold transition-colors hover:border-foreground has-checked:border-primary has-checked:bg-primary-soft has-checked:text-primary-deep has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-ring;
+  }
+  .choice-check {
+    @apply invisible text-primary-deep;
+  }
+  .choice:has(:checked) .choice-check {
+    @apply visible;
+  }
+  .choice-radio {
+    @apply flex size-6 shrink-0 items-center justify-center rounded-full border-2 border-current;
+  }
+  .choice:has(:checked) .choice-radio::after {
+    @apply size-3 rounded-full bg-current content-[''];
+  }
+  .idea-chip {
+    @apply inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-full border-2 border-dashed border-border bg-background px-4 text-base font-bold transition-colors hover:border-foreground;
+  }
+  .duration-chip {
+    @apply inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full border-2 border-border bg-card px-5 text-lg font-bold transition-colors hover:border-foreground has-checked:border-foreground has-checked:bg-foreground has-checked:text-card has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-ring;
+  }
+  .summary-card {
+    @apply flex flex-col gap-3 rounded-2xl border-2 border-primary bg-background p-5 max-sm:p-4;
+  }
+  .form-nav {
+    @apply flex flex-wrap items-center gap-3;
+  }
+
   /* --- Call to action (dark card on the home page) --- */
   .cta-section {
     @apply flex w-full flex-col items-center gap-5 rounded-3xl bg-cta px-7 py-9 text-center text-white lg:max-w-[380px] max-sm:rounded-[20px] max-sm:px-5 max-sm:py-7;
