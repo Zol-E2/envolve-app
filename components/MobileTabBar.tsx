@@ -18,7 +18,7 @@ const MobileTabBar = () => {
   return (
     <SignedIn>
       <div className="tabbar-spacer" aria-hidden />
-      <nav className="tabbar" aria-label={t("mainNav")}>
+      <nav className="tabbar" aria-label={t("mainNav")} data-tour="nav-tabbar">
         {mainNav.map(({ key, href, icon: Icon }) => (
           <Link
             href={href}

@@ -62,7 +62,7 @@ const Page = async () => {
 
       {/* The one main action on this page */}
       {last ? (
-        <section className="today-card" aria-labelledby="today-title">
+        <section className="today-card" aria-labelledby="today-title" data-tour="home-continue">
           <SubjectTile subject={last.subject} size="lg" className="max-sm:size-14 max-sm:rounded-2xl" />
           <div className="flex min-w-0 flex-col gap-2">
             <p className="form-eyebrow">{t("continueLabel")}</p>
@@ -84,7 +84,7 @@ const Page = async () => {
           </Link>
         </section>
       ) : (
-        <section className="today-card" aria-labelledby="today-title">
+        <section className="today-card" aria-labelledby="today-title" data-tour="home-continue">
           <div className="flex min-w-0 flex-col gap-2 sm:col-span-2">
             <p className="form-eyebrow">{t("startLabel")}</p>
             <h2 id="today-title" className="today-title">
@@ -113,7 +113,7 @@ const Page = async () => {
         />
         <div className="flex w-full flex-col gap-6 lg:max-w-[380px]">
           {/* Rewards showing up, never punishes a missed day: no streak to lose */}
-          <article className="card flex flex-col gap-4" aria-labelledby="week-title">
+          <article className="card flex flex-col gap-4" aria-labelledby="week-title" data-tour="home-week">
             <h2 id="week-title" className="text-2xl font-bold max-sm:text-xl">
               {t("weekTitle")}
             </h2>

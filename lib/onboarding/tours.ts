@@ -17,16 +17,26 @@ export interface TourStep {
 
 /**
  * Tips for every page except the welcome screen, which explains itself.
- * Kept short on purpose (at most five steps, one control per step) so they
- * stay manageable for students with ADHD or autism. Steps whose element is
- * missing or hidden (e.g. on mobile, or an empty list) are skipped.
+ *
+ * Rule for this project: every part of a page a student can see or use gets
+ * its own tip, written in short, plain sentences, and recorded for read-aloud
+ * (npm run speech:generate). Our users are children with learning
+ * difficulties, so nothing should be left for them to guess.
+ *
+ * One control per step keeps each bubble small. Steps whose element is
+ * missing or hidden (e.g. the desktop menu on a phone, or an empty list) are
+ * skipped, so phone and desktop can each have their own step.
  */
 export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
   home: [
     { key: "intro" },
-    { key: "popular", target: "home-popular" },
-    { key: "create", target: "home-create" },
+    { key: "continue", target: "home-continue" },
     { key: "recent", target: "home-recent" },
+    { key: "week", target: "home-week" },
+    { key: "create", target: "home-create" },
+    { key: "popular", target: "home-popular", side: "top" },
+    { key: "menu", target: "nav-menu", side: "bottom" },
+    { key: "menuMobile", target: "nav-tabbar", side: "top" },
     { key: "help", target: "nav-help", side: "bottom", align: "end" },
   ],
   courses: [

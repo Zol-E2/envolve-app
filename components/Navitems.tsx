@@ -10,7 +10,7 @@ const NavItems = () => {
   const t = useTranslations("Navbar");
 
   return (
-    <nav className="nav-links" aria-label={t("mainNav")}>
+    <nav className="nav-links" aria-label={t("mainNav")} data-tour="nav-menu">
       {mainNav.map(({ key, href, icon: Icon }) => (
         <Link
           href={href}

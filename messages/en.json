@@ -225,24 +225,40 @@
     "helpStart": "Tips for this page",
     "home": {
       "intro": {
-        "title": "Welcome to the home page!",
-        "text": "Let me show you where things are. It takes 5 short steps, and you can close it at any time."
+        "title": "Welcome to your home page!",
+        "text": "Let me show you what is on this page. A few short steps follow, and you can close them any time with the X button."
       },
-      "popular": {
-        "title": "Courses",
-        "text": "A course is a spoken lesson with the AI tutor. To try one, click Launch Lesson."
-      },
-      "create": {
-        "title": "Your own course",
-        "text": "Here you can build your own course. You decide what the lesson is about."
+      "continue": {
+        "title": "Start your lesson here",
+        "text": "This is the most important button on the page. If you have had a lesson, you can continue the last one with one press. If not, you can choose a course here."
       },
       "recent": {
         "title": "Your earlier lessons",
-        "text": "Here are the lessons you have already started. You can continue them quickly from here."
+        "text": "Here are the courses you have already learned with. Press any row and the lesson opens again."
+      },
+      "week": {
+        "title": "This week",
+        "text": "Every day you learned gets a green tick. Today has an orange ring. It is fine to skip a day: your ticks stay."
+      },
+      "create": {
+        "title": "Your own course",
+        "text": "Here you can build your own course. You decide what to talk about with the tutor. You only answer four short questions."
+      },
+      "popular": {
+        "title": "Popular courses",
+        "text": "Many students use these courses. The orange button opens the lesson. The Save button keeps it for later, and you will find it on your Profile page."
+      },
+      "menu": {
+        "title": "The menu",
+        "text": "From here you can go to the other pages any time: Home, Courses, New course and Profile. The page you are on is orange."
+      },
+      "menuMobile": {
+        "title": "The menu",
+        "text": "With the buttons at the bottom of the screen you can go to the other pages any time. The page you are on is orange."
       },
       "help": {
         "title": "Help any time",
-        "text": "If you get stuck, press the Help button. The tips for the page start again."
+        "text": "If you get stuck, press the Help button. These tips start again, and you can have each of them read aloud."
       }
     },
     "newCourse": {

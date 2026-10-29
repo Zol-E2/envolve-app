@@ -226,23 +226,39 @@
     "home": {
       "intro": {
         "title": "Üdv a kezdőlapon!",
-        "text": "Megmutatom, mit hol találsz. Ez 5 rövid lépés, és bármikor bezárhatod."
+        "text": "Megmutatom, mit hol találsz ezen az oldalon. Néhány rövid lépés jön, és bármikor bezárhatod az X gombbal."
       },
-      "popular": {
-        "title": "Kurzusok",
-        "text": "Egy kurzus egy beszélgetős óra az AI-tanárral. Ha kipróbálnál egyet, kattints az Óra megnyitása gombra."
-      },
-      "create": {
-        "title": "Saját kurzus",
-        "text": "Itt saját kurzust készíthetsz. Te döntöd el, miről szóljon az óra."
+      "continue": {
+        "title": "Itt kezdheted az órát",
+        "text": "Ez a legfontosabb gomb az oldalon. Ha már volt órád, a legutóbbit egy gombnyomással folytathatod. Ha még nem volt, itt választhatsz kurzust."
       },
       "recent": {
         "title": "Korábbi óráid",
-        "text": "Itt látod az órákat, amiket már elkezdtél. Innen gyorsan folytathatod őket."
+        "text": "Itt látod a kurzusokat, amikkel már tanultál. Kattints bármelyik sorra, és újra megnyílik az óra."
+      },
+      "week": {
+        "title": "Ezen a héten",
+        "text": "Minden nap, amikor tanultál, zöld pipát kap. A mai napot narancssárga karika jelöli. Nem baj, ha kimarad egy nap: a pipák megmaradnak."
+      },
+      "create": {
+        "title": "Saját kurzus",
+        "text": "Itt készíthetsz saját kurzust. Te döntöd el, miről beszélgess a tanárral. Négy rövid kérdésre kell válaszolnod."
+      },
+      "popular": {
+        "title": "Népszerű kurzusok",
+        "text": "Ezeket a kurzusokat sokan használják. A narancssárga gombbal megnyitod az órát. A Mentés gombbal elteszed későbbre, és a Profil oldalon megtalálod."
+      },
+      "menu": {
+        "title": "A menü",
+        "text": "Innen bármikor átléphetsz a többi oldalra: Főoldal, Kurzusok, Új kurzus és Profil. Amelyik oldalon éppen vagy, az narancssárga."
+      },
+      "menuMobile": {
+        "title": "A menü",
+        "text": "A képernyő alján lévő gombokkal bármikor átléphetsz a többi oldalra. Amelyik oldalon éppen vagy, az narancssárga."
       },
       "help": {
         "title": "Segítség bármikor",
-        "text": "Ha elakadsz, nyomd meg a Segítség gombot. Az oldal tippjei újra elindulnak."
+        "text": "Ha elakadsz, nyomd meg a Segítség gombot. Ezek a tippek újra elindulnak, és mindegyiket fel is olvastathatod."
       }
     },
     "newCourse": {
