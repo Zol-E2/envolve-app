@@ -167,6 +167,9 @@
     font-size: 1.125rem;
     line-height: 1.6;
     letter-spacing: 0.01em;
+    /* A word longer than the whole line (an e-mail address, a long compound
+       with big text) breaks instead of pushing the page sideways */
+    overflow-wrap: break-word;
   }
   /* Spacing and heading sizes grow smoothly with the window instead of
      jumping at breakpoints, so resizing never produces an awkward in-between */
@@ -180,7 +183,7 @@
   h2,
   h3,
   h4 {
-    font-family: var(--font-display);
+    font-family: var(--font-heading), "Segoe UI", system-ui, sans-serif;
     letter-spacing: 0;
     line-height: 1.2;
     text-wrap: balance;
@@ -223,15 +226,44 @@
   .site-header-inner {
     @apply mx-auto flex w-full max-w-[1200px] items-center gap-6 py-3 max-lg:gap-3 max-sm:py-2.5;
     padding-inline: clamp(1rem, 4vw, 2.5rem);
+    /* The buttons below shrink by the room left, measured in rem, so a
+       bigger text size ("Így kényelmes nekem") compacts them sooner */
+    container-type: inline-size;
   }
+  @container (width < 62rem) {
+    .nav-link {
+      @apply px-3;
+    }
+  }
+  @container (width < 22rem) {
+    .btn-help {
+      @apply px-2.5;
+    }
+    .btn-help-label {
+      @apply sr-only;
+    }
+  }
+  @container (width < 19rem) {
+    .brand img {
+      width: 72px;
+    }
+    .lang-toggle button {
+      @apply min-w-8 px-1.5;
+    }
+  }
+  /* The logo is the one thing that may give up a few pixels when the
+     header is full, so the buttons never push past the screen edge */
   .brand {
-    @apply flex shrink-0 items-center rounded-lg;
+    @apply flex min-w-0 shrink items-center rounded-lg;
+  }
+  .brand img {
+    @apply max-w-full;
   }
   .nav-links {
     @apply flex items-center gap-1 max-lg:hidden;
   }
   .nav-link {
-    @apply flex h-11 items-center gap-2 rounded-xl px-4 text-[17px] font-bold text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground;
+    @apply flex h-11 items-center gap-2 rounded-xl px-4 text-[1.0625rem] font-bold whitespace-nowrap text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground;
   }
   .nav-link[aria-current="page"] {
     @apply bg-primary-soft text-primary-deep;
@@ -240,13 +272,13 @@
     @apply ml-auto flex items-center gap-3 max-sm:gap-2;
   }
   .btn-help {
-    @apply flex h-11 shrink-0 cursor-pointer items-center gap-2 rounded-full border-2 border-border bg-card px-4 text-base font-bold text-foreground transition-colors hover:border-foreground disabled:cursor-default disabled:opacity-60 max-sm:h-10 max-sm:px-3 max-sm:text-[15px];
+    @apply flex h-11 shrink-0 cursor-pointer items-center gap-2 rounded-full border-2 border-border bg-card px-4 text-base font-bold text-foreground transition-colors hover:border-foreground disabled:cursor-default disabled:opacity-60 max-sm:h-10 max-sm:px-3 max-sm:text-[0.9375rem];
   }
   .lang-toggle {
     @apply flex h-11 shrink-0 items-center gap-0.5 rounded-full border-2 border-border bg-card p-1 max-sm:h-10;
   }
   .lang-toggle button {
-    @apply h-full min-w-10 cursor-pointer rounded-full px-3 text-[15px] font-bold text-muted-foreground transition-colors hover:text-foreground disabled:cursor-wait max-sm:min-w-9 max-sm:px-2;
+    @apply h-full min-w-10 cursor-pointer rounded-full px-3 text-[0.9375rem] font-bold text-muted-foreground transition-colors hover:text-foreground disabled:cursor-wait max-sm:min-w-9 max-sm:px-2;
   }
   .lang-toggle button[aria-pressed="true"] {
     @apply bg-foreground text-card hover:text-card;
@@ -259,7 +291,7 @@
     padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
   }
   .tab {
-    @apply grid justify-items-center gap-0.5 rounded-2xl px-1 py-1.5 text-[13px] leading-tight font-bold text-muted-foreground;
+    @apply grid justify-items-center gap-0.5 rounded-2xl px-1 py-1.5 text-[0.8125rem] leading-tight font-bold text-muted-foreground;
   }
   .tab[aria-current="page"] {
     @apply bg-primary-soft text-primary-deep;
@@ -307,10 +339,10 @@
     @apply flex shrink-0 items-center justify-center rounded-2xl text-foreground;
   }
   .subject-badge {
-    @apply inline-flex h-8 items-center rounded-full bg-secondary px-3 text-[15px] font-bold whitespace-nowrap;
+    @apply inline-flex h-8 items-center rounded-full bg-secondary px-3 text-[0.9375rem] font-bold whitespace-nowrap;
   }
   .pill {
-    @apply inline-flex h-8 items-center gap-1.5 rounded-full border border-border bg-background px-3 text-[15px] font-bold whitespace-nowrap text-muted-foreground;
+    @apply inline-flex h-8 items-center gap-1.5 rounded-full border border-border bg-background px-3 text-[0.9375rem] font-bold whitespace-nowrap text-muted-foreground;
   }
   .course-bookmark {
     @apply flex min-h-12 shrink-0 cursor-pointer items-center justify-center gap-2 rounded-2xl border-2 border-border bg-card px-4 text-base font-bold text-foreground transition-colors hover:border-foreground;
@@ -380,7 +412,7 @@
     font-size: clamp(1.5rem, 1.1rem + 1.4vw, 1.875rem);
   }
   .form-hint {
-    @apply flex gap-2.5 rounded-2xl bg-turn-soft px-4 py-3 text-[17px] leading-snug text-turn-deep;
+    @apply flex gap-2.5 rounded-2xl bg-turn-soft px-4 py-3 text-[1.0625rem] leading-snug text-turn-deep;
   }
   .field-label {
     @apply text-lg font-bold;
@@ -400,6 +432,10 @@
   }
   .choice {
     @apply flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl border-2 border-border bg-card px-4 py-2.5 text-lg font-bold transition-colors hover:border-foreground has-checked:border-primary has-checked:bg-primary-soft has-checked:text-primary-deep has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-ring;
+  }
+  /* Long words may wrap (with a hyphen) on a narrow phone with big text */
+  .choice-label {
+    @apply min-w-0 flex-1 hyphens-auto;
   }
   .choice-check {
     @apply invisible text-primary-deep;
@@ -614,7 +650,7 @@
     @apply flex min-h-[340px] flex-col gap-6 rounded-3xl border border-border bg-card px-8 py-8 max-sm:min-h-0 max-sm:rounded-[20px] max-sm:px-5 max-sm:py-6;
   }
   .welcome-title {
-    @apply text-3xl font-extrabold outline-none max-sm:text-[26px];
+    @apply text-3xl font-extrabold outline-none max-sm:text-[1.625rem];
   }
   .welcome-lead {
     @apply max-w-prose text-xl leading-relaxed max-sm:text-lg;
@@ -639,6 +675,111 @@
   }
   .mic-meter-fill-ok {
     @apply bg-ok;
+  }
+
+  /* --- Profile page and "Így kényelmes nekem" --- */
+  .profile-head {
+    @apply flex items-center gap-4;
+  }
+  .profile-avatar {
+    @apply size-20 shrink-0 rounded-full object-cover max-sm:size-16;
+  }
+  .profile-stats {
+    @apply grid gap-3;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 6.5rem), 1fr));
+  }
+  .profile-stat {
+    @apply flex flex-col gap-1 rounded-3xl border border-border bg-card px-5 py-4 max-sm:rounded-[20px] max-sm:px-3 max-sm:py-3;
+  }
+  .profile-stat-value {
+    @apply flex items-center gap-2 font-display text-3xl font-extrabold tabular-nums max-sm:text-2xl;
+  }
+  /* Phone: settings right under the numbers. Desktop: lists left, settings
+     right (and they stay in view while the lists are scrolled) */
+  .profile-grid {
+    @apply grid items-start gap-6;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "comfort" "lists";
+  }
+  @media (width >= 64rem) {
+    .profile-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(22rem, 27rem);
+      grid-template-areas: "lists comfort";
+    }
+    .comfort-card {
+      @apply sticky top-6;
+    }
+  }
+  .profile-lists {
+    grid-area: lists;
+    @apply min-w-0;
+  }
+  .comfort-card {
+    grid-area: comfort;
+    @apply flex flex-col gap-2 rounded-3xl border border-border bg-card p-6 max-sm:rounded-[20px] max-sm:p-4;
+  }
+  .comfort-title {
+    @apply flex items-center gap-2.5 text-2xl font-extrabold max-sm:text-xl;
+  }
+  .comfort-lead {
+    @apply text-base leading-relaxed text-muted-foreground;
+  }
+  /* The switch or size picker drops below the words when space runs out
+     (big text size on a narrow card) instead of squeezing them */
+  .comfort-row {
+    @apply flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-border py-3.5;
+  }
+  .comfort-control {
+    @apply ml-auto flex shrink-0 items-center gap-2;
+  }
+  .comfort-row-icon {
+    @apply flex size-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-foreground;
+  }
+  .comfort-row-text {
+    @apply flex min-w-0 flex-col;
+    flex: 1 1 9rem;
+  }
+  .comfort-row-label {
+    @apply text-lg leading-snug font-bold;
+  }
+  .comfort-row-hint {
+    @apply text-base leading-snug text-muted-foreground;
+  }
+  /* Text size: three "A" buttons growing left to right */
+  .size-picker {
+    @apply flex shrink-0 items-end gap-1 rounded-2xl bg-secondary p-1;
+  }
+  .size-option {
+    @apply flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-xl font-display font-extrabold text-muted-foreground transition-colors hover:text-foreground;
+  }
+  .size-option[aria-checked="true"] {
+    @apply bg-card text-primary-deep shadow-sm ring-2 ring-primary;
+  }
+  /* On/off switch: big enough to hit, with the state also in words */
+  .switch {
+    @apply relative inline-flex h-9 w-16 shrink-0 cursor-pointer items-center rounded-full border-2 border-border bg-muted transition-colors;
+  }
+  .switch::after {
+    @apply absolute left-1 size-6 rounded-full bg-card shadow-sm transition-transform content-[''];
+    border: 2px solid var(--border);
+  }
+  .switch[aria-checked="true"] {
+    @apply border-primary bg-primary;
+  }
+  .switch[aria-checked="true"]::after {
+    @apply translate-x-7 border-primary;
+  }
+  .comfort-state {
+    @apply w-9 shrink-0 text-right text-[0.9375rem] font-bold text-muted-foreground;
+  }
+  .comfort-sample {
+    @apply rounded-2xl bg-secondary px-4 py-3 text-lg leading-relaxed;
+  }
+  .comfort-foot {
+    @apply flex flex-wrap items-center justify-between gap-3 pt-2;
+  }
+  .comfort-saved {
+    @apply flex items-center gap-1.5 text-base font-bold text-ok;
   }
 
   /* --- Legal pages and footer --- */
@@ -693,12 +834,12 @@
 }
 .envolve-tour .driver-popover-title {
   font-family: var(--font-heading), "Segoe UI", system-ui, sans-serif;
-  font-size: 21px;
+  font-size: 1.3125rem;
   line-height: 1.3;
   padding-right: 32px;
 }
 .envolve-tour .driver-popover-description {
-  font-size: 17px;
+  font-size: 1.0625rem;
   line-height: 1.55;
   margin-top: 8px;
 }
@@ -708,13 +849,13 @@
   margin-top: 18px;
 }
 .envolve-tour .driver-popover-progress-text {
-  font-size: 15px;
+  font-size: 0.9375rem;
   color: var(--muted-foreground);
   font-variant-numeric: tabular-nums;
 }
 .envolve-tour .driver-popover-footer-btn {
   font-family: inherit;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   line-height: 1.2;
   min-height: 44px;
@@ -746,7 +887,7 @@
   width: 40px;
   height: 40px;
   border-radius: 12px;
-  font-size: 26px;
+  font-size: 1.625rem;
   line-height: 40px;
   color: var(--muted-foreground);
 }
@@ -756,4 +897,64 @@
 }
 .envolve-tour .driver-popover-navigation-btns button + button {
   margin-left: 6px;
+}
+
+/*
+ * "Így kényelmes nekem" settings from the profile page (lib/comfort.ts puts
+ * them on <html>). Unlayered so they win over the base styles and over the
+ * next/font classes on <body>.
+ */
+/* Text size: everything sized in rem grows with it, spacing included */
+html[data-text-size="large"] {
+  font-size: 112.5%;
+}
+html[data-text-size="larger"] {
+  font-size: 125%;
+}
+/* Reading-friendly text: the hyperlegible face for headings too, and more
+   room between letters, words and lines (British Dyslexia Association) */
+html[data-reading-font="on"] {
+  --font-heading: var(--font-body);
+}
+html[data-reading-font="on"] body {
+  letter-spacing: 0.05em;
+  word-spacing: 0.16em;
+  line-height: 1.8;
+}
+html[data-reading-font="on"] :is(h1, h2, h3, h4) {
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+}
+/* Less motion, chosen in the app (the device setting is handled in base) */
+html[data-motion="reduce"] *,
+html[data-motion="reduce"] *::before,
+html[data-motion="reduce"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+/* Bigger or wider text needs more room in the header: below these widths
+   the menu moves to the bottom tab bar, as on a tablet */
+@media (width >= 64rem) and (width < 80rem) {
+  html:is([data-text-size], [data-reading-font]) .nav-links {
+    display: none;
+  }
+  html:is([data-text-size], [data-reading-font]) .tabbar {
+    display: grid;
+  }
+  html:is([data-text-size], [data-reading-font]) .tabbar-spacer {
+    display: block;
+  }
+}
+@media (width >= 80rem) and (width < 90rem) {
+  html[data-text-size="larger"] .nav-links {
+    display: none;
+  }
+  html[data-text-size="larger"] .tabbar {
+    display: grid;
+  }
+  html[data-text-size="larger"] .tabbar-spacer {
+    display: block;
+  }
 }

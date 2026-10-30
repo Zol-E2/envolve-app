@@ -211,7 +211,6 @@
   },
   "Profile": {
     "lessonsCompleted": "Elvégzett órák",
-    "coursesCreated": "Létrehozott kurzusok",
     "bookmarkedCourses": "Mentett kurzusok",
     "recentSessions": "Legutóbbi órák",
     "myCourses": "Saját kurzusaim",
@@ -219,7 +218,11 @@
     "recentEmpty": "Még nem volt órád.",
     "myCoursesEmpty": "Még nem készítettél kurzust.",
     "createCourse": "Új kurzus készítése",
-    "browseCourses": "Kurzusok böngészése"
+    "browseCourses": "Kurzusok böngészése",
+    "title": "Profilom",
+    "statsLabel": "Az eredményeid",
+    "coursesSaved": "Mentett kurzusok",
+    "coursesOwn": "Saját kurzusok"
   },
   "NotFound": {
     "title": "Az oldal nem található",
@@ -350,21 +353,53 @@
       }
     },
     "profile": {
+      "intro": {
+        "title": "Ez a profilod",
+        "text": "Itt látod az eredményeidet és a kurzusaidat. Itt állíthatod be azt is, hogy neked mi a kényelmes. Nézzük végig együtt!"
+      },
       "stats": {
         "title": "Az eredményeid",
-        "text": "Itt látod, hány órát végeztél el, és hány kurzust készítettél."
+        "text": "Ez a három szám mutatja, hány kurzusban volt már órád, hány kurzust készítettél, és hányat mentettél el. Ezek csak a te számaid, senkivel nem hasonlítunk össze."
+      },
+      "comfort": {
+        "title": "Így kényelmes nekem",
+        "text": "Ebben a dobozban beállíthatod, hogyan nézzen ki és hogyan működjön az oldal. Amit itt változtatsz, az azonnal látszik, és magától elmentődik."
+      },
+      "size": {
+        "title": "Betűméret",
+        "text": "Három A betűt látsz. Ha a nagyobb A-ra kattintasz, minden szöveg nagyobb lesz az oldalon. A legkisebb A visszaállítja a normál méretet."
+      },
+      "reading": {
+        "title": "Olvasóbarát szöveg",
+        "text": "Ha bekapcsolod, több hely lesz a betűk, a szavak és a sorok között. Így sokaknak könnyebb olvasni. A kapcsolóra kattintva kapcsolod be vagy ki."
+      },
+      "read": {
+        "title": "Tippek felolvasása",
+        "text": "Ha bekapcsolod, a tippek és a kurzuskészítés lépései maguktól felolvassák magukat. Nem kell a Felolvasás gombra kattintanod."
+      },
+      "motion": {
+        "title": "Kevesebb mozgás",
+        "text": "Ha zavarnak a mozgó részek, kapcsold be. Akkor az oldalon semmi nem fog mozogni vagy villogni."
+      },
+      "sample": {
+        "title": "Próbaszöveg",
+        "text": "Ez a szöveg megmutatja, hogyan néznek ki a betűk a beállításaiddal. Próbálgasd nyugodtan, amíg kényelmes nem lesz!"
+      },
+      "reset": {
+        "title": "Alapbeállítás",
+        "text": "Ha mindent vissza szeretnél állítani úgy, ahogy az elején volt, kattints erre a gombra."
       },
       "bookmarks": {
         "title": "Mentett kurzusok",
-        "text": "Kattints erre a sorra, és lenyílik a mentett kurzusaid listája."
+        "text": "Kattints erre a sorra, és lenyílik a mentett kurzusaid listája. Kurzust a kurzuskártyán lévő könyvjelző gombbal menthetsz el."
       },
       "recent": {
         "title": "Legutóbbi órák",
-        "text": "Itt találod az órákat, amiket már elkezdtél."
+        "text": "Kattints erre a sorra, és megnézheted, milyen órákon voltál mostanában. Innen újra is indíthatod őket."
       },
       "courses": {
         "title": "Saját kurzusaid",
-        "text": "Az általad készített kurzusok. Innen bármelyiket újra elindíthatod."
+        "text": "Kattints erre a sorra, és lenyílnak az általad készített kurzusok. Bármelyiket újra elindíthatod."
       },
       "account": {
         "title": "A fiókod",
@@ -475,5 +510,34 @@
   },
   "Common": {
     "loading": "Betöltés…"
+  },
+  "Comfort": {
+    "title": "Így kényelmes nekem",
+    "lead": "Állítsd be, hogy neked mi a kényelmes. Minden változás azonnal látszik, és magától elmentődik.",
+    "size": "Betűméret",
+    "sizeHint": "Kisebb vagy nagyobb betűk az egész oldalon",
+    "sizes": {
+      "normal": "Normál betűméret",
+      "large": "Nagy betűméret",
+      "larger": "Még nagyobb betűméret"
+    },
+    "readingFont": {
+      "label": "Olvasóbarát szöveg",
+      "hint": "Több hely a betűk és a sorok között"
+    },
+    "autoRead": {
+      "label": "Tippek felolvasása",
+      "hint": "A tippek és a lépések maguktól megszólalnak"
+    },
+    "lessMotion": {
+      "label": "Kevesebb mozgás",
+      "hint": "Semmi nem mozog és nem villog"
+    },
+    "on": "Be",
+    "off": "Ki",
+    "sample": "Így néz ki most a szöveg. Ha nehéz olvasni, próbálj ki egy nagyobb betűméretet!",
+    "saved": "Elmentve",
+    "error": "Nem sikerült elmenteni. Próbáld újra!",
+    "reset": "Alapbeállítás"
   }
 }

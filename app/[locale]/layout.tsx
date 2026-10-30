@@ -11,6 +11,8 @@ import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import TourProvider from "@/components/onboarding/TourProvider";
+import ComfortProvider from "@/components/ComfortProvider";
+import { COMFORT_BOOT_SCRIPT } from "@/lib/comfort";
 
 // Headings: the eNvolve brand face
 const heading = Bricolage_Grotesque({
@@ -71,9 +73,17 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    // The <head> script adds the student's display settings to <html> before
+    // React runs, hence suppressHydrationWarning
+    // Font variables sit on <html> so the theme's --font-display (defined on
+    // :root) can see them; on <body> plain headings fell back to the body face
+    <html lang={locale} className={`${heading.variable} ${body.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Applies "Így kényelmes nekem" before the first paint (lib/comfort.ts) */}
+        <script dangerouslySetInnerHTML={{ __html: COMFORT_BOOT_SCRIPT }} />
+      </head>
       <body
-        className={`${heading.variable} ${body.variable} antialiased`}
+        className="antialiased"
         suppressHydrationWarning={true}
       >
         <NextIntlClientProvider messages={messages}>
@@ -94,13 +104,15 @@ export default async function LocaleLayout({
             signInUrl={`/${locale}/sign-in`}
             afterSignOutUrl={`/${locale}`}
           >
-            {/* Page tours need the signed-in user, so they live inside Clerk */}
-            <TourProvider>
-              <Navbar />
-              {children}
-              <Footer />
-              <MobileTabBar />
-            </TourProvider>
+            {/* Display settings and page tours need the signed-in user, so they live inside Clerk */}
+            <ComfortProvider>
+              <TourProvider>
+                <Navbar />
+                {children}
+                <Footer />
+                <MobileTabBar />
+              </TourProvider>
+            </ComfortProvider>
           </ClerkProvider>
         </NextIntlClientProvider>
       </body>

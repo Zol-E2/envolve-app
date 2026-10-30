@@ -30,6 +30,8 @@ import {
 } from "@/lib/onboarding/speech";
 import { joinForSpeech } from "@/lib/onboarding/speechText.mjs";
 import { logOnboardingEvent } from "@/lib/actions/onboarding.actions";
+import { useComfort } from "@/components/ComfortProvider";
+import { prefersLessMotion } from "@/lib/comfort";
 
 interface TourContextValue {
   /** Tour of the page currently on screen, registered by <PageTour> */
@@ -64,6 +66,12 @@ const TourProvider = ({ children }: { children: ReactNode }) => {
   // copy of the metadata is still refreshing
   const [seenNow, setSeenNow] = useState<Partial<Record<TourId, boolean>>>({});
   const driverRef = useRef<Driver | null>(null);
+  // Read when a step opens, so changing a setting needs no new tour object
+  const { settings: comfort } = useComfort();
+  const autoReadRef = useRef(comfort.autoRead);
+  useEffect(() => {
+    autoReadRef.current = comfort.autoRead;
+  }, [comfort.autoRead]);
 
   // Start loading speech voices early so the read-aloud button is ready
   useEffect(() => subscribeToVoices(() => {}), []);
@@ -129,7 +137,7 @@ const TourProvider = ({ children }: { children: ReactNode }) => {
       });
       if (steps.length === 0) return;
 
-      const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const calm = prefersLessMotion();
 
       const tour = driver({
         steps,
@@ -163,6 +171,12 @@ const TourProvider = ({ children }: { children: ReactNode }) => {
           popover.footer.insertBefore(readButton, popover.footerButtons);
         },
         onHighlightStarted: () => stopSpeaking(),
+        // "Read tips aloud" setting: each bubble reads itself once it is open
+        onHighlighted: (_element, step) => {
+          if (!autoReadRef.current) return;
+          const speech = joinForSpeech([step.popover?.title ?? "", step.popover?.description ?? ""]);
+          if (canSpeak(locale, speech)) speak(speech, locale, { auto: true });
+        },
         // Runs for Done, ×, and Esc alike
         onDestroyStarted: () => {
           const completed = tour.isLastStep();

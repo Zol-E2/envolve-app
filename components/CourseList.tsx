@@ -54,7 +54,7 @@ const CourseList = ({
                   <span className="text-lg leading-snug font-bold group-hover:underline" lang={language}>
                     {name}
                   </span>
-                  <span className="text-[15px] text-muted-foreground">
+                  <span className="text-[0.9375rem] text-muted-foreground">
                     {getSubjectLabel(tSubjects, subject)} · {duration} {t("min")}
                     {language && ` · ${language.toUpperCase()}`}
                   </span>

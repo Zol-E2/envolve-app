@@ -39,7 +39,7 @@ export const createCourse = async (formData: CreateCourse) => {
     const since = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
     const { count, error: countError } = await supabase
       .from('courses')
-      .select('id', { count: 'exact', head: true })
+      .select('*', { count: 'exact', head: true })
       .eq('author', author)
       .gte('created_at', since);
     if (countError) throw new Error('Failed to create course');
@@ -193,6 +193,23 @@ export const getUserSessions = async (userId: string, limit = 10) => {
     }
     // Cast is safe: Supabase returns a single course object per row for this many-to-one join
     return uniqueCourses(data.map(({ courses }) => courses as unknown as Course | null));
+}
+
+/**
+ * How many different courses the student has had a lesson in (the profile's
+ * "lessons" number). session_history keeps one row per course, so this is a
+ * count of rows, without loading them.
+ */
+export const getLessonCount = async (userId: string) => {
+    if (userId !== (await currentUserId())) return 0;
+    const supabase = createSupabaseClient();
+    const { count, error } = await supabase
+    .from('session_history')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', userId)
+
+    if (error) throw new Error(error.message)
+    return count ?? 0;
 }
 
 /**

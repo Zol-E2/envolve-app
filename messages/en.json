@@ -211,7 +211,6 @@
   },
   "Profile": {
     "lessonsCompleted": "Lessons completed",
-    "coursesCreated": "Courses created",
     "bookmarkedCourses": "Bookmarked Courses",
     "recentSessions": "Recent Sessions",
     "myCourses": "My Courses",
@@ -219,7 +218,11 @@
     "recentEmpty": "You haven't had a lesson yet.",
     "myCoursesEmpty": "You haven't built a course yet.",
     "createCourse": "Build a new course",
-    "browseCourses": "Browse courses"
+    "browseCourses": "Browse courses",
+    "title": "My profile",
+    "statsLabel": "Your progress",
+    "coursesSaved": "Saved courses",
+    "coursesOwn": "My courses"
   },
   "NotFound": {
     "title": "Page not found",
@@ -350,21 +353,53 @@
       }
     },
     "profile": {
+      "intro": {
+        "title": "This is your profile",
+        "text": "Here you can see your progress and your courses. You can also choose what feels comfortable for you. Let’s look at it together!"
+      },
       "stats": {
         "title": "Your progress",
-        "text": "Here you can see how many lessons you have done and how many courses you have built."
+        "text": "These three numbers show how many courses you have had lessons in, how many courses you have built, and how many you have saved. They are only your numbers. We never compare you with anyone."
+      },
+      "comfort": {
+        "title": "Make it comfortable",
+        "text": "In this box you can choose how the pages look and work. Whatever you change here shows at once and is saved by itself."
+      },
+      "size": {
+        "title": "Text size",
+        "text": "You can see three letter A buttons. Click a bigger A, and all the text on the pages gets bigger. The smallest A brings back the normal size."
+      },
+      "reading": {
+        "title": "Easy-reading text",
+        "text": "Switch this on to get more space between letters, words and lines. Many people find this easier to read. Click the switch to turn it on or off."
+      },
+      "read": {
+        "title": "Read tips aloud",
+        "text": "Switch this on, and the tips and the course builder steps read themselves aloud. You do not have to click the Read aloud button."
+      },
+      "motion": {
+        "title": "Less motion",
+        "text": "If moving things bother you, switch this on. Then nothing on the pages will move or flash."
+      },
+      "sample": {
+        "title": "Sample text",
+        "text": "This text shows how the letters look with your settings. Try things out until it feels comfortable!"
+      },
+      "reset": {
+        "title": "Default settings",
+        "text": "If you want everything back the way it was at the start, click this button."
       },
       "bookmarks": {
         "title": "Saved courses",
-        "text": "Click this row to open the list of your saved courses."
+        "text": "Click this row to open the list of your saved courses. You can save a course with the bookmark button on its card."
       },
       "recent": {
         "title": "Recent lessons",
-        "text": "Here you will find the lessons you have already started."
+        "text": "Click this row to see the lessons you had lately. You can start them again from here."
       },
       "courses": {
         "title": "Your courses",
-        "text": "The courses you have built. You can start any of them again from here."
+        "text": "Click this row to open the courses you have built. You can start any of them again."
       },
       "account": {
         "title": "Your account",
@@ -475,5 +510,34 @@
   },
   "Common": {
     "loading": "Loading…"
+  },
+  "Comfort": {
+    "title": "Make it comfortable",
+    "lead": "Choose what feels comfortable for you. Every change shows at once and is saved by itself.",
+    "size": "Text size",
+    "sizeHint": "Smaller or bigger letters on every page",
+    "sizes": {
+      "normal": "Normal text size",
+      "large": "Large text size",
+      "larger": "Extra large text size"
+    },
+    "readingFont": {
+      "label": "Easy-reading text",
+      "hint": "More space between letters and lines"
+    },
+    "autoRead": {
+      "label": "Read tips aloud",
+      "hint": "Tips and steps start talking by themselves"
+    },
+    "lessMotion": {
+      "label": "Less motion",
+      "hint": "Nothing moves or flashes"
+    },
+    "on": "On",
+    "off": "Off",
+    "sample": "This is how the text looks now. If it is hard to read, try a bigger text size!",
+    "saved": "Saved",
+    "error": "Could not save. Please try again!",
+    "reset": "Default settings"
   }
 }

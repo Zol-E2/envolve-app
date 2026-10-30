@@ -84,7 +84,13 @@ export const stopSpeaking = () => {
   if (isSupported()) window.speechSynthesis.cancel();
 };
 
-export const speak = (text: string, locale: string) => {
+/**
+ * Reads `text` aloud. `auto` marks reading the student did not click for
+ * (the "read tips aloud" setting): when the browser blocks sound before the
+ * first click on a freshly loaded page, it stays quiet instead of switching
+ * to the robotic browser voice.
+ */
+export const speak = (text: string, locale: string, { auto = false } = {}) => {
   stopSpeaking();
   const url = recordingUrl(text, locale);
   if (!url) {
@@ -93,9 +99,11 @@ export const speak = (text: string, locale: string) => {
   }
   const audio = new Audio(url);
   player = audio;
-  // A file that fails to load or play (offline, blocked) still gets read
-  audio.play().catch(() => {
-    if (player === audio) speakWithBrowser(text, locale);
+  audio.play().catch((error: unknown) => {
+    if (player !== audio) return;
+    if (auto && error instanceof DOMException && error.name === "NotAllowedError") return;
+    // A file that fails to load (offline) still gets read
+    speakWithBrowser(text, locale);
   });
 };
 

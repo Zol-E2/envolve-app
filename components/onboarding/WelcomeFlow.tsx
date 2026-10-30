@@ -12,6 +12,7 @@ import { WELCOME_SPEECH, joinForSpeech } from "@/lib/onboarding/speechText.mjs";
 import { logOnboardingEvent } from "@/lib/actions/onboarding.actions";
 import MicTest, { type MicResult } from "./MicTest";
 import DemoCall from "./DemoCall";
+import { useComfort } from "@/components/ComfortProvider";
 
 const STEPS = ["intro", "lesson", "mic", "ready"] as const;
 type Destination = "/" | "/courses" | "/courses/new";
@@ -27,6 +28,7 @@ const WelcomeFlow = () => {
   const router = useRouter();
   const { user } = useUser();
   const canRead = useCanSpeak(locale);
+  const { settings: comfort } = useComfort();
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -89,10 +91,18 @@ const WelcomeFlow = () => {
 
   // The card's texts only, not its buttons or the mic test status, so the
   // same sentence can be played from the recording
-  const readAloud = () => {
+  const readCard = (auto: boolean) => {
     const text = t as unknown as (key: string) => string;
-    speak(joinForSpeech(WELCOME_SPEECH[step].map((key) => text(`${step}.${key}`))), locale);
+    speak(joinForSpeech(WELCOME_SPEECH[step].map((key) => text(`${step}.${key}`))), locale, { auto });
   };
+  const readAloud = () => readCard(false);
+
+  // "Read tips aloud" setting (profile page): every new card reads itself
+  useEffect(() => {
+    if (comfort.autoRead && canRead && !leaving) readCard(true);
+    // Only when the card changes or the setting is switched on
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index, comfort.autoRead, canRead]);
 
   return (
     <section className="welcome-shell" aria-labelledby="welcome-heading">

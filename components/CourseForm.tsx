@@ -14,6 +14,7 @@ import { speak, stopSpeaking, useCanSpeak } from "@/lib/onboarding/speech";
 import { COURSE_FORM_SPEECH, joinForSpeech } from "@/lib/onboarding/speechText.mjs";
 import SubjectTile from "./SubjectTile";
 import { LIMITS } from "@/lib/validation";
+import { useComfort } from "./ComfortProvider";
 
 type FormTranslator = ReturnType<typeof useTranslations<"CourseForm">>;
 
@@ -51,6 +52,7 @@ const CourseForm = () => {
   // New courses default to the language the student is using the app in
   const locale = useLocale();
   const canRead = useCanSpeak(locale);
+  const { settings: comfort } = useComfort();
   const formSchema = useMemo(() => buildFormSchema(t), [t]);
   const [stepIndex, setStepIndex] = useState(0);
   const questionRef = useRef<HTMLHeadingElement>(null);
@@ -114,11 +116,19 @@ const CourseForm = () => {
     else void next();
   };
 
-  const readAloud = () => {
+  const readStep = (auto: boolean) => {
     // Keys come from a plain JS list shared with the recording script
     const text = t as unknown as (key: string) => string;
-    speak(joinForSpeech(COURSE_FORM_SPEECH[step.id].map((key) => text(key))), locale);
+    speak(joinForSpeech(COURSE_FORM_SPEECH[step.id].map((key) => text(key))), locale, { auto });
   };
+  const readAloud = () => readStep(false);
+
+  // "Read tips aloud" setting (profile page): every new step reads itself
+  useEffect(() => {
+    if (comfort.autoRead && canRead) readStep(true);
+    // Only when the step changes or the setting is switched on
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stepIndex, comfort.autoRead, canRead]);
 
   const pickIdea = (idea: string) => {
     setValue("topic", idea, { shouldValidate: true });
@@ -166,7 +176,7 @@ const CourseForm = () => {
                 <label key={subject} className="choice">
                   <input type="radio" value={subject} className="sr-only" {...register("subject")} />
                   <SubjectTile subject={subject} size="sm" />
-                  <span className="flex-1">{getSubjectLabel(tSubjects, subject)}</span>
+                  <span className="choice-label">{getSubjectLabel(tSubjects, subject)}</span>
                   <Check className="choice-check size-5" aria-hidden />
                 </label>
               ))}
@@ -233,7 +243,7 @@ const CourseForm = () => {
                 <label key={voice} className="choice">
                   <input type="radio" value={voice} className="sr-only" {...register("voice")} />
                   <span className="choice-radio" aria-hidden />
-                  <span className="flex-1">{t(voice === "female" ? "voiceFemale" : "voiceMale")}</span>
+                  <span className="choice-label">{t(voice === "female" ? "voiceFemale" : "voiceMale")}</span>
                 </label>
               ))}
             </ChoiceGroup>
@@ -242,7 +252,7 @@ const CourseForm = () => {
                 <label key={language} className="choice">
                   <input type="radio" value={language} className="sr-only" {...register("language")} />
                   <span className="choice-radio" aria-hidden />
-                  <span className="flex-1">{t(language === "hu" ? "languageHu" : "languageEn")}</span>
+                  <span className="choice-label">{t(language === "hu" ? "languageHu" : "languageEn")}</span>
                   <span className="pill">{language.toUpperCase()}</span>
                 </label>
               ))}
@@ -282,7 +292,7 @@ const CourseForm = () => {
                   <p className="font-display text-xl leading-tight font-bold" lang={values.language}>
                     {values.name}
                   </p>
-                  <p className="text-[15px] font-bold text-muted-foreground">
+                  <p className="text-[0.9375rem] font-bold text-muted-foreground">
                     {getSubjectLabel(tSubjects, values.subject)}
                   </p>
                 </div>

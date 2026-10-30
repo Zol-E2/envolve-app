@@ -20,6 +20,8 @@ import {
 import { SubjectIcon } from "./SubjectTile";
 import dynamic from "next/dynamic";
 import type { LottieRefCurrentProps } from "lottie-react";
+import { useComfort } from "@/components/ComfortProvider";
+import { prefersLessMotion } from "@/lib/comfort";
 import soundwaves from "@/constants/soundwaves.json";
 
 // The sound-wave animation library is large and only needed once a lesson
@@ -59,16 +61,16 @@ const CourseComponent = ({
   // Seconds since the lesson started, for the calm progress bar
   const [elapsed, setElapsed] = useState(0);
 
-  // Play / pause the soundwave animation based on whether the AI is speaking
+  // Play / pause the soundwave animation based on whether the AI is speaking.
+  // With "less motion" it stays still; the status line still says who talks.
+  const { settings: comfort } = useComfort();
   useEffect(() => {
-    if (lottieRef) {
-      if (isSpeaking) {
-        lottieRef.current?.play();
-      } else {
-        lottieRef.current?.stop();
-      }
+    if (isSpeaking && !prefersLessMotion()) {
+      lottieRef.current?.play();
+    } else {
+      lottieRef.current?.stop();
     }
-  }, [lottieRef, isSpeaking]);
+  }, [isSpeaking, comfort.lessMotion]);
 
   // Wire up Vapi event listeners for the duration of the session
   useEffect(() => {

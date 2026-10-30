@@ -62,10 +62,10 @@ const CourseCard = ({
         <div className="flex min-w-0 flex-col">
           {/* Course content is in the lesson language, which may differ from the
               interface; lang lets read-aloud and screen readers pronounce it right */}
-          <h2 className="text-[21px] leading-tight font-bold" lang={language}>
+          <h2 className="text-[1.3125rem] leading-tight font-bold" lang={language}>
             {name}
           </h2>
-          <p className="text-[15px] font-bold text-muted-foreground">
+          <p className="text-[0.9375rem] font-bold text-muted-foreground">
             {getSubjectLabel(tSubjects, subject)}
           </p>
         </div>
@@ -88,14 +88,16 @@ const CourseCard = ({
         )}
       </div>
 
-      <div className="mt-auto flex gap-2">
-        <Link href={`/courses/${id}`} className="btn-soft flex-1 px-4 text-[17px] whitespace-nowrap" data-tour="card-launch">
+      {/* Side by side; stacked when the card is very narrow (a phone with
+          the biggest text size), so neither button is cut off */}
+      <div className="mt-auto flex gap-2 @max-[15.5rem]:flex-col">
+        <Link href={`/courses/${id}`} className="btn-soft flex-1 px-4 text-[1.0625rem] whitespace-nowrap" data-tour="card-launch">
           <Play className="size-5" fill="currentColor" aria-hidden />
           {t("launchLesson")}
         </Link>
         <button
           type="button"
-          className="course-bookmark px-3 text-[15px]"
+          className="course-bookmark px-3 text-[0.9375rem]"
           data-tour="card-bookmark"
           onClick={handleBookmark}
           aria-pressed={isBookmarked}
@@ -107,7 +109,7 @@ const CourseCard = ({
             <Bookmark className="size-5" aria-hidden />
           )}
           {/* In a narrow card only the icon shows; the word stays for screen readers */}
-          <span className="@max-[19rem]:sr-only">{isBookmarked ? t("saved") : t("save")}</span>
+          <span className="@max-[19rem]:sr-only @max-[15.5rem]:not-sr-only">{isBookmarked ? t("saved") : t("save")}</span>
         </button>
       </div>
     </article>
