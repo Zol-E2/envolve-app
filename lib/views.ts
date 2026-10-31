@@ -6,10 +6,10 @@ import { canTeach, type AppRole } from "./roles";
  * Rule for this project (see AGENTS.md): every role sees only what it needs
  * for its own job. Where two roles do different things on a page, each gets
  * its own version instead of one page with parts hidden. The menu, the
- * middleware and the pages all read this file, so adding a page or a role
+ * proxy (proxy.ts) and the pages all read this file, so adding a page or a role
  * (a school admin may come later) means extending it here first.
  *
- * Imported by the middleware (edge runtime): keep it free of React and icons.
+ * Imported by proxy.ts: keep it free of React and icons.
  */
 
 export type View = "student" | "teacher" | "admin";

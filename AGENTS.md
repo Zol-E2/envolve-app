@@ -27,7 +27,7 @@ Before building or changing a page, answer these:
    policy (RLS). Hiding a menu item is not enough.
 
 `lib/views.ts` is the single place that says which menu items each view
-has and which pages belong to which view. The middleware, the menus and the
+has and which pages belong to which view. The proxy (`proxy.ts`), the menus and the
 pages all read it. To add a page or a role, extend it there first.
 
 ### The admin view

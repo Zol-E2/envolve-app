@@ -1,4 +1,4 @@
-import { withSentryConfig } from "@sentry/nextjs";
+import { withSentryConfig } from "@sentry/nextjs/config";
 import createNextIntlPlugin from "next-intl/plugin";
 import type { NextConfig } from "next";
 
@@ -20,7 +20,7 @@ const securityHeaders = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   {
     key: "Permissions-Policy",
-    value: "microphone=(self), camera=(), geolocation=(), payment=(), usb=(), interest-cohort=()",
+    value: "microphone=(self), camera=(), geolocation=(), payment=(), usb=(), browsing-topics=()",
   },
   { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
 ];
@@ -33,7 +33,7 @@ const nextConfig: NextConfig = {
   },
   images: {
     remotePatterns: [
-      { hostname: "img.clerk.com" },
+      { protocol: "https", hostname: "img.clerk.com" },
     ],
   },
 };
@@ -57,16 +57,6 @@ export default withSentryConfig(withNextIntl(nextConfig), {
 
   // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
   // This can increase your server load as well as your hosting bill.
-  // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
-  // side errors will fail.
+  // proxy.ts lets /monitoring through without a locale (skipIntl)
   tunnelRoute: "/monitoring",
-
-  // Automatically tree-shake Sentry logger statements to reduce bundle size
-  disableLogger: true,
-
-  // Enables automatic instrumentation of Vercel Cron Monitors. (Does not yet work with App Router route handlers.)
-  // See the following for more information:
-  // https://docs.sentry.io/product/crons/
-  // https://vercel.com/docs/cron-jobs
-  automaticVercelMonitors: true,
 });

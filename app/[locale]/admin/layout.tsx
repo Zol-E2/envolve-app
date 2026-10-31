@@ -8,7 +8,7 @@ import TwoFactorRequired from "@/components/admin/TwoFactorRequired";
 export const dynamic = "force-dynamic";
 
 /**
- * Admin pages: the middleware already sends everyone else away; this is the
+ * Admin pages: the proxy (proxy.ts) already sends everyone else away; this is the
  * second check, plus two-step verification (lib/admin/access.ts).
  */
 const AdminLayout = async ({ children }: { children: ReactNode }) => {

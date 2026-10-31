@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 
 /** Teacher pages: a left column with the classes on desktop (see the design) */
 const TeacherLayout = async ({ children }: { children: ReactNode }) => {
-  // The middleware already sends students away; this is the second check
+  // The proxy (proxy.ts) already sends students away; this is the second check
   if (!(await isTeacher())) redirect({ href: "/", locale: await getLocale() });
   const classes = await loadTeacherClasses();
 

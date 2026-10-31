@@ -38,9 +38,8 @@ export const VAPI_DEMO_ASSISTANT_IDS: Record<LessonLanguage, string> = {
     "567d5c4e-7d1b-470e-9c92-caeb3e1dcf9a", // eNvolve Demo EN
 };
 
-// Must match the voice model set on the saved assistants. Cast because the
-// @vapi-ai/web 2.5 type definitions predate eleven_v4_turbo.
-const VOICE_MODEL = "eleven_v4_turbo" as ElevenLabsVoice["model"];
+// Must match the voice model set on the saved assistants
+const VOICE_MODEL: ElevenLabsVoice["model"] = "eleven_v4_turbo";
 
 const subjectNames = { hu: huMessages.Subjects, en: enMessages.Subjects };
 

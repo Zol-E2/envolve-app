@@ -27,7 +27,8 @@ const isPublic = createRouteMatcher([
 
 
 /**
- * Middleware chain: Clerk wraps next-intl.
+ * Proxy (Next.js 16's new name for middleware; runs on Node.js): Clerk
+ * wraps next-intl.
  *
  * 1. clerkMiddleware refreshes the auth session and exposes auth() downstream,
  *    sends signed-out visitors of private pages to the sign-in page, and
@@ -38,7 +39,7 @@ const isPublic = createRouteMatcher([
  *    withPrimaryLanguage() keeps Hungarian as the default for new visitors
  *    (see FOLLOW_BROWSER_LANGUAGE in i18n/routing.ts).
  */
-export default clerkMiddleware(async (auth, request) => {
+const proxy = clerkMiddleware(async (auth, request) => {
   if (!isPublic(request)) {
     const { userId, sessionClaims } = await auth();
     const { pathname, search } = request.nextUrl;
@@ -59,6 +60,8 @@ export default clerkMiddleware(async (auth, request) => {
   if (skipIntl(request)) return;
   return intlMiddleware(withPrimaryLanguage(request));
 });
+
+export default proxy;
 
 export const config = {
   matcher: [

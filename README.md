@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# eNvolve
 
-## Getting Started
+A voice-first learning app for children with learning difficulties (autism,
+ADHD, dyslexia), with a student view, a teacher view and an admin view.
+Hungarian first, English too.
 
-First, run the development server:
+- **Next.js 16** (App Router, `proxy.ts`), **next-intl** (hu/en)
+- **Clerk** for sign-in and roles, **Supabase** (Postgres + row level security)
+- **Vapi** for the voice lessons, **ElevenLabs** for the read-aloud tips
+- **Sentry** for errors, **Vercel** for hosting, Web Analytics and Speed Insights
+
+Project rules (roles, tips, two languages, security, accessibility, commits)
+are in [AGENTS.md](AGENTS.md). Read them before changing anything.
+
+## Getting started
+
+Node.js 22 or 24 (see `engines` in package.json).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # then fill in the values
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`.env.example` lists every variable with a short note. Never commit real
+values; `.env*` files are ignored by git (except the example).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Database
 
-## Learn More
+Run the files in `supabase/migrations/` in the Supabase SQL editor, in name
+order. Every file is safe to run more than once. Afterwards, check the
+Security Advisor: it should show no warnings.
 
-To learn more about Next.js, take a look at the following resources:
+## Roles
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Everyone starts as a student. Admins give the teacher or admin role on the
+Users page; the very first admin is set from the command line:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run role:set -- someone@example.com admin
+```
 
-## Deploy on Vercel
+## Scripts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Development server |
+| `npm run build` | Production build |
+| `npm run lint` | ESLint, translation check and read-aloud check |
+| `npm run speech:generate` | Records new or changed tips with ElevenLabs (commit the results) |
+| `npm run role:set -- <email> <role>` | Shows or changes someone's role |

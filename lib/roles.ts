@@ -2,7 +2,7 @@
  * App roles. Everyone is a student; a teacher or admin role is set only by
  * the project owner (scripts/set-role.mjs writes Clerk publicMetadata.role,
  * which browsers cannot change). The Clerk session token copies it into the
- * "app_role" claim, so the middleware, server code and database policies all
+ * "app_role" claim, so the proxy, server code and database policies all
  * read the same value.
  *
  * Imported by server and client code.
