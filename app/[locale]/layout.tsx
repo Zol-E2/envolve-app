@@ -14,7 +14,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import TourProvider from "@/components/onboarding/TourProvider";
 import ComfortProvider from "@/components/ComfortProvider";
-import { COMFORT_BOOT_SCRIPT } from "@/lib/comfort";
+import ComfortBootScript from "@/components/ComfortBootScript";
 import { RoleProvider } from "@/lib/useRole";
 import { getRole } from "@/lib/roles.server";
 
@@ -84,7 +84,7 @@ export default async function LocaleLayout({
     <html lang={locale} className={`${heading.variable} ${body.variable}`} suppressHydrationWarning>
       <head>
         {/* Applies "Így kényelmes nekem" before the first paint (lib/comfort.ts) */}
-        <script dangerouslySetInnerHTML={{ __html: COMFORT_BOOT_SCRIPT }} />
+        <ComfortBootScript />
       </head>
       <body
         className="antialiased"
