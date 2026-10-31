@@ -60,3 +60,10 @@ begin
   return new;
 end;
 $$;
+
+-- ─── 3. requesting_user_id(): signed-in users only ──────────────────────────
+-- Signed-out visitors (anon) never need it: no policy for them calls it.
+-- The policies run it as the signed-in user, so "authenticated" keeps it.
+
+revoke all on function public.requesting_user_id() from public, anon;
+grant execute on function public.requesting_user_id() to authenticated;
