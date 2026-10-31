@@ -16,7 +16,9 @@ import { readOnboarding } from "@/lib/onboarding/state";
 import { cn } from "@/lib/utils";
 import PageTour from "@/components/onboarding/PageTour";
 import TaskCard from "@/components/classes/TaskCard";
-import { getMyTasks } from "@/lib/actions/class.actions";
+import { getMyClasses, getMyTasks } from "@/lib/actions/class.actions";
+import HomeClassesCard from "@/components/classes/HomeClassesCard";
+import { isTeacher } from "@/lib/roles.server";
 
 const WEEKDAYS = ["d0", "d1", "d2", "d3", "d4", "d5", "d6"] as const;
 
@@ -32,7 +34,7 @@ const Page = async () => {
 
   const week = currentWeek();
   // Independent queries run in parallel instead of one after another
-  const [t, tSubjects, courses, recent, lessonTimes, user, tasks] = await Promise.all([
+  const [t, tSubjects, courses, recent, lessonTimes, user, tasks, myClasses, teacher] = await Promise.all([
     getTranslations("Home"),
     getTranslations("Subjects"),
     getAllCourses({ limit: 3 }),
@@ -40,6 +42,8 @@ const Page = async () => {
     getLessonTimes(userId!, week.since),
     currentUser(),
     getMyTasks().catch(() => []),
+    getMyClasses().catch(() => []),
+    isTeacher(),
   ]);
 
   // New users see the short welcome introduction once before the home page
@@ -135,6 +139,8 @@ const Page = async () => {
           emptyMessage={last ? t("recentOnlyOne") : t("recentEmpty")}
         />
         <div className="flex w-full flex-col gap-6 lg:max-w-[380px]">
+          {/* Students join classes here; teachers run them from the Classes page */}
+          {!teacher && <HomeClassesCard classes={myClasses} />}
           {/* Rewards showing up, never punishes a missed day: no streak to lose */}
           <article className="card flex flex-col gap-4" aria-labelledby="week-title" data-tour="home-week">
             <h2 id="week-title" className="text-2xl font-bold max-sm:text-xl">

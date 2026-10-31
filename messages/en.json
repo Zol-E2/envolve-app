@@ -258,6 +258,14 @@
         "title": "Your earlier lessons",
         "text": "Here are the courses you have already learned with. Press any row and the lesson opens again."
       },
+      "classes": {
+        "title": "Your classes",
+        "text": "Here you see which classes you are in and who your teacher is. This box is always here on your home page."
+      },
+      "join": {
+        "title": "Join with a code",
+        "text": "If your teacher gave you a code, type it here and press Join. The code has six letters and numbers, for example ABC234."
+      },
       "week": {
         "title": "This week",
         "text": "Every day you learned gets a green tick. Today has an orange ring. It is fine to skip a day: your ticks stay."
@@ -817,5 +825,9 @@
     "leave": "Leave",
     "leaveQuestion": "Leave {name}?",
     "leaveConfirm": "Yes, leave"
+  },
+  "HomeClasses": {
+    "title": "My classes",
+    "empty": "You are not in a class yet. If your teacher gave you a code, type it below."
   }
 }

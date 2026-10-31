@@ -6,11 +6,16 @@ import { LogIn } from "lucide-react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { joinClass, type JoinResult } from "@/lib/actions/class.actions";
 
-/** Big, calm code field: six letters and numbers from the teacher */
-const JoinClassForm = () => {
+/**
+ * Big, calm code field: six letters and numbers from the teacher. "card" is
+ * the smaller version inside the home page's classes card.
+ */
+const JoinClassForm = ({ variant = "page", initialCode = "" }: { variant?: "page" | "card"; initialCode?: string }) => {
   const t = useTranslations("Join");
   const router = useRouter();
-  const [code, setCode] = useState("");
+  const card = variant === "card";
+  const inputId = card ? "home-join-code" : "join-code";
+  const [code, setCode] = useState(initialCode.toUpperCase().slice(0, 12));
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<JoinResult | null>(null);
 
@@ -42,13 +47,18 @@ const JoinClassForm = () => {
       : null;
 
   return (
-    <form className="join-card" onSubmit={submit} data-tour="join-code" noValidate>
-      <label htmlFor="join-code" className="field-label">
+    <form
+      className={card ? "flex flex-col gap-3" : "join-card"}
+      onSubmit={submit}
+      data-tour={card ? "home-join" : "join-code"}
+      noValidate
+    >
+      <label htmlFor={inputId} className={card ? "text-lg font-bold" : "field-label"}>
         {t("codeLabel")}
       </label>
       <input
-        id="join-code"
-        className="join-input"
+        id={inputId}
+        className={card ? "join-input min-h-14 text-2xl" : "join-input"}
         value={code}
         onChange={(event) => {
           setCode(event.target.value.toUpperCase().slice(0, 12));
@@ -59,10 +69,10 @@ const JoinClassForm = () => {
         spellCheck={false}
         inputMode="text"
         placeholder="ABC234"
-        aria-describedby="join-hint"
+        aria-describedby={`${inputId}-hint`}
         aria-invalid={!!errorText}
       />
-      <p id="join-hint" className="form-hint">
+      <p id={`${inputId}-hint`} className={card ? "text-base text-muted-foreground" : "form-hint"}>
         {t("codeHint")}
       </p>
       <button type="submit" className="btn-primary" disabled={busy || code.replace(/[^A-Za-z0-9]/g, "").length < 6}>
@@ -72,10 +82,15 @@ const JoinClassForm = () => {
       <div role="status" aria-live="polite">
         {result?.status === "joined" && (
           <p className="form-message" data-tone="ok">
-            {t("joined", { name: result.className, teacher: result.teacherName })}{" "}
-            <Link href="/" className="font-bold underline">
-              {t("toHome")}
-            </Link>
+            {t("joined", { name: result.className, teacher: result.teacherName })}
+            {!card && (
+              <>
+                {" "}
+                <Link href="/" className="font-bold underline">
+                  {t("toHome")}
+                </Link>
+              </>
+            )}
           </p>
         )}
         {errorText && (

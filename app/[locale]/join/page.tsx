@@ -14,8 +14,16 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t("title") };
 }
 
-/** Joining a class with the teacher's code, and the classes already joined */
-const JoinPage = async () => {
+interface JoinPageProps {
+  searchParams?: Promise<{ code?: string }>;
+}
+
+/**
+ * Joining a class with the teacher's code, and the classes already joined.
+ * A link with ?code=ABC234 (from the teacher's class page) fills it in.
+ */
+const JoinPage = async ({ searchParams }: JoinPageProps) => {
+  const { code } = (await searchParams) ?? {};
   const [t, tSubjects, classes] = await Promise.all([
     getTranslations("Join"),
     getTranslations("Subjects"),
@@ -30,7 +38,7 @@ const JoinPage = async () => {
         <p className="text-lg text-muted-foreground max-sm:text-base">{t("lead")}</p>
       </section>
 
-      <JoinClassForm />
+      <JoinClassForm initialCode={typeof code === "string" ? code.replace(/[^A-Za-z0-9]/g, "").slice(0, 6) : ""} />
 
       <section className="flex flex-col gap-3" aria-labelledby="my-classes" data-tour="join-classes">
         <h2 id="my-classes" className="text-2xl font-bold max-sm:text-xl">

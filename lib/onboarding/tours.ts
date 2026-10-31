@@ -33,6 +33,8 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
     { key: "task", target: "home-task" },
     { key: "continue", target: "home-continue" },
     { key: "recent", target: "home-recent" },
+    { key: "classes", target: "home-classes" },
+    { key: "join", target: "home-join" },
     { key: "week", target: "home-week" },
     { key: "create", target: "home-create" },
     { key: "popular", target: "home-popular", side: "top" },
