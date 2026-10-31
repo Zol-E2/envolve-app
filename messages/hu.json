@@ -35,10 +35,9 @@
     "minutes": "{count} perc",
     "startLabel": "Kezdd itt",
     "startTitle": "Még nem volt órád",
-    "startText": "Válassz egy kurzust a könyvtárból, vagy készíts egy sajátot négy rövid lépésben.",
+    "startText": "Kétféleképpen kezdhetsz. Válaszd azt, amelyik most jobban tetszik!",
     "createCourse": "Saját kurzus készítése",
     "recentCourses": "Korábbi óráid",
-    "recentOnlyOne": "Eddig ez az egy órád volt. Fent egy gombnyomással folytathatod.",
     "recentEmpty": "Még nem volt órád. Válassz egy kurzust lent, és nyomd meg az Óra megnyitása gombot.",
     "weekTitle": "Ezen a héten",
     "weekdays": {
@@ -64,7 +63,12 @@
     "weekSummary": "{count, plural, =0 {Ezen a héten még nem volt órád. Ma jó nap lehet rá!} other {Ezen a héten # napon tanultál. Ügyes vagy!}}",
     "popularCourses": "Népszerű kurzusok",
     "browseCourses": "Kurzusok böngészése",
-    "tasksLabel": "Feladataid a tanárodtól"
+    "tasksLabel": "Feladataid a tanárodtól",
+    "browseTitle": "Kész kurzust választok",
+    "browseText": "Nézd meg, miről tanulnak mások.",
+    "createTitle": "Saját kurzust készítek",
+    "createText": "Te döntöd el a témát, négy rövid lépésben.",
+    "howToTitle": "Így zajlik egy óra"
   },
   "CTA": {
     "title": "Készíts saját kurzust",
@@ -205,8 +209,6 @@
     "micBlockedTitle": "Nem érem el a mikrofonodat",
     "micBlockedHelp": "Kattints a lakat ikonra a címsor bal oldalán, állítsd a Mikrofont Engedélyezésre, majd töltsd újra az oldalt.",
     "back": "Vissza a kurzusokhoz",
-    "elapsedLabel": "Eltelt idő",
-    "elapsed": "{minutes} / {total} perc",
     "stuckTitle": "Ha elakadsz, mondd ezt:",
     "transcriptTitle": "Amit eddig mondtatok",
     "transcriptEmpty": "Az óra szövege itt jelenik meg, amint elkezditek. Így semmit nem kell fejben tartanod.",
@@ -214,7 +216,24 @@
     "tutor": "Tanár",
     "micOffHint": "mikrofon ki",
     "micOnHint": "mikrofon be",
-    "previewNote": "Előnézet: kipróbálhatod az órát, de ez nem kerül egyik diák előzményei vagy statisztikája közé sem."
+    "previewNote": "Előnézet: kipróbálhatod az órát, de ez nem kerül egyik diák előzményei vagy statisztikája közé sem.",
+    "lessonLength": "{total} perces óra",
+    "pathLabel": "Hol tartasz az órában",
+    "pathValue": "{phase}. Körülbelül {minutes} perce tart a {total} perces óra.",
+    "phase": {
+      "ready": "Az óra még nem kezdődött el",
+      "start": "Most kezdtük",
+      "early": "Jól haladsz",
+      "half": "Túl vagy a felén",
+      "late": "Lassan a végéhez érünk",
+      "end": "Mindjárt vége",
+      "done": "Az óra véget ért"
+    },
+    "milestone": {
+      "start": "Kezdés",
+      "middle": "Közepe",
+      "end": "Vége"
+    }
   },
   "Profile": {
     "lessonsCompleted": "Elvégzett órák",
@@ -256,8 +275,8 @@
         "text": "Ezt a feladatot a tanárod adta. Látod, melyik óra, hány perces, és meddig kell elvégezned. Ha üzenetet is írt, a Felolvasás gombbal meghallgathatod. A nagy gombbal indul az óra."
       },
       "continue": {
-        "title": "Itt kezdheted az órát",
-        "text": "Ez a legfontosabb gomb az oldalon. Ha már volt órád, a legutóbbit egy gombnyomással folytathatod. Ha még nem volt, itt választhatsz kurzust."
+        "title": "Itt kezdheted",
+        "text": "Ha már volt órád, itt egy gombnyomással folytathatod a legutóbbit. Ha még nem volt, válassz: kész kurzust választasz, vagy sajátot készítesz."
       },
       "recent": {
         "title": "Korábbi óráid",
@@ -274,6 +293,10 @@
       "week": {
         "title": "Ezen a héten",
         "text": "Minden nap, amikor tanultál, zöld pipát kap. A mai napot narancssárga karika jelöli. Nem baj, ha kimarad egy nap: a pipák megmaradnak."
+      },
+      "howto": {
+        "title": "Így zajlik egy óra",
+        "text": "Ez a doboz három lépésben megmutatja, hogyan zajlik egy óra. Ha már volt órád, a helyén egy gombot találsz a saját kurzus készítéséhez."
       },
       "create": {
         "title": "Saját kurzus",
@@ -328,8 +351,8 @@
         "text": "Ez a sáv mindig megmutatja, mi történik. Erős kék, ha te jössz: ilyenkor beszélj nyugodtan. Halványkék, ha a tanár beszél: ilyenkor figyelj."
       },
       "timer": {
-        "title": "Az idő",
-        "text": "A zöld sáv mutatja, mennyi idő telt el az órából. Nem kell sietned: az órát bármikor befejezheted."
+        "title": "Hol tartasz az órában",
+        "text": "A felirat és a sáv mutatja, hol tartasz: az elején, a közepén vagy a vége felé. A pötty te vagy. Másodperceket nem számolunk, nem kell sietned, és az órát bármikor befejezheted."
       },
       "start": {
         "title": "Így kezded az órát",

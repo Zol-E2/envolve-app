@@ -329,6 +329,44 @@
   .home-section {
     @apply flex w-full items-start gap-6 max-lg:flex-col;
   }
+  /* Student home: two stacks of cards side by side (one column on phones);
+     app/[locale]/page.tsx decides which card goes where, so both stacks end
+     at about the same height with many lessons or none */
+  .home-board {
+    @apply grid items-start gap-6 lg:grid-cols-2;
+  }
+  .home-stack {
+    @apply flex min-w-0 flex-col gap-6;
+  }
+  .courses-grid-fill {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  }
+  /* First visit: two big, equal choices */
+  .start-hero {
+    @apply flex flex-col gap-5 rounded-3xl border-2 border-primary bg-card p-6 max-sm:rounded-[22px] max-sm:p-4;
+  }
+  .start-options {
+    @apply grid gap-4;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  }
+  .start-option {
+    @apply flex items-center gap-4 rounded-2xl border-2 border-border bg-background p-4 transition-colors hover:border-primary;
+  }
+  .start-option-icon {
+    @apply flex size-14 shrink-0 items-center justify-center rounded-2xl;
+  }
+  .howto-steps {
+    @apply flex flex-col gap-3;
+    counter-reset: step;
+  }
+  .howto-steps li {
+    @apply flex items-start gap-3 text-lg leading-snug;
+    counter-increment: step;
+  }
+  .howto-steps li::before {
+    @apply flex size-8 shrink-0 items-center justify-center rounded-full bg-turn-soft text-base font-bold text-turn-deep;
+    content: counter(step);
+  }
   .course-card {
     @apply @container flex w-full min-w-0 flex-col gap-4 rounded-3xl border border-border bg-card p-5 max-sm:rounded-[20px] max-sm:p-4;
   }
@@ -558,11 +596,27 @@
   .lesson-timer {
     @apply flex w-full flex-col gap-1.5;
   }
-  .lesson-bar {
-    @apply h-3 w-full overflow-hidden rounded-full bg-border;
+  /* The lesson as a short path: start, middle, end, and a dot for "you" */
+  .lesson-path {
+    @apply relative mx-3 mt-1 h-3 rounded-full bg-border;
   }
-  .lesson-bar span {
-    @apply block h-full rounded-full bg-ok motion-safe:transition-[width] motion-safe:duration-1000;
+  .lesson-path-fill {
+    @apply absolute inset-y-0 left-0 rounded-full bg-ok motion-safe:transition-[width] motion-safe:duration-1000;
+  }
+  .lesson-path-mark {
+    @apply absolute top-1/2 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-card bg-border;
+  }
+  .lesson-path-mark[data-reached="true"] {
+    @apply bg-ok;
+  }
+  .lesson-path-you {
+    @apply absolute top-1/2 size-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-card bg-ok shadow-md motion-safe:transition-[left] motion-safe:duration-1000;
+  }
+  .lesson-path-you[data-active="false"] {
+    @apply bg-muted-foreground;
+  }
+  .lesson-path-labels {
+    @apply flex justify-between text-[0.9375rem] font-bold text-muted-foreground;
   }
   .lesson-transcript {
     @apply flex flex-col gap-4 rounded-3xl border border-border bg-card p-6 max-sm:rounded-[20px] max-sm:p-4;
@@ -951,9 +1005,10 @@
   .task-message > p {
     flex: 1 1 14rem;
   }
+  /* auto-fit: two tasks share the row instead of leaving an empty third */
   .task-grid {
     @apply grid gap-4;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
   }
   .join-card {
     @apply flex max-w-xl flex-col gap-4 rounded-3xl border border-border bg-card p-6 max-sm:rounded-[20px] max-sm:p-4;
@@ -969,6 +1024,59 @@
   }
   .form-message[data-tone="error"] {
     @apply bg-destructive-soft text-destructive;
+  }
+
+  /* --- Dropdowns (components/ui/AppSelect.tsx) --- */
+  .app-select-trigger {
+    @apply flex min-h-14 w-full cursor-pointer items-center gap-3 rounded-2xl border-2 border-border bg-card py-2 pr-2 pl-4 text-left text-lg text-foreground transition-colors outline-none hover:border-foreground focus-visible:border-foreground data-[state=open]:border-primary;
+  }
+  .app-select-trigger.is-small {
+    @apply min-h-11 rounded-xl py-1 pl-3 text-base;
+  }
+  .app-select-chevron {
+    @apply flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-primary-deep transition-transform;
+  }
+  .app-select-trigger.is-small .app-select-chevron {
+    @apply size-7 rounded-lg;
+  }
+  .app-select-trigger[data-state="open"] .app-select-chevron {
+    @apply rotate-180;
+  }
+  .app-select-content {
+    @apply z-50 overflow-hidden rounded-2xl border border-border bg-card text-foreground shadow-xl;
+    /* At least as wide as the field, wider when an item needs it */
+    min-width: var(--radix-select-trigger-width);
+    width: max-content;
+    max-width: min(28rem, calc(100vw - 2rem));
+    max-height: min(24rem, var(--radix-select-content-available-height));
+  }
+  .app-select-viewport {
+    @apply flex flex-col gap-0.5 p-2;
+  }
+  .app-select-group + .app-select-group {
+    @apply mt-1 border-t border-border pt-1;
+  }
+  .app-select-group-label {
+    @apply px-3 pt-2 pb-1 text-[0.8125rem] font-bold tracking-wide text-muted-foreground uppercase;
+  }
+  .app-select-item {
+    @apply flex min-h-12 cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-lg leading-snug outline-none select-none data-[highlighted]:bg-secondary data-[state=checked]:bg-primary-soft data-[state=checked]:font-bold data-[state=checked]:text-primary-deep;
+  }
+  .app-select-description {
+    @apply text-[0.9375rem] font-normal text-muted-foreground;
+  }
+  .app-select-icon {
+    @apply flex shrink-0 items-center;
+  }
+  .app-select-check {
+    @apply ml-auto flex shrink-0 text-primary-deep;
+  }
+  .app-select-scroll {
+    @apply flex h-7 cursor-default items-center justify-center text-muted-foreground;
+  }
+  /* A small coloured square with the subject's icon, for subject lists */
+  .subject-chip {
+    @apply flex size-8 items-center justify-center rounded-lg text-foreground;
   }
 
   /* --- Legal pages and footer --- */

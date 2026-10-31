@@ -35,10 +35,9 @@
     "minutes": "{count} min",
     "startLabel": "Start here",
     "startTitle": "No lessons yet",
-    "startText": "Choose a course from the library, or build your own in four short steps.",
+    "startText": "There are two ways to begin. Pick the one you like better right now!",
     "createCourse": "Build your own course",
     "recentCourses": "Your earlier lessons",
-    "recentOnlyOne": "This is your only lesson so far. Continue it with the button above.",
     "recentEmpty": "No lessons yet. Choose a course below and press Start lesson.",
     "weekTitle": "This week",
     "weekdays": {
@@ -64,7 +63,12 @@
     "weekSummary": "{count, plural, =0 {No lessons yet this week. Today could be a good day!} one {You learned on 1 day this week. Well done!} other {You learned on # days this week. Well done!}}",
     "popularCourses": "Popular courses",
     "browseCourses": "Browse courses",
-    "tasksLabel": "Tasks from your teacher"
+    "tasksLabel": "Tasks from your teacher",
+    "browseTitle": "Pick a ready-made course",
+    "browseText": "See what others are learning.",
+    "createTitle": "Build my own course",
+    "createText": "You choose the topic, in four short steps.",
+    "howToTitle": "How a lesson goes"
   },
   "CTA": {
     "title": "Build your own course",
@@ -205,8 +209,6 @@
     "micBlockedTitle": "I can't reach your microphone",
     "micBlockedHelp": "Click the lock icon at the left of the address bar, set Microphone to Allow, then reload the page.",
     "back": "Back to courses",
-    "elapsedLabel": "Time",
-    "elapsed": "{minutes} / {total} min",
     "stuckTitle": "If you get stuck, say:",
     "transcriptTitle": "What you have said so far",
     "transcriptEmpty": "The words of the lesson appear here once you start, so you do not have to remember anything.",
@@ -214,7 +216,24 @@
     "tutor": "Tutor",
     "micOffHint": "microphone off",
     "micOnHint": "microphone on",
-    "previewNote": "Preview: you can try the lesson, but it is not added to any student’s history or statistics."
+    "previewNote": "Preview: you can try the lesson, but it is not added to any student’s history or statistics.",
+    "lessonLength": "{total}-minute lesson",
+    "pathLabel": "Where you are in the lesson",
+    "pathValue": "{phase}. The {total}-minute lesson has been going for about {minutes, plural, one {# minute} other {# minutes}}.",
+    "phase": {
+      "ready": "The lesson has not started yet",
+      "start": "We just started",
+      "early": "You are doing well",
+      "half": "You are past the middle",
+      "late": "Nearly at the end",
+      "end": "Almost done",
+      "done": "The lesson is over"
+    },
+    "milestone": {
+      "start": "Start",
+      "middle": "Middle",
+      "end": "End"
+    }
   },
   "Profile": {
     "lessonsCompleted": "Lessons completed",
@@ -256,8 +275,8 @@
         "text": "Your teacher gave you this task. You can see which lesson it is, how long it takes, and when it is due. If there is a message, press Read aloud to hear it. The big button starts the lesson."
       },
       "continue": {
-        "title": "Start your lesson here",
-        "text": "This is the most important button on the page. If you have had a lesson, you can continue the last one with one press. If not, you can choose a course here."
+        "title": "Start here",
+        "text": "If you have had a lesson, continue the last one with one press. If not, choose: pick a ready-made course or build your own."
       },
       "recent": {
         "title": "Your earlier lessons",
@@ -274,6 +293,10 @@
       "week": {
         "title": "This week",
         "text": "Every day you learned gets a green tick. Today has an orange ring. It is fine to skip a day: your ticks stay."
+      },
+      "howto": {
+        "title": "How a lesson goes",
+        "text": "This box shows in three steps how a lesson goes. Once you have had a lesson, you will find a button here to build your own course."
       },
       "create": {
         "title": "Your own course",
@@ -328,8 +351,8 @@
         "text": "This bar always shows what is happening. Strong blue means it is your turn: speak calmly. Light blue means the tutor is speaking: listen."
       },
       "timer": {
-        "title": "The time",
-        "text": "The green bar shows how much of the lesson has passed. There is no need to hurry: you can end the lesson any time."
+        "title": "Where you are in the lesson",
+        "text": "The words and the bar show where you are: at the start, in the middle or near the end. The dot is you. We never count seconds, there is no rush, and you can end the lesson at any time."
       },
       "start": {
         "title": "How to start the lesson",

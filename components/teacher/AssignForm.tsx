@@ -8,6 +8,8 @@ import { LIMITS } from "@/lib/validation";
 import { createAssignment } from "@/lib/actions/teacher.actions";
 import type { ClassCourse, ClassMember } from "@/lib/teacher/types";
 import TaskCard from "@/components/classes/TaskCard";
+import AppSelect from "@/components/ui/AppSelect";
+import SubjectChip from "@/components/SubjectChip";
 
 interface AssignFormProps {
   classId: string;
@@ -37,6 +39,12 @@ const AssignForm = ({ classId, teacherName, members, courses, initialCourseId }:
   const [error, setError] = useState<string | null>(null);
 
   const course = all.find((c) => c.id === courseId);
+  const toOption = (c: ClassCourse) => ({
+    value: c.id,
+    label: c.name,
+    description: `${t("minutes", { count: c.duration })} · ${c.language.toUpperCase()}`,
+    icon: <SubjectChip subject={c.subject} />,
+  });
 
   const toggle = (studentId: string) =>
     setPicked((current) =>
@@ -73,31 +81,15 @@ const AssignForm = ({ classId, teacherName, members, courses, initialCourseId }:
           <label htmlFor="assign-course" className="field-label">
             {t("course")}
           </label>
-          <select
+          <AppSelect
             id="assign-course"
-            className="field cursor-pointer"
             value={courseId}
-            onChange={(event) => setCourseId(event.target.value)}
-          >
-            {courses.own.length > 0 && (
-              <optgroup label={t("ownCourses")}>
-                {courses.own.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.name} · {t("minutes", { count: c.duration })}
-                  </option>
-                ))}
-              </optgroup>
-            )}
-            {courses.library.length > 0 && (
-              <optgroup label={t("libraryCourses")}>
-                {courses.library.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.name} · {t("minutes", { count: c.duration })}
-                  </option>
-                ))}
-              </optgroup>
-            )}
-          </select>
+            onValueChange={setCourseId}
+            groups={[
+              { label: t("ownCourses"), options: courses.own.map(toOption) },
+              { label: t("libraryCourses"), options: courses.library.map(toOption) },
+            ]}
+          />
         </div>
 
         <fieldset className="field-group" data-tour="assign-who">

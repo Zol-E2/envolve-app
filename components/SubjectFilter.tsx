@@ -1,13 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
+import { LayoutGrid } from "lucide-react";
+import AppSelect from "./ui/AppSelect";
+import SubjectChip from "./SubjectChip";
 import { subjects } from "@/constants";
 import { getSubjectLabel } from "@/lib/utils";
 // Plain Next.js router: formUrlQuery() returns a URL that already includes the locale prefix
@@ -48,19 +44,28 @@ const SubjectFilter = () => {
   }, [subject]);
 
   return (
-    <Select onValueChange={setSubject} value={subject}>
-      <SelectTrigger className="input" data-tour="courses-filter">
-        <SelectValue placeholder={t("subjectPlaceholder")} />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="all">{t("allSubjects")}</SelectItem>
-        {subjects.map((subject) => (
-          <SelectItem key={subject} value={subject} className="capitalize">
-            {getSubjectLabel(tSubjects, subject)}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <AppSelect
+      value={subject || "all"}
+      onValueChange={setSubject}
+      ariaLabel={t("subjectPlaceholder")}
+      tour="courses-filter"
+      options={[
+        {
+          value: "all",
+          label: t("allSubjects"),
+          icon: (
+            <span className="subject-chip bg-secondary" aria-hidden>
+              <LayoutGrid className="size-5" />
+            </span>
+          ),
+        },
+        ...subjects.map((value) => ({
+          value,
+          label: getSubjectLabel(tSubjects, value),
+          icon: <SubjectChip subject={value} />,
+        })),
+      ]}
+    />
   );
 };
 

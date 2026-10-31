@@ -1,7 +1,7 @@
 // Auth-dependent data fetching means this page must be server-rendered on every request
 export const dynamic = "force-dynamic";
 
-import { Check, Clock, Play } from "lucide-react";
+import { ArrowRight, BookOpen, Check, CirclePlus, Clock, Play } from "lucide-react";
 import CourseCard from "@/components/CourseCard";
 import CourseList from "@/components/CourseList";
 import CTA from "@/components/CTA";
@@ -47,8 +47,9 @@ const Page = async () => {
 
   const week = currentWeek();
   // Independent queries run in parallel instead of one after another
-  const [t, tSubjects, courses, recent, lessonTimes, user, tasks, myClasses] = await Promise.all([
+  const [t, tWelcome, tSubjects, courses, recent, lessonTimes, user, tasks, myClasses] = await Promise.all([
     getTranslations("Home"),
+    getTranslations("Welcome"),
     getTranslations("Subjects"),
     getAllCourses({ limit: 3 }),
     getUserSessions(userId!, 6),
@@ -123,36 +124,47 @@ const Page = async () => {
           </Link>
         </section>
       ) : (
-        <section className="today-card" aria-labelledby="today-title" data-tour="home-continue">
-          <div className="flex min-w-0 flex-col gap-2 sm:col-span-2">
+        // First visit: two big, equal ways to begin instead of a wide empty box
+        <section className="start-hero" aria-labelledby="today-title" data-tour="home-continue">
+          <div className="flex min-w-0 flex-col gap-1">
             <p className="form-eyebrow">{t("startLabel")}</p>
             <h2 id="today-title" className="today-title">
               {t("startTitle")}
             </h2>
-            <p className="text-lg text-muted-foreground">{t("startText")}</p>
+            <p className="text-lg text-muted-foreground max-sm:text-base">{t("startText")}</p>
           </div>
-          <div className="today-action flex flex-wrap gap-3">
-            <Link href="/courses" className="btn-primary">
-              {t("browseCourses")}
+          <div className="start-options">
+            <Link href="/courses" className="start-option group">
+              <span className="start-option-icon bg-secondary text-foreground">
+                <BookOpen className="size-7" aria-hidden />
+              </span>
+              <span className="flex min-w-0 flex-1 flex-col">
+                <span className="text-xl font-bold group-hover:underline">{t("browseTitle")}</span>
+                <span className="text-base text-muted-foreground">{t("browseText")}</span>
+              </span>
+              <ArrowRight className="size-6 shrink-0 text-primary-deep" aria-hidden />
             </Link>
-            <Link href="/courses/new" className="btn-outline">
-              {t("createCourse")}
+            <Link href="/courses/new" className="start-option group">
+              <span className="start-option-icon bg-primary-soft text-primary-deep">
+                <CirclePlus className="size-7" aria-hidden />
+              </span>
+              <span className="flex min-w-0 flex-1 flex-col">
+                <span className="text-xl font-bold group-hover:underline">{t("createTitle")}</span>
+                <span className="text-base text-muted-foreground">{t("createText")}</span>
+              </span>
+              <ArrowRight className="size-6 shrink-0 text-primary-deep" aria-hidden />
             </Link>
           </div>
         </section>
       )}
 
-      <section className="home-section">
-        <CourseList
-          title={t("recentCourses")}
-          courses={earlier}
-          classNames="lg:flex-1"
-          tour="home-recent"
-          emptyMessage={last ? t("recentOnlyOne") : t("recentEmpty")}
-        />
-        <div className="flex w-full flex-col gap-6 lg:max-w-[380px]">
-          {/* Always here, so joining a class never has to be looked for */}
-          <HomeClassesCard classes={myClasses} />
+      {/* Two stacks of cards, arranged so both sides end at about the same
+          height whether a student has many lessons or none (one column on phones) */}
+      <section className="home-board">
+        <div className="home-stack">
+          {earlier.length > 0 && (
+            <CourseList title={t("recentCourses")} courses={earlier} tour="home-recent" />
+          )}
           {/* Rewards showing up, never punishes a missed day: no streak to lose */}
           <article className="card flex flex-col gap-4" aria-labelledby="week-title" data-tour="home-week">
             <h2 id="week-title" className="text-2xl font-bold max-sm:text-xl">
@@ -176,13 +188,32 @@ const Page = async () => {
             </ol>
             <p className="text-base text-muted-foreground">{t("weekSummary", { count: activeCount })}</p>
           </article>
-          <CTA />
+          {/* New students: how a lesson goes, in three steps */}
+          {!last && (
+            <article className="card flex flex-col gap-4" aria-labelledby="howto-title" data-tour="home-howto">
+              <h2 id="howto-title" className="text-2xl font-bold max-sm:text-xl">
+                {t("howToTitle")}
+              </h2>
+              <ol className="howto-steps">
+                <li>{tWelcome("lesson.step1")}</li>
+                <li>{tWelcome("lesson.step2")}</li>
+                <li>{tWelcome("lesson.step3")}</li>
+              </ol>
+            </article>
+          )}
+        </div>
+        <div className="home-stack">
+          {/* Always here, so joining a class never has to be looked for */}
+          <HomeClassesCard classes={myClasses} />
+          {/* The start card above already offers building a course to new students */}
+          {last && <CTA />}
         </div>
       </section>
 
       <section className="flex flex-col gap-4">
         <h2 className="text-2xl font-bold max-sm:text-xl">{t("popularCourses")}</h2>
-        <div className="courses-grid" data-tour="home-popular">
+        {/* auto-fit: two or three courses share the row instead of leaving a gap */}
+        <div className="courses-grid courses-grid-fill" data-tour="home-popular">
           {courses.map((course) => (
             <CourseCard
               key={course.id}

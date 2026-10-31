@@ -16,6 +16,10 @@ import {
   Square,
   TriangleAlert,
   Volume2,
+  Sprout,
+  Footprints,
+  Mountain,
+  Flag,
 } from "lucide-react";
 import { SubjectIcon } from "./SubjectTile";
 import dynamic from "next/dynamic";
@@ -256,6 +260,22 @@ const CourseComponent = ({
   const total = lessonMinutes;
   const minutes = Math.floor(elapsed / 60);
   const progress = Math.min(elapsed / (total * 60), 1);
+  // A word for where the lesson is, instead of a clock
+  const phase =
+    callStatus === CallStatus.ENDED
+      ? "done"
+      : callStatus !== CallStatus.ACTIVE
+        ? "ready"
+        : progress < 0.15
+          ? "start"
+          : progress < 0.5
+            ? "early"
+            : progress < 0.75
+              ? "half"
+              : progress < 0.95
+                ? "late"
+                : "end";
+  const PhaseIcon = { ready: Play, start: Sprout, early: Footprints, half: Mountain, late: Flag, end: Flag, done: Check }[phase];
   const active = callStatus === CallStatus.ACTIVE;
 
   return (
@@ -294,20 +314,33 @@ const CourseComponent = ({
           />
           {status.text}
         </p>
+        {/* Where the student is in the lesson, in words and on a path. No
+            seconds and no countdown: nothing to race against */}
         <div className="lesson-timer" data-tour="lesson-timer">
-          <div className="flex justify-between text-base font-bold">
-            <span>{t("elapsedLabel")}</span>
-            <span className="tabular-nums">{t("elapsed", { minutes, total })}</span>
+          <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+            <span className="flex items-center gap-2 text-lg font-bold">
+              <PhaseIcon className="size-5 text-ok" aria-hidden />
+              {t(`phase.${phase}`)}
+            </span>
+            <span className="text-base text-muted-foreground">{t("lessonLength", { total })}</span>
           </div>
           <div
-            className="lesson-bar"
+            className="lesson-path"
             role="progressbar"
-            aria-label={t("elapsedLabel")}
+            aria-label={t("pathLabel")}
             aria-valuemin={0}
-            aria-valuemax={total}
-            aria-valuenow={Math.min(minutes, total)}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(progress * 100)}
+            aria-valuetext={t("pathValue", { phase: t(`phase.${phase}`), minutes, total })}
           >
-            <span style={{ width: `${progress * 100}%` }} />
+            <span className="lesson-path-fill" style={{ width: `${progress * 100}%` }} />
+            <span className="lesson-path-mark" style={{ left: "50%" }} data-reached={progress >= 0.5} />
+            <span className="lesson-path-you" style={{ left: `${progress * 100}%` }} data-active={active} />
+          </div>
+          <div className="lesson-path-labels" aria-hidden>
+            <span>{t("milestone.start")}</span>
+            <span>{t("milestone.middle")}</span>
+            <span>{t("milestone.end")}</span>
           </div>
         </div>
         {micBlocked && (

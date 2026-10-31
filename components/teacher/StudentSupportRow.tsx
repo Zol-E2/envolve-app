@@ -7,6 +7,7 @@ import type { Support } from "@/lib/validation";
 import type { ClassMember } from "@/lib/teacher/types";
 import { removeStudent, setStudentSupport } from "@/lib/actions/teacher.actions";
 import ConfirmAction from "./ConfirmAction";
+import AppSelect from "@/components/ui/AppSelect";
 
 const SHORTER_OPTIONS = [5, 10, 15, 20] as const;
 
@@ -79,19 +80,20 @@ const StudentSupportRow = ({ classId, member, first }: { classId: string; member
               <label htmlFor={`${panelId}-short`} className="comfort-row-label">{t("supportShorter")}</label>
               <span className="comfort-row-hint">{t("supportShorterHint")}</span>
             </div>
-            <select
+            <AppSelect
               id={`${panelId}-short`}
-              className="field comfort-control w-auto min-h-11 py-1 text-base"
-              value={support.shorterMinutes ?? ""}
-              onChange={(event) => save({ shorterMinutes: event.target.value ? Number(event.target.value) : null })}
-            >
-              <option value="">{t("supportShorterOff")}</option>
-              {SHORTER_OPTIONS.map((minutes) => (
-                <option key={minutes} value={minutes}>
-                  {t("supportShorterShort", { minutes })}
-                </option>
-              ))}
-            </select>
+              size="sm"
+              className="comfort-control w-auto min-w-44"
+              value={support.shorterMinutes ? String(support.shorterMinutes) : "off"}
+              onValueChange={(value) => save({ shorterMinutes: value === "off" ? null : Number(value) })}
+              options={[
+                { value: "off", label: t("supportShorterOff") },
+                ...SHORTER_OPTIONS.map((minutes) => ({
+                  value: String(minutes),
+                  label: t("supportShorterShort", { minutes }),
+                })),
+              ]}
+            />
           </div>
           <div className="comfort-row">
             <div className="comfort-row-text">

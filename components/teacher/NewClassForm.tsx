@@ -8,6 +8,8 @@ import { subjects } from "@/constants";
 import { getSubjectLabel } from "@/lib/utils";
 import { LIMITS } from "@/lib/validation";
 import { createClass } from "@/lib/actions/teacher.actions";
+import AppSelect from "@/components/ui/AppSelect";
+import SubjectChip from "@/components/SubjectChip";
 
 /** Name and (optional) subject: that is all a new class needs */
 const NewClassForm = () => {
@@ -60,19 +62,19 @@ const NewClassForm = () => {
         <label htmlFor="class-subject" className="field-label">
           {t("newSubject")}
         </label>
-        <select
+        <AppSelect
           id="class-subject"
-          className="field cursor-pointer"
-          value={subject}
-          onChange={(event) => setSubject(event.target.value)}
-        >
-          <option value="">{t("noSubject")}</option>
-          {subjects.map((s) => (
-            <option key={s} value={s}>
-              {getSubjectLabel(tSubjects, s)}
-            </option>
-          ))}
-        </select>
+          value={subject || "none"}
+          onValueChange={(value) => setSubject(value === "none" ? "" : value)}
+          options={[
+            { value: "none", label: t("noSubject") },
+            ...subjects.map((value) => ({
+              value,
+              label: getSubjectLabel(tSubjects, value),
+              icon: <SubjectChip subject={value} />,
+            })),
+          ]}
+        />
       </div>
       <button type="submit" className="btn-primary" disabled={busy}>
         <Plus className="size-5" aria-hidden />

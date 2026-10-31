@@ -60,7 +60,7 @@ const LibraryPage = async ({ searchParams }: SearchParams) => {
           <div className="flex-1">
             <SearchInput />
           </div>
-          <div className="sm:w-64">
+          <div className="sm:w-72">
             <SubjectFilter />
           </div>
         </div>
