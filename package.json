@@ -13,7 +13,7 @@
     "role:set": "node scripts/set-role.mjs"
   },
   "engines": {
-    "node": ">=22.14.0"
+    "node": ">=22.14.0 <25"
   },
   "dependencies": {
     "@clerk/localizations": "^3.37.9",
