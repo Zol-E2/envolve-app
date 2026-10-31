@@ -50,6 +50,7 @@ const CourseComponent = ({
   voice,
   duration,
   assignment,
+  preview = false,
 }: CourseComponentProps) => {
   const t = useTranslations("CourseSession");
   const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
@@ -116,7 +117,8 @@ const CourseComponent = ({
     };
     const onCallEnd = () => {
       setCallStatus(CallStatus.ENDED);
-      addToSessionHistory(courseId);
+      // A teacher's preview stays out of every history and statistic
+      if (!preview) addToSessionHistory(courseId);
       closeAttempt.current();
     };
 
@@ -175,7 +177,7 @@ const CourseComponent = ({
       vapi.off("speech-start", onSpeechStart);
       vapi.off("speech-end", onSpeechEnd);
     };
-  }, [courseId, assignmentId]);
+  }, [courseId, assignmentId, preview]);
 
   // Leaving the page mid-lesson counts as stopping it
   useEffect(() => {

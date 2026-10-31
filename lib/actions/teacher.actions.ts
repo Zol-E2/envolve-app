@@ -1,6 +1,6 @@
 "use server";
 
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth, clerkClient, currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { createSupabaseClient } from "../supabase";
 import { canTeach, readRole } from "../roles";
@@ -11,17 +11,21 @@ import {
   isUserId,
   isUuid,
   readSupport,
+  readTeacherProfile,
   supportSchema,
+  teacherProfileSchema,
   type AssignmentInput,
   type Support,
 } from "../validation";
 import { STATUS_ORDER, computeProgress, type Attempt, type LessonStatus } from "../teacher/status";
+import { localDate } from "../week";
 import type {
   AssignmentProgress,
   ClassCourse,
   ClassDetail,
   ClassMember,
   ClassSummary,
+  TeacherOverview,
 } from "../teacher/types";
 
 // Server actions for teachers. A browser can call these with any arguments,
@@ -149,8 +153,8 @@ const loadClassData = async (classIds: string[], since?: string) => {
 
 // ─── Classes ─────────────────────────────────────────────────────────────────
 
-/** The teacher's classes, with how many students need help */
-export const getTeacherClasses = async (): Promise<ClassSummary[]> => {
+/** The teacher's classes with their recent assignments, in four queries */
+const loadTeacherData = async () => {
   const teacher = await requireTeacher();
   const supabase = createSupabaseClient();
   const { data, error } = await supabase
@@ -164,8 +168,22 @@ export const getTeacherClasses = async (): Promise<ClassSummary[]> => {
   const since = new Date(Date.now() - RECENT_DAYS * 86400000).toISOString();
   const { members, assignments, picked, attempts } = await loadClassData(ids, since);
   const progress = buildProgress(assignments, members, picked, attempts);
+  return { rows: data ?? [], members, assignments, progress };
+};
 
-  return (data ?? []).map((c) => {
+/** The teacher's classes, with how many students need help */
+export const getTeacherClasses = async (): Promise<ClassSummary[]> => {
+  const { rows, members, assignments, progress } = await loadTeacherData();
+  return summarize(rows, members, assignments, progress);
+};
+
+const summarize = (
+  rows: { id: string; name: string; subject: string | null; join_code: string }[],
+  members: MemberRow[],
+  assignments: AssignmentRow[],
+  progress: AssignmentProgress[]
+): ClassSummary[] =>
+  rows.map((c) => {
     const stuck = new Set(
       progress
         .filter((p) => assignments.find((a) => a.id === p.id)?.class_id === c.id)
@@ -180,6 +198,68 @@ export const getTeacherClasses = async (): Promise<ClassSummary[]> => {
       stuckCount: stuck.size,
     };
   });
+
+/**
+ * The teacher's home page: who needs help (across all classes), what is due
+ * soon, and the classes. Things to act on first, no statistics.
+ */
+export const getTeacherOverview = async (): Promise<TeacherOverview> => {
+  const { rows, members, assignments, progress } = await loadTeacherData();
+  const classOf = new Map(assignments.map((a) => [a.id, a.class_id]));
+  const className = new Map(rows.map((c) => [c.id, c.name]));
+  const today = localDate(new Date());
+  const inTwoWeeks = localDate(new Date(Date.now() + 14 * 86400000));
+
+  const stuck = progress
+    .flatMap((p) =>
+      p.students
+        .filter((s) => s.progress.status === "stuck")
+        .map((s) => ({
+          studentName: s.displayName,
+          classId: classOf.get(p.id) ?? "",
+          className: className.get(classOf.get(p.id) ?? "") ?? "",
+          assignmentId: p.id,
+          courseName: p.course.name,
+          progress: s.progress,
+        }))
+    )
+    .sort((a, b) => (b.progress.lastActivity ?? "").localeCompare(a.progress.lastActivity ?? ""))
+    .slice(0, 8);
+
+  const deadlines = progress
+    .filter((p) => p.dueDate && p.dueDate >= today && p.dueDate <= inTwoWeeks)
+    .sort((a, b) => (a.dueDate ?? "").localeCompare(b.dueDate ?? ""))
+    .slice(0, 6)
+    .map((p) => ({
+      assignmentId: p.id,
+      classId: classOf.get(p.id) ?? "",
+      className: className.get(classOf.get(p.id) ?? "") ?? "",
+      courseName: p.course.name,
+      dueDate: p.dueDate as string,
+      done: p.counts.done,
+      total: p.students.length,
+    }));
+
+  return { classes: summarize(rows, members, assignments, progress), stuck, deadlines };
+};
+
+// ─── Teacher profile ─────────────────────────────────────────────────────────
+
+/** The name students see, and the school; stored with the teacher's account */
+export const updateTeacherProfile = async (input: { name: string; school: string }) => {
+  const teacher = await requireTeacher();
+  const parsed = teacherProfileSchema.safeParse(input);
+  if (!parsed.success) throw new Error("Invalid profile");
+  const { name, school } = parsed.data;
+
+  const client = await clerkClient();
+  await client.users.updateUserMetadata(teacher, { unsafeMetadata: { teacherName: name, school } });
+
+  // Students see the new name in every class of this teacher
+  const supabase = createSupabaseClient();
+  const { error } = await supabase.from("classes").update({ teacher_name: name }).eq("teacher_id", teacher);
+  if (error) throw new Error("Classes not updated");
+  refresh();
 };
 
 export const createClass = async (input: { name: string; subject: string }) => {
@@ -195,8 +275,7 @@ export const createClass = async (input: { name: string; subject: string }) => {
   if ((count ?? 0) >= LIMITS.classesPerTeacher) throw new Error("Too many classes");
 
   const user = await currentUser();
-  const teacherName =
-    [user?.firstName, user?.lastName].filter(Boolean).join(" ").slice(0, 60) || "Tanár";
+  const teacherName = readTeacherProfile(user?.unsafeMetadata, user?.firstName, user?.lastName).name;
 
   // The database picks a random code; on the rare clash it simply tries again
   for (let attempt = 0; attempt < 3; attempt++) {

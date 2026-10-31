@@ -76,3 +76,27 @@ export interface LessonAssignment {
   minutes: number;
   support: Support;
 }
+
+/** The teacher's home page */
+export interface TeacherOverview {
+  classes: ClassSummary[];
+  /** Newest first, at most 8 */
+  stuck: {
+    studentName: string;
+    classId: string;
+    className: string;
+    assignmentId: string;
+    courseName: string;
+    progress: StudentProgress;
+  }[];
+  /** Due in the next two weeks, soonest first */
+  deadlines: {
+    assignmentId: string;
+    classId: string;
+    className: string;
+    courseName: string;
+    dueDate: string;
+    done: number;
+    total: number;
+  }[];
+}

@@ -14,17 +14,21 @@ interface AssignFormProps {
   teacherName: string;
   members: ClassMember[];
   courses: { own: ClassCourse[]; library: ClassCourse[] };
+  /** Picked in advance (from the Kurzustár or a lesson preview) */
+  initialCourseId?: string | null;
 }
 
 /**
  * Hand out a course: which one, to whom, by when, and a short message. The
  * card on the right is exactly what the student will see on their home page.
  */
-const AssignForm = ({ classId, teacherName, members, courses }: AssignFormProps) => {
+const AssignForm = ({ classId, teacherName, members, courses, initialCourseId }: AssignFormProps) => {
   const t = useTranslations("Assign");
   const router = useRouter();
   const all = useMemo(() => [...courses.own, ...courses.library], [courses]);
-  const [courseId, setCourseId] = useState(all[0]?.id ?? "");
+  const [courseId, setCourseId] = useState(
+    (initialCourseId && all.some((c) => c.id === initialCourseId) ? initialCourseId : all[0]?.id) ?? ""
+  );
   const [everyone, setEveryone] = useState(true);
   const [picked, setPicked] = useState<string[]>([]);
   const [dueDate, setDueDate] = useState("");

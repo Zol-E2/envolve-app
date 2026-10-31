@@ -9,20 +9,20 @@ const NavItems = () => {
   // Locale-stripped pathname ("/courses" even on /hu/courses) so active-link matching keeps working
   const pathname = usePathname();
   const t = useTranslations("Navbar");
-  const { isTeacher } = useRole();
+  const { view } = useRole();
 
   return (
     <nav className="nav-links" aria-label={t("mainNav")} data-tour="nav-menu">
-      {navFor(isTeacher).map(({ key, href, icon: Icon }) => (
+      {navFor(view).map((item) => (
         <Link
-          href={href}
-          key={key}
+          href={item.href}
+          key={item.key}
           className="nav-link"
-          data-tour={key === "classes" ? "nav-classes" : undefined}
-          aria-current={isActive(href, pathname) ? "page" : undefined}
+          data-tour={item.key === "classes" ? "nav-classes" : undefined}
+          aria-current={isActive(item, pathname) ? "page" : undefined}
         >
-          <Icon className="size-5" aria-hidden />
-          {t(key)}
+          <item.icon className="size-5" aria-hidden />
+          {t(item.key)}
         </Link>
       ))}
     </nav>

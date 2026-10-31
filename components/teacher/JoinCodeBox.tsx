@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
-import { Check, Copy, KeyRound, RefreshCw } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { Check, Copy, KeyRound, Link2, RefreshCw } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
 import { regenerateJoinCode } from "@/lib/actions/teacher.actions";
 
@@ -10,15 +10,18 @@ import { regenerateJoinCode } from "@/lib/actions/teacher.actions";
 const JoinCodeBox = ({ classId, code }: { classId: string; code: string }) => {
   const t = useTranslations("ClassDetail");
   const router = useRouter();
-  const [copied, setCopied] = useState(false);
+  const locale = useLocale();
+  const [copied, setCopied] = useState<"code" | "link" | null>(null);
   const [asking, setAsking] = useState(false);
   const [busy, setBusy] = useState(false);
 
-  const copy = async () => {
+  const copy = async (what: "code" | "link") => {
+    // The link opens the join page with the code already filled in
+    const text = what === "code" ? code : `${window.location.origin}/${locale}/join?code=${code}`;
     try {
-      await navigator.clipboard.writeText(code);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2000);
+      await navigator.clipboard.writeText(text);
+      setCopied(what);
+      window.setTimeout(() => setCopied(null), 2000);
     } catch {
       // Clipboard blocked: the code is on screen to type
     }
@@ -45,9 +48,13 @@ const JoinCodeBox = ({ classId, code }: { classId: string; code: string }) => {
         </span>
       </div>
       <div className="ml-auto flex flex-wrap items-center gap-1">
-        <button type="button" className="btn-quiet" onClick={copy}>
-          {copied ? <Check className="size-5" aria-hidden /> : <Copy className="size-5" aria-hidden />}
-          <span aria-live="polite">{copied ? t("copied") : t("copy")}</span>
+        <button type="button" className="btn-quiet" onClick={() => copy("code")}>
+          {copied === "code" ? <Check className="size-5" aria-hidden /> : <Copy className="size-5" aria-hidden />}
+          <span aria-live="polite">{copied === "code" ? t("copied") : t("copy")}</span>
+        </button>
+        <button type="button" className="btn-quiet" onClick={() => copy("link")} data-tour="class-code-link">
+          {copied === "link" ? <Check className="size-5" aria-hidden /> : <Link2 className="size-5" aria-hidden />}
+          <span aria-live="polite">{copied === "link" ? t("copied") : t("copyLink")}</span>
         </button>
         {asking ? (
           <span className="flex flex-wrap items-center gap-2">

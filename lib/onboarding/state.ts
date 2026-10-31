@@ -26,6 +26,12 @@ export const TOUR_IDS = [
   "classDetail",
   "assign",
   "join",
+  // Teacher view (lib/views.ts)
+  "teacherHome",
+  "library",
+  "lessonPreview",
+  "teacherProfile",
+  "newCourseTeacher",
 ] as const;
 export type TourId = (typeof TOUR_IDS)[number];
 

@@ -12,7 +12,13 @@
 // recording fall back to the browser's voice, so nothing breaks in between.
 import { existsSync, mkdirSync, readFileSync, readdirSync, unlinkSync, writeFileSync } from "node:fs";
 import { IntlMessageFormat } from "intl-messageformat";
-import { COURSE_FORM_SPEECH, WELCOME_SPEECH, joinForSpeech, speechId } from "../lib/onboarding/speechText.mjs";
+import {
+  COURSE_FORM_SPEECH,
+  TEACHER_WELCOME_SPEECH,
+  WELCOME_SPEECH,
+  joinForSpeech,
+  speechId,
+} from "../lib/onboarding/speechText.mjs";
 
 const root = new URL("../", import.meta.url);
 const manifestUrl = new URL("lib/onboarding/speech-manifest.json", root);
@@ -73,9 +79,17 @@ const speechTexts = (locale) => {
     texts.push(joinForSpeech(keys.map((key) => format(messages.Welcome[card][key], locale))));
   }
 
-  // Course builder questions
+  // Teacher welcome cards
+  for (const [card, keys] of Object.entries(TEACHER_WELCOME_SPEECH)) {
+    texts.push(joinForSpeech(keys.map((key) => format(messages.TeacherWelcome[card][key], locale))));
+  }
+
+  // Course builder questions, for students and in the teacher's wording
   for (const keys of Object.values(COURSE_FORM_SPEECH)) {
     texts.push(joinForSpeech(keys.map((key) => format(messages.CourseForm[key], locale))));
+    texts.push(
+      joinForSpeech(keys.map((key) => format(messages.CourseFormTeacher?.[key] ?? messages.CourseForm[key], locale)))
+    );
   }
 
   return new Map(texts.map((text) => [speechId(text), text]));

@@ -12,6 +12,10 @@ import CourseComponent from "@/components/CourseComponent";
 import PageTour from "@/components/onboarding/PageTour";
 import { AutoReadBoost } from "@/components/ComfortProvider";
 import { getLessonAssignment } from "@/lib/actions/class.actions";
+import { getTeacherClasses } from "@/lib/actions/teacher.actions";
+import { isTeacher } from "@/lib/roles.server";
+import AssignCourseButton from "@/components/teacher/AssignCourseButton";
+import { Eye } from "lucide-react";
 
 interface CourseSessionPageProps {
   params: Promise<{ id: string }>;
@@ -37,7 +41,9 @@ export async function generateMetadata({
 const CourseSession = async ({ params, searchParams }: CourseSessionPageProps) => {
   const [{ id }, query] = await Promise.all([params, searchParams ?? Promise.resolve({ assignment: undefined })]);
   // Independent lookups run in parallel instead of one after another
-  const [locale, t, tSubjects, course, user, assignment] = await Promise.all([
+  // Teachers try the lesson in preview: nothing is recorded (lib/views.ts)
+  const preview = await isTeacher();
+  const [locale, t, tSubjects, course, user, assignment, classes] = await Promise.all([
     getLocale(),
     getTranslations("CourseSession"),
     getTranslations("Subjects"),
@@ -45,7 +51,8 @@ const CourseSession = async ({ params, searchParams }: CourseSessionPageProps) =
     currentUser(),
     // Started from a teacher's task: its support settings apply, and the
     // lesson is recorded for the teacher's overview
-    query.assignment ? getLessonAssignment(query.assignment, id).catch(() => null) : null,
+    !preview && query.assignment ? getLessonAssignment(query.assignment, id).catch(() => null) : null,
+    preview ? getTeacherClasses().catch(() => []) : [],
   ]);
 
   // Locale-aware redirect keeps the user on /hu/... when they were browsing in Hungarian
@@ -63,8 +70,20 @@ const CourseSession = async ({ params, searchParams }: CourseSessionPageProps) =
 
   return (
     <main>
-      <PageTour id="lesson" />
+      <PageTour id={preview ? "lessonPreview" : "lesson"} />
       {assignment?.support.autoRead && <AutoReadBoost />}
+      {preview && (
+        <div className="stuck-alert flex-wrap items-center" role="note" data-tour="preview-banner">
+          <Eye className="size-6 shrink-0 text-warn" aria-hidden />
+          <p className="min-w-0 flex-1 basis-60">{t("previewNote")}</p>
+          <AssignCourseButton
+            courseId={id}
+            classes={classes.map((c) => ({ id: c.id, name: c.name }))}
+            tour="preview-assign"
+            menuAlign="end"
+          />
+        </div>
+      )}
       <article className="card flex items-center gap-4 max-sm:gap-3">
         <SubjectTile subject={subject} />
         <div className="flex min-w-0 flex-1 flex-col gap-1">
@@ -84,6 +103,7 @@ const CourseSession = async ({ params, searchParams }: CourseSessionPageProps) =
         {...course}
         courseId={id}
         assignment={assignment}
+        preview={preview}
         userName={user.firstName!}
         userImage={user.imageUrl!}
       />

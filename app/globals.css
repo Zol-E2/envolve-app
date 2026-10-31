@@ -904,6 +904,31 @@
   .assign-preview {
     @apply flex flex-col gap-3 lg:sticky lg:top-6;
   }
+  /* "Kiosztom" with several classes: a small menu of the classes */
+  .assign-picker {
+    @apply relative inline-block;
+  }
+  .assign-picker > summary {
+    @apply list-none;
+  }
+  .assign-picker > summary::-webkit-details-marker {
+    display: none;
+  }
+  .assign-picker-menu {
+    @apply absolute left-0 z-20 mt-2 flex min-w-56 flex-col gap-1 rounded-2xl border border-border bg-card p-2 shadow-lg;
+  }
+  .assign-picker-menu[data-align="end"] {
+    @apply right-0 left-auto;
+  }
+  /* Teacher profile: their details first on a phone, display settings after */
+  .profile-grid.is-teacher {
+    grid-template-areas: "lists" "comfort";
+  }
+  @media (width >= 64rem) {
+    .profile-grid.is-teacher {
+      grid-template-areas: "lists comfort";
+    }
+  }
   .pick-list {
     @apply grid gap-2;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));

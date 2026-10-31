@@ -99,4 +99,6 @@ interface CourseComponentProps {
   duration?: number;
   /** Set when the lesson was started from a teacher's assignment */
   assignment?: import("@/lib/teacher/types").LessonAssignment | null;
+  /** A teacher trying the lesson: it is not added to any history */
+  preview?: boolean;
 }

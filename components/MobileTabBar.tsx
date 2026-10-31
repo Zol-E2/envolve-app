@@ -13,8 +13,8 @@ import { useRole } from "@/lib/useRole";
 const MobileTabBar = () => {
   const pathname = usePathname();
   const t = useTranslations("Navbar");
-  const { isTeacher } = useRole();
-  const items = navFor(isTeacher);
+  const { view } = useRole();
+  const items = navFor(view);
 
   if (pathname === "/welcome" || isLessonPath(pathname)) return null;
 
@@ -28,16 +28,16 @@ const MobileTabBar = () => {
         // Four tabs for students, five for teachers
         style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}
       >
-        {items.map(({ key, href, icon: Icon }) => (
+        {items.map((item) => (
           <Link
-            href={href}
-            key={key}
+            href={item.href}
+            key={item.key}
             className="tab"
-            data-tour={key === "classes" ? "tab-classes" : undefined}
-            aria-current={isActive(href, pathname) ? "page" : undefined}
+            data-tour={item.key === "classes" ? "tab-classes" : undefined}
+            aria-current={isActive(item, pathname) ? "page" : undefined}
           >
-            <Icon className="size-[26px]" aria-hidden />
-            {t(key)}
+            <item.icon className="size-[26px]" aria-hidden />
+            {t(item.key)}
           </Link>
         ))}
       </nav>

@@ -13,6 +13,8 @@ import { routing } from "@/i18n/routing";
 import TourProvider from "@/components/onboarding/TourProvider";
 import ComfortProvider from "@/components/ComfortProvider";
 import { COMFORT_BOOT_SCRIPT } from "@/lib/comfort";
+import { RoleProvider } from "@/lib/useRole";
+import { getRole } from "@/lib/roles.server";
 
 // Headings: the eNvolve brand face
 const heading = Bricolage_Grotesque({
@@ -70,7 +72,7 @@ export default async function LocaleLayout({
   }
 
   // Messages resolved server-side by i18n/request.ts, handed to client components via context
-  const messages = await getMessages();
+  const [messages, role] = await Promise.all([getMessages(), getRole()]);
 
   return (
     // The <head> script adds the student's display settings to <html> before
@@ -105,14 +107,17 @@ export default async function LocaleLayout({
             afterSignOutUrl={`/${locale}`}
           >
             {/* Display settings and page tours need the signed-in user, so they live inside Clerk */}
-            <ComfortProvider>
-              <TourProvider>
-                <Navbar />
-                {children}
-                <Footer />
-                <MobileTabBar />
-              </TourProvider>
-            </ComfortProvider>
+            {/* The menu matches the role from the first render (lib/views.ts) */}
+            <RoleProvider role={role}>
+              <ComfortProvider>
+                <TourProvider>
+                  <Navbar />
+                  {children}
+                  <Footer />
+                  <MobileTabBar />
+                </TourProvider>
+              </ComfortProvider>
+            </RoleProvider>
           </ClerkProvider>
         </NextIntlClientProvider>
       </body>

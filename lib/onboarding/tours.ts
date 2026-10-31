@@ -40,9 +40,6 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
     { key: "popular", target: "home-popular", side: "top" },
     { key: "menu", target: "nav-menu", side: "bottom" },
     { key: "menuMobile", target: "nav-tabbar", side: "top" },
-    // Teachers only: the menu item is hidden for students, so this is skipped
-    { key: "classesMenu", target: "nav-classes", side: "bottom" },
-    { key: "classesTab", target: "tab-classes", side: "top" },
     { key: "help", target: "nav-help", side: "bottom", align: "end" },
   ],
   courses: [
@@ -110,6 +107,7 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
   classDetail: [
     { key: "intro" },
     { key: "code", target: "class-code" },
+    { key: "link", target: "class-code-link", align: "end" },
     { key: "renew", target: "class-code-renew", align: "end" },
     { key: "assign", target: "class-assign", align: "end" },
     { key: "tabs", target: "class-tabs" },
@@ -134,6 +132,44 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
     { key: "code", target: "join-code" },
     { key: "classes", target: "join-classes", side: "top" },
   ],
+  // Teacher view: short, adult wording (lib/views.ts)
+  teacherHome: [
+    { key: "intro" },
+    { key: "actions", target: "teacher-actions" },
+    { key: "stuck", target: "teacher-stuck" },
+    { key: "deadlines", target: "teacher-deadlines" },
+    { key: "classes", target: "teacher-classes" },
+    { key: "menu", target: "nav-menu", side: "bottom" },
+    { key: "menuMobile", target: "nav-tabbar", side: "top" },
+    { key: "help", target: "nav-help", side: "bottom", align: "end" },
+  ],
+  library: [
+    { key: "intro" },
+    { key: "new", target: "library-new", align: "end" },
+    { key: "search", target: "library-search" },
+    { key: "own", target: "library-own" },
+    { key: "assign", target: "library-assign" },
+    { key: "try", target: "library-try" },
+  ],
+  lessonPreview: [
+    { key: "intro" },
+    { key: "banner", target: "preview-banner" },
+    { key: "assign", target: "preview-assign", align: "end" },
+    { key: "start", target: "lesson-start", side: "top" },
+    { key: "exit", target: "lesson-exit", side: "top" },
+  ],
+  teacherProfile: [
+    { key: "intro" },
+    { key: "name", target: "teacher-profile-name" },
+    { key: "account", target: "teacher-profile-account" },
+    { key: "comfort", target: "profile-comfort" },
+  ],
+  newCourseTeacher: [
+    { key: "intro" },
+    { key: "steps", target: "course-steps" },
+    { key: "read", target: "course-read", side: "top" },
+    { key: "next", target: "course-next", side: "top", align: "end" },
+  ],
 };
 
 /**
@@ -155,4 +191,9 @@ export const TOUR_AUTO_START: Record<TourId, boolean> = {
   classDetail: true,
   assign: true,
   join: true,
+  teacherHome: true,
+  library: true,
+  lessonPreview: true,
+  teacherProfile: true,
+  newCourseTeacher: true,
 };

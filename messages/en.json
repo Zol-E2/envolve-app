@@ -16,7 +16,9 @@
     "newCourse": "New course",
     "help": "Help",
     "mainNav": "Main menu",
-    "classes": "Classes"
+    "classes": "Classes",
+    "overview": "Overview",
+    "library": "Library"
   },
   "LanguageSwitcher": {
     "label": "Language",
@@ -106,7 +108,9 @@
     "business": "Business"
   },
   "CourseBuilder": {
-    "title": "New course"
+    "title": "New course",
+    "teacherTitle": "A course for your class",
+    "teacherLead": "Build it in four short steps; after saving you can try it and assign it."
   },
   "CourseForm": {
     "namePlaceholder": "Enter the name of the Course",
@@ -209,7 +213,8 @@
     "you": "You",
     "tutor": "Tutor",
     "micOffHint": "microphone off",
-    "micOnHint": "microphone on"
+    "micOnHint": "microphone on",
+    "previewNote": "Preview: you can try the lesson, but it is not added to any student’s history or statistics."
   },
   "Profile": {
     "lessonsCompleted": "Lessons completed",
@@ -285,14 +290,6 @@
       "menuMobile": {
         "title": "The menu",
         "text": "With the buttons at the bottom of the screen you can go to the other pages any time. The page you are on is orange."
-      },
-      "classesMenu": {
-        "title": "Classes",
-        "text": "As a teacher, you find your classes here. Create a new class here and see where each student is."
-      },
-      "classesTab": {
-        "title": "Classes",
-        "text": "As a teacher, you find your classes with the Classes button in the bottom bar."
       },
       "help": {
         "title": "Help any time",
@@ -498,6 +495,10 @@
         "title": "Join code",
         "text": "Give this six-character code to your students, for example on the board. They type it on their Profile page. The Copy button puts it on the clipboard."
       },
+      "link": {
+        "title": "Link for students",
+        "text": "Send this link to your students. It opens the join page with the code already filled in."
+      },
       "renew": {
         "title": "New code",
         "text": "If the code ended up in the wrong place, get a new one. The old code stops working at once; students who already joined stay in."
@@ -577,6 +578,124 @@
       "classes": {
         "title": "Your classes",
         "text": "Here you see which classes you are in and who your teacher is. If you do not need one any more, press Leave."
+      }
+    },
+    "teacherHome": {
+      "intro": {
+        "title": "Overview",
+        "text": "This is your teacher home page. What needs your attention comes first: stuck students and upcoming due dates."
+      },
+      "actions": {
+        "title": "Quick buttons",
+        "text": "Assign a course, create a class or open the Library with one click."
+      },
+      "stuck": {
+        "title": "Needs attention",
+        "text": "Students stuck in the last 30 days, from all your classes, and why. Click a name to open the class page."
+      },
+      "deadlines": {
+        "title": "Upcoming due dates",
+        "text": "Assignments due in the next two weeks, soonest first, with how many are done."
+      },
+      "classes": {
+        "title": "My classes",
+        "text": "Your classes. The red number shows how many students are stuck in each."
+      },
+      "menu": {
+        "title": "The menu",
+        "text": "Overview, Classes, Library and Profile: everything your work needs."
+      },
+      "menuMobile": {
+        "title": "The menu",
+        "text": "On a phone, the bottom bar has Overview, Classes, Library and Profile."
+      },
+      "help": {
+        "title": "Help",
+        "text": "The Help button explains every page."
+      }
+    },
+    "library": {
+      "intro": {
+        "title": "Library",
+        "text": "All courses are here. Try them, and assign one to a class with one click."
+      },
+      "new": {
+        "title": "Course for your class",
+        "text": "If nothing fits, build a course. Four short steps; after saving you can try it and assign it."
+      },
+      "search": {
+        "title": "Search and filter",
+        "text": "Search course names and topics, and filter by subject."
+      },
+      "own": {
+        "title": "My courses",
+        "text": "Courses you built are always at the front."
+      },
+      "assign": {
+        "title": "Assign",
+        "text": "Opens the assign form with this course already picked. With several classes it asks which one first."
+      },
+      "try": {
+        "title": "Try it",
+        "text": "Starts the lesson in preview so you can hear it. It is not added to any student statistics."
+      }
+    },
+    "lessonPreview": {
+      "intro": {
+        "title": "Lesson preview",
+        "text": "This is the same lesson your students see. Try it before you assign it."
+      },
+      "banner": {
+        "title": "Preview mode",
+        "text": "Nothing you do here is recorded: it is not added to your or any student’s history."
+      },
+      "assign": {
+        "title": "Assign",
+        "text": "If you like the lesson, assign it to a class right from here."
+      },
+      "start": {
+        "title": "Start the lesson",
+        "text": "Starts the conversation with the tutor. The browser may ask for microphone access."
+      },
+      "exit": {
+        "title": "Back",
+        "text": "Takes you back to the Library."
+      }
+    },
+    "teacherProfile": {
+      "intro": {
+        "title": "Your profile",
+        "text": "As a teacher you only need what your work needs: your name, school, display settings and account."
+      },
+      "name": {
+        "title": "Your name for students",
+        "text": "Students see this name on their task cards. Changing it updates all your classes."
+      },
+      "account": {
+        "title": "Account",
+        "text": "Change your email address, password or sign-in method here."
+      },
+      "comfort": {
+        "title": "Display",
+        "text": "Text size, easy-reading text, read-aloud and less motion. They only change your own screen."
+      }
+    },
+    "newCourseTeacher": {
+      "intro": {
+        "title": "Course for your class",
+        "text": "Four steps: subject, topic, voice and language, length. You can go back at any time; nothing you typed is lost."
+      },
+      "steps": {
+        "title": "Steps",
+        "text": "The bar at the top shows where you are. Finished steps get a tick."
+      },
+      "read": {
+        "title": "Read aloud",
+        "text": "You can have the question read aloud."
+      },
+      "next": {
+        "title": "Next and save",
+        "text": "Shows the next step. On the last step this saves the course; then you can try it and assign it."
       }
     }
   },
@@ -753,7 +872,8 @@
     "saveError": "Could not save. Please try again!",
     "remove": "Remove from class",
     "removeQuestion": "Remove {name}?",
-    "removeConfirm": "Yes, remove"
+    "removeConfirm": "Yes, remove",
+    "copyLink": "Copy link"
   },
   "Status": {
     "stuck": "Stuck",
@@ -829,5 +949,91 @@
   "HomeClasses": {
     "title": "My classes",
     "empty": "You are not in a class yet. If your teacher gave you a code, type it below."
+  },
+  "CourseFormTeacher": {
+    "subjectQuestion": "Which subject is the lesson for?",
+    "subjectHint": "The subject helps your students and you find the course.",
+    "topicQuestion": "What should the lesson be about?",
+    "topicHint": "Describe in 1–2 sentences what the students should practise. The tutor builds the conversation from this.",
+    "nameLabel": "Course name",
+    "nameHint": "Students see this name on their task card. For example: Adding fractions",
+    "voiceQuestion": "Which voice and language should the lesson use?",
+    "voiceHint": "Pick the tutor’s voice and the language of the lesson.",
+    "lengthQuestion": "How long should the lesson be?",
+    "lengthHint": "For students with learning difficulties, 10–15 minutes usually works well. You can shorten it per student on the class page.",
+    "summaryTitle": "Course summary",
+    "submit": "Save course"
+  },
+  "TeacherHome": {
+    "hello": "Hello, {name}!",
+    "leadFirst": "Start with a class: students join it with a code.",
+    "leadStuck": "{count, plural, one {# student may need} other {# students may need}} your help.",
+    "leadCalm": "Nobody is stuck. Here are the upcoming due dates and your classes.",
+    "assign": "Assign a course",
+    "newClass": "New class",
+    "library": "Library",
+    "stuckTitle": "Needs attention",
+    "stuckNone": "Nobody is stuck in the assignments of the last 30 days.",
+    "stuckNoClasses": "You have no classes yet, so there is nothing to do.",
+    "deadlinesTitle": "Upcoming due dates",
+    "deadlinesNone": "Nothing is due in the next two weeks.",
+    "doneCount": "Done: {done} / {total}",
+    "classesTitle": "My classes",
+    "classesNone": "You have no classes yet.",
+    "students": "{count, plural, one {# student} other {# students}}"
+  },
+  "Library": {
+    "title": "Library",
+    "lead": "Pick a course, try it and assign it to a class. You can also build courses for your classes.",
+    "newCourse": "Course for your class",
+    "ownTitle": "My courses",
+    "allTitle": "All courses",
+    "resultsTitle": "Results",
+    "emptySearch": "No course matches your search.",
+    "emptyAll": "The library is empty. Build a course for your class.",
+    "assign": "Assign",
+    "try": "Try it",
+    "whichClass": "Which class?",
+    "needClass": "Create a class first",
+    "minutes": "{count} min"
+  },
+  "TeacherProfile": {
+    "role": "Teacher",
+    "formTitle": "Your details",
+    "name": "The name your students see",
+    "nameHint": "Shown on task cards and in the class list. Changes apply to all your classes.",
+    "nameRequired": "Enter a name.",
+    "school": "School (optional)",
+    "schoolPlaceholder": "for example Riverside Primary School",
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Saved",
+    "error": "Could not save. Please try again!",
+    "account": "Account",
+    "accountHint": "Email address, password, sign-in methods.",
+    "accountButton": "Manage account"
+  },
+  "TeacherWelcome": {
+    "progress": "Step {current} of {total}",
+    "skip": "Skip",
+    "back": "Back",
+    "next": "Next",
+    "readAloud": "Read aloud",
+    "intro": {
+      "title": "Welcome to eNvolve for teachers!",
+      "text": "Here you assign courses to your students, who learn by talking with an AI tutor. You see where each of them is and who is stuck, never the conversations."
+    },
+    "steps": {
+      "title": "How it works",
+      "step1": "Create a class. You get a six-character code for it.",
+      "step2": "Give your students the code or the link. They join on their home page.",
+      "step3": "Assign a course with a due date and follow everyone’s progress on the Overview."
+    },
+    "ready": {
+      "title": "Let’s start!",
+      "text": "Create your first class, or look around the Library first. The Help button explains every page.",
+      "createClass": "Create my first class",
+      "library": "Open the Library"
+    }
   }
 }

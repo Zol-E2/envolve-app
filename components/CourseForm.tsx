@@ -45,8 +45,18 @@ const STEPS = [
 const DURATIONS = [5, 10, 15, 20, 30];
 const IDEA_KEYS = ["a", "b", "c"] as const;
 
-const CourseForm = () => {
+/**
+ * `audience="teacher"`: the same builder in the teacher's wording ("What
+ * should the lesson be about?"), for courses made for a class.
+ */
+const CourseForm = ({ audience = "student" }: { audience?: "student" | "teacher" }) => {
   const t = useTranslations("CourseForm");
+  const tTeacher = useTranslations("CourseFormTeacher");
+  // Questions and hints in the teacher's wording where one exists
+  const copy = (key: string): string =>
+    audience === "teacher" && tTeacher.has(key as never)
+      ? (tTeacher as unknown as (k: string) => string)(key)
+      : (t as unknown as (k: string) => string)(key);
   const tSubjects = useTranslations("Subjects");
   const router = useRouter();
   // New courses default to the language the student is using the app in
@@ -118,8 +128,7 @@ const CourseForm = () => {
 
   const readStep = (auto: boolean) => {
     // Keys come from a plain JS list shared with the recording script
-    const text = t as unknown as (key: string) => string;
-    speak(joinForSpeech(COURSE_FORM_SPEECH[step.id].map((key) => text(key))), locale, { auto });
+    speak(joinForSpeech(COURSE_FORM_SPEECH[step.id].map((key) => copy(key))), locale, { auto });
   };
   const readAloud = () => readStep(false);
 
@@ -161,11 +170,11 @@ const CourseForm = () => {
           {t("stepOf", { current: stepIndex + 1, total: STEPS.length })} · {t(step.label)}
         </p>
         <h2 id="form-question" ref={questionRef} tabIndex={-1} className="form-question">
-          {t(`${step.id}Question`)}
+          {copy(`${step.id}Question`)}
         </h2>
         <p className="form-hint">
           <CircleHelp className="mt-0.5 size-5 shrink-0" aria-hidden />
-          <span>{t(`${step.id}Hint`)}</span>
+          <span>{copy(`${step.id}Hint`)}</span>
         </p>
 
         {step.id === "subject" && (
@@ -217,7 +226,7 @@ const CourseForm = () => {
             )}
             <div className="flex flex-col gap-2">
               <label htmlFor="course-name" className="field-label">
-                {t("nameLabel")}
+                {copy("nameLabel")}
               </label>
               <input
                 id="course-name"
@@ -229,7 +238,7 @@ const CourseForm = () => {
                 {...register("name")}
               />
               <p id="course-name-hint" className="text-base text-muted-foreground">
-                {t("nameHint")}
+                {copy("nameHint")}
               </p>
               <FieldError message={errors.name?.message} />
             </div>
@@ -285,7 +294,7 @@ const CourseForm = () => {
 
             {/* A last look before saving, so nothing is a surprise */}
             <div className="summary-card">
-              <p className="form-eyebrow">{t("summaryTitle")}</p>
+              <p className="form-eyebrow">{copy("summaryTitle")}</p>
               <div className="flex items-center gap-3">
                 <SubjectTile subject={values.subject} />
                 <div className="flex min-w-0 flex-col">
@@ -344,7 +353,7 @@ const CourseForm = () => {
           {isLast ? (
             <>
               <Check className="size-5" aria-hidden />
-              {isSubmitting ? t("submitting") : t("submit")}
+              {isSubmitting ? t("submitting") : copy("submit")}
             </>
           ) : (
             <>

@@ -16,7 +16,9 @@
     "newCourse": "Új kurzus",
     "help": "Segítség",
     "mainNav": "Fő menü",
-    "classes": "Osztályok"
+    "classes": "Osztályok",
+    "overview": "Áttekintés",
+    "library": "Kurzustár"
   },
   "LanguageSwitcher": {
     "label": "Nyelv",
@@ -106,7 +108,9 @@
     "business": "Üzlet"
   },
   "CourseBuilder": {
-    "title": "Új kurzus"
+    "title": "Új kurzus",
+    "teacherTitle": "Kurzus az osztálynak",
+    "teacherLead": "Négy rövid lépésben elkészíted, mentés után kipróbálhatod és kioszthatod."
   },
   "CourseForm": {
     "namePlaceholder": "Add meg a kurzus nevét",
@@ -209,7 +213,8 @@
     "you": "Te",
     "tutor": "Tanár",
     "micOffHint": "mikrofon ki",
-    "micOnHint": "mikrofon be"
+    "micOnHint": "mikrofon be",
+    "previewNote": "Előnézet: kipróbálhatod az órát, de ez nem kerül egyik diák előzményei vagy statisztikája közé sem."
   },
   "Profile": {
     "lessonsCompleted": "Elvégzett órák",
@@ -285,14 +290,6 @@
       "menuMobile": {
         "title": "A menü",
         "text": "A képernyő alján lévő gombokkal bármikor átléphetsz a többi oldalra. Amelyik oldalon éppen vagy, az narancssárga."
-      },
-      "classesMenu": {
-        "title": "Osztályok",
-        "text": "Tanárként itt találod az osztályaidat. Itt hozhatsz létre új osztályt, és itt látod, ki hol tart."
-      },
-      "classesTab": {
-        "title": "Osztályok",
-        "text": "Tanárként az alsó sávban, az Osztályok gombnál találod az osztályaidat."
       },
       "help": {
         "title": "Segítség bármikor",
@@ -498,6 +495,10 @@
         "title": "Csatlakozási kód",
         "text": "Ezt a hat jelből álló kódot add meg a diákoknak, például írd fel a táblára. A diák a Profil oldalon írja be. A Másolás gomb a vágólapra teszi."
       },
+      "link": {
+        "title": "Link a diákoknak",
+        "text": "Ezt a linket elküldheted a diákoknak. Megnyitja a csatlakozást, és a kód már be is van írva."
+      },
       "renew": {
         "title": "Új kód",
         "text": "Ha a kód rossz helyre került, kérj újat. A régi kód azonnal megszűnik, a már csatlakozott diákok bent maradnak."
@@ -577,6 +578,124 @@
       "classes": {
         "title": "Az osztályaid",
         "text": "Itt látod, melyik osztályokban vagy benne, és ki a tanárod. Ha már nem kell, a Kilépés gombbal kiléphetsz."
+      }
+    },
+    "teacherHome": {
+      "intro": {
+        "title": "Az áttekintés",
+        "text": "Ez a tanári kezdőlapod. Elöl az van, amivel dolgod lehet: elakadt diákok és közelgő határidők."
+      },
+      "actions": {
+        "title": "Gyors gombok",
+        "text": "Innen egy kattintással kioszthatsz egy kurzust, új osztályt hozhatsz létre, vagy megnyithatod a Kurzustárat."
+      },
+      "stuck": {
+        "title": "Figyelmet igényel",
+        "text": "Az összes osztályodból itt látod, ki akadt el az elmúlt 30 napban, és miért. A névre kattintva az osztály oldalára jutsz."
+      },
+      "deadlines": {
+        "title": "Közelgő határidők",
+        "text": "A következő két hét kiosztásai, a határidő szerint. Mellettük látod, hányan végeztek már."
+      },
+      "classes": {
+        "title": "Osztályaim",
+        "text": "Az osztályaid listája. A piros szám mutatja, hány diák akadt el az adott osztályban."
+      },
+      "menu": {
+        "title": "A menü",
+        "text": "Áttekintés, Osztályok, Kurzustár és Profil: tanárként ennyi kell a munkádhoz."
+      },
+      "menuMobile": {
+        "title": "A menü",
+        "text": "Telefonon az alsó sávban éred el az Áttekintést, az Osztályokat, a Kurzustárat és a Profilt."
+      },
+      "help": {
+        "title": "Segítség",
+        "text": "A Segítség gomb minden oldalon elmagyarázza, mit hol találsz."
+      }
+    },
+    "library": {
+      "intro": {
+        "title": "Kurzustár",
+        "text": "Itt találod az összes kurzust. Kipróbálhatod őket, és egy kattintással kioszthatod valamelyik osztályodnak."
+      },
+      "new": {
+        "title": "Kurzus az osztálynak",
+        "text": "Ha nincs megfelelő kurzus, készíts egyet. Négy rövid lépés, mentés után kipróbálhatod és kioszthatod."
+      },
+      "search": {
+        "title": "Keresés és szűrés",
+        "text": "Keress a kurzus nevére vagy témájára, és szűrj tantárgy szerint."
+      },
+      "own": {
+        "title": "Saját kurzusaim",
+        "text": "Az általad készített kurzusok mindig elöl vannak."
+      },
+      "assign": {
+        "title": "Kiosztom",
+        "text": "Ez a gomb megnyitja a kiosztást, a kurzus már ki van választva. Ha több osztályod van, előbb megkérdezi, melyiknek."
+      },
+      "try": {
+        "title": "Kipróbálom",
+        "text": "Elindítja az órát előnézetben, hogy halld, milyen. Ez nem kerül a diákok statisztikáiba."
+      }
+    },
+    "lessonPreview": {
+      "intro": {
+        "title": "Óra előnézet",
+        "text": "Ugyanazt az órát látod, amit a diák. Kipróbálhatod, mielőtt kiosztod."
+      },
+      "banner": {
+        "title": "Előnézet mód",
+        "text": "Amit itt csinálsz, az nem rögzül: nem kerül a diákok vagy a saját előzményeid közé."
+      },
+      "assign": {
+        "title": "Kiosztom",
+        "text": "Ha tetszik az óra, innen rögtön kioszthatod egy osztálynak."
+      },
+      "start": {
+        "title": "Az óra indítása",
+        "text": "Ezzel a gombbal indul a beszélgetés a tanár-asszisztenssel. A böngésző mikrofon-engedélyt kérhet."
+      },
+      "exit": {
+        "title": "Vissza",
+        "text": "Ezzel a gombbal visszamész a Kurzustárba."
+      }
+    },
+    "teacherProfile": {
+      "intro": {
+        "title": "A profilod",
+        "text": "Tanárként itt csak az kell, ami a munkádhoz: a neved, az iskolád, a megjelenítés és a fiókod."
+      },
+      "name": {
+        "title": "A neved a diákoknál",
+        "text": "Ezt a nevet látják a diákok a feladatkártyán. Ha módosítod, minden osztályodban frissül."
+      },
+      "account": {
+        "title": "Fiók",
+        "text": "Itt változtathatod meg az e-mail-címedet, a jelszavadat vagy a bejelentkezés módját."
+      },
+      "comfort": {
+        "title": "Megjelenítés",
+        "text": "Betűméret, olvasóbarát szöveg, felolvasás és kevesebb mozgás. Ezek csak a te felületedre vonatkoznak."
+      }
+    },
+    "newCourseTeacher": {
+      "intro": {
+        "title": "Kurzus az osztálynak",
+        "text": "Négy lépés: tantárgy, téma, hang és nyelv, hossz. Bármikor visszaléphetsz, a beírt adatok megmaradnak."
+      },
+      "steps": {
+        "title": "Lépések",
+        "text": "A felső sáv mutatja, hol tartasz. A kész lépések pipát kapnak."
+      },
+      "read": {
+        "title": "Felolvasás",
+        "text": "A kérdést fel is olvastathatod."
+      },
+      "next": {
+        "title": "Tovább és mentés",
+        "text": "Ezzel jön a következő lépés. Az utolsó lépésben itt mented a kurzust, utána kipróbálhatod és kioszthatod."
       }
     }
   },
@@ -753,7 +872,8 @@
     "saveError": "Nem sikerült menteni. Próbáld újra!",
     "remove": "Eltávolítás az osztályból",
     "removeQuestion": "Eltávolítod: {name}?",
-    "removeConfirm": "Igen, eltávolítom"
+    "removeConfirm": "Igen, eltávolítom",
+    "copyLink": "Link másolása"
   },
   "Status": {
     "stuck": "Elakadt",
@@ -829,5 +949,91 @@
   "HomeClasses": {
     "title": "Osztályaim",
     "empty": "Még nem vagy egy osztályban sem. Ha a tanárod adott egy kódot, írd be lent."
+  },
+  "CourseFormTeacher": {
+    "subjectQuestion": "Melyik tantárgyhoz készül az óra?",
+    "subjectHint": "A tantárgy segít a diákoknak és neked is megtalálni a kurzust.",
+    "topicQuestion": "Miről szóljon az óra?",
+    "topicHint": "Írd le 1–2 mondatban, mit gyakoroljanak a diákok. A tanár-asszisztens ebből építi fel a beszélgetést.",
+    "nameLabel": "A kurzus neve",
+    "nameHint": "Ezt a nevet látják a diákok a feladatkártyán. Pl. Törtek összeadása",
+    "voiceQuestion": "Milyen hangon és nyelven szóljon az óra?",
+    "voiceHint": "Válaszd ki a tanár-asszisztens hangját és az óra nyelvét.",
+    "lengthQuestion": "Milyen hosszú legyen az óra?",
+    "lengthHint": "Tanulási nehézséggel küzdő diákoknak a 10–15 perc általában jól működik. Diákonként rövidebbre is állíthatod az osztály oldalán.",
+    "summaryTitle": "A kurzus összefoglalója",
+    "submit": "Kurzus mentése"
+  },
+  "TeacherHome": {
+    "hello": "Jó napot, {name}!",
+    "leadFirst": "Kezdd egy osztállyal: a diákok egy kóddal csatlakoznak hozzá.",
+    "leadStuck": "{count} diáknak lehet szüksége a segítségedre.",
+    "leadCalm": "Senki nem akadt el. Itt látod a közelgő határidőket és az osztályaidat.",
+    "assign": "Kurzus kiosztása",
+    "newClass": "Új osztály",
+    "library": "Kurzustár",
+    "stuckTitle": "Figyelmet igényel",
+    "stuckNone": "Senki nem akadt el az elmúlt 30 nap kiosztásaiban.",
+    "stuckNoClasses": "Még nincs osztályod, így nincs teendő.",
+    "deadlinesTitle": "Közelgő határidők",
+    "deadlinesNone": "A következő két hétben nincs határidő.",
+    "doneCount": "Kész: {done} / {total}",
+    "classesTitle": "Osztályaim",
+    "classesNone": "Még nincs osztályod.",
+    "students": "{count} diák"
+  },
+  "Library": {
+    "title": "Kurzustár",
+    "lead": "Válassz kurzust, próbáld ki, és oszd ki egy osztálynak. Saját kurzust is készíthetsz az osztályaidnak.",
+    "newCourse": "Kurzus az osztálynak",
+    "ownTitle": "Saját kurzusaim",
+    "allTitle": "Az összes kurzus",
+    "resultsTitle": "Találatok",
+    "emptySearch": "Nincs a keresésnek megfelelő kurzus.",
+    "emptyAll": "Még nincs kurzus a könyvtárban. Készíts egyet az osztályodnak.",
+    "assign": "Kiosztom",
+    "try": "Kipróbálom",
+    "whichClass": "Melyik osztálynak?",
+    "needClass": "Előbb hozz létre osztályt",
+    "minutes": "{count} perc"
+  },
+  "TeacherProfile": {
+    "role": "Tanár",
+    "formTitle": "Az adataid",
+    "name": "Ezt a nevet látják a diákok",
+    "nameHint": "A feladatkártyákon és az osztálylistában jelenik meg. A módosítás minden osztályodban frissül.",
+    "nameRequired": "Adj meg egy nevet.",
+    "school": "Iskola (nem kötelező)",
+    "schoolPlaceholder": "például Petőfi Sándor Általános Iskola",
+    "save": "Mentés",
+    "saving": "Mentés…",
+    "saved": "Elmentve",
+    "error": "Nem sikerült menteni. Próbáld újra!",
+    "account": "Fiók",
+    "accountHint": "E-mail-cím, jelszó, bejelentkezési módok.",
+    "accountButton": "Fiók kezelése"
+  },
+  "TeacherWelcome": {
+    "progress": "{current} / {total} lépés",
+    "skip": "Kihagyás",
+    "back": "Vissza",
+    "next": "Tovább",
+    "readAloud": "Felolvasás",
+    "intro": {
+      "title": "Üdv az eNvolve tanári felületén!",
+      "text": "Itt kurzusokat oszthatsz ki a diákjaidnak, akik egy AI-tanárral, beszélgetve tanulnak. Te azt látod, ki hol tart, és ki akadt el, a beszélgetéseket nem."
+    },
+    "steps": {
+      "title": "Így működik",
+      "step1": "Hozz létre egy osztályt. Kapsz hozzá egy hat jelből álló kódot.",
+      "step2": "Add meg a diákoknak a kódot vagy a linket. Ők a főoldalukon csatlakoznak.",
+      "step3": "Ossz ki egy kurzust határidővel, és kövesd az Áttekintésen, ki hol tart."
+    },
+    "ready": {
+      "title": "Kezdhetjük!",
+      "text": "Hozd létre az első osztályodat, vagy nézz körül előbb a Kurzustárban. A Segítség gomb minden oldalon elmagyarázza, mit hol találsz.",
+      "createClass": "Első osztály létrehozása",
+      "library": "Kurzustár megnyitása"
+    }
   }
 }

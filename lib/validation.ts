@@ -161,3 +161,25 @@ export const shortDisplayName = (first?: string | null, last?: string | null, fa
   const name = [firstName, initial && `${initial.toUpperCase()}.`].filter(Boolean).join(" ");
   return (name || fallback).slice(0, LIMITS.displayName);
 };
+
+export const teacherProfileSchema = z.object({
+  name: z
+    .string()
+    .transform((value) => cleanText(value, 60).replace(/[<>{}]/g, ""))
+    .pipe(z.string().min(1)),
+  school: z
+    .string()
+    .transform((value) => cleanText(value, 100).replace(/[<>{}]/g, ""))
+    .default(""),
+});
+
+/** The teacher's chosen display name and school, or their account name */
+export const readTeacherProfile = (metadata: unknown, first?: string | null, last?: string | null) => {
+  const stored = metadata && typeof metadata === "object" ? (metadata as Record<string, unknown>) : {};
+  const fallback = [first, last].filter(Boolean).join(" ").slice(0, 60) || "Tanár";
+  const parsed = teacherProfileSchema.safeParse({
+    name: typeof stored.teacherName === "string" && stored.teacherName.trim() ? stored.teacherName : fallback,
+    school: typeof stored.school === "string" ? stored.school : "",
+  });
+  return parsed.success ? parsed.data : { name: fallback, school: "" };
+};

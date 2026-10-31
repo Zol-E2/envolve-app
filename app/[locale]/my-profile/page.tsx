@@ -21,6 +21,9 @@ import PageTour from "@/components/onboarding/PageTour";
 import ComfortSettings from "@/components/ComfortSettings";
 import { getMyClasses } from "@/lib/actions/class.actions";
 import { Link } from "@/i18n/navigation";
+import { isTeacher } from "@/lib/roles.server";
+import { readTeacherProfile } from "@/lib/validation";
+import TeacherProfileForm from "@/components/teacher/TeacherProfileForm";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Metadata");
@@ -32,6 +35,33 @@ const Profile = async () => {
   const locale = await getLocale();
 
   if (!user) redirect({ href: "/sign-in", locale });
+
+  // Teachers: only what their work needs (lib/views.ts). The name students
+  // see, the school, display settings and the account; no student statistics
+  if (await isTeacher()) {
+    const tTeacher = await getTranslations("TeacherProfile");
+    const profile = readTeacherProfile(user.unsafeMetadata, user.firstName, user.lastName);
+    return (
+      <main>
+        <PageTour id="teacherProfile" />
+        <section className="profile-head">
+          <Image src={user.imageUrl} alt="" width={80} height={80} className="profile-avatar" />
+          <div className="flex min-w-0 flex-col gap-1">
+            <h1>{profile.name}</h1>
+            <p className="text-base break-all text-muted-foreground">
+              {[tTeacher("role"), profile.school].filter(Boolean).join(" · ")}
+            </p>
+          </div>
+        </section>
+        <div className="profile-grid is-teacher">
+          <ComfortSettings />
+          <div className="profile-lists">
+            <TeacherProfileForm name={profile.name} school={profile.school} />
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   // Independent queries run in parallel instead of one after another
   const [t, courses, sessionHistory, bookmarkedCourses, lessonCount, myClasses] = await Promise.all([
