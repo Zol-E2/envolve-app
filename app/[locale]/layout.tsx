@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MobileTabBar from "@/components/MobileTabBar";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Analytics } from "@vercel/analytics/next";
 import { enUS, huHU } from "@clerk/localizations";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
@@ -120,6 +121,8 @@ export default async function LocaleLayout({
             </RoleProvider>
           </ClerkProvider>
         </NextIntlClientProvider>
+        {/* Anonymous page-view counts, no cookies (see the privacy policy) */}
+        <Analytics />
       </body>
     </html>
   );
