@@ -63,6 +63,10 @@ Every text goes into both `messages/hu.json` and `messages/en.json`
 - Server actions can be called by any browser with any arguments. Each one
   checks who is signed in, checks the role where needed, and validates its
   input (`lib/validation.ts`).
+- New tables get no access automatically ("Automatically expose new tables"
+  is off in the Supabase Data API settings). Each migration that creates a
+  table grants exactly what the app needs to `authenticated`, and nothing
+  to `anon` unless signed-out visitors really need it.
 - Every table has row level security. A change to a policy goes into a new
   file under `supabase/migrations/`, written so it is safe to run twice.
 - Functions that run with owner rights (`security definer`) live in the
