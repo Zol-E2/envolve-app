@@ -17,7 +17,7 @@ their teachers, and later admins. These rules apply to every change.
 
 Before building or changing a page, answer these:
 
-1. Which roles can open it? (student, teacher, later admin)
+1. Which roles can open it? (student, teacher, admin; later a school admin)
 2. What is each role's job on this page? Put only that on it.
 3. If two roles do different things there, build two versions of the page.
    Do not build one shared page with parts hidden.
@@ -29,6 +29,21 @@ Before building or changing a page, answer these:
 `lib/views.ts` is the single place that says which menu items each view
 has and which pages belong to which view. The middleware, the menus and the
 pages all read it. To add a page or a role, extend it there first.
+
+### The admin view
+
+Admins are the people who run eNvolve. Their pages live under `/admin` and
+on their own versions of `/` and `/my-profile`.
+
+- Every admin page and action goes through `lib/admin/access.ts`: the admin
+  role and two-step verification. In the database, `private.is_admin()`.
+- Every admin decision is written to `admin_audit_log`, which nobody can
+  change or delete. New kinds of decisions extend its `action` list.
+- Admins see names and e-mails (from Clerk, not copied into our database),
+  but lesson data only as totals, and never a conversation.
+- The service role key (`lib/supabase-admin.ts`) is only for the automatic
+  course check (`lib/moderation.ts`). Everything else uses the signed-in
+  user's client and the policies.
 
 ## 2. Tips and read-aloud on every page
 

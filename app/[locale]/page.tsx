@@ -18,7 +18,11 @@ import PageTour from "@/components/onboarding/PageTour";
 import TaskCard from "@/components/classes/TaskCard";
 import { getMyClasses, getMyTasks } from "@/lib/actions/class.actions";
 import HomeClassesCard from "@/components/classes/HomeClassesCard";
-import { isTeacher } from "@/lib/roles.server";
+import { isAdmin, isTeacher } from "@/lib/roles.server";
+import { adminAccess } from "@/lib/admin/access";
+import { getAdminOverview } from "@/lib/actions/admin.actions";
+import AdminHome from "@/components/admin/AdminHome";
+import TwoFactorRequired from "@/components/admin/TwoFactorRequired";
 import { getTeacherOverview } from "@/lib/actions/teacher.actions";
 import { readTeacherProfile } from "@/lib/validation";
 import TeacherHome from "@/components/teacher/TeacherHome";
@@ -34,6 +38,15 @@ const Page = async () => {
   const { userId } = await auth();
   const locale = await getLocale();
   if (!userId) redirect({ href: "/sign-in", locale });
+
+  // Admins get their own home page (lib/views.ts): what needs a decision,
+  // behind two-step verification
+  if (await isAdmin()) {
+    const access = await adminAccess();
+    if (!access.ok) return <TwoFactorRequired />;
+    const [user, overview] = await Promise.all([currentUser(), getAdminOverview()]);
+    return <AdminHome name={user?.firstName?.trim() || "Admin"} overview={overview} />;
+  }
 
   // Teachers get their own home page (lib/views.ts): what needs attention
   if (await isTeacher()) {

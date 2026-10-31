@@ -5,7 +5,10 @@
     "courses": "Kurzuskönyvtár",
     "newCourse": "Új kurzus",
     "profile": "Profil",
-    "signIn": "Bejelentkezés"
+    "signIn": "Bejelentkezés",
+    "adminUsers": "Felhasználók",
+    "adminCourses": "Kurzusok ellenőrzése",
+    "adminLog": "Admin napló"
   },
   "Navbar": {
     "logoAlt": "Logó",
@@ -18,7 +21,9 @@
     "mainNav": "Fő menü",
     "classes": "Osztályok",
     "overview": "Áttekintés",
-    "library": "Kurzustár"
+    "library": "Kurzustár",
+    "users": "Felhasználók",
+    "moderation": "Kurzusok"
   },
   "LanguageSwitcher": {
     "label": "Nyelv",
@@ -233,7 +238,9 @@
       "start": "Kezdés",
       "middle": "Közepe",
       "end": "Vége"
-    }
+    },
+    "reviewNote": "Ezt a kurzust most csak te látod, és már használhatod is. Ha az ellenőrzés rendben találja, a Kurzustárban mások is megtalálják.",
+    "hiddenNote": "Ezt a kurzust egy felnőtt kivette a Kurzustárból, ezért mások nem látják. Te továbbra is használhatod."
   },
   "Profile": {
     "lessonsCompleted": "Elvégzett órák",
@@ -373,6 +380,14 @@
       "exit": {
         "title": "Kilépés",
         "text": "Ezzel a gombbal visszamész a kurzusokhoz. Ha még tart az óra, előbb nyomd meg az Óra befejezése gombot."
+      },
+      "reviewNote": {
+        "title": "Csak te látod",
+        "text": "Ezt a kurzust te készítetted. Már használhatod. Ha az ellenőrzés rendben találja, mások is megtalálják."
+      },
+      "report": {
+        "title": "Ha baj van a kurzussal",
+        "text": "Ha a kurzus csúnya, bántó vagy hibás, ezzel a gombbal szólhatsz. Egy felnőtt megnézi."
       }
     },
     "courses": {
@@ -683,6 +698,14 @@
       "exit": {
         "title": "Vissza",
         "text": "Ezzel a gombbal visszamész a Kurzustárba."
+      },
+      "reviewNote": {
+        "title": "Még nincs a Kurzustárban",
+        "text": "A saját kurzusod azonnal használható és kiosztható. A Kurzustárban akkor jelenik meg, ha az automatikus ellenőrzés rendben találja."
+      },
+      "report": {
+        "title": "Jelentés",
+        "text": "Ha egy kurzus nem való gyerekeknek vagy hibás, jelentsd. Tanárként egy jelentésed elég ahhoz, hogy kikerüljön a Kurzustárból, amíg egy admin dönt."
       }
     },
     "teacherProfile": {
@@ -719,6 +742,118 @@
       "next": {
         "title": "Tovább és mentés",
         "text": "Ezzel jön a következő lépés. Az utolsó lépésben itt mented a kurzust, utána kipróbálhatod és kioszthatod."
+      }
+    },
+    "adminHome": {
+      "intro": {
+        "title": "Az áttekintés",
+        "text": "Ez az admin kezdőlapod. Elöl az van, ami döntésre vár, utána a számok és a legutóbbi admin lépések."
+      },
+      "attention": {
+        "title": "Teendők",
+        "text": "Jelentett, a szűrő által jelzett és ellenőrizetlen kurzusok. Kattints rá, és a Kurzusok oldalon dönthetsz róluk."
+      },
+      "numbers": {
+        "title": "Számok",
+        "text": "Csak összesítések: hány diák, tanár és admin van, hány kurzus van a Kurzustárban, és mennyi óra volt a héten. Neveket és beszélgetéseket itt nem látsz."
+      },
+      "log": {
+        "title": "Legutóbbi lépések",
+        "text": "Az utolsó admin döntések. A teljes napló a gombbal nyílik."
+      },
+      "menu": {
+        "title": "A menü",
+        "text": "Áttekintés, Felhasználók, Kurzusok és Profil: adminként ennyi kell a munkádhoz."
+      },
+      "menuMobile": {
+        "title": "A menü",
+        "text": "Telefonon az alsó sávban éred el az Áttekintést, a Felhasználókat, a Kurzusokat és a Profilt."
+      },
+      "help": {
+        "title": "Segítség",
+        "text": "A Segítség gomb minden oldalon elmagyarázza, mit hol találsz."
+      }
+    },
+    "adminUsers": {
+      "intro": {
+        "title": "Felhasználók",
+        "text": "Itt adhatsz tanár vagy admin szerepet, és itt veheted el. Ugyanaz, mint a role:set parancs, csak naplózva."
+      },
+      "search": {
+        "title": "Keresés",
+        "text": "Írj be egy e-mail-címet vagy nevet. A lista a Clerkből jön, nem tároljuk külön."
+      },
+      "list": {
+        "title": "A lista",
+        "text": "A legutóbb aktív felhasználók elöl, a szerepükkel. A saját szerepedet nem módosíthatod."
+      },
+      "role": {
+        "title": "Szerep módosítása",
+        "text": "Válaszd ki az új szerepet, és írj rövid indoklást. Az új szerep egy percen belül életbe lép."
+      }
+    },
+    "adminCourses": {
+      "intro": {
+        "title": "Kurzusok ellenőrzése",
+        "text": "Az új kurzusokat egy automatikus szűrő ellenőrzi. Ide kerül, amit jelentettek, amit a szűrő jelzett, vagy amit nem tudott ellenőrizni."
+      },
+      "tabs": {
+        "title": "Fülek",
+        "text": "Döntésre vár, Kurzustárban, Ajánlott és Elrejtett. A piros szám mutatja, hány kurzus vár rád."
+      },
+      "card": {
+        "title": "Egy kurzus",
+        "text": "A kurzus neve, témája, szerzője és állapota. A sorrend: előbb a jelentett, aztán a szűrő által jelzett kurzusok."
+      },
+      "reports": {
+        "title": "Jelentések",
+        "text": "Miért jelentették, és ki: egy tanár jelentése vagy három diáké kiveszi a kurzust a Kurzustárból."
+      },
+      "actions": {
+        "title": "Döntés",
+        "text": "A Kurzustárba engedés vagy elrejtés lezárja a jelentéseket. Kiemeléssel ajánlod a kurzust. Minden döntés bekerül a naplóba."
+      }
+    },
+    "adminLog": {
+      "intro": {
+        "title": "Admin napló",
+        "text": "Itt látod az összes admin döntést. A naplót senki nem módosíthatja vagy törölheti."
+      },
+      "list": {
+        "title": "Bejegyzések",
+        "text": "Ki, mikor, mit csinált, és az indoklás. Szerepváltásnál a régi és az új szerep is látszik."
+      }
+    },
+    "adminProfile": {
+      "intro": {
+        "title": "A profilod",
+        "text": "Adminként itt a fiókod biztonsága és a megjelenítési beállítások vannak."
+      },
+      "security": {
+        "title": "Biztonság",
+        "text": "A kétlépcsős azonosítás állapota. Enélkül az admin oldalak zárva vannak."
+      },
+      "comfort": {
+        "title": "Megjelenítés",
+        "text": "Szövegméret, könnyen olvasható betű, felolvasás és kevesebb mozgás. Csak a saját képernyődet változtatják."
+      }
+    },
+    "adminPreview": {
+      "intro": {
+        "title": "Előnézet adminként",
+        "text": "Kipróbálhatod az órát, ugyanúgy, mint egy diák. Ez nem kerül semmilyen statisztikába."
+      },
+      "bar": {
+        "title": "Döntés",
+        "text": "Itt látod, hol tart a kurzus, és innen is dönthetsz róla: Kurzustárba engedés, elrejtés, kiemelés vagy törlés."
+      },
+      "start": {
+        "title": "Az óra indítása",
+        "text": "Elindítja a beszélgetést a tanár-asszisztenssel. A böngésző engedélyt kérhet a mikrofonhoz."
+      },
+      "exit": {
+        "title": "Vissza",
+        "text": "Visszavisz a kurzusok ellenőrzéséhez."
       }
     }
   },
@@ -1057,6 +1192,164 @@
       "text": "Hozd létre az első osztályodat, vagy nézz körül előbb a Kurzustárban. A Segítség gomb minden oldalon elmagyarázza, mit hol találsz.",
       "createClass": "Első osztály létrehozása",
       "library": "Kurzustár megnyitása"
+    }
+  },
+  "AdminHome": {
+    "hello": "Szia, {name}!",
+    "leadTodo": "{count} kurzus vár a döntésedre.",
+    "leadCalm": "Nincs teendő. Itt látod a számokat és a legutóbbi admin lépéseket.",
+    "todoTitle": "Teendők",
+    "todoNone": "Minden kurzusról döntöttetek, nincs jelentett vagy gyanús kurzus.",
+    "flagged": "{count} kurzust jelentettek, vagy a szűrő jelezte",
+    "flaggedHint": "Ezek nincsenek a Kurzustárban, amíg nem döntesz.",
+    "unchecked": "{count} kurzus ellenőrizetlen",
+    "uncheckedHint": "Az automatikus szűrő nem futott le rajtuk (például hiányzik a kulcsa).",
+    "numbersTitle": "Számok",
+    "number": {
+      "students": "diák",
+      "teachers": "tanár",
+      "admins": "admin",
+      "publicCourses": "kurzus a Kurzustárban",
+      "activeStudents": "aktív felhasználó a héten",
+      "lessons": "megnyitott óra a héten"
+    },
+    "capped": "Sok a felhasználó: a szerepenkénti számok az 500 legújabb fiókból készültek.",
+    "logTitle": "Legutóbbi admin lépések",
+    "logAll": "Teljes napló"
+  },
+  "AdminUsers": {
+    "title": "Felhasználók",
+    "lead": "Keress e-mail-címre vagy névre, és állítsd be, ki tanár vagy admin. Minden szerepváltás bekerül az admin naplóba.",
+    "searchLabel": "Keresés a felhasználók között",
+    "searchPlaceholder": "E-mail-cím vagy név",
+    "search": "Keresés",
+    "results": "{count} találat",
+    "everyone": "Mindenki ({count})",
+    "empty": "Nincs ilyen felhasználó.",
+    "lastActive": "utoljára: {date}",
+    "neverActive": "még nem lépett be",
+    "role": {
+      "student": "Diák",
+      "teacher": "Tanár",
+      "admin": "Admin"
+    },
+    "roleHint": {
+      "student": "Saját kurzusok, órák, osztályhoz csatlakozás",
+      "teacher": "Osztályok, kiosztás, Kurzustár",
+      "admin": "Az eNvolve üzemeltetése"
+    },
+    "change": "Szerep módosítása",
+    "itsYou": "Ez te vagy",
+    "formLabel": "Szerep módosítása: {user}",
+    "newRole": "Új szerep",
+    "reason": "Indoklás a naplóba",
+    "reasonPlaceholder": "Pl. a pilot iskola tanára",
+    "reasonRequired": "Írj egy rövid indoklást (legalább 3 karakter).",
+    "saveError": "Nem sikerült menteni. Próbáld újra.",
+    "cancel": "Mégse",
+    "save": "Mentés",
+    "saving": "Mentés…",
+    "adminWarning": "Az admin mindenki szerepét módosíthatja és a kurzusokról dönt. Csak olyannak add, akiben teljesen megbízol.",
+    "pagesLabel": "Oldalak",
+    "previous": "Előző",
+    "next": "Következő",
+    "pageOf": "{page}. oldal / {pages}"
+  },
+  "AdminCourses": {
+    "title": "Kurzusok ellenőrzése",
+    "lead": "Új kurzus akkor kerül a Kurzustárba, ha az automatikus szűrő rendben találja. Ide kerül, amit jelentettek, amit a szűrő jelzett, és amit nem tudott ellenőrizni.",
+    "tabsLabel": "Kurzusok szűrése",
+    "tab": {
+      "review": "Döntésre vár",
+      "public": "Kurzustárban",
+      "featured": "Ajánlott",
+      "hidden": "Elrejtett"
+    },
+    "empty": {
+      "review": "Nincs döntésre váró kurzus.",
+      "public": "Még nincs kurzus a Kurzustárban.",
+      "featured": "Még nincs ajánlott kurzus. A Kurzustárban lévőket a Kiemelem gombbal ajánlhatod.",
+      "hidden": "Nincs elrejtett kurzus."
+    },
+    "status": {
+      "public": "Kurzustárban",
+      "reports": "Jelentették",
+      "filter": "A szűrő jelezte",
+      "unchecked": "Ellenőrizetlen",
+      "hidden": "Elrejtve",
+      "featured": "Ajánlott"
+    },
+    "unknownAuthor": "Ismeretlen szerző",
+    "reportsLabel": "Jelentések",
+    "reports": "{count} jelentés",
+    "reason": {
+      "inappropriate": "Nem gyerekeknek való",
+      "wrong": "Hibás",
+      "other": "Más gond"
+    },
+    "byTeacher": "tanártól",
+    "open": "Megnyitom",
+    "makePublic": "Rendben, mehet a Kurzustárba",
+    "hide": "Elrejtem",
+    "feature": "Kiemelem",
+    "unfeature": "Kiemelés vége",
+    "delete": "Törlés",
+    "deleteQuestion": "Biztosan törlöd? A kiosztásai is törlődnek.",
+    "deleteConfirm": "Igen, törlöm",
+    "cancel": "Mégse",
+    "actionError": "Nem sikerült menteni. Próbáld újra.",
+    "barLabel": "Admin döntés",
+    "barNote": "Előnézet adminként: kipróbálhatod az órát, és itt dönthetsz a kurzusról."
+  },
+  "AdminLog": {
+    "title": "Admin napló",
+    "lead": "Minden admin döntés: ki, mikor, mit és miért. A naplót senki nem módosíthatja vagy törölheti.",
+    "empty": "Még nincs bejegyzés.",
+    "action": {
+      "role_change": "{actor} szerepet módosított: {target}",
+      "course_public": "{actor} a Kurzustárba engedte: {target}",
+      "course_hidden": "{actor} elrejtette: {target}",
+      "course_featured": "{actor} kiemelte: {target}",
+      "course_unfeatured": "{actor} levette a kiemelést: {target}",
+      "course_deleted": "{actor} törölte: {target}"
+    }
+  },
+  "AdminProfile": {
+    "role": "Platform admin",
+    "securityTitle": "Biztonság",
+    "twoFactorOn": "A kétlépcsős azonosítás be van kapcsolva.",
+    "twoFactorOff": "A kétlépcsős azonosítás ki van kapcsolva, ezért az admin oldalak zárva vannak.",
+    "securityText": "Admin fiókkal bárki szerepe megváltoztatható, ezért a jelszó mellé egy második lépés is kell (hitelesítő alkalmazás).",
+    "account": "Fiók és biztonság",
+    "log": "Admin napló"
+  },
+  "TwoFactor": {
+    "title": "Kapcsold be a kétlépcsős azonosítást",
+    "text": "Az admin oldalak csak kétlépcsős azonosítással nyílnak meg, mert admin fiókkal bárki szerepe megváltoztatható.",
+    "step1": "Kattints lent a Biztonsági beállítások gombra.",
+    "step2": "A Biztonság résznél add hozzá a hitelesítő alkalmazást (pl. Google Authenticator), és olvasd be a QR-kódot.",
+    "step3": "Írd be az alkalmazás kódját, majd töltsd újra ezt az oldalt.",
+    "open": "Biztonsági beállítások",
+    "note": "Ha a lehetőség nem jelenik meg, a Clerk irányítópultján még be kell kapcsolni a többlépcsős azonosítást."
+  },
+  "Report": {
+    "open": "Baj van ezzel a kurzussal",
+    "question": "Mi a baj ezzel a kurzussal?",
+    "readAloud": "Felolvasás",
+    "inappropriate": "Nem gyerekeknek való, csúnya vagy bántó",
+    "wrong": "Hibás, nem jól működik",
+    "other": "Más baj van vele",
+    "note": "Írd le röviden, ha szeretnéd (nem kötelező)",
+    "cancel": "Mégse",
+    "send": "Elküldöm",
+    "sending": "Küldés…",
+    "error": "Nem sikerült elküldeni. Próbáld újra.",
+    "result": {
+      "reported": "Köszönjük, hogy szóltál! Egy felnőtt megnézi ezt a kurzust.",
+      "already": "Ezt a kurzust már jelezted. Köszönjük!",
+      "own_course": "Ez a saját kurzusod, ezt nem kell jelezned.",
+      "not_found": "Ez a kurzus már nincs a Kurzustárban.",
+      "too_many": "Most sok jelzést küldtél. Próbáld újra egy kicsit később."
     }
   }
 }

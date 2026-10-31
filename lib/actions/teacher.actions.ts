@@ -397,7 +397,13 @@ export const getAssignableCourses = async () => {
   const supabase = createSupabaseClient();
   const [own, library] = await Promise.all([
     supabase.from("courses").select(COURSE_FIELDS).eq("author", teacher).order("created_at", { ascending: false }).limit(50),
-    supabase.from("courses").select(COURSE_FIELDS).neq("author", teacher).order("created_at", { ascending: false }).limit(50),
+    supabase
+      .from("courses")
+      .select(COURSE_FIELDS)
+      .neq("author", teacher)
+      .eq("visibility", "public")
+      .order("created_at", { ascending: false })
+      .limit(50),
   ]);
   if (own.error || library.error) throw new Error("Courses not loaded");
   return { own: (own.data ?? []) as ClassCourse[], library: (library.data ?? []) as ClassCourse[] };

@@ -32,6 +32,13 @@ export const TOUR_IDS = [
   "lessonPreview",
   "teacherProfile",
   "newCourseTeacher",
+  // Admin view (lib/views.ts)
+  "adminHome",
+  "adminUsers",
+  "adminCourses",
+  "adminLog",
+  "adminProfile",
+  "adminPreview",
 ] as const;
 export type TourId = (typeof TOUR_IDS)[number];
 

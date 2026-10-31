@@ -67,6 +67,8 @@ export const LEGAL_CONTENT: Record<LegalDocId, Record<"hu" | "en", LegalDocument
           heading: "Kik férnek hozzá az adatokhoz?",
           paragraphs: [
             "Ha egy osztály tagja vagy, a tanárod csak a saját osztálya tagjainak rövid nevét, a beállított támogatást és az általa kiosztott órák állapotát látja. Az e-mail-címedet, a profilképedet, a saját magad által indított órákat és a beszélgetéseket nem látja. Az osztályból bármikor kiléphetsz, és a tanár is eltávolíthat.",
+            "Az eNvolve üzemeltetői (adminok) a fiókod nevét, e-mail-címét és szerepét látják, hogy segíteni tudjanak és szerepet adhassanak. A tanulási adatokból csak összesített számokat látnak, a beszélgetéseket ők sem. Minden admin döntés naplózva van.",
+            "Az új kurzusok nevét és témáját egy automatikus tartalomszűrő (OpenAI Moderation) ellenőrzi, mielőtt a közös Kurzustárba kerülnek. Ha egy kurzust jelentesz, a jelentés okát és megjegyzését az adminok látják, a nevedet nem.",
             "Az adataidat nem adjuk el, és nem használjuk hirdetésre. A működéshez ezeket a szolgáltatókat vesszük igénybe, és ők csak a feladatukhoz szükséges adatokat kapják meg:",
           ],
           list: [
@@ -160,6 +162,8 @@ export const LEGAL_CONTENT: Record<LegalDocId, Record<"hu" | "en", LegalDocument
           heading: "Who can access the data?",
           paragraphs: [
             "If you are in a class, your teacher only sees the short names of the students in their own class, the support they set, and the status of the lessons they assigned. They do not see your email address, your profile picture, lessons you started on your own, or any conversation. You can leave a class at any time, and the teacher can remove you.",
+            "The people who run eNvolve (admins) see your account's name, email address and role, so they can help and give roles. Of learning data they only see totals, and they never see conversations either. Every admin decision is logged.",
+            "The name and topic of new courses are checked by an automatic content filter (OpenAI Moderation) before they appear in the shared library. If you report a course, admins see the reason and your note, not your name.",
             "We do not sell your data or use it for advertising. We use these services to run the app, and they only receive the data they need for their task:",
           ],
           list: [

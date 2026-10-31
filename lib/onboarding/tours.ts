@@ -58,6 +58,7 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
   ],
   lesson: [
     { key: "intro" },
+    { key: "reviewNote", target: "lesson-review-note" },
     { key: "tutor", target: "lesson-tutor" },
     { key: "status", target: "lesson-status" },
     { key: "timer", target: "lesson-timer" },
@@ -66,6 +67,7 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
     { key: "stuck", target: "lesson-stuck" },
     { key: "transcript", target: "lesson-transcript", side: "top" },
     { key: "exit", target: "lesson-exit", side: "top" },
+    { key: "report", target: "lesson-report", side: "top", align: "end" },
   ],
   profile: [
     { key: "intro" },
@@ -154,10 +156,12 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
   ],
   lessonPreview: [
     { key: "intro" },
+    { key: "reviewNote", target: "lesson-review-note" },
     { key: "banner", target: "preview-banner" },
     { key: "assign", target: "preview-assign", align: "end" },
     { key: "start", target: "lesson-start", side: "top" },
     { key: "exit", target: "lesson-exit", side: "top" },
+    { key: "report", target: "lesson-report", side: "top", align: "end" },
   ],
   teacherProfile: [
     { key: "intro" },
@@ -170,6 +174,44 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
     { key: "steps", target: "course-steps" },
     { key: "read", target: "course-read", side: "top" },
     { key: "next", target: "course-next", side: "top", align: "end" },
+  ],
+  // Admin view: short, adult wording (lib/views.ts)
+  adminHome: [
+    { key: "intro" },
+    { key: "attention", target: "admin-attention" },
+    { key: "numbers", target: "admin-numbers" },
+    { key: "log", target: "admin-log" },
+    { key: "menu", target: "nav-menu", side: "bottom" },
+    { key: "menuMobile", target: "nav-tabbar", side: "top" },
+    { key: "help", target: "nav-help", side: "bottom", align: "end" },
+  ],
+  adminUsers: [
+    { key: "intro" },
+    { key: "search", target: "admin-user-search" },
+    { key: "list", target: "admin-user-list" },
+    { key: "role", target: "admin-user-role", align: "end" },
+  ],
+  adminCourses: [
+    { key: "intro" },
+    { key: "tabs", target: "admin-course-tabs" },
+    { key: "card", target: "admin-course-card" },
+    { key: "reports", target: "admin-course-reports" },
+    { key: "actions", target: "admin-course-actions", side: "top" },
+  ],
+  adminLog: [
+    { key: "intro" },
+    { key: "list", target: "admin-log-list" },
+  ],
+  adminProfile: [
+    { key: "intro" },
+    { key: "security", target: "admin-profile-2fa" },
+    { key: "comfort", target: "profile-comfort" },
+  ],
+  adminPreview: [
+    { key: "intro" },
+    { key: "bar", target: "admin-course-bar" },
+    { key: "start", target: "lesson-start", side: "top" },
+    { key: "exit", target: "lesson-exit", side: "top" },
   ],
 };
 
@@ -197,4 +239,10 @@ export const TOUR_AUTO_START: Record<TourId, boolean> = {
   lessonPreview: true,
   teacherProfile: true,
   newCourseTeacher: true,
+  adminHome: true,
+  adminUsers: true,
+  adminCourses: true,
+  adminLog: true,
+  adminProfile: true,
+  adminPreview: true,
 };

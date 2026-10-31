@@ -183,3 +183,42 @@ export const readTeacherProfile = (metadata: unknown, first?: string | null, las
   });
   return parsed.success ? parsed.data : { name: fallback, school: "" };
 };
+
+// ─── Admin view and reports ──────────────────────────────────────────────────
+
+export const ROLE_CHOICES = ["student", "teacher", "admin"] as const;
+export type RoleChoice = (typeof ROLE_CHOICES)[number];
+
+export const roleChangeSchema = z.object({
+  userId: z.string().refine(isUserId),
+  role: z.enum(ROLE_CHOICES),
+  reason: z
+    .string()
+    .transform((value) => cleanText(value, 120).replace(/[<>{}]/g, ""))
+    .pipe(z.string().min(3)),
+});
+
+export const REPORT_REASONS = ["inappropriate", "wrong", "other"] as const;
+export type ReportReason = (typeof REPORT_REASONS)[number];
+
+export const reportSchema = z.object({
+  courseId: z.uuid(),
+  reason: z.enum(REPORT_REASONS),
+  note: z
+    .string()
+    .transform((value) => cleanText(value, 300).replace(/[<>{}]/g, ""))
+    .default(""),
+});
+
+export const MODERATION_ACTIONS = ["public", "hidden", "featured", "unfeatured", "deleted"] as const;
+export type ModerationAction = (typeof MODERATION_ACTIONS)[number];
+
+export const moderationSchema = z.object({
+  courseId: z.uuid(),
+  action: z.enum(MODERATION_ACTIONS),
+});
+
+export const COURSE_TABS = ["review", "public", "featured", "hidden"] as const;
+export type CourseTab = (typeof COURSE_TABS)[number];
+export const readCourseTab = (value: unknown): CourseTab =>
+  (COURSE_TABS as readonly unknown[]).includes(value) ? (value as CourseTab) : "review";

@@ -13,9 +13,12 @@ import PageTour from "@/components/onboarding/PageTour";
 import { AutoReadBoost } from "@/components/ComfortProvider";
 import { getLessonAssignment } from "@/lib/actions/class.actions";
 import { getTeacherClasses } from "@/lib/actions/teacher.actions";
-import { isTeacher } from "@/lib/roles.server";
+import { isAdmin, isTeacher } from "@/lib/roles.server";
+import { getCourseModeration } from "@/lib/actions/admin.actions";
+import AdminCourseBar from "@/components/admin/AdminCourseBar";
+import ReportCourseButton from "@/components/ReportCourseButton";
 import AssignCourseButton from "@/components/teacher/AssignCourseButton";
-import { Eye } from "lucide-react";
+import { Eye, EyeOff, Hourglass } from "lucide-react";
 
 interface CourseSessionPageProps {
   params: Promise<{ id: string }>;
@@ -41,9 +44,9 @@ export async function generateMetadata({
 const CourseSession = async ({ params, searchParams }: CourseSessionPageProps) => {
   const [{ id }, query] = await Promise.all([params, searchParams ?? Promise.resolve({ assignment: undefined })]);
   // Independent lookups run in parallel instead of one after another
-  // Teachers try the lesson in preview: nothing is recorded (lib/views.ts)
-  const preview = await isTeacher();
-  const [locale, t, tSubjects, course, user, assignment, classes] = await Promise.all([
+  // Teachers and admins try the lesson in preview: nothing is recorded (lib/views.ts)
+  const [preview, admin] = await Promise.all([isTeacher(), isAdmin()]);
+  const [locale, t, tSubjects, course, user, assignment, classes, moderation] = await Promise.all([
     getLocale(),
     getTranslations("CourseSession"),
     getTranslations("Subjects"),
@@ -52,7 +55,9 @@ const CourseSession = async ({ params, searchParams }: CourseSessionPageProps) =
     // Started from a teacher's task: its support settings apply, and the
     // lesson is recorded for the teacher's overview
     !preview && query.assignment ? getLessonAssignment(query.assignment, id).catch(() => null) : null,
-    preview ? getTeacherClasses().catch(() => []) : [],
+    preview && !admin ? getTeacherClasses().catch(() => []) : [],
+    // Admins: where the course stands, with their decisions
+    admin ? getCourseModeration(id).catch(() => null) : null,
   ]);
 
   // Locale-aware redirect keeps the user on /hu/... when they were browsing in Hungarian
@@ -64,15 +69,29 @@ const CourseSession = async ({ params, searchParams }: CourseSessionPageProps) =
   }
 
   const { name, subject, topic, duration, language } = course;
+  const own = course.author === user.id;
+  // The author's own course while it is not in the shared library
+  const waiting = own && !admin && course.visibility && course.visibility !== "public" ? course.visibility : null;
   if (!name || !subject || !topic || !duration) {
     redirect({ href: "/courses", locale });
   }
 
   return (
     <main>
-      <PageTour id={preview ? "lessonPreview" : "lesson"} />
+      <PageTour id={admin ? "adminPreview" : preview ? "lessonPreview" : "lesson"} />
       {assignment?.support.autoRead && <AutoReadBoost />}
-      {preview && (
+      {admin && moderation && <AdminCourseBar courseId={id} status={moderation} />}
+      {waiting && (
+        <div className="stuck-alert items-start" role="note" data-tour="lesson-review-note">
+          {waiting === "hidden" ? (
+            <EyeOff className="mt-1 size-6 shrink-0 text-warn" aria-hidden />
+          ) : (
+            <Hourglass className="mt-1 size-6 shrink-0 text-warn" aria-hidden />
+          )}
+          <p className="min-w-0 flex-1">{t(waiting === "hidden" ? "hiddenNote" : "reviewNote")}</p>
+        </div>
+      )}
+      {preview && !admin && (
         <div className="stuck-alert flex-wrap items-center" role="note" data-tour="preview-banner">
           <Eye className="size-6 shrink-0 text-warn" aria-hidden />
           <p className="min-w-0 flex-1 basis-60">{t("previewNote")}</p>
@@ -107,6 +126,12 @@ const CourseSession = async ({ params, searchParams }: CourseSessionPageProps) =
         userName={user.firstName!}
         userImage={user.imageUrl!}
       />
+      {/* Anyone but the author and admins can tell an adult about a course */}
+      {!own && !admin && (
+        <div className="flex justify-end">
+          <ReportCourseButton courseId={id} />
+        </div>
+      )}
     </main>
   );
 };

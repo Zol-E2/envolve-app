@@ -4,13 +4,18 @@ import { auth } from "@clerk/nextjs/server";
 import { createSupabaseClient } from "../supabase";
 import type { PostgrestError } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
+import { moderateCourse } from "../moderation";
 import {
   LIMITS,
   cleanSearch,
   cleanSubject,
   courseInputSchema,
+  isUserId,
   isUuid,
+  reportSchema,
   safeAppPath,
+  type ReportReason,
 } from "../validation";
 
 // Every function in this file is a server action: a browser can call it
@@ -54,7 +59,13 @@ export const createCourse = async (formData: CreateCourse) => {
         throw new Error('Failed to create course');
     }
 
-    return data[0];
+    // The author can use the course straight away. Whether it also appears
+    // in the shared library is decided by the automatic content check, after
+    // the answer has gone back to the browser (lib/moderation.ts)
+    const course = data[0];
+    after(() => moderateCourse(course.id, course.name, course.topic).catch(() => undefined));
+
+    return course;
 }
 
 /**
@@ -73,14 +84,23 @@ export const getAllCourses = async (
   const safeLimit = Math.min(Math.max(Math.trunc(Number(limit)) || 10, 1), 50);
   const safePage = Math.max(Math.trunc(Number(page)) || 1, 1);
 
+  const userId = await currentUserId();
+
+  // The shared library: public courses, plus your own while they wait for
+  // the content check (20261103_admin.sql)
   let query = supabase.from("courses").select();
+  query = isUserId(userId)
+    ? query.or(`visibility.eq.public,author.eq.${userId}`)
+    : query.eq("visibility", "public");
 
   if (safeSubject) query = query.eq("subject", safeSubject);
   if (safeTopic) {
     query = query.or(`topic.ilike.%${safeTopic}%,name.ilike.%${safeTopic}%`);
   }
 
+  // Courses an admin recommends come first (the "Ajánlott" badge)
   query = query
+    .order("featured", { ascending: false })
     .order("created_at", { ascending: false })
     .range((safePage - 1) * safeLimit, safePage * safeLimit - 1);
 
@@ -89,7 +109,6 @@ export const getAllCourses = async (
     throw new Error(error?.message || "Failed to fetch courses");
   }
 
-  const userId = await currentUserId();
   if (!userId || courses.length === 0) {
     return courses.map((c) => ({ ...c, bookmarked: false }));
   }
@@ -126,6 +145,30 @@ export const getCourseById = async (id: string) => {
 
     return data[0];
 }
+
+// ─── Reports ──────────────────────────────────────────────────────────────────
+
+export type ReportStatus = "reported" | "already" | "own_course" | "not_found" | "invalid" | "too_many";
+
+/**
+ * Reports a course that should not be in the library. One report from a
+ * teacher, or three from students, takes it out until an admin decides
+ * (report_course() in 20261103_admin.sql).
+ */
+export const reportCourse = async (input: { courseId: string; reason: ReportReason; note?: string }) => {
+  const userId = await currentUserId();
+  if (!userId) throw new Error("Not signed in");
+  const parsed = reportSchema.safeParse(input);
+  if (!parsed.success) return "invalid" as ReportStatus;
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase.rpc("report_course", {
+    p_course: parsed.data.courseId,
+    p_reason: parsed.data.reason,
+    p_note: parsed.data.note || null,
+  });
+  if (error) throw new Error("Report not sent");
+  return data as ReportStatus;
+};
 
 // ─── Session History ──────────────────────────────────────────────────────────
 

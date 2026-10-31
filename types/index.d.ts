@@ -32,6 +32,10 @@ type Course = {
   author: string;
   bookmarked: boolean;
   created_at?: string;
+  /** Shared library status (20261103_admin.sql) */
+  visibility?: "public" | "review" | "hidden";
+  review_reason?: "unchecked" | "filter" | "reports" | null;
+  featured?: boolean;
 };
 
 // Payload used when creating a new course via the form

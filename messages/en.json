@@ -5,7 +5,10 @@
     "courses": "Course Library",
     "newCourse": "New Course",
     "profile": "Profile",
-    "signIn": "Sign In"
+    "signIn": "Sign In",
+    "adminUsers": "Users",
+    "adminCourses": "Course check",
+    "adminLog": "Admin log"
   },
   "Navbar": {
     "logoAlt": "Logo",
@@ -18,7 +21,9 @@
     "mainNav": "Main menu",
     "classes": "Classes",
     "overview": "Overview",
-    "library": "Library"
+    "library": "Library",
+    "users": "Users",
+    "moderation": "Courses"
   },
   "LanguageSwitcher": {
     "label": "Language",
@@ -233,7 +238,9 @@
       "start": "Start",
       "middle": "Middle",
       "end": "End"
-    }
+    },
+    "reviewNote": "Only you can see this course for now, and you can already use it. If the check finds it fine, others will find it in the library too.",
+    "hiddenNote": "An adult took this course out of the library, so others cannot see it. You can still use it."
   },
   "Profile": {
     "lessonsCompleted": "Lessons completed",
@@ -373,6 +380,14 @@
       "exit": {
         "title": "Leaving",
         "text": "This button takes you back to the courses. If the lesson is still running, press End lesson first."
+      },
+      "reviewNote": {
+        "title": "Only you can see it",
+        "text": "You made this course. You can use it already. If the check finds it fine, others will find it too."
+      },
+      "report": {
+        "title": "If something is wrong",
+        "text": "If the course is rude, hurtful or broken, use this button to tell us. An adult will look at it."
       }
     },
     "courses": {
@@ -683,6 +698,14 @@
       "exit": {
         "title": "Back",
         "text": "Takes you back to the Library."
+      },
+      "reviewNote": {
+        "title": "Not in the library yet",
+        "text": "Your own course can be used and assigned straight away. It appears in the library when the automatic check finds it fine."
+      },
+      "report": {
+        "title": "Report",
+        "text": "If a course is not suitable for children or is faulty, report it. As a teacher, one report takes it out of the library until an admin decides."
       }
     },
     "teacherProfile": {
@@ -719,6 +742,118 @@
       "next": {
         "title": "Next and save",
         "text": "Shows the next step. On the last step this saves the course; then you can try it and assign it."
+      }
+    },
+    "adminHome": {
+      "intro": {
+        "title": "Overview",
+        "text": "This is your admin home page. What needs a decision comes first, then the numbers and the latest admin decisions."
+      },
+      "attention": {
+        "title": "To do",
+        "text": "Reported, flagged and unchecked courses. Click to decide about them on the Courses page."
+      },
+      "numbers": {
+        "title": "Numbers",
+        "text": "Totals only: how many students, teachers and admins there are, how many courses are in the library and how many lessons there were this week. No names or conversations here."
+      },
+      "log": {
+        "title": "Latest decisions",
+        "text": "The latest admin decisions. The button opens the full log."
+      },
+      "menu": {
+        "title": "The menu",
+        "text": "Overview, Users, Courses and Profile: that is all you need as an admin."
+      },
+      "menuMobile": {
+        "title": "The menu",
+        "text": "On a phone, the bar at the bottom has Overview, Users, Courses and Profile."
+      },
+      "help": {
+        "title": "Help",
+        "text": "The Help button explains every page."
+      }
+    },
+    "adminUsers": {
+      "intro": {
+        "title": "Users",
+        "text": "Give or take away the teacher or admin role here. The same as the role:set command, but logged."
+      },
+      "search": {
+        "title": "Search",
+        "text": "Type an email address or a name. The list comes from Clerk; we do not store it separately."
+      },
+      "list": {
+        "title": "The list",
+        "text": "Recently active users first, with their role. You cannot change your own role."
+      },
+      "role": {
+        "title": "Change role",
+        "text": "Choose the new role and write a short reason. The new role takes effect within a minute."
+      }
+    },
+    "adminCourses": {
+      "intro": {
+        "title": "Course check",
+        "text": "An automatic filter checks new courses. Courses that were reported, flagged or could not be checked come here."
+      },
+      "tabs": {
+        "title": "Tabs",
+        "text": "Needs a decision, In the library, Recommended and Hidden. The red number shows how many courses are waiting for you."
+      },
+      "card": {
+        "title": "A course",
+        "text": "The course's name, topic, author and status. Reported courses come first, then the ones the filter flagged."
+      },
+      "reports": {
+        "title": "Reports",
+        "text": "Why and by whom it was reported: one teacher's report or three students' take a course out of the library."
+      },
+      "actions": {
+        "title": "Decide",
+        "text": "Adding to the library or hiding closes the reports. Feature recommends the course. Every decision goes into the log."
+      }
+    },
+    "adminLog": {
+      "intro": {
+        "title": "Admin log",
+        "text": "Every admin decision is here. Nobody can change or delete the log."
+      },
+      "list": {
+        "title": "Entries",
+        "text": "Who did what and when, with the reason. Role changes show the old and the new role."
+      }
+    },
+    "adminProfile": {
+      "intro": {
+        "title": "Your profile",
+        "text": "As an admin you find your account security and display settings here."
+      },
+      "security": {
+        "title": "Security",
+        "text": "Whether two-step verification is on. Without it the admin pages stay locked."
+      },
+      "comfort": {
+        "title": "Display",
+        "text": "Text size, easy-reading text, read-aloud and less motion. They only change your own screen."
+      }
+    },
+    "adminPreview": {
+      "intro": {
+        "title": "Preview as an admin",
+        "text": "Try the lesson just like a student. Nothing goes into any statistic."
+      },
+      "bar": {
+        "title": "Decide",
+        "text": "Shows where the course stands; you can decide here too: add to the library, hide, feature or delete."
+      },
+      "start": {
+        "title": "Start the lesson",
+        "text": "Starts the conversation with the tutor. The browser may ask for microphone access."
+      },
+      "exit": {
+        "title": "Back",
+        "text": "Takes you back to the course check."
       }
     }
   },
@@ -1057,6 +1192,164 @@
       "text": "Create your first class, or look around the Library first. The Help button explains every page.",
       "createClass": "Create my first class",
       "library": "Open the Library"
+    }
+  },
+  "AdminHome": {
+    "hello": "Hi, {name}!",
+    "leadTodo": "{count, plural, one {# course is} other {# courses are}} waiting for your decision.",
+    "leadCalm": "Nothing to do. Here are the numbers and the latest admin decisions.",
+    "todoTitle": "To do",
+    "todoNone": "Every course has a decision; nothing is reported or flagged.",
+    "flagged": "{count, plural, one {# course was} other {# courses were}} reported or flagged by the filter",
+    "flaggedHint": "They are not in the library until you decide.",
+    "unchecked": "{count, plural, one {# course is} other {# courses are}} unchecked",
+    "uncheckedHint": "The automatic filter did not run on them (for example, its key is missing).",
+    "numbersTitle": "Numbers",
+    "number": {
+      "students": "students",
+      "teachers": "teachers",
+      "admins": "admins",
+      "publicCourses": "courses in the library",
+      "activeStudents": "active users this week",
+      "lessons": "lessons opened this week"
+    },
+    "capped": "Many users: the counts per role come from the newest 500 accounts.",
+    "logTitle": "Latest admin decisions",
+    "logAll": "Full log"
+  },
+  "AdminUsers": {
+    "title": "Users",
+    "lead": "Search by email or name, and choose who is a teacher or an admin. Every role change goes into the admin log.",
+    "searchLabel": "Search users",
+    "searchPlaceholder": "Email or name",
+    "search": "Search",
+    "results": "{count, plural, one {# result} other {# results}}",
+    "everyone": "Everyone ({count})",
+    "empty": "No such user.",
+    "lastActive": "last seen: {date}",
+    "neverActive": "has not signed in yet",
+    "role": {
+      "student": "Student",
+      "teacher": "Teacher",
+      "admin": "Admin"
+    },
+    "roleHint": {
+      "student": "Own courses, lessons, joining a class",
+      "teacher": "Classes, assignments, library",
+      "admin": "Runs eNvolve"
+    },
+    "change": "Change role",
+    "itsYou": "This is you",
+    "formLabel": "Change role: {user}",
+    "newRole": "New role",
+    "reason": "Reason for the log",
+    "reasonPlaceholder": "E.g. teacher at the pilot school",
+    "reasonRequired": "Write a short reason (at least 3 characters).",
+    "saveError": "Could not save. Please try again.",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving…",
+    "adminWarning": "An admin can change anyone's role and decides about courses. Only give it to someone you fully trust.",
+    "pagesLabel": "Pages",
+    "previous": "Previous",
+    "next": "Next",
+    "pageOf": "Page {page} of {pages}"
+  },
+  "AdminCourses": {
+    "title": "Course check",
+    "lead": "A new course goes into the library when the automatic filter finds it fine. Courses that were reported, flagged by the filter or could not be checked come here.",
+    "tabsLabel": "Filter courses",
+    "tab": {
+      "review": "Needs a decision",
+      "public": "In the library",
+      "featured": "Recommended",
+      "hidden": "Hidden"
+    },
+    "empty": {
+      "review": "No course needs a decision.",
+      "public": "No courses in the library yet.",
+      "featured": "No recommended courses yet. Recommend courses in the library with Feature.",
+      "hidden": "No hidden courses."
+    },
+    "status": {
+      "public": "In the library",
+      "reports": "Reported",
+      "filter": "Flagged by the filter",
+      "unchecked": "Unchecked",
+      "hidden": "Hidden",
+      "featured": "Recommended"
+    },
+    "unknownAuthor": "Unknown author",
+    "reportsLabel": "Reports",
+    "reports": "{count, plural, one {# report} other {# reports}}",
+    "reason": {
+      "inappropriate": "Not suitable for children",
+      "wrong": "Faulty",
+      "other": "Other problem"
+    },
+    "byTeacher": "from a teacher",
+    "open": "Open",
+    "makePublic": "Fine, add to the library",
+    "hide": "Hide",
+    "feature": "Feature",
+    "unfeature": "Stop featuring",
+    "delete": "Delete",
+    "deleteQuestion": "Delete for sure? Its assignments are deleted too.",
+    "deleteConfirm": "Yes, delete",
+    "cancel": "Cancel",
+    "actionError": "Could not save. Please try again.",
+    "barLabel": "Admin decision",
+    "barNote": "Preview as an admin: try the lesson and decide about the course here."
+  },
+  "AdminLog": {
+    "title": "Admin log",
+    "lead": "Every admin decision: who, when, what and why. Nobody can change or delete the log.",
+    "empty": "No entries yet.",
+    "action": {
+      "role_change": "{actor} changed a role: {target}",
+      "course_public": "{actor} added to the library: {target}",
+      "course_hidden": "{actor} hid: {target}",
+      "course_featured": "{actor} featured: {target}",
+      "course_unfeatured": "{actor} stopped featuring: {target}",
+      "course_deleted": "{actor} deleted: {target}"
+    }
+  },
+  "AdminProfile": {
+    "role": "Platform admin",
+    "securityTitle": "Security",
+    "twoFactorOn": "Two-step verification is on.",
+    "twoFactorOff": "Two-step verification is off, so the admin pages are locked.",
+    "securityText": "An admin account can change anyone's role, so a second step (an authenticator app) is needed besides the password.",
+    "account": "Account and security",
+    "log": "Admin log"
+  },
+  "TwoFactor": {
+    "title": "Turn on two-step verification",
+    "text": "The admin pages only open with two-step verification, because an admin account can change anyone's role.",
+    "step1": "Click Security settings below.",
+    "step2": "Under Security, add an authenticator app (e.g. Google Authenticator) and scan the QR code.",
+    "step3": "Enter the code from the app, then reload this page.",
+    "open": "Security settings",
+    "note": "If the option does not appear, multi-factor authentication still has to be turned on in the Clerk dashboard."
+  },
+  "Report": {
+    "open": "Something is wrong with this course",
+    "question": "What is wrong with this course?",
+    "readAloud": "Read aloud",
+    "inappropriate": "Not for children, rude or hurtful",
+    "wrong": "Faulty, does not work well",
+    "other": "Something else is wrong",
+    "note": "Tell us in a few words if you like (optional)",
+    "cancel": "Cancel",
+    "send": "Send",
+    "sending": "Sending…",
+    "error": "Could not send. Please try again.",
+    "result": {
+      "reported": "Thank you for telling us! An adult will look at this course.",
+      "already": "You already told us about this course. Thank you!",
+      "own_course": "This is your own course, you do not need to report it.",
+      "not_found": "This course is no longer in the library.",
+      "too_many": "You sent a lot of reports just now. Please try again a little later."
     }
   }
 }

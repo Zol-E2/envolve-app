@@ -992,6 +992,47 @@
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
   }
 
+  /* --- Admin view (lib/views.ts) --- */
+  /* Totals on the admin home: as many tiles per row as fit */
+  .admin-stats {
+    @apply grid gap-3;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 11rem), 1fr));
+  }
+  .admin-stat {
+    @apply flex min-w-0 flex-col-reverse gap-1 rounded-2xl border border-border bg-card px-4 py-3;
+  }
+  .admin-stat dt {
+    @apply text-base leading-snug text-muted-foreground;
+  }
+  .admin-stat dd {
+    @apply font-display text-3xl font-extrabold tabular-nums max-sm:text-2xl;
+  }
+  .moderation-card {
+    @apply flex min-w-0 flex-col gap-4 rounded-3xl border border-border bg-card p-5 max-sm:rounded-[20px] max-sm:p-4;
+  }
+  .moderation-card > header {
+    @apply flex-wrap;
+  }
+  .report-list {
+    @apply flex flex-col gap-2 rounded-2xl bg-destructive-soft/40 px-4 py-3;
+  }
+  .admin-course-bar {
+    @apply flex flex-col gap-3 rounded-2xl border-2 border-primary bg-primary-soft/40 px-4 py-3;
+  }
+  .role-form {
+    @apply flex w-full flex-wrap items-start gap-3 rounded-2xl bg-secondary p-3;
+  }
+  .role-form .field-group:first-child {
+    @apply basis-48;
+  }
+  /* "Something is wrong with this course" (students and teachers) */
+  .report-form {
+    @apply flex w-full max-w-2xl flex-col gap-4 rounded-3xl border border-border bg-card p-5 max-sm:rounded-[20px] max-sm:p-4;
+  }
+  .report-done {
+    @apply rounded-2xl bg-ok-soft px-4 py-3 text-lg font-bold text-ok;
+  }
+
   /* --- Student side: tasks from the teacher, joining a class --- */
   .task-card {
     @apply flex flex-col gap-4 rounded-3xl border-2 border-turn bg-card p-6 max-sm:rounded-[22px] max-sm:p-4;

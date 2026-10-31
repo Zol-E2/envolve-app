@@ -21,7 +21,8 @@ import PageTour from "@/components/onboarding/PageTour";
 import ComfortSettings from "@/components/ComfortSettings";
 import { getMyClasses } from "@/lib/actions/class.actions";
 import { Link } from "@/i18n/navigation";
-import { isTeacher } from "@/lib/roles.server";
+import { isAdmin, isTeacher } from "@/lib/roles.server";
+import AdminSecurityCard from "@/components/admin/AdminSecurityCard";
 import { readTeacherProfile } from "@/lib/validation";
 import TeacherProfileForm from "@/components/teacher/TeacherProfileForm";
 
@@ -35,6 +36,30 @@ const Profile = async () => {
   const locale = await getLocale();
 
   if (!user) redirect({ href: "/sign-in", locale });
+
+  // Admins: their account's security and display settings, nothing else
+  if (await isAdmin()) {
+    const tAdmin = await getTranslations("AdminProfile");
+    const name = [user.firstName, user.lastName].filter(Boolean).join(" ") || user.emailAddresses[0]?.emailAddress || "";
+    return (
+      <main>
+        <PageTour id="adminProfile" />
+        <section className="profile-head">
+          <Image src={user.imageUrl} alt="" width={80} height={80} className="profile-avatar" />
+          <div className="flex min-w-0 flex-col gap-1">
+            <h1>{name}</h1>
+            <p className="text-base break-all text-muted-foreground">{tAdmin("role")}</p>
+          </div>
+        </section>
+        <div className="profile-grid is-teacher">
+          <ComfortSettings />
+          <div className="profile-lists">
+            <AdminSecurityCard twoFactor={user.twoFactorEnabled} />
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   // Teachers: only what their work needs (lib/views.ts). The name students
   // see, the school, display settings and the account; no student statistics

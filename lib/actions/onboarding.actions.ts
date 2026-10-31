@@ -25,6 +25,12 @@ const onboardingEventSchema = z.object({
     "lessonPreview",
     "teacherProfile",
     "newCourseTeacher",
+    "adminHome",
+    "adminUsers",
+    "adminCourses",
+    "adminLog",
+    "adminProfile",
+    "adminPreview",
   ]),
   event: z.enum([
     "start",

@@ -4,6 +4,8 @@ import {
   House,
   LayoutDashboard,
   Library,
+  ShieldCheck,
+  UserCog,
   UserRound,
   UsersRound,
   type LucideIcon,
@@ -19,6 +21,8 @@ export const NAV_ICONS: Record<NavKey, LucideIcon> = {
   courses: BookOpen,
   newCourse: CirclePlus,
   profile: UserRound,
+  users: UserCog,
+  moderation: ShieldCheck,
 };
 
 /** The menu items of a view, shared by the desktop header and the mobile tab bar */
