@@ -9,7 +9,8 @@
     "lint": "eslint && npm run check:i18n && npm run check:speech",
     "check:i18n": "node scripts/check-messages.mjs",
     "check:speech": "node scripts/generate-speech.mjs --check",
-    "speech:generate": "node scripts/generate-speech.mjs"
+    "speech:generate": "node scripts/generate-speech.mjs",
+    "role:set": "node scripts/set-role.mjs"
   },
   "engines": {
     "node": ">=22.14.0"

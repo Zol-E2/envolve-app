@@ -6,7 +6,7 @@
 const TIME_ZONE = "Europe/Budapest";
 
 /** "2026-10-29" for the given moment, in Hungarian time */
-const localDate = (date: Date) =>
+export const localDate = (date: Date) =>
   new Intl.DateTimeFormat("en-CA", { timeZone: TIME_ZONE }).format(date);
 
 /** 0 = Monday … 6 = Sunday, in Hungarian time */

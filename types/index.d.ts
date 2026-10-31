@@ -97,4 +97,6 @@ interface CourseComponentProps {
   language: "hu" | "en";
   /** Planned lesson length in minutes, for the progress bar */
   duration?: number;
+  /** Set when the lesson was started from a teacher's assignment */
+  assignment?: import("@/lib/teacher/types").LessonAssignment | null;
 }

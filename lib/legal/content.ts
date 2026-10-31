@@ -45,7 +45,8 @@ export const LEGAL_CONTENT: Record<LegalDocId, Record<"hu" | "en", LegalDocument
             "Fiókadatok: neved, e-mail-címed és profilképed. Ezekkel tudsz belépni, és ezekből tudjuk, melyik kurzus a tiéd. Ha Google- vagy Facebook-fiókkal lépsz be, ezeket az adatokat onnan kapjuk.",
             "Tanulási adatok: az általad készített kurzusok (név, téma, tantárgy, hang, nyelv), a mentett kurzusaid és az, hogy melyik órát mikor kezdted el. Ezek kellenek ahhoz, hogy a kezdőlapon és a profilodon lásd őket.",
             "Az órák hangja és szövege: óra közben a hangodat a rendszer valós időben szöveggé alakítja, az AI-tanár erre válaszol, a válaszát pedig hangként hallod. A beszélgetés szövege megjelenik az átiratban. A hívás feldolgozását a Vapi és az általa használt beszédfelismerő, nyelvi modell és hangszolgáltató végzi.",
-            "A bemutató állapota: hogy láttad-e már az üdvözlő képernyőt és az oldalak tippjeit. Bejelentkezve a fiókodnál tároljuk, kijelentkezve csak a böngésződben.",
+            "A bemutató állapota és a megjelenítési beállításaid: hogy láttad-e már az üdvözlő képernyőt és az oldalak tippjeit, illetve a betűméret, az olvasóbarát szöveg, a felolvasás és a kevesebb mozgás beállítása. Bejelentkezve a fiókodnál tároljuk, kijelentkezve csak a böngésződben.",
+            "Osztályok: ha egy tanár kódjával csatlakozol az osztályához, eltároljuk a tagságodat és a nevedet rövid formában (keresztnév és a vezetéknév kezdőbetűje). A tanár által kiosztott óráknál rögzítjük, mikor kezdted el az órát, meddig tartott, és hogyan ért véget (például befejezted, kiléptél, vagy nem engedted a mikrofont). A beszélgetés szövegét és hangját ehhez nem tároljuk. A tanár beállíthat számodra támogatást (lassabb beszéd, rövidebb óra, automatikus felolvasás).",
             "Névtelen használati statisztika: hogy elindult, befejeződött vagy kimaradt-e egy bemutató, és sikerült-e a mikrofonpróba. Ehhez nem tárolunk nevet, e-mail-címet vagy más azonosítót. Arra használjuk, hogy kiderüljön, hol akadnak el a diákok.",
             "Hibanaplók: ha az alkalmazásban hiba történik, a hiba leírása, a böngésző típusa és az IP-cím a Sentry hibakövető rendszerbe kerül, hogy ki tudjuk javítani.",
           ],
@@ -65,6 +66,7 @@ export const LEGAL_CONTENT: Record<LegalDocId, Record<"hu" | "en", LegalDocument
         {
           heading: "Kik férnek hozzá az adatokhoz?",
           paragraphs: [
+            "Ha egy osztály tagja vagy, a tanárod csak a saját osztálya tagjainak rövid nevét, a beállított támogatást és az általa kiosztott órák állapotát látja. Az e-mail-címedet, a profilképedet, a saját magad által indított órákat és a beszélgetéseket nem látja. Az osztályból bármikor kiléphetsz, és a tanár is eltávolíthat.",
             "Az adataidat nem adjuk el, és nem használjuk hirdetésre. A működéshez ezeket a szolgáltatókat vesszük igénybe, és ők csak a feladatukhoz szükséges adatokat kapják meg:",
           ],
           list: [
@@ -136,7 +138,8 @@ export const LEGAL_CONTENT: Record<LegalDocId, Record<"hu" | "en", LegalDocument
             "Account data: your name, email address and profile picture. They let you sign in and show which courses are yours. If you sign in with Google or Facebook, we receive this data from there.",
             "Learning data: the courses you build (name, topic, subject, voice, language), the courses you save, and when you started each lesson. They are needed to show them on your home page and profile.",
             "Lesson audio and text: during a lesson your voice is turned into text in real time, the AI tutor answers, and you hear the answer as speech. The text of the conversation appears in the transcript. Calls are processed by Vapi and the speech recognition, language model and voice providers it uses.",
-            "Introduction progress: whether you have seen the welcome screen and the page tips. Stored with your account when signed in, and only in your browser when signed out.",
+            "Introduction progress and display settings: whether you have seen the welcome screen and the page tips, and your text size, easy-reading text, read-aloud and less-motion settings. Stored with your account when signed in, and only in your browser when signed out.",
+            "Classes: if you join a teacher’s class with their code, we store your membership and your name in short form (first name and the initial of your last name). For lessons the teacher assigned, we record when you started, how long it lasted and how it ended (for example finished, left early, or the microphone was not allowed). The text and audio of the conversation are not stored for this. The teacher can set support for you (slower speech, a shorter lesson, automatic read-aloud).",
             "Anonymous usage statistics: whether an introduction was started, finished or skipped, and whether the microphone test worked. No name, email address or other identifier is stored. We use this to see where students get stuck.",
             "Error logs: if something goes wrong in the app, a description of the error, the browser type and the IP address are sent to the Sentry error tracker so we can fix it.",
           ],
@@ -156,6 +159,7 @@ export const LEGAL_CONTENT: Record<LegalDocId, Record<"hu" | "en", LegalDocument
         {
           heading: "Who can access the data?",
           paragraphs: [
+            "If you are in a class, your teacher only sees the short names of the students in their own class, the support they set, and the status of the lessons they assigned. They do not see your email address, your profile picture, lessons you started on your own, or any conversation. You can leave a class at any time, and the teacher can remove you.",
             "We do not sell your data or use it for advertising. We use these services to run the app, and they only receive the data they need for their task:",
           ],
           list: [

@@ -28,6 +28,8 @@ import soundwaves from "@/constants/soundwaves.json";
 // is running, so it loads separately instead of slowing down the page
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 import { addToSessionHistory } from "@/lib/actions/course.actions";
+import { finishLessonAttempt, recordMicBlocked, startLessonAttempt } from "@/lib/actions/class.actions";
+import { endReasonFor } from "@/lib/teacher/status";
 import { useTranslations } from "next-intl";
 import { getMicPermission } from "@/lib/onboarding/microphone";
 
@@ -47,6 +49,7 @@ const CourseComponent = ({
   language,
   voice,
   duration,
+  assignment,
 }: CourseComponentProps) => {
   const t = useTranslations("CourseSession");
   const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
@@ -60,6 +63,31 @@ const CourseComponent = ({
   const transcriptRef = useRef<HTMLDivElement>(null);
   // Seconds since the lesson started, for the calm progress bar
   const [elapsed, setElapsed] = useState(0);
+
+  // Lesson length: the teacher's "shorter lesson" support wins over the course
+  const lessonMinutes = assignment?.minutes ?? (duration && duration > 0 ? duration : 15);
+  const assignmentId = assignment?.assignmentId ?? null;
+
+  // For the teacher's overview: lessons started from an assignment are
+  // recorded (start, length, how they ended). Free-time lessons are not.
+  const attempt = useRef<{
+    id: Promise<string | null>;
+    startedAt: number;
+    tutorClosed: boolean;
+    failed: boolean;
+    done: boolean;
+  } | null>(null);
+
+  const closeAttempt = useRef((reasonOverride?: "left") => {
+    const current = attempt.current;
+    if (!current || current.done) return;
+    current.done = true;
+    const seconds = (Date.now() - current.startedAt) / 1000;
+    const reason = reasonOverride ?? endReasonFor(seconds, lessonMinutes, current);
+    void current.id.then((id) => {
+      if (id) void finishLessonAttempt(id, seconds, reason);
+    });
+  });
 
   // Play / pause the soundwave animation based on whether the AI is speaking.
   // With "less motion" it stays still; the status line still says who talks.
@@ -76,14 +104,34 @@ const CourseComponent = ({
   useEffect(() => {
     const onCallStart = () => {
       setCallStatus(CallStatus.ACTIVE);
+      if (assignmentId) {
+        attempt.current = {
+          id: startLessonAttempt(assignmentId, courseId).catch(() => null),
+          startedAt: Date.now(),
+          tutorClosed: false,
+          failed: false,
+          done: false,
+        };
+      }
     };
     const onCallEnd = () => {
       setCallStatus(CallStatus.ENDED);
       addToSessionHistory(courseId);
+      closeAttempt.current();
     };
 
     // Only persist "final" transcript messages (not interim partials)
     const onMessage = (message: Message) => {
+      // How the call ended: the tutor said goodbye, time ran out, or it broke
+      const status = message as { type?: string; status?: string; endedReason?: string };
+      if (status.type === "status-update" && status.status === "ended" && attempt.current) {
+        const why = status.endedReason ?? "";
+        if (/assistant-ended-call|assistant-said-end-call-phrase|exceeded-max-duration/.test(why)) {
+          attempt.current.tutorClosed = true;
+        } else if (/error|failed|pipeline|timeout/i.test(why)) {
+          attempt.current.failed = true;
+        }
+      }
       if (message.type === "transcript" && message.transcriptType === "final") {
         const newMessage = { role: message.role, content: message.transcript };
         setMessages((prev) => [...prev, newMessage]);
@@ -99,8 +147,12 @@ const CourseComponent = ({
 
     const onError = async (error: Error) => {
       console.log("Error: ", error);
+      if (attempt.current) attempt.current.failed = true;
       // A blocked microphone is the most common reason a lesson fails to start
-      if ((await getMicPermission()) === "denied") setMicBlocked(true);
+      if ((await getMicPermission()) === "denied") {
+        setMicBlocked(true);
+        if (assignmentId && !attempt.current) void recordMicBlocked(assignmentId, courseId);
+      }
       // Don't leave the button pulsing on "Connecting..." forever
       setCallStatus((current) =>
         current === CallStatus.CONNECTING ? CallStatus.INACTIVE : current
@@ -123,7 +175,13 @@ const CourseComponent = ({
       vapi.off("speech-start", onSpeechStart);
       vapi.off("speech-end", onSpeechEnd);
     };
-  }, [courseId]);
+  }, [courseId, assignmentId]);
+
+  // Leaving the page mid-lesson counts as stopping it
+  useEffect(() => {
+    const close = closeAttempt.current;
+    return () => close("left");
+  }, []);
 
   // Count the lesson time while the call is running
   useEffect(() => {
@@ -151,6 +209,7 @@ const CourseComponent = ({
     // Explain a blocked microphone up front instead of failing silently
     if ((await getMicPermission()) === "denied") {
       setMicBlocked(true);
+      if (assignmentId) void recordMicBlocked(assignmentId, courseId);
       return;
     }
     setMicBlocked(false);
@@ -164,6 +223,8 @@ const CourseComponent = ({
       voice,
       subject,
       topic,
+      minutes: lessonMinutes,
+      slower: !!assignment?.support.slowerSpeech,
     });
     vapi.start(assistantId, overrides);
   };
@@ -190,7 +251,7 @@ const CourseComponent = ({
     : { text: t("statusReady"), icon: Play, tone: "wait" };
   const StatusIcon = status.icon;
 
-  const total = duration && duration > 0 ? duration : 15;
+  const total = lessonMinutes;
   const minutes = Math.floor(elapsed / 60);
   const progress = Math.min(elapsed / (total * 60), 1);
   const active = callStatus === CallStatus.ACTIVE;

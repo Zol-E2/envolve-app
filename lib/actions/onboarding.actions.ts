@@ -15,6 +15,10 @@ const onboardingEventSchema = z.object({
     "signIn",
     "notFound",
     "legal",
+    "classes",
+    "classDetail",
+    "assign",
+    "join",
   ]),
   event: z.enum([
     "start",

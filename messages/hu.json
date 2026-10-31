@@ -15,7 +15,8 @@
     "profile": "Profil",
     "newCourse": "Új kurzus",
     "help": "Segítség",
-    "mainNav": "Fő menü"
+    "mainNav": "Fő menü",
+    "classes": "Osztályok"
   },
   "LanguageSwitcher": {
     "label": "Nyelv",
@@ -60,7 +61,8 @@
     "dayOpen": "még nem volt órád",
     "weekSummary": "{count, plural, =0 {Ezen a héten még nem volt órád. Ma jó nap lehet rá!} other {Ezen a héten # napon tanultál. Ügyes vagy!}}",
     "popularCourses": "Népszerű kurzusok",
-    "browseCourses": "Kurzusok böngészése"
+    "browseCourses": "Kurzusok böngészése",
+    "tasksLabel": "Feladataid a tanárodtól"
   },
   "CTA": {
     "title": "Készíts saját kurzust",
@@ -222,7 +224,10 @@
     "title": "Profilom",
     "statsLabel": "Az eredményeid",
     "coursesSaved": "Mentett kurzusok",
-    "coursesOwn": "Saját kurzusok"
+    "coursesOwn": "Saját kurzusok",
+    "myClasses": "Osztályaim",
+    "noClasses": "Még nem vagy egy osztályban sem. Ha a tanárod adott egy kódot, itt csatlakozhatsz.",
+    "joinClass": "Csatlakozás kóddal"
   },
   "NotFound": {
     "title": "Az oldal nem található",
@@ -240,6 +245,10 @@
       "intro": {
         "title": "Üdv a kezdőlapon!",
         "text": "Megmutatom, mit hol találsz ezen az oldalon. Néhány rövid lépés jön, és bármikor bezárhatod az X gombbal."
+      },
+      "task": {
+        "title": "Feladat a tanárodtól",
+        "text": "Ezt a feladatot a tanárod adta. Látod, melyik óra, hány perces, és meddig kell elvégezned. Ha üzenetet is írt, a Felolvasás gombbal meghallgathatod. A nagy gombbal indul az óra."
       },
       "continue": {
         "title": "Itt kezdheted az órát",
@@ -268,6 +277,14 @@
       "menuMobile": {
         "title": "A menü",
         "text": "A képernyő alján lévő gombokkal bármikor átléphetsz a többi oldalra. Amelyik oldalon éppen vagy, az narancssárga."
+      },
+      "classesMenu": {
+        "title": "Osztályok",
+        "text": "Tanárként itt találod az osztályaidat. Itt hozhatsz létre új osztályt, és itt látod, ki hol tart."
+      },
+      "classesTab": {
+        "title": "Osztályok",
+        "text": "Tanárként az alsó sávban, az Osztályok gombnál találod az osztályaidat."
       },
       "help": {
         "title": "Segítség bármikor",
@@ -389,6 +406,10 @@
         "title": "Alapbeállítás",
         "text": "Ha mindent vissza szeretnél állítani úgy, ahogy az elején volt, kattints erre a gombra."
       },
+      "classes": {
+        "title": "Osztályaid",
+        "text": "Itt látod, melyik osztályokban vagy benne. Ha a tanárod adott egy kódot, a Csatlakozás kóddal gombbal beírhatod."
+      },
       "bookmarks": {
         "title": "Mentett kurzusok",
         "text": "Kattints erre a sorra, és lenyílik a mentett kurzusaid listája. Kurzust a kurzuskártyán lévő könyvjelző gombbal menthetsz el."
@@ -436,6 +457,118 @@
       "intro": {
         "title": "Jogi információk",
         "text": "Itt olvashatod, hogyan kezeljük az adataidat, és mire figyelj az alkalmazás használatakor. Ha kérdésed van, az oldalon találod, hova írhatsz."
+      }
+    },
+    "classes": {
+      "intro": {
+        "title": "Az osztályaid",
+        "text": "Itt kezeled az osztályaidat. Létrehozol egy osztályt, a diákok egy kóddal csatlakoznak, te pedig kurzusokat osztasz ki nekik."
+      },
+      "new": {
+        "title": "Új osztály",
+        "text": "Írd be az osztály nevét, például 6.b Matematika, és ha szeretnéd, válassz tantárgyat. A létrehozás után kapsz egy hatjegyű kódot."
+      },
+      "list": {
+        "title": "Osztálykártyák",
+        "text": "Minden osztály egy kártya: a neve, a diákok száma és a kódja. Ahol valaki elakadt, az piros jelzést kap, és előre kerül."
+      },
+      "menu": {
+        "title": "Osztályok a menüben",
+        "text": "Az Osztályok menüpont csak tanároknak látszik. Innen bármikor visszajöhetsz ide."
+      },
+      "menuMobile": {
+        "title": "Osztályok a menüben",
+        "text": "Telefonon az alsó sáv Osztályok gombjával jöhetsz vissza ide."
+      }
+    },
+    "classDetail": {
+      "intro": {
+        "title": "Az osztály oldala",
+        "text": "Itt látod, ki hol tart a kiosztott kurzusokkal. Az elakadt diákok mindig felül vannak, rövid magyarázattal."
+      },
+      "code": {
+        "title": "Csatlakozási kód",
+        "text": "Ezt a hat jelből álló kódot add meg a diákoknak, például írd fel a táblára. A diák a Profil oldalon írja be. A Másolás gomb a vágólapra teszi."
+      },
+      "renew": {
+        "title": "Új kód",
+        "text": "Ha a kód rossz helyre került, kérj újat. A régi kód azonnal megszűnik, a már csatlakozott diákok bent maradnak."
+      },
+      "assign": {
+        "title": "Kurzus kiosztása",
+        "text": "Ezzel a gombbal adhatsz ki egy kurzust az egész osztálynak vagy néhány diáknak, határidővel és üzenettel."
+      },
+      "tabs": {
+        "title": "Fülek",
+        "text": "Az Áttekintésen látod, ki hol tart. A Diákok fülön támogatást állíthatsz be diákonként. A Kiosztások fülön minden eddigi kiosztás megvan."
+      },
+      "picker": {
+        "title": "Melyik kiosztás?",
+        "text": "Ha több kurzust is kiosztottál, itt választhatod ki, melyiket nézed. A piros szám mutatja, hányan akadtak el benne."
+      },
+      "stuck": {
+        "title": "Elakadt diákok",
+        "text": "Itt látod, ki akadt el, és miért: például korán kilépett, vagy nem engedte a mikrofont. A beszélgetés szövegét nem látod, csak ezt."
+      },
+      "status": {
+        "title": "Ki hol tart",
+        "text": "Minden diák mellett látod az állapotát: még nem kezdte, folyamatban, kész vagy elakadt. A Lejárt címke azt jelzi, hogy a határidő elmúlt."
+      },
+      "students": {
+        "title": "Diákok",
+        "text": "Itt van az osztály összes diákja. A neveket rövid formában látod, például Lili K."
+      },
+      "support": {
+        "title": "Támogatás",
+        "text": "Kattints a Támogatás gombra: lassabb beszédet, rövidebb órát vagy automatikus felolvasást állíthatsz be ennek a diáknak. Itt távolíthatod el az osztályból is."
+      },
+      "assignments": {
+        "title": "Kiosztások",
+        "text": "Minden kiosztás egy sorban: a kurzus, a határidő, hányan végeztek, és hányan akadtak el. Itt törölheted is."
+      }
+    },
+    "assign": {
+      "intro": {
+        "title": "Kurzus kiosztása",
+        "text": "Négy dolgot adhatsz meg: a kurzust, hogy kinek szól, a határidőt és egy rövid üzenetet. Csak a kurzus kötelező."
+      },
+      "course": {
+        "title": "Melyik kurzus?",
+        "text": "Választhatsz a saját kurzusaid és a kurzuskönyvtár közül. Mellette látod, hány perces az óra."
+      },
+      "who": {
+        "title": "Kinek szól?",
+        "text": "Kioszthatod az egész osztálynak, vagy csak kiválasztott diákoknak. Ilyenkor pipáld ki a neveket."
+      },
+      "due": {
+        "title": "Határidő",
+        "text": "Ha megadsz határidőt, a diák látja, meddig kell elvégeznie. Utána a Lejárt címke jelenik meg nálad."
+      },
+      "message": {
+        "title": "Üzenet",
+        "text": "Írj egy rövid, biztató üzenetet. A diák a főoldalán olvassa, és fel is olvastathatja."
+      },
+      "preview": {
+        "title": "Így látja a diák",
+        "text": "Ez a kártya pontosan így jelenik meg a diák főoldalán. Minden változás azonnal látszik rajta."
+      },
+      "submit": {
+        "title": "Kiosztás",
+        "text": "Ha minden rendben, nyomd meg a Kiosztás gombot. A diákok azonnal látják a feladatot."
+      }
+    },
+    "join": {
+      "intro": {
+        "title": "Csatlakozás osztályhoz",
+        "text": "Itt csatlakozhatsz a tanárod osztályához. Ehhez egy kód kell, amit a tanárodtól kapsz."
+      },
+      "code": {
+        "title": "Írd be a kódot",
+        "text": "A kód hat betűből és számból áll, például ABC234. Írd be ide, és nyomd meg a Csatlakozom gombot. Ha elírod, semmi baj, próbáld újra."
+      },
+      "classes": {
+        "title": "Az osztályaid",
+        "text": "Itt látod, melyik osztályokban vagy benne, és ki a tanárod. Ha már nem kell, a Kilépés gombbal kiléphetsz."
       }
     }
   },
@@ -539,5 +672,150 @@
     "saved": "Elmentve",
     "error": "Nem sikerült elmenteni. Próbáld újra!",
     "reset": "Alapbeállítás"
+  },
+  "Classes": {
+    "title": "Osztályaim",
+    "lead": "Hozz létre osztályt, add meg a diákoknak a kódot, és kövesd, ki hol tart.",
+    "sidebarLabel": "Osztályaid",
+    "stuckCount": "{count} diák elakadt",
+    "allAndNew": "Összes osztály",
+    "empty": "Még nincs osztályod. Fent megadhatod az első osztály nevét: a diákok egy hatjegyű kóddal csatlakoznak hozzá.",
+    "needsAttention": "{count} elakadt",
+    "allGood": "Rendben",
+    "students": "{count} diák",
+    "open": "Megnyitás",
+    "nameRequired": "Adj nevet az osztálynak, például: 6.b Matematika.",
+    "createError": "Nem sikerült létrehozni az osztályt. Próbáld újra!",
+    "newName": "Új osztály neve",
+    "newNamePlaceholder": "például 6.b Matematika",
+    "newSubject": "Tantárgy (nem kötelező)",
+    "noSubject": "Nincs megadva",
+    "creating": "Létrehozás…",
+    "create": "Osztály létrehozása",
+    "cancel": "Mégse",
+    "actionError": "Nem sikerült. Próbáld újra!"
+  },
+  "ClassDetail": {
+    "back": "Osztályaim",
+    "students": "{count} diák",
+    "assign": "Kurzus kiosztása",
+    "tabsLabel": "Az osztály részei",
+    "tab": {
+      "overview": "Áttekintés",
+      "students": "Diákok",
+      "assignments": "Kiosztások"
+    },
+    "noStudents": "Még nincs diák az osztályban. Add meg nekik a kódot: {code}. A diákok a Profil oldalon, a „Csatlakozás kóddal” gombbal írhatják be.",
+    "noAssignments": "Még nem osztottál ki kurzust ennek az osztálynak.",
+    "pickerLabel": "Melyik kiosztást nézed",
+    "due": "Határidő: {date}",
+    "noDue": "Nincs határidő",
+    "doneCount": "Kész: {done} / {total}",
+    "stuckTitle": "{count} diák elakadt a(z) „{course}” órán.",
+    "stuckHint": "Érdemes megkérdezni őket, mi történt. A diák a főoldalán újra megpróbálhatja.",
+    "statusListLabel": "Ki hol tart",
+    "studentsLead": "Diákonként beállíthatod, milyen támogatást kapjon a kiosztott óráknál: lassabb beszédet, rövidebb órát vagy automatikus felolvasást.",
+    "deleteClass": "Osztály törlése",
+    "deleteClassHint": "A tagságok és a kiosztások is törlődnek. A kurzusok megmaradnak.",
+    "deleteClassQuestion": "Biztosan törlöd az osztályt?",
+    "deleteClassConfirm": "Igen, törlöm",
+    "forEveryone": "Az egész osztálynak",
+    "forSome": "{count} diáknak",
+    "deleteAssignment": "Törlés",
+    "deleteAssignmentQuestion": "Törlöd ezt a kiosztást?",
+    "deleteAssignmentConfirm": "Igen, törlöm",
+    "codeLabel": "Csatlakozási kód",
+    "copied": "Másolva",
+    "copy": "Másolás",
+    "renewQuestion": "Új kódot kérsz? A régi azonnal megszűnik.",
+    "renewConfirm": "Igen, új kód",
+    "cancel": "Mégse",
+    "renew": "Új kód",
+    "supportSlower": "Lassabb beszéd",
+    "supportShorterShort": "{minutes} perces óra",
+    "supportAutoRead": "Automatikus felolvasás",
+    "supportNone": "Nincs külön támogatás",
+    "supportButton": "Támogatás",
+    "supportSlowerHint": "A tanár-asszisztens nyugodtabb tempóban beszél.",
+    "supportShorter": "Rövidebb óra",
+    "supportShorterHint": "Az óra ennyi perc után magától befejeződik.",
+    "supportShorterOff": "Eredeti hossz",
+    "supportAutoReadHint": "A tippek és a te üzeneted maguktól megszólalnak.",
+    "saved": "Elmentve",
+    "saveError": "Nem sikerült menteni. Próbáld újra!",
+    "remove": "Eltávolítás az osztályból",
+    "removeQuestion": "Eltávolítod: {name}?",
+    "removeConfirm": "Igen, eltávolítom"
+  },
+  "Status": {
+    "stuck": "Elakadt",
+    "inProgress": "Folyamatban",
+    "notStarted": "Még nem kezdte",
+    "done": "Kész",
+    "late": "Lejárt",
+    "left": "{minutes} perc után kilépett",
+    "micDenied": "Nem engedte a mikrofont",
+    "connection": "Megszakadt a kapcsolat",
+    "learningNow": "Éppen tanul",
+    "progress": "{minutes} / {total} perc",
+    "doneOn": "Kész: {date}",
+    "stuckCount": "{count} elakadt"
+  },
+  "Task": {
+    "messageSpeech": "{teacher} üzenete: {message}",
+    "due": "Határidő: {date}",
+    "tryAgain": "Próbáld újra",
+    "continue": "Folytatás",
+    "start": "Óra indítása",
+    "eyebrow": "Feladat · {teacher}",
+    "minutes": "{count} perc",
+    "readMessage": "Felolvasás",
+    "stuckEncourage": "Semmi baj, ha legutóbb nem sikerült. Kezdd újra nyugodtan!",
+    "done": "Kész! Ügyes voltál."
+  },
+  "Assign": {
+    "title": "Kurzus kiosztása",
+    "heading": "Kiosztás: {name}",
+    "lead": "Válassz kurzust, add meg, kinek szól, és ha szeretnéd, írj egy rövid üzenetet. Jobb oldalt látod, mit fog látni a diák.",
+    "courseRequired": "Válassz kurzust.",
+    "pickRequired": "Jelölj ki legalább egy diákot.",
+    "saveError": "Nem sikerült kiosztani. Próbáld újra!",
+    "noCourses": "Még nincs kiosztható kurzus. Készíts egyet az Új kurzus oldalon.",
+    "course": "Melyik kurzus?",
+    "ownCourses": "Saját kurzusaim",
+    "libraryCourses": "Kurzuskönyvtár",
+    "minutes": "{count} perc",
+    "who": "Kinek?",
+    "everyone": "Az egész osztálynak ({count} diák)",
+    "some": "Kiválasztott diákoknak",
+    "due": "Határidő (nem kötelező)",
+    "dueHint": "A diák a főoldalán látja, meddig kell elvégeznie.",
+    "message": "Üzenet a diákoknak (nem kötelező)",
+    "messagePlaceholder": "Nyugodtan kérdezz, ha valami nem világos!",
+    "messageHint": "Még {left} karakter. A diák felolvastathatja.",
+    "cancel": "Mégse",
+    "saving": "Kiosztás…",
+    "submit": "Kiosztás",
+    "previewLabel": "Előnézet: így látja a diák",
+    "preview": "Így látja a diák"
+  },
+  "Join": {
+    "title": "Csatlakozás osztályhoz",
+    "lead": "Írd be a kódot, amit a tanárodtól kaptál. Utána a főoldalon látod a feladataidat.",
+    "invalidCode": "Ez a kód nem jó. Nézd meg még egyszer, és próbáld újra!",
+    "ownClass": "Ez a te osztályod, ide nem kell csatlakoznod.",
+    "tooMany": "Sokszor próbáltad. Várj egy kicsit, vagy kérd el újra a kódot a tanárodtól.",
+    "error": "Valami hiba történt. Próbáld újra!",
+    "codeLabel": "A tanárod kódja",
+    "codeHint": "Hat betű és szám, például ABC234. Kis- vagy nagybetűvel is beírhatod.",
+    "joining": "Csatlakozás…",
+    "join": "Csatlakozom",
+    "joined": "Sikerült! Bekerültél ebbe az osztályba: {name} ({teacher}).",
+    "toHome": "Irány a főoldal",
+    "myClasses": "Az osztályaid",
+    "noClasses": "Még nem vagy egy osztályban sem.",
+    "leave": "Kilépés",
+    "leaveQuestion": "Kilépsz innen: {name}?",
+    "leaveConfirm": "Igen, kilépek"
   }
 }

@@ -15,7 +15,8 @@
     "profile": "Profile",
     "newCourse": "New course",
     "help": "Help",
-    "mainNav": "Main menu"
+    "mainNav": "Main menu",
+    "classes": "Classes"
   },
   "LanguageSwitcher": {
     "label": "Language",
@@ -60,7 +61,8 @@
     "dayOpen": "no lesson yet",
     "weekSummary": "{count, plural, =0 {No lessons yet this week. Today could be a good day!} one {You learned on 1 day this week. Well done!} other {You learned on # days this week. Well done!}}",
     "popularCourses": "Popular courses",
-    "browseCourses": "Browse courses"
+    "browseCourses": "Browse courses",
+    "tasksLabel": "Tasks from your teacher"
   },
   "CTA": {
     "title": "Build your own course",
@@ -222,7 +224,10 @@
     "title": "My profile",
     "statsLabel": "Your progress",
     "coursesSaved": "Saved courses",
-    "coursesOwn": "My courses"
+    "coursesOwn": "My courses",
+    "myClasses": "My classes",
+    "noClasses": "You are not in a class yet. If your teacher gave you a code, you can join here.",
+    "joinClass": "Join with a code"
   },
   "NotFound": {
     "title": "Page not found",
@@ -240,6 +245,10 @@
       "intro": {
         "title": "Welcome to your home page!",
         "text": "Let me show you what is on this page. A few short steps follow, and you can close them any time with the X button."
+      },
+      "task": {
+        "title": "A task from your teacher",
+        "text": "Your teacher gave you this task. You can see which lesson it is, how long it takes, and when it is due. If there is a message, press Read aloud to hear it. The big button starts the lesson."
       },
       "continue": {
         "title": "Start your lesson here",
@@ -268,6 +277,14 @@
       "menuMobile": {
         "title": "The menu",
         "text": "With the buttons at the bottom of the screen you can go to the other pages any time. The page you are on is orange."
+      },
+      "classesMenu": {
+        "title": "Classes",
+        "text": "As a teacher, you find your classes here. Create a new class here and see where each student is."
+      },
+      "classesTab": {
+        "title": "Classes",
+        "text": "As a teacher, you find your classes with the Classes button in the bottom bar."
       },
       "help": {
         "title": "Help any time",
@@ -389,6 +406,10 @@
         "title": "Default settings",
         "text": "If you want everything back the way it was at the start, click this button."
       },
+      "classes": {
+        "title": "Your classes",
+        "text": "Here you see which classes you are in. If your teacher gave you a code, type it with the Join with a code button."
+      },
       "bookmarks": {
         "title": "Saved courses",
         "text": "Click this row to open the list of your saved courses. You can save a course with the bookmark button on its card."
@@ -436,6 +457,118 @@
       "intro": {
         "title": "Legal information",
         "text": "Here you can read how we handle your data and what to keep in mind when using the app. If you have a question, the page tells you where to write."
+      }
+    },
+    "classes": {
+      "intro": {
+        "title": "Your classes",
+        "text": "This is where you manage your classes. Create a class, students join it with a code, and you assign courses to them."
+      },
+      "new": {
+        "title": "New class",
+        "text": "Type the class name, for example 6B Maths, and pick a subject if you like. After creating it you get a six-character code."
+      },
+      "list": {
+        "title": "Class cards",
+        "text": "Every class is a card: its name, the number of students and its code. A class where someone is stuck gets a red label and moves to the front."
+      },
+      "menu": {
+        "title": "Classes in the menu",
+        "text": "Only teachers see the Classes menu item. You can come back here from it at any time."
+      },
+      "menuMobile": {
+        "title": "Classes in the menu",
+        "text": "On a phone, the Classes button in the bottom bar brings you back here."
+      }
+    },
+    "classDetail": {
+      "intro": {
+        "title": "The class page",
+        "text": "Here you see where each student is with the assigned courses. Students who are stuck are always at the top, with a short reason."
+      },
+      "code": {
+        "title": "Join code",
+        "text": "Give this six-character code to your students, for example on the board. They type it on their Profile page. The Copy button puts it on the clipboard."
+      },
+      "renew": {
+        "title": "New code",
+        "text": "If the code ended up in the wrong place, get a new one. The old code stops working at once; students who already joined stay in."
+      },
+      "assign": {
+        "title": "Assign a course",
+        "text": "With this button you hand out a course to the whole class or to some students, with a due date and a message."
+      },
+      "tabs": {
+        "title": "Tabs",
+        "text": "Overview shows where everyone is. On Students you set support per student. Assignments lists everything handed out so far."
+      },
+      "picker": {
+        "title": "Which assignment?",
+        "text": "If you assigned several courses, pick the one you want to see here. The red number shows how many are stuck in it."
+      },
+      "stuck": {
+        "title": "Stuck students",
+        "text": "Here you see who is stuck and why: for example they left early or did not allow the microphone. You never see the conversation, only this."
+      },
+      "status": {
+        "title": "Where each student is",
+        "text": "Next to every student you see their status: not started, in progress, done or stuck. The Overdue label means the due date has passed."
+      },
+      "students": {
+        "title": "Students",
+        "text": "All students in the class. Names are shown in short form, for example Lili K."
+      },
+      "support": {
+        "title": "Support",
+        "text": "Press Support to give this student slower speech, a shorter lesson or automatic read-aloud. You can also remove them from the class here."
+      },
+      "assignments": {
+        "title": "Assignments",
+        "text": "One row per assignment: the course, the due date, how many are done and how many are stuck. You can delete it here too."
+      }
+    },
+    "assign": {
+      "intro": {
+        "title": "Assign a course",
+        "text": "You can set four things: the course, who it is for, a due date and a short message. Only the course is required."
+      },
+      "course": {
+        "title": "Which course?",
+        "text": "Pick one of your own courses or one from the library. You see how long each lesson is."
+      },
+      "who": {
+        "title": "For whom?",
+        "text": "Assign it to the whole class, or only to selected students. Then tick their names."
+      },
+      "due": {
+        "title": "Due date",
+        "text": "With a due date, the student sees when it is due. Afterwards you see the Overdue label."
+      },
+      "message": {
+        "title": "Message",
+        "text": "Write a short, encouraging message. The student reads it on their home page and can have it read aloud."
+      },
+      "preview": {
+        "title": "What the student sees",
+        "text": "This card appears exactly like this on the student’s home page. Every change shows on it right away."
+      },
+      "submit": {
+        "title": "Assign",
+        "text": "When everything looks right, press Assign. Students see the task straight away."
+      }
+    },
+    "join": {
+      "intro": {
+        "title": "Join a class",
+        "text": "Here you can join your teacher’s class. You need a code from your teacher for this."
+      },
+      "code": {
+        "title": "Type the code",
+        "text": "The code has six letters and numbers, for example ABC234. Type it here and press Join. If you mistype it, no problem, just try again."
+      },
+      "classes": {
+        "title": "Your classes",
+        "text": "Here you see which classes you are in and who your teacher is. If you do not need one any more, press Leave."
       }
     }
   },
@@ -539,5 +672,150 @@
     "saved": "Saved",
     "error": "Could not save. Please try again!",
     "reset": "Default settings"
+  },
+  "Classes": {
+    "title": "My classes",
+    "lead": "Create a class, give your students the code, and follow where each of them is.",
+    "sidebarLabel": "Your classes",
+    "stuckCount": "{count, plural, one {# student is stuck} other {# students are stuck}}",
+    "allAndNew": "All classes",
+    "empty": "You have no classes yet. Type a name above for your first one: students join it with a six-character code.",
+    "needsAttention": "{count} stuck",
+    "allGood": "All good",
+    "students": "{count, plural, one {# student} other {# students}}",
+    "open": "Open",
+    "nameRequired": "Give the class a name, for example: 6B Maths.",
+    "createError": "The class could not be created. Please try again!",
+    "newName": "New class name",
+    "newNamePlaceholder": "for example 6B Maths",
+    "newSubject": "Subject (optional)",
+    "noSubject": "Not set",
+    "creating": "Creating…",
+    "create": "Create class",
+    "cancel": "Cancel",
+    "actionError": "That did not work. Please try again!"
+  },
+  "ClassDetail": {
+    "back": "My classes",
+    "students": "{count, plural, one {# student} other {# students}}",
+    "assign": "Assign a course",
+    "tabsLabel": "Parts of the class",
+    "tab": {
+      "overview": "Overview",
+      "students": "Students",
+      "assignments": "Assignments"
+    },
+    "noStudents": "No students yet. Give them the code: {code}. They type it on their Profile page with the “Join with a code” button.",
+    "noAssignments": "You have not assigned a course to this class yet.",
+    "pickerLabel": "Which assignment you are looking at",
+    "due": "Due {date}",
+    "noDue": "No due date",
+    "doneCount": "Done: {done} / {total}",
+    "stuckTitle": "{count, plural, one {# student is} other {# students are}} stuck on “{course}”.",
+    "stuckHint": "It is worth asking them what happened. They can try again from their home page.",
+    "statusListLabel": "Where each student is",
+    "studentsLead": "Set the support each student gets in assigned lessons: slower speech, a shorter lesson, or automatic read-aloud.",
+    "deleteClass": "Delete class",
+    "deleteClassHint": "Memberships and assignments are deleted too. The courses stay.",
+    "deleteClassQuestion": "Delete this class?",
+    "deleteClassConfirm": "Yes, delete it",
+    "forEveryone": "Whole class",
+    "forSome": "{count, plural, one {# student} other {# students}}",
+    "deleteAssignment": "Delete",
+    "deleteAssignmentQuestion": "Delete this assignment?",
+    "deleteAssignmentConfirm": "Yes, delete it",
+    "codeLabel": "Join code",
+    "copied": "Copied",
+    "copy": "Copy",
+    "renewQuestion": "Get a new code? The old one stops working right away.",
+    "renewConfirm": "Yes, new code",
+    "cancel": "Cancel",
+    "renew": "New code",
+    "supportSlower": "Slower speech",
+    "supportShorterShort": "{minutes}-minute lesson",
+    "supportAutoRead": "Automatic read-aloud",
+    "supportNone": "No extra support",
+    "supportButton": "Support",
+    "supportSlowerHint": "The tutor speaks at a calmer pace.",
+    "supportShorter": "Shorter lesson",
+    "supportShorterHint": "The lesson ends by itself after this many minutes.",
+    "supportShorterOff": "Original length",
+    "supportAutoReadHint": "Tips and your message are read aloud by themselves.",
+    "saved": "Saved",
+    "saveError": "Could not save. Please try again!",
+    "remove": "Remove from class",
+    "removeQuestion": "Remove {name}?",
+    "removeConfirm": "Yes, remove"
+  },
+  "Status": {
+    "stuck": "Stuck",
+    "inProgress": "In progress",
+    "notStarted": "Not started",
+    "done": "Done",
+    "late": "Overdue",
+    "left": "Left after {minutes, plural, one {# minute} other {# minutes}}",
+    "micDenied": "Did not allow the microphone",
+    "connection": "The connection broke",
+    "learningNow": "Learning right now",
+    "progress": "{minutes} / {total} min",
+    "doneOn": "Done: {date}",
+    "stuckCount": "{count} stuck"
+  },
+  "Task": {
+    "messageSpeech": "A message from {teacher}: {message}",
+    "due": "Due {date}",
+    "tryAgain": "Try again",
+    "continue": "Continue",
+    "start": "Start lesson",
+    "eyebrow": "Task · {teacher}",
+    "minutes": "{count} min",
+    "readMessage": "Read aloud",
+    "stuckEncourage": "It is fine that it did not work last time. Just start again!",
+    "done": "Done! Well done."
+  },
+  "Assign": {
+    "title": "Assign a course",
+    "heading": "Assign to {name}",
+    "lead": "Pick a course, choose who it is for, and add a short message if you like. On the right you see what the student will see.",
+    "courseRequired": "Pick a course.",
+    "pickRequired": "Pick at least one student.",
+    "saveError": "The course could not be assigned. Please try again!",
+    "noCourses": "There are no courses to assign yet. Build one on the New course page.",
+    "course": "Which course?",
+    "ownCourses": "My courses",
+    "libraryCourses": "Course library",
+    "minutes": "{count} min",
+    "who": "For whom?",
+    "everyone": "The whole class ({count, plural, one {# student} other {# students}})",
+    "some": "Selected students",
+    "due": "Due date (optional)",
+    "dueHint": "The student sees on their home page when it is due.",
+    "message": "Message to the students (optional)",
+    "messagePlaceholder": "Feel free to ask if something is not clear!",
+    "messageHint": "{left} characters left. Students can have it read aloud.",
+    "cancel": "Cancel",
+    "saving": "Assigning…",
+    "submit": "Assign",
+    "previewLabel": "Preview: what the student sees",
+    "preview": "What the student sees"
+  },
+  "Join": {
+    "title": "Join a class",
+    "lead": "Type the code you got from your teacher. Then you will see your tasks on the home page.",
+    "invalidCode": "That code is not right. Check it once more and try again!",
+    "ownClass": "This is your own class, you do not need to join it.",
+    "tooMany": "You have tried many times. Wait a little, or ask your teacher for the code again.",
+    "error": "Something went wrong. Please try again!",
+    "codeLabel": "Your teacher’s code",
+    "codeHint": "Six letters and numbers, for example ABC234. Small or capital letters both work.",
+    "joining": "Joining…",
+    "join": "Join",
+    "joined": "Done! You are now in this class: {name} ({teacher}).",
+    "toHome": "Go to the home page",
+    "myClasses": "Your classes",
+    "noClasses": "You are not in a class yet.",
+    "leave": "Leave",
+    "leaveQuestion": "Leave {name}?",
+    "leaveConfirm": "Yes, leave"
   }
 }

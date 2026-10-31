@@ -68,7 +68,7 @@ const Row = ({
  */
 const ComfortSettings = () => {
   const t = useTranslations("Comfort");
-  const { settings, update } = useComfort();
+  const { own: settings, update } = useComfort();
   const [status, setStatus] = useState<"idle" | "saved" | "error">("idle");
   const timer = useRef<number | undefined>(undefined);
   const sizeRefs = useRef<(HTMLButtonElement | null)[]>([]);

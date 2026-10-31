@@ -55,7 +55,16 @@ interface LessonCallInput {
   voice: string;
   subject: string;
   topic: string;
+  /** Lesson length; the call ends by itself when it is up */
+  minutes: number;
+  /** Teacher's "slower speech" support for this student */
+  slower?: boolean;
 }
+
+/** ElevenLabs speed for "slower speech" (1 = normal; the API accepts 0.7 to 1.2) */
+const SLOWER_SPEED = 0.85;
+/** A little extra so the tutor can say goodbye instead of being cut off */
+const GOODBYE_SECONDS = 30;
 
 /** Picks the saved assistant for the lesson language and fills in the lesson details. */
 export const buildLessonCall = ({
@@ -63,6 +72,8 @@ export const buildLessonCall = ({
   voice,
   subject,
   topic,
+  minutes,
+  slower = false,
 }: LessonCallInput): { assistantId: string; overrides: AssistantOverrides } => {
   const lang = isLessonLanguage(language) ? language : "hu";
   const gender = voice === "male" ? "male" : "female";
@@ -80,7 +91,10 @@ export const buildLessonCall = ({
         provider: "11labs",
         voiceId: voices[lang][gender],
         model: VOICE_MODEL,
+        ...(slower && { speed: SLOWER_SPEED }),
       },
+      // The lesson length used to be shown only; now the call really ends
+      maxDurationSeconds: Math.round(Math.min(60, Math.max(1, minutes)) * 60) + GOODBYE_SECONDS,
     },
   };
 };

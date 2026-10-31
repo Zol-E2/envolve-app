@@ -12,3 +12,15 @@ declare module "next-intl" {
     Messages: typeof messages;
   }
 }
+
+/**
+ * Extra claims in the Clerk session token (Clerk dashboard → Sessions →
+ * Customize session token): {"app_role": "{{user.public_metadata.role}}"}.
+ * Read by the middleware, server code and the Supabase policies. Named
+ * app_role because "role" is already used by Supabase.
+ */
+declare global {
+  interface CustomJwtSessionClaims {
+    app_role?: string | null;
+  }
+}

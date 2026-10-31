@@ -30,6 +30,7 @@ export interface TourStep {
 export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
   home: [
     { key: "intro" },
+    { key: "task", target: "home-task" },
     { key: "continue", target: "home-continue" },
     { key: "recent", target: "home-recent" },
     { key: "week", target: "home-week" },
@@ -37,6 +38,9 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
     { key: "popular", target: "home-popular", side: "top" },
     { key: "menu", target: "nav-menu", side: "bottom" },
     { key: "menuMobile", target: "nav-tabbar", side: "top" },
+    // Teachers only: the menu item is hidden for students, so this is skipped
+    { key: "classesMenu", target: "nav-classes", side: "bottom" },
+    { key: "classesTab", target: "tab-classes", side: "top" },
     { key: "help", target: "nav-help", side: "bottom", align: "end" },
   ],
   courses: [
@@ -73,6 +77,7 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
     { key: "motion", target: "comfort-motion" },
     { key: "sample", target: "comfort-sample" },
     { key: "reset", target: "comfort-reset", align: "end" },
+    { key: "classes", target: "profile-classes" },
     { key: "bookmarks", target: "profile-bookmarks" },
     { key: "recent", target: "profile-recent" },
     { key: "courses", target: "profile-courses" },
@@ -92,6 +97,41 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
   ],
   notFound: [{ key: "home", target: "notfound-home" }],
   legal: [{ key: "intro" }],
+  classes: [
+    { key: "intro" },
+    { key: "new", target: "classes-new" },
+    { key: "list", target: "classes-list" },
+    { key: "menu", target: "nav-classes", side: "bottom" },
+    { key: "menuMobile", target: "tab-classes", side: "top" },
+  ],
+  // One tour for all three tabs: steps for the other tabs are skipped
+  classDetail: [
+    { key: "intro" },
+    { key: "code", target: "class-code" },
+    { key: "renew", target: "class-code-renew", align: "end" },
+    { key: "assign", target: "class-assign", align: "end" },
+    { key: "tabs", target: "class-tabs" },
+    { key: "picker", target: "class-picker" },
+    { key: "stuck", target: "class-stuck" },
+    { key: "status", target: "class-status", side: "top" },
+    { key: "students", target: "class-students" },
+    { key: "support", target: "class-support", align: "end" },
+    { key: "assignments", target: "class-assignments" },
+  ],
+  assign: [
+    { key: "intro" },
+    { key: "course", target: "assign-course" },
+    { key: "who", target: "assign-who" },
+    { key: "due", target: "assign-due" },
+    { key: "message", target: "assign-message" },
+    { key: "preview", target: "assign-preview" },
+    { key: "submit", target: "assign-submit", side: "top", align: "end" },
+  ],
+  join: [
+    { key: "intro" },
+    { key: "code", target: "join-code" },
+    { key: "classes", target: "join-classes", side: "top" },
+  ],
 };
 
 /**
@@ -109,4 +149,8 @@ export const TOUR_AUTO_START: Record<TourId, boolean> = {
   notFound: false,
   // Legal pages are read on purpose; the tip only explains where to get help
   legal: false,
+  classes: true,
+  classDetail: true,
+  assign: true,
+  join: true,
 };

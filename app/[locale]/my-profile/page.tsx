@@ -19,6 +19,8 @@ import { Bookmark, Check, GraduationCap } from "lucide-react";
 import CourseList from "@/components/CourseList";
 import PageTour from "@/components/onboarding/PageTour";
 import ComfortSettings from "@/components/ComfortSettings";
+import { getMyClasses } from "@/lib/actions/class.actions";
+import { Link } from "@/i18n/navigation";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Metadata");
@@ -32,12 +34,13 @@ const Profile = async () => {
   if (!user) redirect({ href: "/sign-in", locale });
 
   // Independent queries run in parallel instead of one after another
-  const [t, courses, sessionHistory, bookmarkedCourses, lessonCount] = await Promise.all([
+  const [t, courses, sessionHistory, bookmarkedCourses, lessonCount, myClasses] = await Promise.all([
     getTranslations("Profile"),
     getUserCourses(user.id),
     getUserSessions(user.id),
     getBookmarkedCourses(user.id),
     getLessonCount(user.id),
+    getMyClasses(),
   ]);
 
   const stats = [
@@ -83,6 +86,32 @@ const Profile = async () => {
         <div className="profile-lists">
           {/* Recent lessons open by default, so the page never looks empty */}
           <Accordion type="multiple" defaultValue={["recent"]}>
+            <AccordionItem value="classes" data-tour="profile-classes">
+              <AccordionTrigger className="text-2xl font-bold max-sm:text-xl">
+                {t("myClasses")} ({myClasses.length})
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="course-list">
+                  {myClasses.length === 0 ? (
+                    <p className="text-lg">{t("noClasses")}</p>
+                  ) : (
+                    <ul className="flex flex-col">
+                      {myClasses.map((c) => (
+                        <li key={c.id} className="course-row">
+                          <span className="flex min-w-0 flex-1 flex-col">
+                            <span className="text-lg leading-snug font-bold">{c.name}</span>
+                            <span className="text-[0.9375rem] text-muted-foreground">{c.teacherName}</span>
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  <Link href="/join" className="btn-soft w-fit">
+                    {t("joinClass")}
+                  </Link>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
             <AccordionItem value="bookmarks" data-tour="profile-bookmarks">
               <AccordionTrigger className="text-2xl font-bold max-sm:text-xl">
                 {t("bookmarkedCourses")} ({bookmarkedCourses.length})

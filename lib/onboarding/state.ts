@@ -21,6 +21,11 @@ export const TOUR_IDS = [
   "signIn",
   "notFound",
   "legal",
+  // Teacher view (students only ever see "join")
+  "classes",
+  "classDetail",
+  "assign",
+  "join",
 ] as const;
 export type TourId = (typeof TOUR_IDS)[number];
 

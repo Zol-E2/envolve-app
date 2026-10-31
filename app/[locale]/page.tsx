@@ -15,6 +15,8 @@ import { Link, redirect } from "@/i18n/navigation";
 import { readOnboarding } from "@/lib/onboarding/state";
 import { cn } from "@/lib/utils";
 import PageTour from "@/components/onboarding/PageTour";
+import TaskCard from "@/components/classes/TaskCard";
+import { getMyTasks } from "@/lib/actions/class.actions";
 
 const WEEKDAYS = ["d0", "d1", "d2", "d3", "d4", "d5", "d6"] as const;
 
@@ -30,13 +32,14 @@ const Page = async () => {
 
   const week = currentWeek();
   // Independent queries run in parallel instead of one after another
-  const [t, tSubjects, courses, recent, lessonTimes, user] = await Promise.all([
+  const [t, tSubjects, courses, recent, lessonTimes, user, tasks] = await Promise.all([
     getTranslations("Home"),
     getTranslations("Subjects"),
     getAllCourses({ limit: 3 }),
     getUserSessions(userId!, 6),
     getLessonTimes(userId!, week.since),
     currentUser(),
+    getMyTasks().catch(() => []),
   ]);
 
   // New users see the short welcome introduction once before the home page
@@ -59,6 +62,26 @@ const Page = async () => {
           {last ? t("subtitleContinue") : t("subtitleStart")}
         </p>
       </section>
+
+      {/* Tasks from the teacher come before anything else */}
+      {tasks.length > 0 && (
+        <section className="task-grid" aria-label={t("tasksLabel")}>
+          {tasks.slice(0, 4).map((task, index) => (
+            <TaskCard
+              key={task.assignmentId}
+              assignmentId={task.assignmentId}
+              teacherName={task.teacherName}
+              course={task.course}
+              minutes={task.minutes}
+              dueDate={task.dueDate}
+              message={task.message}
+              progress={task.progress}
+              autoRead={!!task.support.autoRead && index === 0}
+              tour={index === 0 ? "home-task" : undefined}
+            />
+          ))}
+        </section>
+      )}
 
       {/* The one main action on this page */}
       {last ? (

@@ -3,6 +3,7 @@ import createMiddleware from "next-intl/middleware";
 import { NextResponse } from "next/server";
 import { routing } from "@/i18n/routing";
 import { withPrimaryLanguage } from "@/i18n/primaryLanguage";
+import { canTeach, readRole } from "@/lib/roles";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -23,11 +24,16 @@ const isPublic = createRouteMatcher([
   "/monitoring(.*)",
 ]);
 
+// Teacher pages: only for the teacher and admin roles (see lib/roles.ts).
+// The pages, server actions and database policies check again.
+const isTeacherPage = createRouteMatcher(["/:locale(hu|en)/classes(.*)", "/classes(.*)"]);
+
 /**
  * Middleware chain: Clerk wraps next-intl.
  *
  * 1. clerkMiddleware refreshes the auth session and exposes auth() downstream,
- *    and sends signed-out visitors of private pages to the sign-in page.
+ *    sends signed-out visitors of private pages to the sign-in page, and
+ *    keeps students out of the teacher pages.
  * 2. Inside its handler we return the next-intl response (locale detection,
  *    redirect to /{locale}/..., NEXT_LOCALE cookie). Clerk merges its own
  *    headers into that response, so locale redirects are never clobbered.
@@ -36,14 +42,18 @@ const isPublic = createRouteMatcher([
  */
 export default clerkMiddleware(async (auth, request) => {
   if (!isPublic(request)) {
-    const { userId } = await auth();
+    const { userId, sessionClaims } = await auth();
+    const { pathname, search } = request.nextUrl;
+    const locale = /^\/en(\/|$)/.test(pathname) ? "en" : "hu";
     if (!userId) {
       // To the sign-in page in their language, and back here afterwards
-      const { pathname, search } = request.nextUrl;
-      const locale = /^\/en(\/|$)/.test(pathname) ? "en" : "hu";
       const signIn = new URL(`/${locale}/sign-in`, request.url);
       signIn.searchParams.set("redirect_url", `${pathname}${search}`);
       return NextResponse.redirect(signIn);
+    }
+    // A student who opens a teacher page lands on their own home page
+    if (isTeacherPage(request) && !canTeach(readRole(sessionClaims?.app_role))) {
+      return NextResponse.redirect(new URL(`/${locale}`, request.url));
     }
   }
   if (skipIntl(request)) return;

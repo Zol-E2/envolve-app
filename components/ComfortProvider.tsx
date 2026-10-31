@@ -23,9 +23,14 @@ import {
 } from "@/lib/comfort";
 
 interface ComfortContextValue {
+  /** In effect right now (the teacher's auto-read support included) */
   settings: ComfortSettings;
+  /** The student's own choices, for the profile switches */
+  own: ComfortSettings;
   /** Changes some settings; applied at once and saved in the background */
   update: (patch: Partial<ComfortSettings>) => Promise<void>;
+  /** A teacher's "read aloud" support turns automatic reading on for a page */
+  setAutoReadBoost: (on: boolean) => void;
 }
 
 const ComfortContext = createContext<ComfortContextValue | null>(null);
@@ -100,8 +105,27 @@ const ComfortProvider = ({ children }: { children: ReactNode }) => {
     [owner, user]
   );
 
-  const value = useMemo(() => ({ settings, update }), [settings, update]);
+  const [boost, setAutoReadBoost] = useState(false);
+  const value = useMemo(
+    () => ({
+      settings: boost && !settings.autoRead ? { ...settings, autoRead: true } : settings,
+      own: settings,
+      update,
+      setAutoReadBoost,
+    }),
+    [settings, update, boost]
+  );
   return <ComfortContext.Provider value={value}>{children}</ComfortContext.Provider>;
+};
+
+/** Renders nothing; while on screen, tips and messages read themselves */
+export const AutoReadBoost = () => {
+  const { setAutoReadBoost } = useComfort();
+  useEffect(() => {
+    setAutoReadBoost(true);
+    return () => setAutoReadBoost(false);
+  }, [setAutoReadBoost]);
+  return null;
 };
 
 export default ComfortProvider;
