@@ -65,6 +65,10 @@ Every text goes into both `messages/hu.json` and `messages/en.json`
   input (`lib/validation.ts`).
 - Every table has row level security. A change to a policy goes into a new
   file under `supabase/migrations/`, written so it is safe to run twice.
+- Functions that run with owner rights (`security definer`) live in the
+  `private` schema. When the app calls one, the `public` function is a thin
+  `security invoker` wrapper around it (see 20261104_advisor_fixes.sql).
+  This keeps the Supabase Security Advisor free of warnings.
 - Store as little as possible. Teachers see lesson status, never the
   conversations.
 
