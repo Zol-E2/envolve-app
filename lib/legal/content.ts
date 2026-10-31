@@ -74,7 +74,7 @@ export const LEGAL_CONTENT: Record<LegalDocId, Record<"hu" | "en", LegalDocument
             "Supabase – az adatbázis, amelyben a kurzusok és a tanulási adatok vannak",
             "Vapi, valamint az általa használt beszédfelismerő (Soniox), nyelvi modell (OpenAI) és hangszolgáltató (ElevenLabs) – a hangos órák",
             "Sentry – hibakövetés",
-            "Vercel – a weboldal üzemeltetése és névtelen látogatottsági statisztika (Vercel Web Analytics)",
+            "Vercel – a weboldal üzemeltetése és névtelen látogatottsági statisztika és sebességmérés (Vercel Web Analytics, Speed Insights)",
           ],
         },
         {
@@ -92,7 +92,7 @@ export const LEGAL_CONTENT: Record<LegalDocId, Record<"hu" | "en", LegalDocument
         {
           heading: "Sütik és a böngésző tárhelye",
           paragraphs: [
-            "Csak a működéshez szükséges sütiket használjuk: a bejelentkezéshez (Clerk) és a választott nyelv megjegyzéséhez. Kijelentkezve a böngésző tárhelyén jegyezzük meg, hogy láttad-e már a tippeket. A látogatottságot a Vercel Web Analytics számolja süti nélkül: csak azt látjuk, hány megtekintése volt egy oldalnak, és nagyjából milyen eszközről és országból, de azt nem, hogy ki nézte meg. Hirdetési vagy követő sütit nem használunk.",
+            "Csak a működéshez szükséges sütiket használjuk: a bejelentkezéshez (Clerk) és a választott nyelv megjegyzéséhez. Kijelentkezve a böngésző tárhelyén jegyezzük meg, hogy láttad-e már a tippeket. A látogatottságot a Vercel Web Analytics számolja süti nélkül: csak azt látjuk, hány megtekintése volt egy oldalnak, és nagyjából milyen eszközről és országból, de azt nem, hogy ki nézte meg. A Vercel Speed Insights ugyanígy, süti nélkül méri, milyen gyorsan töltődnek be az oldalak. Hirdetési vagy követő sütit nem használunk.",
           ],
         },
         {
@@ -167,7 +167,7 @@ export const LEGAL_CONTENT: Record<LegalDocId, Record<"hu" | "en", LegalDocument
             "Supabase – the database that holds courses and learning data",
             "Vapi, and the speech recognition (Soniox), language model (OpenAI) and voice (ElevenLabs) providers it uses – voice lessons",
             "Sentry – error tracking",
-            "Vercel – website hosting and anonymous visitor statistics (Vercel Web Analytics)",
+            "Vercel – website hosting and anonymous visitor and speed statistics (Vercel Web Analytics, Speed Insights)",
           ],
         },
         {
@@ -185,7 +185,7 @@ export const LEGAL_CONTENT: Record<LegalDocId, Record<"hu" | "en", LegalDocument
         {
           heading: "Cookies and browser storage",
           paragraphs: [
-            "We only use cookies needed for the app to work: for signing in (Clerk) and for remembering your language. When signed out, your browser storage remembers whether you have seen the tips. Visits are counted by Vercel Web Analytics without cookies: we only see how many times a page was viewed and roughly from what kind of device and country, never who viewed it. We do not use advertising or tracking cookies.",
+            "We only use cookies needed for the app to work: for signing in (Clerk) and for remembering your language. When signed out, your browser storage remembers whether you have seen the tips. Visits are counted by Vercel Web Analytics without cookies: we only see how many times a page was viewed and roughly from what kind of device and country, never who viewed it. Vercel Speed Insights measures how fast pages load, in the same way, without cookies. We do not use advertising or tracking cookies.",
           ],
         },
         {
