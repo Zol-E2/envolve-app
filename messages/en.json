@@ -282,6 +282,14 @@
         "title": "Your earlier lessons",
         "text": "Here are the courses you have already learned with. Press any row and the lesson opens again."
       },
+      "week": {
+        "title": "This week",
+        "text": "Every day you learned gets a green tick. Today has an orange ring. It is fine to skip a day: your ticks stay."
+      },
+      "create": {
+        "title": "Your own course",
+        "text": "Here you can build your own course. You decide what to talk about with the tutor. You only answer four short questions."
+      },
       "classes": {
         "title": "Your classes",
         "text": "Here you see which classes you are in and who your teacher is. This box is always here on your home page."
@@ -290,17 +298,9 @@
         "title": "Join with a code",
         "text": "If your teacher gave you a code, type it here and press Join. The code has six letters and numbers, for example ABC234."
       },
-      "week": {
-        "title": "This week",
-        "text": "Every day you learned gets a green tick. Today has an orange ring. It is fine to skip a day: your ticks stay."
-      },
       "howto": {
         "title": "How a lesson goes",
-        "text": "This box shows in three steps how a lesson goes. Once you have had a lesson, you will find a button here to build your own course."
-      },
-      "create": {
-        "title": "Your own course",
-        "text": "Here you can build your own course. You decide what to talk about with the tutor. You only answer four short questions."
+        "text": "This box shows in three steps how a lesson goes. After your first lesson it disappears, and you see your earlier lessons instead."
       },
       "popular": {
         "title": "Popular courses",

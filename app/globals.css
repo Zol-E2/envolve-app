@@ -363,6 +363,10 @@
     @apply flex items-start gap-3 text-lg leading-snug;
     counter-increment: step;
   }
+  /* Wide screens: the three steps side by side */
+  .howto-steps-row {
+    @apply md:grid md:grid-cols-3 md:gap-6;
+  }
   .howto-steps li::before {
     @apply flex size-8 shrink-0 items-center justify-center rounded-full bg-turn-soft text-base font-bold text-turn-deep;
     content: counter(step);

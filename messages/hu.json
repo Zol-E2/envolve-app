@@ -282,6 +282,14 @@
         "title": "Korábbi óráid",
         "text": "Itt látod a kurzusokat, amikkel már tanultál. Kattints bármelyik sorra, és újra megnyílik az óra."
       },
+      "week": {
+        "title": "Ezen a héten",
+        "text": "Minden nap, amikor tanultál, zöld pipát kap. A mai napot narancssárga karika jelöli. Nem baj, ha kimarad egy nap: a pipák megmaradnak."
+      },
+      "create": {
+        "title": "Saját kurzus",
+        "text": "Itt készíthetsz saját kurzust. Te döntöd el, miről beszélgess a tanárral. Négy rövid kérdésre kell válaszolnod."
+      },
       "classes": {
         "title": "Az osztályaid",
         "text": "Itt látod, melyik osztályokban vagy benne, és ki a tanárod. Ez a doboz mindig itt van a kezdőlapon."
@@ -290,17 +298,9 @@
         "title": "Csatlakozás kóddal",
         "text": "Ha a tanárod adott egy kódot, írd be ide, és nyomd meg a Csatlakozom gombot. A kód hat betűből és számból áll, például ABC234."
       },
-      "week": {
-        "title": "Ezen a héten",
-        "text": "Minden nap, amikor tanultál, zöld pipát kap. A mai napot narancssárga karika jelöli. Nem baj, ha kimarad egy nap: a pipák megmaradnak."
-      },
       "howto": {
         "title": "Így zajlik egy óra",
-        "text": "Ez a doboz három lépésben megmutatja, hogyan zajlik egy óra. Ha már volt órád, a helyén egy gombot találsz a saját kurzus készítéséhez."
-      },
-      "create": {
-        "title": "Saját kurzus",
-        "text": "Itt készíthetsz saját kurzust. Te döntöd el, miről beszélgess a tanárral. Négy rövid kérdésre kell válaszolnod."
+        "text": "Ez a doboz három lépésben megmutatja, hogyan zajlik egy óra. Az első órád után eltűnik, és a helyén a korábbi óráidat látod."
       },
       "popular": {
         "title": "Népszerű kurzusok",

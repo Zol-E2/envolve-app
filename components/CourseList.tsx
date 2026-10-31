@@ -8,6 +8,8 @@ interface CourseListProps {
   title: string;
   courses?: Course[];
   classNames?: string;
+  /** Rows side by side in two columns on wide screens */
+  columns?: boolean;
   /** data-tour target for the page tour */
   tour?: string;
   /** Shown instead of the list when there are no courses */
@@ -23,6 +25,7 @@ const CourseList = ({
   title,
   courses,
   classNames,
+  columns = false,
   tour,
   emptyMessage,
   emptyAction,
@@ -45,7 +48,7 @@ const CourseList = ({
           )}
         </div>
       ) : (
-        <ul className="flex flex-col">
+        <ul className={cn("flex flex-col", columns && "lg:grid lg:grid-cols-2 lg:gap-x-8")}>
           {courses.map(({ id, name, subject, duration, language }, index) => (
             <li key={`${id}-${index}`}>
               <Link href={`/courses/${id}`} className="course-row group">

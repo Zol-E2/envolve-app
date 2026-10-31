@@ -158,13 +158,14 @@ const Page = async () => {
         </section>
       )}
 
-      {/* Two stacks of cards, arranged so both sides end at about the same
-          height whether a student has many lessons or none (one column on phones) */}
+      {/* Recent lessons across the full width, in two columns on a desktop */}
+      {earlier.length > 0 && (
+        <CourseList title={t("recentCourses")} courses={earlier} tour="home-recent" columns />
+      )}
+
+      {/* Two stacks of about the same height (one column on phones) */}
       <section className="home-board">
         <div className="home-stack">
-          {earlier.length > 0 && (
-            <CourseList title={t("recentCourses")} courses={earlier} tour="home-recent" />
-          )}
           {/* Rewards showing up, never punishes a missed day: no streak to lose */}
           <article className="card flex flex-col gap-4" aria-labelledby="week-title" data-tour="home-week">
             <h2 id="week-title" className="text-2xl font-bold max-sm:text-xl">
@@ -188,27 +189,27 @@ const Page = async () => {
             </ol>
             <p className="text-base text-muted-foreground">{t("weekSummary", { count: activeCount })}</p>
           </article>
-          {/* New students: how a lesson goes, in three steps */}
-          {!last && (
-            <article className="card flex flex-col gap-4" aria-labelledby="howto-title" data-tour="home-howto">
-              <h2 id="howto-title" className="text-2xl font-bold max-sm:text-xl">
-                {t("howToTitle")}
-              </h2>
-              <ol className="howto-steps">
-                <li>{tWelcome("lesson.step1")}</li>
-                <li>{tWelcome("lesson.step2")}</li>
-                <li>{tWelcome("lesson.step3")}</li>
-              </ol>
-            </article>
-          )}
+          <CTA />
         </div>
         <div className="home-stack">
           {/* Always here, so joining a class never has to be looked for */}
           <HomeClassesCard classes={myClasses} />
-          {/* The start card above already offers building a course to new students */}
-          {last && <CTA />}
         </div>
       </section>
+
+      {/* New students: how a lesson goes, as three steps in a row */}
+      {!last && (
+        <article className="card flex flex-col gap-4" aria-labelledby="howto-title" data-tour="home-howto">
+          <h2 id="howto-title" className="text-2xl font-bold max-sm:text-xl">
+            {t("howToTitle")}
+          </h2>
+          <ol className="howto-steps howto-steps-row">
+            <li>{tWelcome("lesson.step1")}</li>
+            <li>{tWelcome("lesson.step2")}</li>
+            <li>{tWelcome("lesson.step3")}</li>
+          </ol>
+        </article>
+      )}
 
       <section className="flex flex-col gap-4">
         <h2 className="text-2xl font-bold max-sm:text-xl">{t("popularCourses")}</h2>
