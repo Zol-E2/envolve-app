@@ -17,7 +17,7 @@ const TeacherHome = async ({ name, overview }: { name: string; overview: Teacher
 
   return (
     <main>
-      <PageTour id="teacherHome" />
+      <PageTour id="teacherHome" intro="helpIntroAdult" />
 
       <section className="flex flex-col gap-1">
         <h1>{t("hello", { name })}</h1>

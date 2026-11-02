@@ -22,7 +22,7 @@ Before building or changing a page, answer these:
 3. If two roles do different things there, build two versions of the page.
    Do not build one shared page with parts hidden.
 4. Give each role its own tips, written for that role: short and simple for
-   children, brief and to the point for adults.
+   children, brief and only where needed for adults (see section 2).
 5. Check permissions in the page, in the server action and in the database
    policy (RLS). Hiding a menu item is not enough.
 
@@ -47,11 +47,22 @@ on their own versions of `/` and `/my-profile`.
 
 ## 2. Tips and read-aloud on every page
 
-Every element a user can see or use gets a tip (`lib/onboarding/tours.ts`,
-texts under `Tour.<page>` in `messages/*.json`). Students are children, so
-nothing is left for them to guess. Every tip is recorded for read-aloud with
-`npm run speech:generate`; `npm run check:speech` lists the texts that have
-no recording yet.
+Tips live in `lib/onboarding/tours.ts`, their texts under `Tour.<page>` in
+`messages/*.json`.
+
+- Tips never open by themselves. They run step by step when the user
+  presses "Segítség" (Help). The only exception: on the home page, one
+  bubble, once per account, points at the Help button (`intro` on
+  `<PageTour>`). Children with learning difficulties should not be
+  interrupted by bubbles they did not ask for.
+- Students: every element they can see or use gets a tip. They are
+  children, so nothing is left for them to guess.
+- Teachers and admins: only what really needs explaining (statuses, what
+  students see, privacy, irreversible actions). Obvious buttons get none.
+- The menu and the Help button are explained on the home page only. The
+  sign-in page has no tips.
+- Every tip is recorded for read-aloud with `npm run speech:generate`;
+  `npm run check:speech` lists the texts that have no recording yet.
 
 ## 3. Two languages, always together
 

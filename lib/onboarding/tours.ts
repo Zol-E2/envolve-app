@@ -8,7 +8,7 @@ export interface TourStep {
   target?: string;
   /**
    * When the target is missing, show the bubble centred instead of skipping
-   * the step (for elements that load late, e.g. Clerk's sign-in box)
+   * the step (for elements that load late)
    */
   centerIfMissing?: boolean;
   side?: Side;
@@ -18,10 +18,17 @@ export interface TourStep {
 /**
  * Tips for every page except the welcome screen, which explains itself.
  *
- * Rule for this project: every part of a page a student can see or use gets
- * its own tip, written in short, plain sentences, and recorded for read-aloud
- * (npm run speech:generate). Our users are children with learning
- * difficulties, so nothing should be left for them to guess.
+ * Rules for this project (AGENTS.md):
+ * - Tips never open by themselves. They run when the user presses "Segítség"
+ *   (Help). The only exception is one bubble on the home page, once per
+ *   account, that points at the Help button (helpIntro / helpIntroAdult).
+ * - Students: every part of a page they can see or use gets its own tip,
+ *   in short, plain sentences. Our users are children with learning
+ *   difficulties, so nothing should be left for them to guess.
+ * - Teachers and admins: only what really needs explaining (statuses, what
+ *   students see, privacy). Obvious buttons get no tip.
+ * - The menu and the Help button are explained on the home page only.
+ * - Every tip is recorded for read-aloud (npm run speech:generate).
  *
  * One control per step keeps each bubble small. Steps whose element is
  * missing or hidden (e.g. the desktop menu on a phone, or an empty list) are
@@ -86,163 +93,69 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
     { key: "account", target: "nav-account", side: "bottom", align: "end" },
   ],
   // Plans page is not live yet. To enable: add "subscription" to TOUR_IDS,
-  // uncomment this and the TOUR_AUTO_START entry, and on the page render
-  // <PageTour id="subscription" /> with data-tour="subscription-plans"
-  // around <PricingTable />. The texts already exist under Tour.subscription.
+  // uncomment this, and on the page render <PageTour id="subscription" />
+  // with data-tour="subscription-plans" around <PricingTable />. The texts
+  // already exist under Tour.subscription.
   // subscription: [
   //   { key: "intro" },
   //   { key: "plans", target: "subscription-plans", centerIfMissing: true, side: "top" },
   // ],
-  signIn: [
-    { key: "box", target: "signin-box", centerIfMissing: true },
-    { key: "language", target: "nav-language", side: "bottom", align: "end" },
-  ],
   notFound: [{ key: "home", target: "notfound-home" }],
   legal: [{ key: "intro" }],
-  classes: [
-    { key: "intro" },
-    { key: "new", target: "classes-new" },
-    { key: "list", target: "classes-list" },
-    { key: "menu", target: "nav-classes", side: "bottom" },
-    { key: "menuMobile", target: "tab-classes", side: "top" },
-  ],
-  // One tour for all three tabs: steps for the other tabs are skipped
+  // Teacher pages: only what needs explaining
+  classes: [{ key: "intro" }],
   classDetail: [
-    { key: "intro" },
     { key: "code", target: "class-code" },
     { key: "link", target: "class-code-link", align: "end" },
     { key: "renew", target: "class-code-renew", align: "end" },
-    { key: "assign", target: "class-assign", align: "end" },
-    { key: "tabs", target: "class-tabs" },
-    { key: "picker", target: "class-picker" },
-    { key: "stuck", target: "class-stuck" },
     { key: "status", target: "class-status", side: "top" },
-    { key: "students", target: "class-students" },
     { key: "support", target: "class-support", align: "end" },
-    { key: "assignments", target: "class-assignments" },
   ],
-  assign: [
-    { key: "intro" },
-    { key: "course", target: "assign-course" },
-    { key: "who", target: "assign-who" },
-    { key: "due", target: "assign-due" },
-    { key: "message", target: "assign-message" },
-    { key: "preview", target: "assign-preview" },
-    { key: "submit", target: "assign-submit", side: "top", align: "end" },
-  ],
+  assign: [{ key: "preview", target: "assign-preview" }],
   join: [
     { key: "intro" },
     { key: "code", target: "join-code" },
     { key: "classes", target: "join-classes", side: "top" },
   ],
-  // Teacher view: short, adult wording (lib/views.ts)
   teacherHome: [
-    { key: "intro" },
-    { key: "actions", target: "teacher-actions" },
     { key: "stuck", target: "teacher-stuck" },
-    { key: "deadlines", target: "teacher-deadlines" },
     { key: "classes", target: "teacher-classes" },
     { key: "menu", target: "nav-menu", side: "bottom" },
     { key: "menuMobile", target: "nav-tabbar", side: "top" },
     { key: "help", target: "nav-help", side: "bottom", align: "end" },
   ],
   library: [
-    { key: "intro" },
-    { key: "new", target: "library-new", align: "end" },
-    { key: "search", target: "library-search" },
-    { key: "own", target: "library-own" },
     { key: "assign", target: "library-assign" },
     { key: "try", target: "library-try" },
   ],
   lessonPreview: [
-    { key: "intro" },
-    { key: "reviewNote", target: "lesson-review-note" },
     { key: "banner", target: "preview-banner" },
-    { key: "assign", target: "preview-assign", align: "end" },
-    { key: "start", target: "lesson-start", side: "top" },
-    { key: "exit", target: "lesson-exit", side: "top" },
+    { key: "reviewNote", target: "lesson-review-note" },
     { key: "report", target: "lesson-report", side: "top", align: "end" },
   ],
   teacherProfile: [
-    { key: "intro" },
     { key: "name", target: "teacher-profile-name" },
-    { key: "account", target: "teacher-profile-account" },
     { key: "comfort", target: "profile-comfort" },
   ],
-  newCourseTeacher: [
-    { key: "intro" },
-    { key: "steps", target: "course-steps" },
-    { key: "read", target: "course-read", side: "top" },
-    { key: "next", target: "course-next", side: "top", align: "end" },
-  ],
-  // Admin view: short, adult wording (lib/views.ts)
+  newCourseTeacher: [{ key: "intro" }],
+  // Admin pages: only what needs explaining
   adminHome: [
-    { key: "intro" },
     { key: "attention", target: "admin-attention" },
     { key: "numbers", target: "admin-numbers" },
-    { key: "log", target: "admin-log" },
     { key: "menu", target: "nav-menu", side: "bottom" },
     { key: "menuMobile", target: "nav-tabbar", side: "top" },
     { key: "help", target: "nav-help", side: "bottom", align: "end" },
   ],
-  adminUsers: [
-    { key: "intro" },
-    { key: "search", target: "admin-user-search" },
-    { key: "list", target: "admin-user-list" },
-    { key: "role", target: "admin-user-role", align: "end" },
-  ],
+  adminUsers: [{ key: "role", target: "admin-user-role", align: "end" }],
   adminCourses: [
     { key: "intro" },
-    { key: "tabs", target: "admin-course-tabs" },
-    { key: "card", target: "admin-course-card" },
     { key: "reports", target: "admin-course-reports" },
     { key: "actions", target: "admin-course-actions", side: "top" },
   ],
-  adminLog: [
-    { key: "intro" },
-    { key: "list", target: "admin-log-list" },
-  ],
-  adminProfile: [
-    { key: "intro" },
-    { key: "security", target: "admin-profile-2fa" },
-    { key: "comfort", target: "profile-comfort" },
-  ],
-  adminPreview: [
-    { key: "intro" },
-    { key: "bar", target: "admin-course-bar" },
-    { key: "start", target: "lesson-start", side: "top" },
-    { key: "exit", target: "lesson-exit", side: "top" },
-  ],
-};
-
-/**
- * Whether the page's tips open by themselves on the first visit. A missing
- * page should just get the student back on track, so its tip waits for "?".
- */
-export const TOUR_AUTO_START: Record<TourId, boolean> = {
-  home: true,
-  courses: true,
-  newCourse: true,
-  lesson: true,
-  profile: true,
-  // subscription: true,
-  signIn: true,
-  notFound: false,
-  // Legal pages are read on purpose; the tip only explains where to get help
-  legal: false,
-  classes: true,
-  classDetail: true,
-  assign: true,
-  join: true,
-  teacherHome: true,
-  library: true,
-  lessonPreview: true,
-  teacherProfile: true,
-  newCourseTeacher: true,
-  adminHome: true,
-  adminUsers: true,
-  adminCourses: true,
-  adminLog: true,
-  adminProfile: true,
-  adminPreview: true,
+  adminLog: [{ key: "intro" }],
+  adminProfile: [{ key: "security", target: "admin-profile-2fa" }],
+  adminPreview: [{ key: "bar", target: "admin-course-bar" }],
+  // The one bubble that opens by itself: on the home page, once per account
+  helpIntro: [{ key: "help", target: "nav-help", side: "bottom", align: "end" }],
+  helpIntroAdult: [{ key: "help", target: "nav-help", side: "bottom", align: "end" }],
 };

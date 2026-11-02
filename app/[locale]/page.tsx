@@ -84,7 +84,7 @@ const Page = async () => {
 
   return (
     <main>
-      <PageTour id="home" />
+      <PageTour id="home" intro="helpIntro" />
 
       <section className="flex flex-col gap-1">
         <h1>{name ? t("hello", { name }) : t("helloNoName")}</h1>

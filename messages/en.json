@@ -480,16 +480,6 @@
         "text": "Each card shows what the plan includes and what it costs. Before choosing a paid plan, talk it over with your parents or your teacher."
       }
     },
-    "signIn": {
-      "box": {
-        "title": "Signing in",
-        "text": "Choose a way to sign in in this box. If you do not have an account yet, you can sign up at the bottom of the box."
-      },
-      "language": {
-        "title": "Language",
-        "text": "Here you can switch between Hungarian and English."
-      }
-    },
     "notFound": {
       "home": {
         "title": "Lost?",
@@ -505,33 +495,13 @@
     "classes": {
       "intro": {
         "title": "Your classes",
-        "text": "This is where you manage your classes. Create a class, students join it with a code, and you assign courses to them."
-      },
-      "new": {
-        "title": "New class",
-        "text": "Type the class name, for example 6B Maths, and pick a subject if you like. After creating it you get a six-character code."
-      },
-      "list": {
-        "title": "Class cards",
-        "text": "Every class is a card: its name, the number of students and its code. A class where someone is stuck gets a red label and moves to the front."
-      },
-      "menu": {
-        "title": "Classes in the menu",
-        "text": "Only teachers see the Classes menu item. You can come back here from it at any time."
-      },
-      "menuMobile": {
-        "title": "Classes in the menu",
-        "text": "On a phone, the Classes button in the bottom bar brings you back here."
+        "text": "This is where you manage your classes. Create one under New class and you get a six-character code. Students join with it, and you assign courses to them."
       }
     },
     "classDetail": {
-      "intro": {
-        "title": "The class page",
-        "text": "Here you see where each student is with the assigned courses. Students who are stuck are always at the top, with a short reason."
-      },
       "code": {
         "title": "Join code",
-        "text": "Give this six-character code to your students, for example on the board. They type it on their Profile page. The Copy button puts it on the clipboard."
+        "text": "Give this six-character code to your students, for example on the board. They type it on their home page. The Copy button puts it on the clipboard."
       },
       "link": {
         "title": "Link for students",
@@ -541,67 +511,19 @@
         "title": "New code",
         "text": "If the code ended up in the wrong place, get a new one. The old code stops working at once; students who already joined stay in."
       },
-      "assign": {
-        "title": "Assign a course",
-        "text": "With this button you hand out a course to the whole class or to some students, with a due date and a message."
-      },
-      "tabs": {
-        "title": "Tabs",
-        "text": "Overview shows where everyone is. On Students you set support per student. Assignments lists everything handed out so far."
-      },
-      "picker": {
-        "title": "Which assignment?",
-        "text": "If you assigned several courses, pick the one you want to see here. The red number shows how many are stuck in it."
-      },
-      "stuck": {
-        "title": "Stuck students",
-        "text": "Here you see who is stuck and why: for example they left early or did not allow the microphone. You never see the conversation, only this."
-      },
       "status": {
         "title": "Where each student is",
         "text": "Next to every student you see their status: not started, in progress, done or stuck. The Overdue label means the due date has passed."
       },
-      "students": {
-        "title": "Students",
-        "text": "All students in the class. Names are shown in short form, for example Lili K."
-      },
       "support": {
         "title": "Support",
         "text": "Press Support to give this student slower speech, a shorter lesson or automatic read-aloud. You can also remove them from the class here."
-      },
-      "assignments": {
-        "title": "Assignments",
-        "text": "One row per assignment: the course, the due date, how many are done and how many are stuck. You can delete it here too."
       }
     },
     "assign": {
-      "intro": {
-        "title": "Assign a course",
-        "text": "You can set four things: the course, who it is for, a due date and a short message. Only the course is required."
-      },
-      "course": {
-        "title": "Which course?",
-        "text": "Pick one of your own courses or one from the library. You see how long each lesson is."
-      },
-      "who": {
-        "title": "For whom?",
-        "text": "Assign it to the whole class, or only to selected students. Then tick their names."
-      },
-      "due": {
-        "title": "Due date",
-        "text": "With a due date, the student sees when it is due. Afterwards you see the Overdue label."
-      },
-      "message": {
-        "title": "Message",
-        "text": "Write a short, encouraging message. The student reads it on their home page and can have it read aloud."
-      },
       "preview": {
         "title": "What the student sees",
         "text": "This card appears exactly like this on the student’s home page. Every change shows on it right away."
-      },
-      "submit": {
-        "title": "Assign",
-        "text": "When everything looks right, press Assign. Students see the task straight away."
       }
     },
     "join": {
@@ -619,21 +541,9 @@
       }
     },
     "teacherHome": {
-      "intro": {
-        "title": "Overview",
-        "text": "This is your teacher home page. What needs your attention comes first: stuck students and upcoming due dates."
-      },
-      "actions": {
-        "title": "Quick buttons",
-        "text": "Assign a course, create a class or open the Library with one click."
-      },
       "stuck": {
         "title": "Needs attention",
         "text": "Students stuck in the last 30 days, from all your classes, and why. Click a name to open the class page."
-      },
-      "deadlines": {
-        "title": "Upcoming due dates",
-        "text": "Assignments due in the next two weeks, soonest first, with how many are done."
       },
       "classes": {
         "title": "My classes",
@@ -653,22 +563,6 @@
       }
     },
     "library": {
-      "intro": {
-        "title": "Library",
-        "text": "All courses are here. Try them, and assign one to a class with one click."
-      },
-      "new": {
-        "title": "Course for your class",
-        "text": "If nothing fits, build a course. Four short steps; after saving you can try it and assign it."
-      },
-      "search": {
-        "title": "Search and filter",
-        "text": "Search course names and topics, and filter by subject."
-      },
-      "own": {
-        "title": "My courses",
-        "text": "Courses you built are always at the front."
-      },
       "assign": {
         "title": "Assign",
         "text": "Opens the assign form with this course already picked. With several classes it asks which one first."
@@ -679,25 +573,9 @@
       }
     },
     "lessonPreview": {
-      "intro": {
-        "title": "Lesson preview",
-        "text": "This is the same lesson your students see. Try it before you assign it."
-      },
       "banner": {
         "title": "Preview mode",
-        "text": "Nothing you do here is recorded: it is not added to your or any student’s history."
-      },
-      "assign": {
-        "title": "Assign",
-        "text": "If you like the lesson, assign it to a class right from here."
-      },
-      "start": {
-        "title": "Start the lesson",
-        "text": "Starts the conversation with the tutor. The browser may ask for microphone access."
-      },
-      "exit": {
-        "title": "Back",
-        "text": "Takes you back to the Library."
+        "text": "You see the same lesson as a student. Nothing you do here is recorded: it is not added to your or any student’s history."
       },
       "reviewNote": {
         "title": "Not in the library yet",
@@ -709,17 +587,9 @@
       }
     },
     "teacherProfile": {
-      "intro": {
-        "title": "Your profile",
-        "text": "As a teacher you only need what your work needs: your name, school, display settings and account."
-      },
       "name": {
         "title": "Your name for students",
         "text": "Students see this name on their task cards. Changing it updates all your classes."
-      },
-      "account": {
-        "title": "Account",
-        "text": "Change your email address, password or sign-in method here."
       },
       "comfort": {
         "title": "Display",
@@ -729,26 +599,10 @@
     "newCourseTeacher": {
       "intro": {
         "title": "Course for your class",
-        "text": "Four steps: subject, topic, voice and language, length. You can go back at any time; nothing you typed is lost."
-      },
-      "steps": {
-        "title": "Steps",
-        "text": "The bar at the top shows where you are. Finished steps get a tick."
-      },
-      "read": {
-        "title": "Read aloud",
-        "text": "You can have the question read aloud."
-      },
-      "next": {
-        "title": "Next and save",
-        "text": "Shows the next step. On the last step this saves the course; then you can try it and assign it."
+        "text": "Four steps: subject, topic, voice and language, length. You can go back at any time; nothing you typed is lost. After saving you can try it and assign it."
       }
     },
     "adminHome": {
-      "intro": {
-        "title": "Overview",
-        "text": "This is your admin home page. What needs a decision comes first, then the numbers and the latest admin decisions."
-      },
       "attention": {
         "title": "To do",
         "text": "Reported, flagged and unchecked courses. Click to decide about them on the Courses page."
@@ -756,10 +610,6 @@
       "numbers": {
         "title": "Numbers",
         "text": "Totals only: how many students, teachers and admins there are, how many courses are in the library and how many lessons there were this week. No names or conversations here."
-      },
-      "log": {
-        "title": "Latest decisions",
-        "text": "The latest admin decisions. The button opens the full log."
       },
       "menu": {
         "title": "The menu",
@@ -775,35 +625,15 @@
       }
     },
     "adminUsers": {
-      "intro": {
-        "title": "Users",
-        "text": "Give or take away the teacher or admin role here. The same as the role:set command, but logged."
-      },
-      "search": {
-        "title": "Search",
-        "text": "Type an email address or a name. The list comes from Clerk; we do not store it separately."
-      },
-      "list": {
-        "title": "The list",
-        "text": "Recently active users first, with their role. You cannot change your own role."
-      },
       "role": {
         "title": "Change role",
-        "text": "Choose the new role and write a short reason. The new role takes effect within a minute."
+        "text": "Give or take away the teacher or admin role here, with a short reason that goes into the log. The new role takes effect within a minute. You cannot change your own role."
       }
     },
     "adminCourses": {
       "intro": {
         "title": "Course check",
         "text": "An automatic filter checks new courses. Courses that were reported, flagged or could not be checked come here."
-      },
-      "tabs": {
-        "title": "Tabs",
-        "text": "Needs a decision, In the library, Recommended and Hidden. The red number shows how many courses are waiting for you."
-      },
-      "card": {
-        "title": "A course",
-        "text": "The course's name, topic, author and status. Reported courses come first, then the ones the filter flagged."
       },
       "reports": {
         "title": "Reports",
@@ -817,43 +647,31 @@
     "adminLog": {
       "intro": {
         "title": "Admin log",
-        "text": "Every admin decision is here. Nobody can change or delete the log."
-      },
-      "list": {
-        "title": "Entries",
-        "text": "Who did what and when, with the reason. Role changes show the old and the new role."
+        "text": "Every admin decision is here: who, when, what and why. Nobody can change or delete the log."
       }
     },
     "adminProfile": {
-      "intro": {
-        "title": "Your profile",
-        "text": "As an admin you find your account security and display settings here."
-      },
       "security": {
         "title": "Security",
         "text": "Whether two-step verification is on. Without it the admin pages stay locked."
-      },
-      "comfort": {
-        "title": "Display",
-        "text": "Text size, easy-reading text, read-aloud and less motion. They only change your own screen."
       }
     },
     "adminPreview": {
-      "intro": {
-        "title": "Preview as an admin",
-        "text": "Try the lesson just like a student. Nothing goes into any statistic."
-      },
       "bar": {
-        "title": "Decide",
-        "text": "Shows where the course stands; you can decide here too: add to the library, hide, feature or delete."
-      },
-      "start": {
-        "title": "Start the lesson",
-        "text": "Starts the conversation with the tutor. The browser may ask for microphone access."
-      },
-      "exit": {
-        "title": "Back",
-        "text": "Takes you back to the course check."
+        "title": "Preview and decide",
+        "text": "Try the lesson; nothing goes into any statistic. Here you see where the course stands and can decide about it: add to the library, hide, feature or delete."
+      }
+    },
+    "helpIntro": {
+      "help": {
+        "title": "The Help button",
+        "text": "If something is not clear, press this button. I will show you, step by step, what everything on the page is for."
+      }
+    },
+    "helpIntroAdult": {
+      "help": {
+        "title": "Help",
+        "text": "Short explanations for every page are here. They only appear when you click."
       }
     }
   },

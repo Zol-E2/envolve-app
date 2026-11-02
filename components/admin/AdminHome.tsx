@@ -25,7 +25,7 @@ const AdminHome = async ({ name, overview }: { name: string; overview: AdminOver
 
   return (
     <main>
-      <PageTour id="adminHome" />
+      <PageTour id="adminHome" intro="helpIntroAdult" />
       <section className="flex flex-col gap-1">
         <h1>{t("hello", { name })}</h1>
         <p className="text-lg text-muted-foreground max-sm:text-base">

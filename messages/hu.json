@@ -480,16 +480,6 @@
         "text": "Minden kártyán látod, mit tartalmaz a csomag és mennyibe kerül. Mielőtt fizetős csomagot választasz, beszéld meg a szüleiddel vagy a tanároddal."
       }
     },
-    "signIn": {
-      "box": {
-        "title": "Bejelentkezés",
-        "text": "Válassz egy bejelentkezési módot ebben a dobozban. Ha még nincs fiókod, a doboz alján tudsz regisztrálni."
-      },
-      "language": {
-        "title": "Nyelv",
-        "text": "Itt válthatsz magyar és angol nyelv között."
-      }
-    },
     "notFound": {
       "home": {
         "title": "Eltévedtél?",
@@ -505,33 +495,13 @@
     "classes": {
       "intro": {
         "title": "Az osztályaid",
-        "text": "Itt kezeled az osztályaidat. Létrehozol egy osztályt, a diákok egy kóddal csatlakoznak, te pedig kurzusokat osztasz ki nekik."
-      },
-      "new": {
-        "title": "Új osztály",
-        "text": "Írd be az osztály nevét, például 6.b Matematika, és ha szeretnéd, válassz tantárgyat. A létrehozás után kapsz egy hatjegyű kódot."
-      },
-      "list": {
-        "title": "Osztálykártyák",
-        "text": "Minden osztály egy kártya: a neve, a diákok száma és a kódja. Ahol valaki elakadt, az piros jelzést kap, és előre kerül."
-      },
-      "menu": {
-        "title": "Osztályok a menüben",
-        "text": "Az Osztályok menüpont csak tanároknak látszik. Innen bármikor visszajöhetsz ide."
-      },
-      "menuMobile": {
-        "title": "Osztályok a menüben",
-        "text": "Telefonon az alsó sáv Osztályok gombjával jöhetsz vissza ide."
+        "text": "Itt kezeled az osztályaidat. Az Új osztály résznél hozol létre egyet, és kapsz hozzá egy hatjegyű kódot. A diákok ezzel csatlakoznak, te pedig kurzusokat osztasz ki nekik."
       }
     },
     "classDetail": {
-      "intro": {
-        "title": "Az osztály oldala",
-        "text": "Itt látod, ki hol tart a kiosztott kurzusokkal. Az elakadt diákok mindig felül vannak, rövid magyarázattal."
-      },
       "code": {
         "title": "Csatlakozási kód",
-        "text": "Ezt a hat jelből álló kódot add meg a diákoknak, például írd fel a táblára. A diák a Profil oldalon írja be. A Másolás gomb a vágólapra teszi."
+        "text": "Ezt a hat jelből álló kódot add meg a diákoknak, például írd fel a táblára. A diák a főoldalán írja be. A Másolás gomb a vágólapra teszi."
       },
       "link": {
         "title": "Link a diákoknak",
@@ -541,67 +511,19 @@
         "title": "Új kód",
         "text": "Ha a kód rossz helyre került, kérj újat. A régi kód azonnal megszűnik, a már csatlakozott diákok bent maradnak."
       },
-      "assign": {
-        "title": "Kurzus kiosztása",
-        "text": "Ezzel a gombbal adhatsz ki egy kurzust az egész osztálynak vagy néhány diáknak, határidővel és üzenettel."
-      },
-      "tabs": {
-        "title": "Fülek",
-        "text": "Az Áttekintésen látod, ki hol tart. A Diákok fülön támogatást állíthatsz be diákonként. A Kiosztások fülön minden eddigi kiosztás megvan."
-      },
-      "picker": {
-        "title": "Melyik kiosztás?",
-        "text": "Ha több kurzust is kiosztottál, itt választhatod ki, melyiket nézed. A piros szám mutatja, hányan akadtak el benne."
-      },
-      "stuck": {
-        "title": "Elakadt diákok",
-        "text": "Itt látod, ki akadt el, és miért: például korán kilépett, vagy nem engedte a mikrofont. A beszélgetés szövegét nem látod, csak ezt."
-      },
       "status": {
         "title": "Ki hol tart",
         "text": "Minden diák mellett látod az állapotát: még nem kezdte, folyamatban, kész vagy elakadt. A Lejárt címke azt jelzi, hogy a határidő elmúlt."
       },
-      "students": {
-        "title": "Diákok",
-        "text": "Itt van az osztály összes diákja. A neveket rövid formában látod, például Lili K."
-      },
       "support": {
         "title": "Támogatás",
         "text": "Kattints a Támogatás gombra: lassabb beszédet, rövidebb órát vagy automatikus felolvasást állíthatsz be ennek a diáknak. Itt távolíthatod el az osztályból is."
-      },
-      "assignments": {
-        "title": "Kiosztások",
-        "text": "Minden kiosztás egy sorban: a kurzus, a határidő, hányan végeztek, és hányan akadtak el. Itt törölheted is."
       }
     },
     "assign": {
-      "intro": {
-        "title": "Kurzus kiosztása",
-        "text": "Négy dolgot adhatsz meg: a kurzust, hogy kinek szól, a határidőt és egy rövid üzenetet. Csak a kurzus kötelező."
-      },
-      "course": {
-        "title": "Melyik kurzus?",
-        "text": "Választhatsz a saját kurzusaid és a kurzuskönyvtár közül. Mellette látod, hány perces az óra."
-      },
-      "who": {
-        "title": "Kinek szól?",
-        "text": "Kioszthatod az egész osztálynak, vagy csak kiválasztott diákoknak. Ilyenkor pipáld ki a neveket."
-      },
-      "due": {
-        "title": "Határidő",
-        "text": "Ha megadsz határidőt, a diák látja, meddig kell elvégeznie. Utána a Lejárt címke jelenik meg nálad."
-      },
-      "message": {
-        "title": "Üzenet",
-        "text": "Írj egy rövid, biztató üzenetet. A diák a főoldalán olvassa, és fel is olvastathatja."
-      },
       "preview": {
         "title": "Így látja a diák",
         "text": "Ez a kártya pontosan így jelenik meg a diák főoldalán. Minden változás azonnal látszik rajta."
-      },
-      "submit": {
-        "title": "Kiosztás",
-        "text": "Ha minden rendben, nyomd meg a Kiosztás gombot. A diákok azonnal látják a feladatot."
       }
     },
     "join": {
@@ -619,21 +541,9 @@
       }
     },
     "teacherHome": {
-      "intro": {
-        "title": "Az áttekintés",
-        "text": "Ez a tanári kezdőlapod. Elöl az van, amivel dolgod lehet: elakadt diákok és közelgő határidők."
-      },
-      "actions": {
-        "title": "Gyors gombok",
-        "text": "Innen egy kattintással kioszthatsz egy kurzust, új osztályt hozhatsz létre, vagy megnyithatod a Kurzustárat."
-      },
       "stuck": {
         "title": "Figyelmet igényel",
         "text": "Az összes osztályodból itt látod, ki akadt el az elmúlt 30 napban, és miért. A névre kattintva az osztály oldalára jutsz."
-      },
-      "deadlines": {
-        "title": "Közelgő határidők",
-        "text": "A következő két hét kiosztásai, a határidő szerint. Mellettük látod, hányan végeztek már."
       },
       "classes": {
         "title": "Osztályaim",
@@ -653,22 +563,6 @@
       }
     },
     "library": {
-      "intro": {
-        "title": "Kurzustár",
-        "text": "Itt találod az összes kurzust. Kipróbálhatod őket, és egy kattintással kioszthatod valamelyik osztályodnak."
-      },
-      "new": {
-        "title": "Kurzus az osztálynak",
-        "text": "Ha nincs megfelelő kurzus, készíts egyet. Négy rövid lépés, mentés után kipróbálhatod és kioszthatod."
-      },
-      "search": {
-        "title": "Keresés és szűrés",
-        "text": "Keress a kurzus nevére vagy témájára, és szűrj tantárgy szerint."
-      },
-      "own": {
-        "title": "Saját kurzusaim",
-        "text": "Az általad készített kurzusok mindig elöl vannak."
-      },
       "assign": {
         "title": "Kiosztom",
         "text": "Ez a gomb megnyitja a kiosztást, a kurzus már ki van választva. Ha több osztályod van, előbb megkérdezi, melyiknek."
@@ -679,25 +573,9 @@
       }
     },
     "lessonPreview": {
-      "intro": {
-        "title": "Óra előnézet",
-        "text": "Ugyanazt az órát látod, amit a diák. Kipróbálhatod, mielőtt kiosztod."
-      },
       "banner": {
         "title": "Előnézet mód",
-        "text": "Amit itt csinálsz, az nem rögzül: nem kerül a diákok vagy a saját előzményeid közé."
-      },
-      "assign": {
-        "title": "Kiosztom",
-        "text": "Ha tetszik az óra, innen rögtön kioszthatod egy osztálynak."
-      },
-      "start": {
-        "title": "Az óra indítása",
-        "text": "Ezzel a gombbal indul a beszélgetés a tanár-asszisztenssel. A böngésző mikrofon-engedélyt kérhet."
-      },
-      "exit": {
-        "title": "Vissza",
-        "text": "Ezzel a gombbal visszamész a Kurzustárba."
+        "text": "Ugyanazt az órát látod, amit a diák. Amit itt csinálsz, az nem rögzül: nem kerül a diákok vagy a saját előzményeid közé."
       },
       "reviewNote": {
         "title": "Még nincs a Kurzustárban",
@@ -709,17 +587,9 @@
       }
     },
     "teacherProfile": {
-      "intro": {
-        "title": "A profilod",
-        "text": "Tanárként itt csak az kell, ami a munkádhoz: a neved, az iskolád, a megjelenítés és a fiókod."
-      },
       "name": {
         "title": "A neved a diákoknál",
         "text": "Ezt a nevet látják a diákok a feladatkártyán. Ha módosítod, minden osztályodban frissül."
-      },
-      "account": {
-        "title": "Fiók",
-        "text": "Itt változtathatod meg az e-mail-címedet, a jelszavadat vagy a bejelentkezés módját."
       },
       "comfort": {
         "title": "Megjelenítés",
@@ -729,26 +599,10 @@
     "newCourseTeacher": {
       "intro": {
         "title": "Kurzus az osztálynak",
-        "text": "Négy lépés: tantárgy, téma, hang és nyelv, hossz. Bármikor visszaléphetsz, a beírt adatok megmaradnak."
-      },
-      "steps": {
-        "title": "Lépések",
-        "text": "A felső sáv mutatja, hol tartasz. A kész lépések pipát kapnak."
-      },
-      "read": {
-        "title": "Felolvasás",
-        "text": "A kérdést fel is olvastathatod."
-      },
-      "next": {
-        "title": "Tovább és mentés",
-        "text": "Ezzel jön a következő lépés. Az utolsó lépésben itt mented a kurzust, utána kipróbálhatod és kioszthatod."
+        "text": "Négy lépés: tantárgy, téma, hang és nyelv, hossz. Bármikor visszaléphetsz, a beírt adatok megmaradnak. Mentés után kipróbálhatod és kioszthatod."
       }
     },
     "adminHome": {
-      "intro": {
-        "title": "Az áttekintés",
-        "text": "Ez az admin kezdőlapod. Elöl az van, ami döntésre vár, utána a számok és a legutóbbi admin lépések."
-      },
       "attention": {
         "title": "Teendők",
         "text": "Jelentett, a szűrő által jelzett és ellenőrizetlen kurzusok. Kattints rá, és a Kurzusok oldalon dönthetsz róluk."
@@ -756,10 +610,6 @@
       "numbers": {
         "title": "Számok",
         "text": "Csak összesítések: hány diák, tanár és admin van, hány kurzus van a Kurzustárban, és mennyi óra volt a héten. Neveket és beszélgetéseket itt nem látsz."
-      },
-      "log": {
-        "title": "Legutóbbi lépések",
-        "text": "Az utolsó admin döntések. A teljes napló a gombbal nyílik."
       },
       "menu": {
         "title": "A menü",
@@ -775,35 +625,15 @@
       }
     },
     "adminUsers": {
-      "intro": {
-        "title": "Felhasználók",
-        "text": "Itt adhatsz tanár vagy admin szerepet, és itt veheted el. Ugyanaz, mint a role:set parancs, csak naplózva."
-      },
-      "search": {
-        "title": "Keresés",
-        "text": "Írj be egy e-mail-címet vagy nevet. A lista a Clerkből jön, nem tároljuk külön."
-      },
-      "list": {
-        "title": "A lista",
-        "text": "A legutóbb aktív felhasználók elöl, a szerepükkel. A saját szerepedet nem módosíthatod."
-      },
       "role": {
         "title": "Szerep módosítása",
-        "text": "Válaszd ki az új szerepet, és írj rövid indoklást. Az új szerep egy percen belül életbe lép."
+        "text": "Itt adsz vagy veszel el tanár- vagy admin szerepet, rövid indoklással, ami bekerül a naplóba. Az új szerep egy percen belül életbe lép. A saját szerepedet nem módosíthatod."
       }
     },
     "adminCourses": {
       "intro": {
         "title": "Kurzusok ellenőrzése",
         "text": "Az új kurzusokat egy automatikus szűrő ellenőrzi. Ide kerül, amit jelentettek, amit a szűrő jelzett, vagy amit nem tudott ellenőrizni."
-      },
-      "tabs": {
-        "title": "Fülek",
-        "text": "Döntésre vár, Kurzustárban, Ajánlott és Elrejtett. A piros szám mutatja, hány kurzus vár rád."
-      },
-      "card": {
-        "title": "Egy kurzus",
-        "text": "A kurzus neve, témája, szerzője és állapota. A sorrend: előbb a jelentett, aztán a szűrő által jelzett kurzusok."
       },
       "reports": {
         "title": "Jelentések",
@@ -817,43 +647,31 @@
     "adminLog": {
       "intro": {
         "title": "Admin napló",
-        "text": "Itt látod az összes admin döntést. A naplót senki nem módosíthatja vagy törölheti."
-      },
-      "list": {
-        "title": "Bejegyzések",
-        "text": "Ki, mikor, mit csinált, és az indoklás. Szerepváltásnál a régi és az új szerep is látszik."
+        "text": "Itt látod az összes admin döntést: ki, mikor, mit és miért. A naplót senki nem módosíthatja vagy törölheti."
       }
     },
     "adminProfile": {
-      "intro": {
-        "title": "A profilod",
-        "text": "Adminként itt a fiókod biztonsága és a megjelenítési beállítások vannak."
-      },
       "security": {
         "title": "Biztonság",
         "text": "A kétlépcsős azonosítás állapota. Enélkül az admin oldalak zárva vannak."
-      },
-      "comfort": {
-        "title": "Megjelenítés",
-        "text": "Szövegméret, könnyen olvasható betű, felolvasás és kevesebb mozgás. Csak a saját képernyődet változtatják."
       }
     },
     "adminPreview": {
-      "intro": {
-        "title": "Előnézet adminként",
-        "text": "Kipróbálhatod az órát, ugyanúgy, mint egy diák. Ez nem kerül semmilyen statisztikába."
-      },
       "bar": {
-        "title": "Döntés",
-        "text": "Itt látod, hol tart a kurzus, és innen is dönthetsz róla: Kurzustárba engedés, elrejtés, kiemelés vagy törlés."
-      },
-      "start": {
-        "title": "Az óra indítása",
-        "text": "Elindítja a beszélgetést a tanár-asszisztenssel. A böngésző engedélyt kérhet a mikrofonhoz."
-      },
-      "exit": {
-        "title": "Vissza",
-        "text": "Visszavisz a kurzusok ellenőrzéséhez."
+        "title": "Előnézet és döntés",
+        "text": "Kipróbálhatod az órát, ez nem kerül semmilyen statisztikába. Itt látod, hol tart a kurzus, és innen is dönthetsz róla: Kurzustárba engedés, elrejtés, kiemelés vagy törlés."
+      }
+    },
+    "helpIntro": {
+      "help": {
+        "title": "A Segítség gomb",
+        "text": "Ha valamit nem értesz, nyomd meg ezt a gombot. Lépésről lépésre megmutatom, mi mire jó azon az oldalon, ahol éppen vagy."
+      }
+    },
+    "helpIntroAdult": {
+      "help": {
+        "title": "Segítség",
+        "text": "Minden oldalon itt találod a rövid magyarázatokat. Csak akkor jelennek meg, ha rákattintasz."
       }
     }
   },

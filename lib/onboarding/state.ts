@@ -18,7 +18,6 @@ export const TOUR_IDS = [
   "profile",
   // "subscription": the plans page is not live yet; re-enable its tips
   // (here, in tours.ts and on the page) once billing launches
-  "signIn",
   "notFound",
   "legal",
   // Teacher view (students only ever see "join")
@@ -39,6 +38,9 @@ export const TOUR_IDS = [
   "adminLog",
   "adminProfile",
   "adminPreview",
+  // The one-time pointer to the Help button on the home page
+  "helpIntro",
+  "helpIntroAdult",
 ] as const;
 export type TourId = (typeof TOUR_IDS)[number];
 

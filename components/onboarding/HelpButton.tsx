@@ -6,8 +6,9 @@ import { usePathname } from "@/i18n/navigation";
 import { useTour } from "./TourProvider";
 
 /**
- * Navbar "Help" button: opens the tips for the page on screen. Hidden on the
- * welcome screen, which is itself the explanation.
+ * Navbar "Help" button: opens the tips for the page on screen, step by
+ * step. Hidden on the welcome screen, which is itself the explanation, and
+ * on the sign-in page, which needs no tips.
  */
 const HelpButton = () => {
   const t = useTranslations("Tour");
@@ -15,7 +16,7 @@ const HelpButton = () => {
   const pathname = usePathname();
   const { pageTour, startTour } = useTour();
 
-  if (pathname === "/welcome") return null;
+  if (pathname === "/welcome" || pathname.startsWith("/sign-in")) return null;
 
   const label = t("helpStart");
   return (
