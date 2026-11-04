@@ -152,7 +152,11 @@ const ClassPage = async ({ params, searchParams }: ClassPageProps) => {
                           ? tStatus("left", { minutes: s.progress.detail.minutes })
                           : s.progress.detail?.kind === "micDenied"
                             ? tStatus("micDenied")
-                            : tStatus("connection")}
+                            : s.progress.detail?.kind === "offTopic"
+                              ? tStatus("offTopic")
+                              : s.progress.detail?.kind === "stopped"
+                                ? tStatus("stopped")
+                                : tStatus("connection")}
                       </li>
                     ))}
                   </ul>

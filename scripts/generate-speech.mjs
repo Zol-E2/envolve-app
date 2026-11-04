@@ -14,6 +14,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, unlinkSync, writeFile
 import { IntlMessageFormat } from "intl-messageformat";
 import {
   COURSE_FORM_SPEECH,
+  LESSON_OUTCOME_SPEECH,
   REPORT_SPEECH,
   TEACHER_WELCOME_SPEECH,
   WELCOME_SPEECH,
@@ -95,6 +96,11 @@ const speechTexts = (locale) => {
 
   // The report form's question and choices
   texts.push(joinForSpeech(REPORT_SPEECH.map((key) => format(messages.Report[key], locale))));
+
+  // The screen after a lesson ended for safety
+  for (const [kind, keys] of Object.entries(LESSON_OUTCOME_SPEECH)) {
+    texts.push(joinForSpeech(keys.map((key) => format(messages.CourseSession.outcome[kind][key], locale))));
+  }
 
   return new Map(texts.map((text) => [speechId(text), text]));
 };

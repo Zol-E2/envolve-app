@@ -306,3 +306,76 @@ export const getCourseModeration = async (courseId: string) => {
     featured: data.featured as boolean,
   };
 };
+
+// ─── Lesson safety ───────────────────────────────────────────────────────────
+
+export interface AdminSafety {
+  stats: {
+    drift: number;
+    violation: number;
+    help: number;
+    helpSeen: number;
+    unassigned: number;
+    violationMonth: number;
+    helpMonth: number;
+  };
+  violations: {
+    id: string;
+    category: "override" | "inappropriate" | "hurtful";
+    createdAt: string;
+    seen: boolean;
+    falseAlarm: boolean;
+    studentName: string;
+    studentEmail: string;
+    courseName: string;
+  }[];
+}
+
+/**
+ * Rule breaks in lessons with the student's name; drift and help only as
+ * numbers (a child asking for help is their school's business).
+ */
+export const getAdminSafety = async (): Promise<AdminSafety> => {
+  await requireAdmin();
+  const supabase = createSupabaseClient();
+  const [stats, rows] = await Promise.all([
+    supabase.rpc("admin_safety_stats").single(),
+    supabase.rpc("admin_lesson_violations"),
+  ]);
+  if (stats.error || !stats.data || rows.error) throw new Error("Safety not loaded");
+  const s = stats.data as Record<string, number>;
+  const list = (rows.data ?? []) as {
+    id: string;
+    category: AdminSafety["violations"][number]["category"];
+    created_at: string;
+    acknowledged_at: string | null;
+    false_alarm: boolean;
+    student_id: string | null;
+    course_name: string | null;
+  }[];
+  const people = await usersById(list.map((r) => r.student_id ?? ""));
+  return {
+    stats: {
+      drift: s.drift_30d ?? 0,
+      violation: s.violation_30d ?? 0,
+      help: s.help_30d ?? 0,
+      helpSeen: s.help_seen_30d ?? 0,
+      unassigned: s.unassigned_30d ?? 0,
+      violationMonth: s.violation_month ?? 0,
+      helpMonth: s.help_month ?? 0,
+    },
+    violations: list.map((r) => {
+      const person = r.student_id ? people.get(r.student_id) : undefined;
+      return {
+        id: r.id,
+        category: r.category,
+        createdAt: r.created_at,
+        seen: r.acknowledged_at != null,
+        falseAlarm: r.false_alarm,
+        studentName: person?.name ?? "",
+        studentEmail: person?.email ?? "",
+        courseName: r.course_name ?? "",
+      };
+    }),
+  };
+};

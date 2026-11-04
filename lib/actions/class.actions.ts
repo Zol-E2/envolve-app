@@ -180,7 +180,7 @@ export const startLessonAttempt = async (assignmentId: string, courseId: string)
   return error || !data ? null : (data.id as string);
 };
 
-const END_REASONS: EndReason[] = ["finished", "left", "mic_denied", "error"];
+const END_REASONS: EndReason[] = ["finished", "left", "mic_denied", "error", "off_topic", "stopped"];
 
 export const finishLessonAttempt = async (attemptId: string, seconds: number, reason: EndReason) => {
   const userId = await currentUserId();

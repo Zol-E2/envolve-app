@@ -53,8 +53,8 @@ export const NAV: Record<View, readonly NavItem[]> = {
     { key: "profile", href: "/my-profile", match: /^\/my-profile/ },
   ],
   admin: [
-    // The full admin log opens from the overview
-    { key: "overview", href: "/", match: /^\/(admin\/log)?$/ },
+    // The full admin log and lesson safety open from the overview
+    { key: "overview", href: "/", match: /^\/(admin\/(log|safety))?$/ },
     { key: "users", href: "/admin/users", match: /^\/admin\/users/ },
     // Course previews (/courses/<id>) belong to the course check
     { key: "moderation", href: "/admin/courses", match: /^\/(admin\/courses|courses\/[^/]+)/ },

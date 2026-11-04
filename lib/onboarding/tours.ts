@@ -74,6 +74,7 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
     { key: "stuck", target: "lesson-stuck" },
     { key: "transcript", target: "lesson-transcript", side: "top" },
     { key: "exit", target: "lesson-exit", side: "top" },
+    { key: "rules", target: "lesson-rules" },
     { key: "report", target: "lesson-report", side: "top", align: "end" },
   ],
   profile: [
@@ -118,6 +119,7 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
     { key: "classes", target: "join-classes", side: "top" },
   ],
   teacherHome: [
+    { key: "alerts", target: "teacher-alerts" },
     { key: "stuck", target: "teacher-stuck" },
     { key: "classes", target: "teacher-classes" },
     { key: "menu", target: "nav-menu", side: "bottom" },
@@ -155,6 +157,11 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
   adminLog: [{ key: "intro" }],
   adminProfile: [{ key: "security", target: "admin-profile-2fa" }],
   adminPreview: [{ key: "bar", target: "admin-course-bar" }],
+  adminSafety: [
+    { key: "intro" },
+    { key: "numbers", target: "admin-safety-numbers" },
+    { key: "list", target: "admin-safety-list" },
+  ],
   // The one bubble that opens by itself: on the home page, once per account
   helpIntro: [{ key: "help", target: "nav-help", side: "bottom", align: "end" }],
   helpIntroAdult: [{ key: "help", target: "nav-help", side: "bottom", align: "end" }],

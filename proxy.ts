@@ -23,6 +23,8 @@ const isPublic = createRouteMatcher([
   "/privacy",
   "/terms",
   "/monitoring(.*)",
+  // Vapi's tool calls: no user session, checked with VAPI_TOOL_SECRET instead
+  "/api/vapi(.*)",
 ]);
 
 

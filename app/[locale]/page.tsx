@@ -23,6 +23,8 @@ import { adminAccess } from "@/lib/admin/access";
 import { getAdminOverview } from "@/lib/actions/admin.actions";
 import AdminHome from "@/components/admin/AdminHome";
 import TwoFactorRequired from "@/components/admin/TwoFactorRequired";
+import { getTeacherAlerts } from "@/lib/actions/safety.actions";
+import { getAdminSafety } from "@/lib/actions/admin.actions";
 import { getTeacherOverview } from "@/lib/actions/teacher.actions";
 import { readTeacherProfile } from "@/lib/validation";
 import TeacherHome from "@/components/teacher/TeacherHome";
@@ -44,18 +46,27 @@ const Page = async () => {
   if (await isAdmin()) {
     const access = await adminAccess();
     if (!access.ok) return <TwoFactorRequired />;
-    const [user, overview] = await Promise.all([currentUser(), getAdminOverview()]);
-    return <AdminHome name={user?.firstName?.trim() || "Admin"} overview={overview} />;
+    const [user, overview, safety] = await Promise.all([
+      currentUser(),
+      getAdminOverview(),
+      getAdminSafety().catch(() => null),
+    ]);
+    const openViolations = safety?.violations.filter((v) => !v.seen).length ?? 0;
+    return <AdminHome name={user?.firstName?.trim() || "Admin"} overview={overview} openViolations={openViolations} />;
   }
 
   // Teachers get their own home page (lib/views.ts): what needs attention
   if (await isTeacher()) {
-    const [user, overview] = await Promise.all([currentUser(), getTeacherOverview()]);
+    const [user, overview, alerts] = await Promise.all([
+      currentUser(),
+      getTeacherOverview(),
+      getTeacherAlerts().catch(() => []),
+    ]);
     if (user && !readOnboarding(user.unsafeMetadata).welcomeDone) {
       redirect({ href: "/welcome", locale });
     }
     const profile = readTeacherProfile(user?.unsafeMetadata, user?.firstName, user?.lastName);
-    return <TeacherHome name={user?.firstName?.trim() || profile.name} overview={overview} />;
+    return <TeacherHome name={user?.firstName?.trim() || profile.name} overview={overview} alerts={alerts} />;
   }
 
   const week = currentWeek();

@@ -6,6 +6,8 @@ import { vapi } from "@/lib/vapi.sdk";
 import { VAPI_DEMO_ASSISTANT_IDS, isLessonLanguage } from "@/lib/ai/assistants";
 import { getMicPermission } from "@/lib/onboarding/microphone";
 import { stopSpeaking } from "@/lib/onboarding/speech";
+import { useLessonSafety } from "@/lib/useLessonSafety";
+import LessonOutcome from "@/components/LessonOutcome";
 
 type DemoStatus = "idle" | "connecting" | "active" | "ended";
 
@@ -22,6 +24,8 @@ const DemoCall = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [micBlocked, setMicBlocked] = useState(false);
   const inCall = useRef(false);
+  // The demo follows the same safety rules as a lesson (lib/useLessonSafety.ts)
+  const safety = useLessonSafety();
 
   useEffect(() => {
     const onCallStart = () => {
@@ -67,7 +71,8 @@ const DemoCall = () => {
     setMicBlocked(false);
     setStatus("connecting");
     const language = isLessonLanguage(locale) ? locale : "hu";
-    vapi.start(VAPI_DEMO_ASSISTANT_IDS[language]);
+    const linked = await safety.track(vapi.start(VAPI_DEMO_ASSISTANT_IDS[language]));
+    if (!linked) setStatus((current) => (current === "connecting" ? "idle" : current));
   };
 
   const stop = () => {
@@ -101,6 +106,8 @@ const DemoCall = () => {
           {statusText}
         </p>
       )}
+
+      {status === "ended" && safety.outcome && <LessonOutcome kind={safety.outcome} />}
 
       {status === "active" || status === "connecting" ? (
         <button

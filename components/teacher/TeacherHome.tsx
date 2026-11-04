@@ -4,13 +4,23 @@ import { Link } from "@/i18n/navigation";
 import type { TeacherOverview } from "@/lib/teacher/types";
 import ProgressBadge from "./ProgressBadge";
 import PageTour from "@/components/onboarding/PageTour";
+import type { LessonAlert } from "@/lib/actions/safety.actions";
+import LessonAlerts from "./LessonAlerts";
 
 /**
  * The teacher's home page ("Áttekintés"): what needs their attention first
  * (stuck students, deadlines), then the classes and quick actions. No
  * student-style content: no streaks, no "continue", no course suggestions.
  */
-const TeacherHome = async ({ name, overview }: { name: string; overview: TeacherOverview }) => {
+const TeacherHome = async ({
+  name,
+  overview,
+  alerts = [],
+}: {
+  name: string;
+  overview: TeacherOverview;
+  alerts?: LessonAlert[];
+}) => {
   const [t, format] = await Promise.all([getTranslations("TeacherHome"), getFormatter()]);
   const { classes, stuck, deadlines } = overview;
   const assignHref = classes.length === 1 ? `/classes/${classes[0].id}/assign` : "/library";
@@ -25,6 +35,9 @@ const TeacherHome = async ({ name, overview }: { name: string; overview: Teacher
           {classes.length === 0 ? t("leadFirst") : stuck.length > 0 ? t("leadStuck", { count: stuck.length }) : t("leadCalm")}
         </p>
       </section>
+
+      {/* Lesson safety alerts first: they may need the teacher today */}
+      {alerts.length > 0 && <LessonAlerts alerts={alerts} />}
 
       <div className="flex flex-wrap gap-3" data-tour="teacher-actions">
         <Link href={assignHref} className="btn-primary">

@@ -7,14 +7,15 @@ import { localDate } from "@/lib/week";
  *   done        one attempt reached 80% of the lesson time, or the tutor
  *               closed the lesson properly
  *   stuck       the last attempt ended within 3 minutes, the microphone was
- *               blocked, or the connection broke
+ *               blocked, the connection broke, or the lesson left its topic
+ *               or was stopped for safety (20261107_lesson_safety.sql)
  *   inProgress  started, but neither of the above (or a lesson running now)
  *   notStarted  no attempt since the assignment was given
  *
  * "late" is a label on top: the due date has passed and it is not done.
  */
 
-export type EndReason = "finished" | "left" | "mic_denied" | "error";
+export type EndReason = "finished" | "left" | "mic_denied" | "error" | "off_topic" | "stopped";
 
 export interface Attempt {
   student_id: string;
@@ -31,6 +32,8 @@ export type StatusDetail =
   | { kind: "left"; minutes: number }
   | { kind: "micDenied" }
   | { kind: "connection" }
+  | { kind: "offTopic" }
+  | { kind: "stopped" }
   | { kind: "learningNow" }
   | { kind: "progress"; minutes: number; total: number }
   | { kind: "doneOn"; date: string };
@@ -71,8 +74,11 @@ export const computeProgress = (
   const latest = sorted[sorted.length - 1];
   const lastActivity = latest.ended_at ?? latest.started_at;
 
+  // A lesson that left its topic or was stopped never counts as done
   const finished = sorted.find(
-    (a) => a.end_reason === "finished" || (a.seconds ?? 0) >= total * 60 * DONE_SHARE
+    (a) =>
+      a.end_reason === "finished" ||
+      (a.end_reason !== "off_topic" && a.end_reason !== "stopped" && (a.seconds ?? 0) >= total * 60 * DONE_SHARE)
   );
   if (finished) {
     return {
@@ -91,6 +97,12 @@ export const computeProgress = (
       return { status: "inProgress", late, detail: { kind: "learningNow" }, lastActivity };
     }
     return { status: "stuck", late, detail: { kind: "connection" }, lastActivity };
+  }
+  if (latest.end_reason === "off_topic") {
+    return { status: "stuck", late, detail: { kind: "offTopic" }, lastActivity };
+  }
+  if (latest.end_reason === "stopped") {
+    return { status: "stuck", late, detail: { kind: "stopped" }, lastActivity };
   }
   if (latest.end_reason === "mic_denied") {
     return { status: "stuck", late, detail: { kind: "micDenied" }, lastActivity };

@@ -45,6 +45,21 @@ on their own versions of `/` and `/my-profile`.
   course check (`lib/moderation.ts`). Everything else uses the signed-in
   user's client and the policies.
 
+### Lesson safety
+
+The voice tutor only talks about the lesson's topic
+(`supabase/migrations/20261107_lesson_safety.sql`, `docs/vapi-lesson-safety.md`).
+It reports three kinds of event with its `jelentes` tool, which Vapi sends to
+`/api/vapi/lesson-event` (checked with `VAPI_TOOL_SECRET`), then ends the call:
+drift, violation and help.
+
+- A call for help is never a rule break. It goes to the student's teacher with
+  what to do next; admins only see it as a number.
+- Never store what was said: only the kind, the category and the time, for
+  30 days. Teachers and admins see fixed, neutral texts per category.
+- Every new voice call must be linked with `useLessonSafety().track()`; a call
+  that cannot be linked is stopped.
+
 ## 2. Tips and read-aloud on every page
 
 Tips live in `lib/onboarding/tours.ts`, their texts under `Tour.<page>` in

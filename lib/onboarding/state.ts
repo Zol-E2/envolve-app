@@ -38,6 +38,7 @@ export const TOUR_IDS = [
   "adminLog",
   "adminProfile",
   "adminPreview",
+  "adminSafety",
   // The one-time pointer to the Help button on the home page
   "helpIntro",
   "helpIntroAdult",

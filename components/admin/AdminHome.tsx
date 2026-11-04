@@ -1,5 +1,5 @@
 import { getFormatter, getTranslations } from "next-intl/server";
-import { ArrowRight, CircleCheck, Flag, History, Hourglass, ShieldAlert } from "lucide-react";
+import { ArrowRight, CircleCheck, Flag, History, Hourglass, ShieldAlert, ShieldX } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import type { AdminOverview } from "@/lib/admin/types";
 import PageTour from "@/components/onboarding/PageTour";
@@ -9,10 +9,19 @@ import AuditLogList from "./AuditLogList";
  * The admin's home page ("Áttekintés"): what needs a decision first, then
  * the numbers (totals only, no names), then the latest admin decisions.
  */
-const AdminHome = async ({ name, overview }: { name: string; overview: AdminOverview }) => {
+const AdminHome = async ({
+  name,
+  overview,
+  openViolations = 0,
+}: {
+  name: string;
+  overview: AdminOverview;
+  /** Rule breaks in lessons that no teacher has looked at yet */
+  openViolations?: number;
+}) => {
   const [t, format] = await Promise.all([getTranslations("AdminHome"), getFormatter()]);
   const unchecked = Math.max(0, overview.courses.review - overview.flagged);
-  const todo = overview.flagged + unchecked;
+  const todo = overview.flagged + unchecked + openViolations;
 
   const numbers = [
     { key: "students", value: overview.users.student },
@@ -45,6 +54,18 @@ const AdminHome = async ({ name, overview }: { name: string; overview: AdminOver
           </p>
         ) : (
           <ul className="person-list">
+            {openViolations > 0 && (
+              <li>
+                <Link href="/admin/safety" className="person-row group">
+                  <ShieldX className="size-6 shrink-0 text-destructive" aria-hidden />
+                  <span className="person-name group-hover:underline">
+                    {t("violations", { count: openViolations })}
+                    <span className="person-detail block">{t("violationsHint")}</span>
+                  </span>
+                  <ArrowRight className="size-5 text-primary-deep" aria-hidden />
+                </Link>
+              </li>
+            )}
             {overview.flagged > 0 && (
               <li>
                 <Link href="/admin/courses" className="person-row group">
@@ -94,10 +115,16 @@ const AdminHome = async ({ name, overview }: { name: string; overview: AdminOver
             <History className="size-6 text-primary" aria-hidden />
             {t("logTitle")}
           </h2>
-          <Link href="/admin/log" className="btn-quiet">
-            {t("logAll")}
-            <ArrowRight className="size-5" aria-hidden />
-          </Link>
+          <span className="flex flex-wrap gap-1">
+            <Link href="/admin/safety" className="btn-quiet">
+              {t("safetyLink")}
+              <ArrowRight className="size-5" aria-hidden />
+            </Link>
+            <Link href="/admin/log" className="btn-quiet">
+              {t("logAll")}
+              <ArrowRight className="size-5" aria-hidden />
+            </Link>
+          </span>
         </div>
         <AuditLogList entries={overview.log} />
       </section>

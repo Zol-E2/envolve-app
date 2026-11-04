@@ -18,6 +18,10 @@ const ProgressBadge = ({ progress, showDetail = true }: { progress: StudentProgr
         ? t("micDenied")
         : detail.kind === "connection"
           ? t("connection")
+          : detail.kind === "offTopic"
+            ? t("offTopic")
+            : detail.kind === "stopped"
+              ? t("stopped")
           : detail.kind === "learningNow"
             ? t("learningNow")
             : detail.kind === "progress"

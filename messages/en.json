@@ -8,7 +8,8 @@
     "signIn": "Sign In",
     "adminUsers": "Users",
     "adminCourses": "Course check",
-    "adminLog": "Admin log"
+    "adminLog": "Admin log",
+    "adminSafety": "Lesson safety"
   },
   "Navbar": {
     "logoAlt": "Logo",
@@ -240,7 +241,26 @@
       "end": "End"
     },
     "reviewNote": "Only you can see this course for now, and you can already use it. If the check finds it fine, others will find it in the library too.",
-    "hiddenNote": "An adult took this course out of the library, so others cannot see it. You can still use it."
+    "hiddenNote": "An adult took this course out of the library, so others cannot see it. You can still use it.",
+    "rulesNote": "In the lesson we only talk about the topic. If you are in trouble, your teacher will know, so they can help.",
+    "startFailed": "The lesson could not start right now. Please try again a little later.",
+    "outcome": {
+      "drift": {
+        "title": "We stopped for now",
+        "text": "We drifted away from the topic, so we stopped. We will carry on next time!"
+      },
+      "violation": {
+        "title": "The lesson has ended",
+        "text": "Something was said that does not belong here, so we ended the lesson. Your teacher will know."
+      },
+      "help": {
+        "title": "Thank you for telling us",
+        "text": "You did nothing wrong. Your teacher will know, so they can help. If you want to talk to someone now, call Kék Vonal. You do not have to say your name.",
+        "line": "Kék Vonal: 116‑111, free"
+      },
+      "readAloud": "Read aloud",
+      "home": "Back to the home page"
+    }
   },
   "Profile": {
     "lessonsCompleted": "Lessons completed",
@@ -388,6 +408,10 @@
       "report": {
         "title": "If something is wrong",
         "text": "If the course is rude, hurtful or broken, use this button to tell us. An adult will look at it."
+      },
+      "rules": {
+        "title": "What do we talk about?",
+        "text": "In the lesson we only talk about the topic. If you are in trouble, say so: your teacher will know, so they can help."
       }
     },
     "courses": {
@@ -560,6 +584,10 @@
       "help": {
         "title": "Help",
         "text": "The Help button explains every page."
+      },
+      "alerts": {
+        "title": "Lesson alerts",
+        "text": "When a lesson left its topic, a rule was broken, or a student may need help, it shows up here with the student's name. You do not see what was said, because it is not stored."
       }
     },
     "library": {
@@ -672,6 +700,20 @@
       "help": {
         "title": "Help",
         "text": "Short explanations for every page are here. They only appear when you click."
+      }
+    },
+    "adminSafety": {
+      "intro": {
+        "title": "Lesson safety",
+        "text": "How many lessons ended because of drift, a rule break or a call for help. Nobody sees the conversations."
+      },
+      "numbers": {
+        "title": "Numbers",
+        "text": "For calls for help you only see whether they reached the teacher. The child's matter belongs to the school."
+      },
+      "list": {
+        "title": "Rule breaks",
+        "text": "Rule breaks show the student's name so you can protect the system. The teacher sees them too and can mark them as false alarms."
       }
     }
   },
@@ -863,7 +905,9 @@
     "learningNow": "Learning right now",
     "progress": "{minutes} / {total} min",
     "doneOn": "Done: {date}",
-    "stuckCount": "{count} stuck"
+    "stuckCount": "{count} stuck",
+    "offTopic": "Left the topic",
+    "stopped": "Lesson stopped"
   },
   "Task": {
     "messageSpeech": "A message from {teacher}: {message}",
@@ -1033,7 +1077,10 @@
     },
     "capped": "Many users: the counts per role come from the newest 500 accounts.",
     "logTitle": "Latest admin decisions",
-    "logAll": "Full log"
+    "logAll": "Full log",
+    "violations": "{count, plural, one {# rule break} other {# rule breaks}} in lessons",
+    "violationsHint": "No teacher has looked at them yet.",
+    "safetyLink": "Lesson safety"
   },
   "AdminUsers": {
     "title": "Users",
@@ -1169,5 +1216,61 @@
       "not_found": "This course is no longer in the library.",
       "too_many": "You sent a lot of reports just now. Please try again a little later."
     }
+  },
+  "Safety": {
+    "title": "Lesson alerts",
+    "none": "No new alerts.",
+    "soundOn": "Sound: on",
+    "soundOff": "Sound: off",
+    "kind": {
+      "drift": "Left the topic",
+      "violation": "Rule break in a lesson",
+      "help": "One of your students may need attention"
+    },
+    "category": {
+      "off_topic": "Kept switching to other topics, so the lesson ended.",
+      "override": "The student asked the tutor to ignore its rules or to play another role.",
+      "inappropriate": "The student asked for or said something not suitable for children.",
+      "hurtful": "The student used hurtful or insulting words.",
+      "home": "A sentence suggesting a safety concern: home situation.",
+      "self": "A sentence suggesting a safety concern: self-harm.",
+      "bullying": "A sentence suggesting a safety concern: hurt or teased by others.",
+      "danger": "A sentence suggesting a safety concern: other danger."
+    },
+    "helpGuidance": "Suggestion: talk to them in private and inform the school's child protection lead as your school's procedure says. The conversation is not stored.",
+    "seen": "Seen",
+    "seenHelp": "Opened, I am on it",
+    "falseAlarm": "False alarm",
+    "markedFalse": "Marked as a false alarm",
+    "earlier": "Earlier ({count})",
+    "saveError": "Could not save. Please try again.",
+    "toastNew": "New alert from a lesson",
+    "toastHelp": "One of your students may need attention",
+    "open": "Open",
+    "close": "Close"
+  },
+  "AdminSafety": {
+    "title": "Lesson safety",
+    "lead": "The last 30 days: rule breaks with the student's name, drift and calls for help only as numbers. Nobody sees what was said.",
+    "numbersTitle": "Numbers (30 days)",
+    "number": {
+      "violation": "rule breaks",
+      "help": "calls for help",
+      "helpSeen": "calls for help opened by the teacher",
+      "drift": "drifts",
+      "unassigned": "alerts from calls not linked to a student"
+    },
+    "helpNote": "Calls for help go to the student's teacher, not here: a child's sensitive matter belongs to their school. Here you only see whether it reached the teacher.",
+    "listTitle": "Rule breaks",
+    "empty": "No rule breaks in the last 30 days.",
+    "unknownStudent": "Call not linked to a student",
+    "category": {
+      "override": "Attempt to override the rules",
+      "inappropriate": "Content not suitable for children",
+      "hurtful": "Hurtful or insulting words"
+    },
+    "seen": "Seen by the teacher",
+    "notSeen": "Not seen yet",
+    "falseAlarm": "False alarm"
   }
 }

@@ -20,6 +20,7 @@ import {
   Footprints,
   Mountain,
   Flag,
+  ShieldCheck,
 } from "lucide-react";
 import { SubjectIcon } from "./SubjectTile";
 import dynamic from "next/dynamic";
@@ -36,6 +37,8 @@ import { finishLessonAttempt, recordMicBlocked, startLessonAttempt } from "@/lib
 import { endReasonFor } from "@/lib/teacher/status";
 import { useTranslations } from "next-intl";
 import { getMicPermission } from "@/lib/onboarding/microphone";
+import { useLessonSafety } from "@/lib/useLessonSafety";
+import LessonOutcome from "./LessonOutcome";
 
 // Represents the current state of the Vapi voice call
 enum CallStatus {
@@ -63,6 +66,11 @@ const CourseComponent = ({
   const [messages, setMessages] = useState<SavedMessage[]>([]);
   // Set when the browser blocks the microphone, so we can explain how to fix it
   const [micBlocked, setMicBlocked] = useState(false);
+  // The lesson could not be linked to the student (lib/useLessonSafety.ts)
+  const [startFailed, setStartFailed] = useState(false);
+  // Drift, a rule break or a call for help ends the lesson with its own screen
+  const safety = useLessonSafety();
+  const safetyOutcome = safety.outcomeRef;
 
   const lottieRef = useRef<LottieRefCurrentProps>(null);
   const transcriptRef = useRef<HTMLDivElement>(null);
@@ -88,7 +96,14 @@ const CourseComponent = ({
     if (!current || current.done) return;
     current.done = true;
     const seconds = (Date.now() - current.startedAt) / 1000;
-    const reason = reasonOverride ?? endReasonFor(seconds, lessonMinutes, current);
+    // A lesson the tutor ended for safety is never "finished" (the server
+    // enforces the same, 20261107_lesson_safety.sql)
+    const reported = safetyOutcome.current;
+    const reason = reported
+      ? reported === "drift"
+        ? "off_topic"
+        : "stopped"
+      : (reasonOverride ?? endReasonFor(seconds, lessonMinutes, current));
     void current.id.then((id) => {
       if (id) void finishLessonAttempt(id, seconds, reason);
     });
@@ -109,15 +124,9 @@ const CourseComponent = ({
   useEffect(() => {
     const onCallStart = () => {
       setCallStatus(CallStatus.ACTIVE);
-      if (assignmentId) {
-        attempt.current = {
-          id: startLessonAttempt(assignmentId, courseId).catch(() => null),
-          startedAt: Date.now(),
-          tutorClosed: false,
-          failed: false,
-          done: false,
-        };
-      }
+      // The attempt was created just before the call; its length counts
+      // from when the conversation really started
+      if (attempt.current && !attempt.current.done) attempt.current.startedAt = Date.now();
     };
     const onCallEnd = () => {
       setCallStatus(CallStatus.ENDED);
@@ -157,7 +166,16 @@ const CourseComponent = ({
       // A blocked microphone is the most common reason a lesson fails to start
       if ((await getMicPermission()) === "denied") {
         setMicBlocked(true);
-        if (assignmentId && !attempt.current) void recordMicBlocked(assignmentId, courseId);
+        const current = attempt.current;
+        if (current && !current.done) {
+          // The attempt made just before the call: it ended on the microphone
+          current.done = true;
+          void current.id.then((id) => {
+            if (id) void finishLessonAttempt(id, 0, "mic_denied");
+          });
+        } else if (assignmentId && !current) {
+          void recordMicBlocked(assignmentId, courseId);
+        }
       }
       // Don't leave the button pulsing on "Connecting..." forever
       setCallStatus((current) =>
@@ -219,9 +237,20 @@ const CourseComponent = ({
       return;
     }
     setMicBlocked(false);
+    setStartFailed(false);
     setMessages([]);
     setElapsed(0);
     setCallStatus(CallStatus.CONNECTING);
+    // Created before the call, so the call can be linked to it right away
+    attempt.current = assignmentId
+      ? {
+          id: startLessonAttempt(assignmentId, courseId).catch(() => null),
+          startedAt: Date.now(),
+          tutorClosed: false,
+          failed: false,
+          done: false,
+        }
+      : null;
     // The saved Vapi assistant for the lesson language holds the prompt,
     // transcriber, model and voice model; here we only fill in the lesson.
     const { assistantId, overrides } = buildLessonCall({
@@ -232,7 +261,18 @@ const CourseComponent = ({
       minutes: lessonMinutes,
       slower: !!assignment?.support.slowerSpeech,
     });
-    vapi.start(assistantId, overrides);
+    const linked = await safety.track(vapi.start(assistantId, overrides), {
+      courseId,
+      attemptId: attempt.current?.id ?? null,
+    });
+    if (!linked) {
+      // No call, or a call we could not link to the student (then it was
+      // stopped): close the attempt as a failed start and say so
+      if (attempt.current) attempt.current.failed = true;
+      closeAttempt.current();
+      setStartFailed(true);
+      setCallStatus((current) => (current === CallStatus.CONNECTING ? CallStatus.INACTIVE : current));
+    }
   };
 
   const handleDisconnect = () => {
@@ -349,6 +389,12 @@ const CourseComponent = ({
             <p>{t("micBlockedHelp")}</p>
           </div>
         )}
+        {startFailed && !micBlocked && (
+          <p className="help-box w-full text-left" role="alert">
+            {t("startFailed")}
+          </p>
+        )}
+        {callStatus === CallStatus.ENDED && safety.outcome && <LessonOutcome kind={safety.outcome} />}
       </section>
 
       {/* Everything said so far, newest at the bottom, older lines fainter */}
@@ -419,6 +465,12 @@ const CourseComponent = ({
             <span className="max-lg:sr-only">({isMuted ? t("micOnHint") : t("micOffHint")})</span>
           </button>
         </div>
+
+        {/* What the tutor talks about, said before the lesson starts */}
+        <p className="lesson-rules" data-tour="lesson-rules">
+          <ShieldCheck className="size-6 shrink-0 text-primary" aria-hidden />
+          <span>{t("rulesNote")}</span>
+        </p>
 
         {/* Ready-made sentences to say out loud when stuck, in the lesson language */}
         <section className="card flex flex-col gap-3" data-tour="lesson-stuck" aria-labelledby="stuck-title">

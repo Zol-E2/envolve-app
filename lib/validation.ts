@@ -222,3 +222,28 @@ export const COURSE_TABS = ["review", "public", "featured", "hidden"] as const;
 export type CourseTab = (typeof COURSE_TABS)[number];
 export const readCourseTab = (value: unknown): CourseTab =>
   (COURSE_TABS as readonly unknown[]).includes(value) ? (value as CourseTab) : "review";
+
+// ─── Lesson safety (20261107_lesson_safety.sql) ──────────────────────────────
+
+export const LESSON_EVENT_KINDS = ["drift", "violation", "help"] as const;
+export type LessonEventKind = (typeof LESSON_EVENT_KINDS)[number];
+
+/** Which categories belong to which kind; the database checks the same pairs */
+export const LESSON_EVENT_CATEGORIES = {
+  drift: ["off_topic"],
+  violation: ["override", "inappropriate", "hurtful"],
+  help: ["home", "self", "bullying", "danger"],
+} as const satisfies Record<LessonEventKind, readonly string[]>;
+export type LessonEventCategory = (typeof LESSON_EVENT_CATEGORIES)[LessonEventKind][number];
+
+/** Vapi call ids: letters, digits and dashes (UUIDs today) */
+export const isCallId = (value: unknown): value is string =>
+  typeof value === "string" && /^[A-Za-z0-9-]{8,100}$/.test(value);
+
+/** The arguments of the tutor's "jelentes" tool, as the model sends them */
+export const lessonEventSchema = z
+  .object({
+    kind: z.enum(LESSON_EVENT_KINDS),
+    category: z.string(),
+  })
+  .refine((value) => (LESSON_EVENT_CATEGORIES[value.kind] as readonly string[]).includes(value.category));

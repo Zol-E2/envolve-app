@@ -31,6 +31,7 @@ const onboardingEventSchema = z.object({
     "adminLog",
     "adminProfile",
     "adminPreview",
+    "adminSafety",
     "helpIntro",
     "helpIntroAdult",
   ]),

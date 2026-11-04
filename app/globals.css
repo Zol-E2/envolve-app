@@ -1033,6 +1033,40 @@
     @apply rounded-2xl bg-ok-soft px-4 py-3 text-lg font-bold text-ok;
   }
 
+  /* --- Lesson safety (lib/useLessonSafety.ts) --- */
+  .lesson-rules {
+    @apply flex items-start gap-3 rounded-2xl bg-secondary px-4 py-3 text-base leading-snug;
+  }
+  /* The screen after a lesson the tutor ended for safety: calm, never red */
+  .lesson-outcome {
+    @apply flex w-full items-start gap-3 rounded-2xl border-2 border-turn bg-turn-soft px-4 py-4 text-left;
+  }
+  .lesson-outcome[data-kind="help"] {
+    @apply border-primary bg-primary-soft;
+  }
+  .lesson-helpline {
+    @apply flex w-fit items-center gap-2 rounded-xl bg-card px-3 py-2 text-lg font-extrabold;
+  }
+  .lesson-alert {
+    @apply flex items-start gap-3 rounded-2xl border-2 border-border bg-card p-4;
+  }
+  .lesson-alert[data-kind="violation"] {
+    @apply border-destructive;
+  }
+  .lesson-alert[data-kind="help"] {
+    @apply border-primary bg-primary-soft/40;
+  }
+  /* New-alert notice for teachers: no name, above the phone tab bar */
+  .alert-toast {
+    @apply fixed right-4 left-4 z-40 mx-auto flex max-w-md flex-wrap items-center gap-3 rounded-2xl border-2 border-primary bg-card p-4 shadow-lg sm:left-auto;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 96px);
+  }
+  @media (width >= 64rem) {
+    .alert-toast {
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+    }
+  }
+
   /* --- Student side: tasks from the teacher, joining a class --- */
   .task-card {
     @apply flex flex-col gap-4 rounded-3xl border-2 border-turn bg-card p-6 max-sm:rounded-[22px] max-sm:p-4;
