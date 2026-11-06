@@ -22,6 +22,8 @@ const ProgressBadge = ({ progress, showDetail = true }: { progress: StudentProgr
             ? t("offTopic")
             : detail.kind === "stopped"
               ? t("stopped")
+          : detail.kind === "handled"
+            ? t("handled")
           : detail.kind === "learningNow"
             ? t("learningNow")
             : detail.kind === "progress"

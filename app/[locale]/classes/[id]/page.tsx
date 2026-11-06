@@ -10,6 +10,7 @@ import { deleteAssignment, deleteClass } from "@/lib/actions/teacher.actions";
 import type { AssignmentProgress } from "@/lib/teacher/types";
 import JoinCodeBox from "@/components/teacher/JoinCodeBox";
 import ProgressBadge from "@/components/teacher/ProgressBadge";
+import MarkHandledButton from "@/components/teacher/MarkHandledButton";
 import StudentSupportRow from "@/components/teacher/StudentSupportRow";
 import ConfirmAction from "@/components/teacher/ConfirmAction";
 import SubjectTile from "@/components/SubjectTile";
@@ -142,11 +143,12 @@ const ClassPage = async ({ params, searchParams }: ClassPageProps) => {
             {stuck.length > 0 && (
               <div className="stuck-alert" role="status" data-tour="class-stuck">
                 <TriangleAlert className="mt-1 size-6 shrink-0 text-warn" aria-hidden />
-                <div className="flex flex-col gap-1">
+                <div className="flex min-w-0 flex-1 flex-col gap-1">
                   <p className="font-bold">{t("stuckTitle", { count: stuck.length, course: selected.course.name })}</p>
-                  <ul className="flex flex-col">
+                  <ul className="flex flex-col gap-2">
                     {stuck.map((s) => (
-                      <li key={s.studentId}>
+                      <li key={s.studentId} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+                        <span className="min-w-0">
                         {s.displayName}:{" "}
                         {s.progress.detail?.kind === "left"
                           ? tStatus("left", { minutes: s.progress.detail.minutes })
@@ -157,6 +159,8 @@ const ClassPage = async ({ params, searchParams }: ClassPageProps) => {
                               : s.progress.detail?.kind === "stopped"
                                 ? tStatus("stopped")
                                 : tStatus("connection")}
+                        </span>
+                        <MarkHandledButton assignmentId={selected.id} studentId={s.studentId} studentName={s.displayName} />
                       </li>
                     ))}
                   </ul>

@@ -857,7 +857,7 @@
     "noDue": "No due date",
     "doneCount": "Done: {done} / {total}",
     "stuckTitle": "{count, plural, one {# student is} other {# students are}} stuck on “{course}”.",
-    "stuckHint": "It is worth asking them what happened. They can try again from their home page.",
+    "stuckHint": "It is worth asking them what happened. Once you have talked it through, press “Handled”. They can try again from their home page.",
     "statusListLabel": "Where each student is",
     "studentsLead": "Set the support each student gets in assigned lessons: slower speech, a shorter lesson, or automatic read-aloud.",
     "deleteClass": "Delete class",
@@ -891,7 +891,9 @@
     "remove": "Remove from class",
     "removeQuestion": "Remove {name}?",
     "removeConfirm": "Yes, remove",
-    "copyLink": "Copy link"
+    "copyLink": "Copy link",
+    "markHandled": "Handled",
+    "markHandledError": "Could not save. Please try again."
   },
   "Status": {
     "stuck": "Stuck",
@@ -907,7 +909,8 @@
     "doneOn": "Done: {date}",
     "stuckCount": "{count} stuck",
     "offTopic": "Left the topic",
-    "stopped": "Lesson stopped"
+    "stopped": "Lesson stopped",
+    "handled": "Handled"
   },
   "Task": {
     "messageSpeech": "A message from {teacher}: {message}",

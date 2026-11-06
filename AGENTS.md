@@ -72,6 +72,11 @@ drift, violation and help.
   Colours: red = may be in danger, amber = rule break, blue = drift, always
   with an icon and a word. Admins get a card on their home page and a bar
   (`AdminSafetyCard`, `AdminSafetyBar`). Neither bar shows a name.
+- A teacher can clear a stuck student with "Kezeltem" (`MarkHandledButton`,
+  `20261111_teacher_handled.sql`): the latest attempt gets `teacher_ack_at`
+  and stops counting as stuck until the next attempt. Clearing a stuck
+  lesson also marks its lesson alert as seen, and the other way round.
+  Students can never set those columns.
 - Functions that return a table: cast every text column with `::text`. Some
   live columns are `varchar`, and PL/pgSQL rejects the mismatch at run time
   (`20261108_lesson_safety_fixes.sql`).

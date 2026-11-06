@@ -857,7 +857,7 @@
     "noDue": "Nincs határidő",
     "doneCount": "Kész: {done} / {total}",
     "stuckTitle": "{count} diák elakadt a(z) „{course}” órán.",
-    "stuckHint": "Érdemes megkérdezni őket, mi történt. A diák a főoldalán újra megpróbálhatja.",
+    "stuckHint": "Érdemes megkérdezni őket, mi történt. Ha megbeszéltétek, nyomd meg a „Kezeltem” gombot. A diák a főoldalán újra megpróbálhatja.",
     "statusListLabel": "Ki hol tart",
     "studentsLead": "Diákonként beállíthatod, milyen támogatást kapjon a kiosztott óráknál: lassabb beszédet, rövidebb órát vagy automatikus felolvasást.",
     "deleteClass": "Osztály törlése",
@@ -891,7 +891,9 @@
     "remove": "Eltávolítás az osztályból",
     "removeQuestion": "Eltávolítod: {name}?",
     "removeConfirm": "Igen, eltávolítom",
-    "copyLink": "Link másolása"
+    "copyLink": "Link másolása",
+    "markHandled": "Kezeltem",
+    "markHandledError": "Nem sikerült menteni. Próbáld újra."
   },
   "Status": {
     "stuck": "Elakadt",
@@ -907,7 +909,8 @@
     "doneOn": "Kész: {date}",
     "stuckCount": "{count} elakadt",
     "offTopic": "Letért a témáról",
-    "stopped": "Az óra leállt"
+    "stopped": "Az óra leállt",
+    "handled": "Kezelve"
   },
   "Task": {
     "messageSpeech": "{teacher} üzenete: {message}",

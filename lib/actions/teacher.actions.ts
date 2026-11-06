@@ -137,7 +137,7 @@ const loadClassData = async (classIds: string[], since?: string) => {
     supabase.from("assignment_students").select("assignment_id, student_id").in("assignment_id", assignmentIds),
     supabase
       .from("lesson_attempts")
-      .select("student_id, assignment_id, started_at, ended_at, seconds, end_reason")
+      .select("student_id, assignment_id, started_at, ended_at, seconds, end_reason, teacher_ack_at")
       .in("assignment_id", assignmentIds),
   ]);
   if (pickedError || attemptError) throw new Error("Class data not loaded");
@@ -223,6 +223,7 @@ export const getTeacherOverview = async (): Promise<TeacherOverview> => {
             s.progress.detail?.kind !== "stopped"
         )
         .map((s) => ({
+          studentId: s.studentId,
           studentName: s.displayName,
           classId: classOf.get(p.id) ?? "",
           className: className.get(classOf.get(p.id) ?? "") ?? "",
@@ -454,5 +455,23 @@ export const deleteAssignment = async (assignmentId: string) => {
   const supabase = createSupabaseClient();
   const { error } = await supabase.from("assignments").delete().eq("id", assignmentId);
   if (error) throw new Error("Assignment not deleted");
+  refresh();
+};
+
+/**
+ * "Kezeltem": the teacher has dealt with a stuck student, so the latest
+ * lesson stops counting as stuck (and its lesson alert, if any, as unseen).
+ * The database checks that the assignment is this teacher's
+ * (20261111_teacher_handled.sql).
+ */
+export const markStuckHandled = async (input: { assignmentId: string; studentId: string }) => {
+  await requireTeacher();
+  if (!isUuid(input.assignmentId) || !isUserId(input.studentId)) throw new Error("Invalid student");
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase.rpc("mark_attempt_handled", {
+    p_assignment: input.assignmentId,
+    p_student: input.studentId,
+  });
+  if (error || data !== "ok") throw new Error("Not saved");
   refresh();
 };

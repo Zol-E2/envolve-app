@@ -6,6 +6,7 @@ import ProgressBadge from "./ProgressBadge";
 import PageTour from "@/components/onboarding/PageTour";
 import type { LessonAlert } from "@/lib/actions/safety.actions";
 import LessonAlerts from "./LessonAlerts";
+import MarkHandledButton from "./MarkHandledButton";
 
 /**
  * The teacher's home page ("Áttekintés"): what needs their attention first
@@ -76,7 +77,7 @@ const TeacherHome = async ({
             ) : (
               <ul className="person-list">
                 {stuck.map((s) => (
-                  <li key={`${s.assignmentId}-${s.studentName}`} className="person-row">
+                  <li key={`${s.assignmentId}-${s.studentId}`} className="person-row">
                     <span className="person-avatar" aria-hidden>
                       {s.studentName.charAt(0).toUpperCase()}
                     </span>
@@ -89,6 +90,9 @@ const TeacherHome = async ({
                       </span>
                     </span>
                     <ProgressBadge progress={s.progress} />
+                    <span className="flex basis-full justify-end max-sm:justify-start">
+                      <MarkHandledButton assignmentId={s.assignmentId} studentId={s.studentId} studentName={s.studentName} />
+                    </span>
                   </li>
                 ))}
               </ul>

@@ -13,6 +13,10 @@ import { localDate } from "@/lib/week";
  *   notStarted  no attempt since the assignment was given
  *
  * "late" is a label on top: the due date has passed and it is not done.
+ *
+ * A stuck lesson the teacher has marked as handled (teacher_ack_at,
+ * 20261111_teacher_handled.sql) counts as in progress again, until the
+ * student's next attempt is judged on its own.
  */
 
 export type EndReason = "finished" | "left" | "mic_denied" | "error" | "off_topic" | "stopped";
@@ -24,6 +28,8 @@ export interface Attempt {
   ended_at: string | null;
   seconds: number | null;
   end_reason: EndReason | null;
+  /** The teacher marked this (latest) lesson as handled; teachers' queries only */
+  teacher_ack_at?: string | null;
 }
 
 export type LessonStatus = "stuck" | "inProgress" | "notStarted" | "done";
@@ -35,6 +41,7 @@ export type StatusDetail =
   | { kind: "offTopic" }
   | { kind: "stopped" }
   | { kind: "learningNow" }
+  | { kind: "handled" }
   | { kind: "progress"; minutes: number; total: number }
   | { kind: "doneOn"; date: string };
 
@@ -66,6 +73,22 @@ export const computeProgress = (
   totalMinutes: number,
   dueDate: string | null,
   now = new Date()
+): StudentProgress => {
+  const result = judgeAttempts(attempts, totalMinutes, dueDate, now);
+  if (result.status !== "stuck") return result;
+  const latest = attempts.reduce<Attempt | null>(
+    (last, a) => (!last || a.started_at > last.started_at ? a : last),
+    null
+  );
+  if (!latest?.teacher_ack_at) return result;
+  return { status: "inProgress", late: result.late, detail: { kind: "handled" }, lastActivity: result.lastActivity };
+};
+
+const judgeAttempts = (
+  attempts: Attempt[],
+  totalMinutes: number,
+  dueDate: string | null,
+  now: Date
 ): StudentProgress => {
   const total = Math.max(1, totalMinutes);
   if (attempts.length === 0) return { status: "notStarted", late: isLate(dueDate, now) };

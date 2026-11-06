@@ -82,6 +82,7 @@ export interface TeacherOverview {
   classes: ClassSummary[];
   /** Newest first, at most 8 */
   stuck: {
+    studentId: string;
     studentName: string;
     classId: string;
     className: string;
