@@ -26,8 +26,10 @@ const LessonAlerts = ({ alerts }: { alerts: LessonAlert[] }) => {
   const [chosen, setChosen] = useState<boolean | null>(null);
   const sound = chosen ?? stored;
 
-  const open = alerts.filter((a) => !a.seen && a.kind !== "drift");
-  const recent = alerts.filter((a) => a.seen || a.kind === "drift").slice(0, 10);
+  // Every unopened alert waits here, from any lesson of the teacher's
+  // students (assigned or chosen by the student), until it is opened
+  const open = alerts.filter((a) => !a.seen);
+  const recent = alerts.filter((a) => a.seen).slice(0, 10);
 
   const acknowledge = async (id: string, falseAlarm = false) => {
     setBusy(id);
@@ -86,11 +88,18 @@ const LessonAlerts = ({ alerts }: { alerts: LessonAlert[] }) => {
   };
 
   return (
-    <section id="alerts" className="flex scroll-mt-24 flex-col gap-3" aria-labelledby="alerts-title" data-tour="teacher-alerts">
+    <section
+      id="alerts"
+      className="lesson-alerts flex scroll-mt-24 flex-col gap-3"
+      data-open={open.length > 0 || undefined}
+      aria-labelledby="alerts-title"
+      data-tour="teacher-alerts"
+    >
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 id="alerts-title" className="flex items-center gap-2 text-2xl font-bold max-sm:text-xl">
+        <h2 id="alerts-title" className="flex flex-wrap items-center gap-2 text-2xl font-bold max-sm:text-xl">
           <BellRing className="size-6 text-primary" aria-hidden />
           {t("title")}
+          {open.length > 0 && <span className="alert-count">{t("openBadge", { count: open.length })}</span>}
         </h2>
         <button type="button" className="btn-quiet" onClick={toggleSound} aria-pressed={sound}>
           {sound ? <Volume2 className="size-5" aria-hidden /> : <VolumeX className="size-5" aria-hidden />}

@@ -3,7 +3,7 @@
 import { cn, getSubjectColor } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { buildLessonCall } from "@/lib/ai/assistants";
-import { vapi } from "@/lib/vapi.sdk";
+import { isNormalCallEnd, vapi } from "@/lib/vapi.sdk";
 import { useState, useEffect, useRef } from "react";
 import {
   ArrowLeft,
@@ -161,6 +161,11 @@ const CourseComponent = ({
     };
 
     const onError = async (error: Error) => {
+      // The tutor hanging up arrives as an "ejection" error: a normal end
+      if (isNormalCallEnd(error)) {
+        if (attempt.current) attempt.current.tutorClosed = true;
+        return;
+      }
       console.log("Error: ", error);
       if (attempt.current) attempt.current.failed = true;
       // A blocked microphone is the most common reason a lesson fails to start

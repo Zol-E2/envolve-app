@@ -18,6 +18,7 @@ import ComfortBootScript from "@/components/ComfortBootScript";
 import { RoleProvider } from "@/lib/useRole";
 import { getRole } from "@/lib/roles.server";
 import LessonAlertWatcher from "@/components/teacher/LessonAlertWatcher";
+import AdminSafetyBar from "@/components/admin/AdminSafetyBar";
 
 // Headings: the eNvolve brand face
 const heading = Bricolage_Grotesque({
@@ -115,11 +116,12 @@ export default async function LocaleLayout({
               <ComfortProvider>
                 <TourProvider>
                   <Navbar />
+                  {/* Lesson safety: a bar under the menu on every page until someone opens it */}
+                  {role === "teacher" && <LessonAlertWatcher />}
+                  {role === "admin" && <AdminSafetyBar />}
                   {children}
                   <Footer />
                   <MobileTabBar />
-                  {/* Teachers hear about lesson safety alerts on every page */}
-                  {role === "teacher" && <LessonAlertWatcher />}
                 </TourProvider>
               </ComfortProvider>
             </RoleProvider>

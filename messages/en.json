@@ -1244,10 +1244,10 @@
     "markedFalse": "Marked as a false alarm",
     "earlier": "Earlier ({count})",
     "saveError": "Could not save. Please try again.",
-    "toastNew": "New alert from a lesson",
-    "toastHelp": "One of your students may need attention",
     "open": "Open",
-    "close": "Close"
+    "bannerOpen": "{count, plural, one {# alert to look at} other {# alerts to look at}} from your students’ lessons. See what happened.",
+    "bannerHelp": "One of your students may need your attention. Please look now.",
+    "openBadge": "{count} to look at"
   },
   "AdminSafety": {
     "title": "Lesson safety",
@@ -1271,6 +1271,11 @@
     },
     "seen": "Seen by the teacher",
     "notSeen": "Not seen yet",
-    "falseAlarm": "False alarm"
+    "falseAlarm": "False alarm",
+    "barTitle": "Lesson safety:",
+    "barViolations": "{count, plural, one {# rule break no teacher has seen yet} other {# rule breaks no teacher has seen yet}}",
+    "barHelp": "{count, plural, one {# call for help no teacher has opened yet} other {# calls for help no teacher has opened yet}}",
+    "barUnassigned": "{count, plural, one {# report from a call not linked to a student} other {# reports from calls not linked to a student}}",
+    "barOpen": "Open"
   }
 }

@@ -342,7 +342,10 @@ export const getAdminSafety = async (): Promise<AdminSafety> => {
     supabase.rpc("admin_safety_stats").single(),
     supabase.rpc("admin_lesson_violations"),
   ]);
-  if (stats.error || !stats.data || rows.error) throw new Error("Safety not loaded");
+  if (stats.error || !stats.data || rows.error) {
+    console.error("Lesson safety not loaded:", stats.error?.message ?? rows.error?.message ?? "no data");
+    throw new Error("Safety not loaded");
+  }
   const s = stats.data as Record<string, number>;
   const list = (rows.data ?? []) as {
     id: string;
@@ -377,5 +380,37 @@ export const getAdminSafety = async (): Promise<AdminSafety> => {
         courseName: r.course_name ?? "",
       };
     }),
+  };
+};
+
+export interface AdminSafetyOpen {
+  /** Rule breaks no teacher has opened yet (30 days) */
+  violations: number;
+  /** Calls for help no teacher has opened yet (30 days), a number only */
+  help: number;
+  /** Reports from calls that could not be linked to a student (30 days) */
+  unassigned: number;
+  /** When the newest of the above came, or null */
+  latestAt: string | null;
+}
+
+/**
+ * What still needs someone's eyes, for the alert bar on every admin page
+ * and the admin's home. Numbers only.
+ */
+export const getAdminSafetyOpen = async (): Promise<AdminSafetyOpen> => {
+  await requireAdmin();
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase.rpc("admin_safety_open").single();
+  if (error || !data) {
+    console.error("Lesson safety counts not loaded:", error?.message ?? "no data");
+    throw new Error("Safety not loaded");
+  }
+  const row = data as { violation_open?: number; help_open?: number; unassigned_30d?: number; latest_at?: string | null };
+  return {
+    violations: row.violation_open ?? 0,
+    help: row.help_open ?? 0,
+    unassigned: row.unassigned_30d ?? 0,
+    latestAt: row.latest_at ?? null,
   };
 };

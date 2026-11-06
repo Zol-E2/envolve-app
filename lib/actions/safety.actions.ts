@@ -68,6 +68,7 @@ export const getTeacherAlerts = async (): Promise<LessonAlert[]> => {
   if (!userId || !canTeach(readRole(sessionClaims?.app_role))) return [];
   const supabase = createSupabaseClient();
   const { data, error } = await supabase.rpc("teacher_lesson_events");
+  if (error) console.error("Lesson alerts not loaded:", error.message);
   if (error || !Array.isArray(data)) return [];
   return (data as Record<string, unknown>[])
     .map((row) => ({

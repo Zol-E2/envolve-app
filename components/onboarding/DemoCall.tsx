@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { vapi } from "@/lib/vapi.sdk";
+import { isNormalCallEnd, vapi } from "@/lib/vapi.sdk";
 import { VAPI_DEMO_ASSISTANT_IDS, isLessonLanguage } from "@/lib/ai/assistants";
 import { getMicPermission } from "@/lib/onboarding/microphone";
 import { stopSpeaking } from "@/lib/onboarding/speech";
@@ -40,6 +40,8 @@ const DemoCall = () => {
     const onSpeechStart = () => setIsSpeaking(true);
     const onSpeechEnd = () => setIsSpeaking(false);
     const onError = async (error: unknown) => {
+      // The guide hanging up arrives as an "ejection" error: a normal end
+      if (isNormalCallEnd(error)) return;
       console.log("Demo call error:", error);
       if ((await getMicPermission()) === "denied") setMicBlocked(true);
       setStatus((current) => (current === "connecting" ? "idle" : current));

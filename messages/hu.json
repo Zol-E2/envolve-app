@@ -1244,10 +1244,10 @@
     "markedFalse": "Téves jelzésnek jelölve",
     "earlier": "Korábbiak ({count})",
     "saveError": "Nem sikerült menteni. Próbáld újra.",
-    "toastNew": "Új értesítés egy óráról",
-    "toastHelp": "Egy diákodnak figyelemre lehet szüksége",
     "open": "Megnyitom",
-    "close": "Bezárás"
+    "bannerOpen": "{count, plural, one {# megnézendő jelzés} other {# megnézendő jelzés}} a diákjaid óráiról. Nézd meg, mi történt.",
+    "bannerHelp": "Egy diákodnak figyelemre lehet szüksége. Kérlek, nézd meg most.",
+    "openBadge": "{count} megnézendő"
   },
   "AdminSafety": {
     "title": "Órabiztonság",
@@ -1271,6 +1271,11 @@
     },
     "seen": "A tanár látta",
     "notSeen": "Még nem látták",
-    "falseAlarm": "Téves jelzés"
+    "falseAlarm": "Téves jelzés",
+    "barTitle": "Órabiztonság:",
+    "barViolations": "{count, plural, one {# szabályszegés, amit a tanár még nem látott} other {# szabályszegés, amit a tanár még nem látott}}",
+    "barHelp": "{count, plural, one {# segítségkérés, amit a tanár még nem nyitott meg} other {# segítségkérés, amit a tanár még nem nyitott meg}}",
+    "barUnassigned": "{count, plural, one {# jelzés diákhoz nem köthető hívásból} other {# jelzés diákhoz nem köthető hívásból}}",
+    "barOpen": "Megnézem"
   }
 }

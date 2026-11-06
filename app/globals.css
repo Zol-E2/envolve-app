@@ -1056,15 +1056,32 @@
   .lesson-alert[data-kind="help"] {
     @apply border-primary bg-primary-soft/40;
   }
-  /* New-alert notice for teachers: no name, above the phone tab bar */
-  .alert-toast {
-    @apply fixed right-4 left-4 z-40 mx-auto flex max-w-md flex-wrap items-center gap-3 rounded-2xl border-2 border-primary bg-card p-4 shadow-lg sm:left-auto;
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 96px);
+  .lesson-alert[data-kind="drift"] {
+    @apply border-warn;
   }
-  @media (width >= 64rem) {
-    .alert-toast {
-      bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
-    }
+  /* The overview section while something is unopened: framed, hard to miss */
+  .lesson-alerts[data-open] {
+    @apply rounded-3xl border-2 border-destructive bg-destructive-soft/50 p-5 max-sm:rounded-[22px] max-sm:p-3;
+  }
+  .alert-count {
+    @apply rounded-full bg-destructive px-3 py-0.5 text-base font-bold text-white;
+  }
+  /* Lesson safety bar under the menu (teachers and admins): no names */
+  .safety-bar {
+    @apply border-y-2 border-destructive bg-destructive-soft text-foreground;
+  }
+  .safety-bar[data-tone="help"] {
+    @apply border-primary bg-primary-soft;
+  }
+  .safety-bar-inner {
+    @apply mx-auto flex w-full max-w-[1200px] flex-wrap items-center gap-3 py-3;
+    padding-inline: clamp(1rem, 4vw, 2.5rem);
+  }
+  .safety-bar svg {
+    @apply text-destructive;
+  }
+  .safety-bar[data-tone="help"] svg {
+    @apply text-primary-deep;
   }
 
   /* --- Student side: tasks from the teacher, joining a class --- */
