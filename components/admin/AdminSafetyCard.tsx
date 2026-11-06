@@ -1,0 +1,96 @@
+import { getFormatter, getTranslations } from "next-intl/server";
+import { ArrowRight, ShieldAlert } from "lucide-react";
+import { Link } from "@/i18n/navigation";
+import type { AdminSafety } from "@/lib/actions/admin.actions";
+
+/**
+ * Lesson safety on the admin's home page, in its own card: how many lessons
+ * the tutor stopped in the last 30 days, most serious first, and the latest
+ * rule breaks with names. Calls for help stay numbers only (they belong to
+ * the student's school). If the numbers could not be loaded, it says so
+ * instead of showing nothing.
+ */
+const AdminSafetyCard = async ({ safety }: { safety: AdminSafety | null }) => {
+  const [t, ts, format] = await Promise.all([
+    getTranslations("AdminHome"),
+    getTranslations("AdminSafety"),
+    getFormatter(),
+  ]);
+
+  type Stat = {
+    key: "help" | "helpSeen" | "violation" | "drift" | "unassigned";
+    kind: "help" | "violation" | "drift";
+    value: number;
+  };
+  const numbers: Stat[] = safety
+    ? [
+        { key: "help", kind: "help", value: safety.stats.help },
+        { key: "helpSeen", kind: "help", value: safety.stats.helpSeen },
+        { key: "violation", kind: "violation", value: safety.stats.violation },
+        { key: "drift", kind: "drift", value: safety.stats.drift },
+      ]
+    : [];
+  if (safety && safety.stats.unassigned > 0) {
+    numbers.push({ key: "unassigned", kind: "violation", value: safety.stats.unassigned });
+  }
+  const latest = safety?.violations.slice(0, 5) ?? [];
+  const total = safety ? safety.stats.help + safety.stats.violation + safety.stats.drift : 0;
+
+  return (
+    <section className="admin-safety-card" aria-labelledby="safety-card-title" data-attention={total > 0 || undefined}>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h2 id="safety-card-title" className="flex items-center gap-2 text-2xl font-bold max-sm:text-xl">
+          <ShieldAlert className="size-6 text-destructive" aria-hidden />
+          {t("safetyTitle")}
+        </h2>
+        <Link href="/admin/safety" className="btn-quiet">
+          {t("safetyOpen")}
+          <ArrowRight className="size-5" aria-hidden />
+        </Link>
+      </div>
+
+      {!safety ? (
+        <p className="field-error" role="alert">
+          {t("safetyError")}
+        </p>
+      ) : (
+        <>
+          <dl className="admin-stats">
+            {numbers.map((n) => (
+              <div key={n.key} className="admin-stat" data-kind={n.value > 0 ? n.kind : undefined}>
+                <dt>{ts(`number.${n.key}`)}</dt>
+                <dd>{format.number(n.value)}</dd>
+              </div>
+            ))}
+          </dl>
+          <h3 className="text-xl font-bold max-sm:text-lg">{t("safetyRecent")}</h3>
+          {latest.length === 0 ? (
+            <p className="text-lg text-muted-foreground">{ts("empty")}</p>
+          ) : (
+            <ul className="person-list">
+              {latest.map((v) => (
+                <li key={v.id} className="person-row">
+                  <span className="person-name">
+                    <span className="break-words">{v.studentName || v.studentEmail || ts("unknownStudent")}</span>
+                    <span className="person-detail block">{ts(`category.${v.category}`)}</span>
+                    <span className="person-detail block break-words">
+                      {[v.courseName, format.dateTime(new Date(v.createdAt), { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })]
+                        .filter(Boolean)
+                        .join(" · ")}
+                    </span>
+                  </span>
+                  <span className="status-pill" data-status={v.falseAlarm ? "notStarted" : v.seen ? "done" : "stuck"}>
+                    {v.falseAlarm ? ts("falseAlarm") : v.seen ? ts("seen") : ts("notSeen")}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+          <p className="form-hint">{ts("helpNote")}</p>
+        </>
+      )}
+    </section>
+  );
+};
+
+export default AdminSafetyCard;

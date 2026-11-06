@@ -59,10 +59,16 @@ drift, violation and help.
   30 days. Teachers and admins see fixed, neutral texts per category.
 - Every new voice call must be linked with `useLessonSafety().track()`; a call
   that cannot be linked is stopped.
-- Teachers see every alert of their students, from any lesson (assigned or
-  not), and a bar under the menu stays on every page until they open it
-  (`LessonAlertWatcher`). Admins get a similar bar with numbers only
-  (`AdminSafetyBar`). Neither bar shows a name.
+- A report reaches the server two ways: Vapi's request to the webhook, and
+  the browser's copy (`reportLessonEvent`, `20261109_lesson_report_backup.sql`).
+  One event per call and kind, whichever comes first.
+- Teachers see every stopped lesson of their students, from any lesson
+  (assigned or not), one card each on the overview, most serious first
+  (help, then rule breaks, then drift), and a bar under the menu on every
+  page until they open it (`LessonAlertWatcher`). A student leaving by
+  themselves stays in the class progress ("Figyelmet igényel"), not here.
+  Admins get a card on their home page and a bar with numbers only
+  (`AdminSafetyCard`, `AdminSafetyBar`). Neither bar shows a name.
 - Functions that return a table: cast every text column with `::text`. Some
   live columns are `varchar`, and PL/pgSQL rejects the mismatch at run time
   (`20261108_lesson_safety_fixes.sql`).

@@ -24,7 +24,7 @@ import { getAdminOverview } from "@/lib/actions/admin.actions";
 import AdminHome from "@/components/admin/AdminHome";
 import TwoFactorRequired from "@/components/admin/TwoFactorRequired";
 import { getTeacherAlerts } from "@/lib/actions/safety.actions";
-import { getAdminSafetyOpen } from "@/lib/actions/admin.actions";
+import { getAdminSafety } from "@/lib/actions/admin.actions";
 import { getTeacherOverview } from "@/lib/actions/teacher.actions";
 import { readTeacherProfile } from "@/lib/validation";
 import TeacherHome from "@/components/teacher/TeacherHome";
@@ -49,10 +49,17 @@ const Page = async () => {
     const [user, overview, safety] = await Promise.all([
       currentUser(),
       getAdminOverview(),
-      getAdminSafetyOpen().catch(() => null),
+      getAdminSafety().catch(() => null),
     ]);
-    const openViolations = safety?.violations ?? 0;
-    return <AdminHome name={user?.firstName?.trim() || "Admin"} overview={overview} openViolations={openViolations} />;
+    const openViolations = safety?.violations.filter((v) => !v.seen).length ?? 0;
+    return (
+      <AdminHome
+        name={user?.firstName?.trim() || "Admin"}
+        overview={overview}
+        openViolations={openViolations}
+        safety={safety}
+      />
+    );
   }
 
   // Teachers get their own home page (lib/views.ts): what needs attention

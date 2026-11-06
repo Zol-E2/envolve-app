@@ -23,6 +23,7 @@ const TeacherHome = async ({
 }) => {
   const [t, format] = await Promise.all([getTranslations("TeacherHome"), getFormatter()]);
   const { classes, stuck, deadlines } = overview;
+  const openAlerts = alerts.filter((a) => !a.seen).length;
   const assignHref = classes.length === 1 ? `/classes/${classes[0].id}/assign` : "/library";
 
   return (
@@ -32,7 +33,13 @@ const TeacherHome = async ({
       <section className="flex flex-col gap-1">
         <h1>{t("hello", { name })}</h1>
         <p className="text-lg text-muted-foreground max-sm:text-base">
-          {classes.length === 0 ? t("leadFirst") : stuck.length > 0 ? t("leadStuck", { count: stuck.length }) : t("leadCalm")}
+          {openAlerts > 0
+            ? t("leadAlerts", { count: openAlerts })
+            : classes.length === 0
+              ? t("leadFirst")
+              : stuck.length > 0
+                ? t("leadStuck", { count: stuck.length })
+                : t("leadCalm")}
         </p>
       </section>
 

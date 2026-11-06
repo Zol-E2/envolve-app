@@ -210,10 +210,18 @@ export const getTeacherOverview = async (): Promise<TeacherOverview> => {
   const today = localDate(new Date());
   const inTwoWeeks = localDate(new Date(Date.now() + 14 * 86400000));
 
+  // A lesson the tutor stopped (drift, rule break, call for help) is on the
+  // overview as a lesson alert, with what happened; here only the students
+  // who left, lost the connection or had no microphone
   const stuck = progress
     .flatMap((p) =>
       p.students
-        .filter((s) => s.progress.status === "stuck")
+        .filter(
+          (s) =>
+            s.progress.status === "stuck" &&
+            s.progress.detail?.kind !== "offTopic" &&
+            s.progress.detail?.kind !== "stopped"
+        )
         .map((s) => ({
           studentName: s.displayName,
           classId: classOf.get(p.id) ?? "",

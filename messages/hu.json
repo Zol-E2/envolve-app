@@ -1000,7 +1000,8 @@
     "doneCount": "Kész: {done} / {total}",
     "classesTitle": "Osztályaim",
     "classesNone": "Még nincs osztályod.",
-    "students": "{count} diák"
+    "students": "{count} diák",
+    "leadAlerts": "{count, plural, one {# óra leállt a diákjaidnál.} other {# óra leállt a diákjaidnál.}} Lent látod, mi történt."
   },
   "Library": {
     "title": "Kurzustár",
@@ -1058,7 +1059,7 @@
   },
   "AdminHome": {
     "hello": "Szia, {name}!",
-    "leadTodo": "{count} kurzus vár a döntésedre.",
+    "leadTodo": "{count} teendő vár rád.",
     "leadCalm": "Nincs teendő. Itt látod a számokat és a legutóbbi admin lépéseket.",
     "todoTitle": "Teendők",
     "todoNone": "Minden kurzusról döntöttetek, nincs jelentett vagy gyanús kurzus.",
@@ -1080,7 +1081,11 @@
     "logAll": "Teljes napló",
     "violations": "{count} szabályszegés az órákon",
     "violationsHint": "Még egy tanár sem nézte meg őket.",
-    "safetyLink": "Órabiztonság"
+    "safetyLink": "Órabiztonság",
+    "safetyTitle": "Órabiztonság (30 nap)",
+    "safetyRecent": "Legutóbbi szabályszegések",
+    "safetyError": "Az órabiztonsági adatok most nem töltődtek be. Frissítsd az oldalt, és ha nem segít, szólj a fejlesztőnek.",
+    "safetyOpen": "Részletek"
   },
   "AdminUsers": {
     "title": "Felhasználók",
@@ -1222,20 +1227,20 @@
     "none": "Nincs új értesítés.",
     "soundOn": "Hangjelzés: be",
     "soundOff": "Hangjelzés: ki",
-    "kind": {
-      "drift": "Letért a témáról",
-      "violation": "Szabályszegés egy órán",
-      "help": "Egy diákodnak figyelemre lehet szüksége"
+    "level": {
+      "help": "Veszélyben lehet",
+      "violation": "Szabályszegés",
+      "drift": "Elkalandozás"
     },
     "category": {
       "off_topic": "Többször is más témára tért, ezért az óra véget ért.",
-      "override": "A diák arra kérte a tanár-asszisztenst, hogy hagyja figyelmen kívül a szabályait, vagy vegyen fel más szerepet.",
-      "inappropriate": "A diák nem gyerekeknek való tartalmat kért vagy mondott.",
-      "hurtful": "A diák bántó vagy sértő szavakat használt.",
-      "home": "Biztonságra utaló mondat: otthoni helyzet.",
-      "self": "Biztonságra utaló mondat: önmaga bántása.",
-      "bullying": "Biztonságra utaló mondat: bántás vagy csúfolás társaktól.",
-      "danger": "Biztonságra utaló mondat: más veszély."
+      "override": "Arra kérte a tanár-asszisztenst, hogy hagyja figyelmen kívül a szabályait vagy vegyen fel más szerepet, ezért az óra véget ért.",
+      "inappropriate": "Nem gyerekeknek való dolgot kért vagy mondott, ezért az óra véget ért.",
+      "hurtful": "Bántó vagy trágár szavakat használt, ezért az óra véget ért.",
+      "home": "Olyat mondott az órán, ami arra utalhat, hogy otthon bántják. Az óra ezért véget ért.",
+      "self": "Olyat mondott az órán, ami arra utalhat, hogy bántaná magát. Az óra ezért véget ért.",
+      "bullying": "Olyat mondott az órán, ami arra utalhat, hogy mások bántják vagy csúfolják. Az óra ezért véget ért.",
+      "danger": "Olyat mondott az órán, ami arra utalhat, hogy veszélyben van. Az óra ezért véget ért."
     },
     "helpGuidance": "Javaslat: beszélj vele négyszemközt, és az iskola rendje szerint értesítsd a gyermekvédelmi felelőst. A beszélgetés szövegét nem tároljuk.",
     "seen": "Láttam",
@@ -1247,7 +1252,8 @@
     "open": "Megnyitom",
     "bannerOpen": "{count, plural, one {# megnézendő jelzés} other {# megnézendő jelzés}} a diákjaid óráiról. Nézd meg, mi történt.",
     "bannerHelp": "Egy diákodnak figyelemre lehet szüksége. Kérlek, nézd meg most.",
-    "openBadge": "{count} megnézendő"
+    "openBadge": "{count} megnézendő",
+    "course": "Kurzus: {name}"
   },
   "AdminSafety": {
     "title": "Órabiztonság",

@@ -4,7 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { createSupabaseClient } from "../supabase";
 import { canTeach, readRole } from "../roles";
-import { isCallId, isUuid, type LessonEventCategory, type LessonEventKind } from "../validation";
+import { isCallId, isUuid, lessonEventSchema, type LessonEventCategory, type LessonEventKind } from "../validation";
 
 // Lesson safety (supabase/migrations/20261107_lesson_safety.sql). A browser
 // can call these with any arguments: each checks who is signed in, and the
@@ -50,6 +50,37 @@ export const registerLessonCall = async (input: {
     return true;
   }
   return false;
+};
+
+export type ReportStatus = "ok" | "already" | "invalid" | "unknown" | "limit" | "error";
+
+/**
+ * The browser's copy of the tutor's report (20261109_lesson_report_backup.sql).
+ * Vapi sends the same report to /api/vapi/lesson-event; whichever arrives
+ * first is stored, so the teacher hears about it even if one of them fails.
+ * Only for a call the signed-in student linked to themselves.
+ */
+export const reportLessonEvent = async (input: {
+  callId: string;
+  kind: string;
+  category: string;
+}): Promise<ReportStatus> => {
+  const { userId } = await auth();
+  if (!userId || !isCallId(input.callId)) return "invalid";
+  const parsed = lessonEventSchema.safeParse({ kind: input.kind, category: input.category });
+  if (!parsed.success) return "invalid";
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase.rpc("report_my_lesson_event", {
+    p_call_id: input.callId,
+    p_kind: parsed.data.kind,
+    p_category: parsed.data.category,
+  });
+  if (error) {
+    console.error("Lesson report not stored:", error.message);
+    return "error";
+  }
+  const known: ReportStatus[] = ["ok", "already", "invalid", "unknown", "limit"];
+  return known.find((status) => status === data) ?? "error";
 };
 
 /** How the student's own lesson ended: drift, violation, help or null */

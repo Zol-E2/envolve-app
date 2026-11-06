@@ -1000,7 +1000,8 @@
     "doneCount": "Done: {done} / {total}",
     "classesTitle": "My classes",
     "classesNone": "You have no classes yet.",
-    "students": "{count, plural, one {# student} other {# students}}"
+    "students": "{count, plural, one {# student} other {# students}}",
+    "leadAlerts": "{count, plural, one {# lesson of your students was stopped.} other {# lessons of your students were stopped.}} See what happened below."
   },
   "Library": {
     "title": "Library",
@@ -1058,7 +1059,7 @@
   },
   "AdminHome": {
     "hello": "Hi, {name}!",
-    "leadTodo": "{count, plural, one {# course is} other {# courses are}} waiting for your decision.",
+    "leadTodo": "{count, plural, one {# thing needs} other {# things need}} your attention.",
     "leadCalm": "Nothing to do. Here are the numbers and the latest admin decisions.",
     "todoTitle": "To do",
     "todoNone": "Every course has a decision; nothing is reported or flagged.",
@@ -1080,7 +1081,11 @@
     "logAll": "Full log",
     "violations": "{count, plural, one {# rule break} other {# rule breaks}} in lessons",
     "violationsHint": "No teacher has looked at them yet.",
-    "safetyLink": "Lesson safety"
+    "safetyLink": "Lesson safety",
+    "safetyTitle": "Lesson safety (30 days)",
+    "safetyRecent": "Latest rule breaks",
+    "safetyError": "The lesson safety numbers did not load. Refresh the page, and tell the developer if that does not help.",
+    "safetyOpen": "Details"
   },
   "AdminUsers": {
     "title": "Users",
@@ -1222,20 +1227,20 @@
     "none": "No new alerts.",
     "soundOn": "Sound: on",
     "soundOff": "Sound: off",
-    "kind": {
-      "drift": "Left the topic",
-      "violation": "Rule break in a lesson",
-      "help": "One of your students may need attention"
+    "level": {
+      "help": "May be in danger",
+      "violation": "Rule break",
+      "drift": "Drifted off topic"
     },
     "category": {
       "off_topic": "Kept switching to other topics, so the lesson ended.",
-      "override": "The student asked the tutor to ignore its rules or to play another role.",
-      "inappropriate": "The student asked for or said something not suitable for children.",
-      "hurtful": "The student used hurtful or insulting words.",
-      "home": "A sentence suggesting a safety concern: home situation.",
-      "self": "A sentence suggesting a safety concern: self-harm.",
-      "bullying": "A sentence suggesting a safety concern: hurt or teased by others.",
-      "danger": "A sentence suggesting a safety concern: other danger."
+      "override": "Asked the tutor to ignore its rules or to play another role, so the lesson ended.",
+      "inappropriate": "Asked for or said something not suitable for children, so the lesson ended.",
+      "hurtful": "Used hurtful or rude words, so the lesson ended.",
+      "home": "Said something in the lesson that may mean they are hurt at home. The lesson ended.",
+      "self": "Said something in the lesson that may mean they want to hurt themselves. The lesson ended.",
+      "bullying": "Said something in the lesson that may mean others hurt or tease them. The lesson ended.",
+      "danger": "Said something in the lesson that may mean they are in danger. The lesson ended."
     },
     "helpGuidance": "Suggestion: talk to them in private and inform the school's child protection lead as your school's procedure says. The conversation is not stored.",
     "seen": "Seen",
@@ -1247,7 +1252,8 @@
     "open": "Open",
     "bannerOpen": "{count, plural, one {# alert to look at} other {# alerts to look at}} from your students’ lessons. See what happened.",
     "bannerHelp": "One of your students may need your attention. Please look now.",
-    "openBadge": "{count} to look at"
+    "openBadge": "{count} to look at",
+    "course": "Course: {name}"
   },
   "AdminSafety": {
     "title": "Lesson safety",

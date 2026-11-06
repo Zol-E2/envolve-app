@@ -4,6 +4,8 @@ import { Link } from "@/i18n/navigation";
 import type { AdminOverview } from "@/lib/admin/types";
 import PageTour from "@/components/onboarding/PageTour";
 import AuditLogList from "./AuditLogList";
+import AdminSafetyCard from "./AdminSafetyCard";
+import type { AdminSafety } from "@/lib/actions/admin.actions";
 
 /**
  * The admin's home page ("Áttekintés"): what needs a decision first, then
@@ -13,11 +15,14 @@ const AdminHome = async ({
   name,
   overview,
   openViolations = 0,
+  safety = null,
 }: {
   name: string;
   overview: AdminOverview;
   /** Rule breaks in lessons that no teacher has looked at yet */
   openViolations?: number;
+  /** Lesson safety for its own card; null if it could not be loaded */
+  safety?: AdminSafety | null;
 }) => {
   const [t, format] = await Promise.all([getTranslations("AdminHome"), getFormatter()]);
   const unchecked = Math.max(0, overview.courses.review - overview.flagged);
@@ -93,6 +98,8 @@ const AdminHome = async ({
           </ul>
         )}
       </section>
+
+      <AdminSafetyCard safety={safety} />
 
       <section className="flex flex-col gap-3" aria-labelledby="numbers-title" data-tour="admin-numbers">
         <h2 id="numbers-title" className="text-2xl font-bold max-sm:text-xl">
