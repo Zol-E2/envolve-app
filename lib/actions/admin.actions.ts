@@ -15,6 +15,7 @@ import {
   roleChangeSchema,
   type CourseTab,
   type ModerationAction,
+  type LessonEventCategory,
   type ReportReason,
   type RoleChoice,
 } from "../validation";
@@ -319,9 +320,11 @@ export interface AdminSafety {
     violationMonth: number;
     helpMonth: number;
   };
-  violations: {
+  /** Lessons stopped for a call for help or a rule break, help first */
+  alerts: {
     id: string;
-    category: "override" | "inappropriate" | "hurtful";
+    kind: "help" | "violation";
+    category: LessonEventCategory;
     createdAt: string;
     seen: boolean;
     falseAlarm: boolean;
@@ -332,15 +335,16 @@ export interface AdminSafety {
 }
 
 /**
- * Rule breaks in lessons with the student's name; drift and help only as
- * numbers (a child asking for help is their school's business).
+ * Lessons the tutor stopped for a call for help or a rule break, with the
+ * student's name, so none of them can go unnoticed
+ * (20261110_admin_lesson_alerts.sql); drift only as a number.
  */
 export const getAdminSafety = async (): Promise<AdminSafety> => {
   await requireAdmin();
   const supabase = createSupabaseClient();
   const [stats, rows] = await Promise.all([
     supabase.rpc("admin_safety_stats").single(),
-    supabase.rpc("admin_lesson_violations"),
+    supabase.rpc("admin_lesson_alerts"),
   ]);
   if (stats.error || !stats.data || rows.error) {
     console.error("Lesson safety not loaded:", stats.error?.message ?? rows.error?.message ?? "no data");
@@ -349,7 +353,8 @@ export const getAdminSafety = async (): Promise<AdminSafety> => {
   const s = stats.data as Record<string, number>;
   const list = (rows.data ?? []) as {
     id: string;
-    category: AdminSafety["violations"][number]["category"];
+    kind: string;
+    category: LessonEventCategory;
     created_at: string;
     acknowledged_at: string | null;
     false_alarm: boolean;
@@ -367,10 +372,11 @@ export const getAdminSafety = async (): Promise<AdminSafety> => {
       violationMonth: s.violation_month ?? 0,
       helpMonth: s.help_month ?? 0,
     },
-    violations: list.map((r) => {
+    alerts: list.map((r) => {
       const person = r.student_id ? people.get(r.student_id) : undefined;
       return {
         id: r.id,
+        kind: r.kind === "help" ? ("help" as const) : ("violation" as const),
         category: r.category,
         createdAt: r.created_at,
         seen: r.acknowledged_at != null,

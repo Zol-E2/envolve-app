@@ -51,7 +51,7 @@ const Page = async () => {
       getAdminOverview(),
       getAdminSafety().catch(() => null),
     ]);
-    const openViolations = safety?.violations.filter((v) => !v.seen).length ?? 0;
+    const openViolations = safety?.alerts.filter((a) => !a.seen).length ?? 0;
     return (
       <AdminHome
         name={user?.firstName?.trim() || "Admin"}

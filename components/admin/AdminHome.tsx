@@ -122,16 +122,10 @@ const AdminHome = async ({
             <History className="size-6 text-primary" aria-hidden />
             {t("logTitle")}
           </h2>
-          <span className="flex flex-wrap gap-1">
-            <Link href="/admin/safety" className="btn-quiet">
-              {t("safetyLink")}
-              <ArrowRight className="size-5" aria-hidden />
-            </Link>
-            <Link href="/admin/log" className="btn-quiet">
-              {t("logAll")}
-              <ArrowRight className="size-5" aria-hidden />
-            </Link>
-          </span>
+          <Link href="/admin/log" className="btn-quiet">
+            {t("logAll")}
+            <ArrowRight className="size-5" aria-hidden />
+          </Link>
         </div>
         <AuditLogList entries={overview.log} />
       </section>

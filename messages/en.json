@@ -709,11 +709,11 @@
       },
       "numbers": {
         "title": "Numbers",
-        "text": "For calls for help you only see whether they reached the teacher. The child's matter belongs to the school."
+        "text": "The numbers for the last 30 days, the most serious first, including how many signs of danger the teacher has already opened."
       },
       "list": {
-        "title": "Rule breaks",
-        "text": "Rule breaks show the student's name so you can protect the system. The teacher sees them too and can mark them as false alarms."
+        "title": "Stopped lessons",
+        "text": "Lessons stopped because of a sign of danger or a rule break show the student's name, so none goes unnoticed. The teacher sees them too and can mark them as false alarms."
       }
     }
   },
@@ -1079,11 +1079,10 @@
     "capped": "Many users: the counts per role come from the newest 500 accounts.",
     "logTitle": "Latest admin decisions",
     "logAll": "Full log",
-    "violations": "{count, plural, one {# rule break} other {# rule breaks}} in lessons",
-    "violationsHint": "No teacher has looked at them yet.",
-    "safetyLink": "Lesson safety",
+    "violations": "{count, plural, one {# stopped lesson} other {# stopped lessons}} no teacher has opened yet",
+    "violationsHint": "Stopped because of a sign of danger or a rule break.",
     "safetyTitle": "Lesson safety (30 days)",
-    "safetyRecent": "Latest rule breaks",
+    "safetyRecent": "Latest stopped lessons",
     "safetyError": "The lesson safety numbers did not load. Refresh the page, and tell the developer if that does not help.",
     "safetyOpen": "Details"
   },
@@ -1232,6 +1231,11 @@
       "violation": "Rule break",
       "drift": "Drifted off topic"
     },
+    "group": {
+      "help": "May be in danger ({count})",
+      "violation": "Rule breaks ({count})",
+      "drift": "Drifted off topic ({count})"
+    },
     "category": {
       "off_topic": "Kept switching to other topics, so the lesson ended.",
       "override": "Asked the tutor to ignore its rules or to play another role, so the lesson ended.",
@@ -1257,7 +1261,7 @@
   },
   "AdminSafety": {
     "title": "Lesson safety",
-    "lead": "The last 30 days: rule breaks with the student's name, drift and calls for help only as numbers. Nobody sees what was said.",
+    "lead": "The last 30 days: lessons stopped because of a sign of danger or a rule break, with the student's name; drift only as a number. Nobody sees what was said.",
     "numbersTitle": "Numbers (30 days)",
     "number": {
       "violation": "rule breaks",
@@ -1266,15 +1270,10 @@
       "drift": "drifts",
       "unassigned": "alerts from calls not linked to a student"
     },
-    "helpNote": "Calls for help go to the student's teacher, not here: a child's sensitive matter belongs to their school. Here you only see whether it reached the teacher.",
-    "listTitle": "Rule breaks",
-    "empty": "No rule breaks in the last 30 days.",
+    "helpNote": "A sign of danger is first of all for the student's teacher. You see it here with the student's name so that it can never go unnoticed.",
+    "listTitle": "Stopped lessons",
+    "empty": "No lesson stopped because of a sign of danger or a rule break in the last 30 days.",
     "unknownStudent": "Call not linked to a student",
-    "category": {
-      "override": "Attempt to override the rules",
-      "inappropriate": "Content not suitable for children",
-      "hurtful": "Hurtful or insulting words"
-    },
     "seen": "Seen by the teacher",
     "notSeen": "Not seen yet",
     "falseAlarm": "False alarm",

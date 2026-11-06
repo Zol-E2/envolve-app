@@ -54,7 +54,9 @@ It reports three kinds of event with its `jelentes` tool, which Vapi sends to
 drift, violation and help.
 
 - A call for help is never a rule break. It goes to the student's teacher with
-  what to do next; admins only see it as a number.
+  what to do next; admins see it with the student's name too
+  (`20261110_admin_lesson_alerts.sql`), so it cannot go unnoticed. Drift is
+  only a number for admins.
 - Never store what was said: only the kind, the category and the time, for
   30 days. Teachers and admins see fixed, neutral texts per category.
 - Every new voice call must be linked with `useLessonSafety().track()`; a call
@@ -67,7 +69,8 @@ drift, violation and help.
   (help, then rule breaks, then drift), and a bar under the menu on every
   page until they open it (`LessonAlertWatcher`). A student leaving by
   themselves stays in the class progress ("Figyelmet igényel"), not here.
-  Admins get a card on their home page and a bar with numbers only
+  Colours: red = may be in danger, amber = rule break, blue = drift, always
+  with an icon and a word. Admins get a card on their home page and a bar
   (`AdminSafetyCard`, `AdminSafetyBar`). Neither bar shows a name.
 - Functions that return a table: cast every text column with `::text`. Some
   live columns are `varchar`, and PL/pgSQL rejects the mismatch at run time

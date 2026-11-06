@@ -2,23 +2,27 @@
 
 import { useState, useSyncExternalStore } from "react";
 import { useFormatter, useTranslations } from "next-intl";
-import { BellRing, HeartHandshake, Hourglass, ShieldAlert, Volume2, VolumeX } from "lucide-react";
+import { BellRing, HeartHandshake, MessageCircleOff, ShieldAlert, Volume2, VolumeX } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
 import { acknowledgeAlert, type LessonAlert } from "@/lib/actions/safety.actions";
 import { alertSoundOn, setAlertSound } from "@/lib/alertSound";
+import type { LessonEventKind } from "@/lib/validation";
 
-const ICONS = { drift: Hourglass, violation: ShieldAlert, help: HeartHandshake } as const;
+const ICONS = { help: HeartHandshake, violation: ShieldAlert, drift: MessageCircleOff } as const;
 /** Most important first: a student who may be in danger, then rule breaks, then drift */
-const RANK = { help: 0, violation: 1, drift: 2 } as const;
+const ORDER: LessonEventKind[] = ["help", "violation", "drift"];
 const noSubscribe = () => () => {};
 
 /**
  * "Értesítések az órákról" on the teacher's overview: every lesson of their
  * students that the tutor stopped (assigned or chosen by the student), one
  * card per lesson: who, what happened in one sentence, which course, when.
- * Never what was said. The three kinds look different by importance, and
- * a call for help comes with what to do next. A student leaving a lesson
- * by themselves is not here; that stays in the class progress as before.
+ * Never what was said.
+ *
+ * Grouped by importance, each group with its own colour and icon: red for a
+ * student who may be in danger (with what to do next), amber for rule
+ * breaks, blue for drift. A student leaving a lesson by themselves is not
+ * here; that stays in the class progress as before.
  */
 const LessonAlerts = ({ alerts }: { alerts: LessonAlert[] }) => {
   const t = useTranslations("Safety");
@@ -31,11 +35,11 @@ const LessonAlerts = ({ alerts }: { alerts: LessonAlert[] }) => {
   const [chosen, setChosen] = useState<boolean | null>(null);
   const sound = chosen ?? stored;
 
-  // Every unopened alert waits here, from any lesson of the teacher's
-  // students (assigned or chosen by the student), until it is opened
-  const open = alerts
-    .filter((a) => !a.seen)
-    .sort((a, b) => RANK[a.kind] - RANK[b.kind] || b.createdAt.localeCompare(a.createdAt));
+  // Every unopened alert waits here until it is opened, newest first in its group
+  const open = alerts.filter((a) => !a.seen).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  const groups = ORDER.map((kind) => ({ kind, items: open.filter((a) => a.kind === kind) })).filter(
+    (g) => g.items.length > 0
+  );
   const recent = alerts.filter((a) => a.seen).slice(0, 10);
 
   const acknowledge = async (id: string, falseAlarm = false) => {
@@ -55,27 +59,30 @@ const LessonAlerts = ({ alerts }: { alerts: LessonAlert[] }) => {
     setChosen(!sound);
   };
 
-  const item = (alert: LessonAlert, actions: boolean) => {
+  const when = (iso: string) =>
+    format.dateTime(new Date(iso), { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
+
+  const card = (alert: LessonAlert, actions: boolean) => {
     const Icon = ICONS[alert.kind];
     return (
       <li key={alert.id} className="lesson-alert" data-kind={alert.kind} data-seen={!actions || undefined}>
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <span className="alert-level" data-kind={alert.kind}>
-            <Icon className="size-5 shrink-0" aria-hidden />
-            {t(`level.${alert.kind}`)}
-          </span>
-          <span className="text-base text-muted-foreground">
-            {format.dateTime(new Date(alert.createdAt), { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
-          </span>
-        </div>
-        <div className="flex min-w-0 flex-col gap-1">
+        <span className="alert-icon" aria-hidden>
+          <Icon className="size-6" />
+        </span>
+        <div className="flex min-w-0 flex-col gap-1.5">
+          {/* Open cards sit under their group's heading; earlier ones need the word */}
+          {!actions && <p className="alert-level">{t(`level.${alert.kind}`)}</p>}
           <p className="lesson-alert-who">
             {alert.studentName}
             {alert.className && <span className="font-normal text-muted-foreground"> · {alert.className}</span>}
           </p>
           <p className="text-lg max-sm:text-base">{t(`category.${alert.category}`)}</p>
-          {alert.courseName && <p className="text-base text-muted-foreground">{t("course", { name: alert.courseName })}</p>}
-          {alert.kind === "help" && actions && <p className="text-base">{t("helpGuidance")}</p>}
+          <p className="text-base text-muted-foreground">
+            {[alert.courseName && t("course", { name: alert.courseName }), when(alert.createdAt)]
+              .filter(Boolean)
+              .join(" · ")}
+          </p>
+          {alert.kind === "help" && actions && <p className="alert-guidance">{t("helpGuidance")}</p>}
           {!actions && alert.falseAlarm && <p className="text-base text-muted-foreground">{t("markedFalse")}</p>}
           {actions && (
             <div className="mt-1 flex flex-wrap gap-2">
@@ -103,13 +110,7 @@ const LessonAlerts = ({ alerts }: { alerts: LessonAlert[] }) => {
   };
 
   return (
-    <section
-      id="alerts"
-      className="lesson-alerts flex scroll-mt-24 flex-col gap-3"
-      data-open={open[0]?.kind}
-      aria-labelledby="alerts-title"
-      data-tour="teacher-alerts"
-    >
+    <section id="alerts" className="flex scroll-mt-24 flex-col gap-4" aria-labelledby="alerts-title" data-tour="teacher-alerts">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 id="alerts-title" className="flex flex-wrap items-center gap-2 text-2xl font-bold max-sm:text-xl">
           <BellRing className="size-6 text-primary" aria-hidden />
@@ -121,10 +122,18 @@ const LessonAlerts = ({ alerts }: { alerts: LessonAlert[] }) => {
           {sound ? t("soundOn") : t("soundOff")}
         </button>
       </div>
-      {open.length === 0 ? (
+      {groups.length === 0 ? (
         <p className="card text-lg text-muted-foreground">{t("none")}</p>
       ) : (
-        <ul className="flex flex-col gap-3">{open.map((a) => item(a, true))}</ul>
+        groups.map((group) => (
+          <div key={group.kind} className="alert-group" data-kind={group.kind}>
+            <h3 className="alert-group-title">
+              <span className="alert-dot" aria-hidden />
+              {t(`group.${group.kind}`, { count: group.items.length })}
+            </h3>
+            <ul className="flex flex-col gap-3">{group.items.map((a) => card(a, true))}</ul>
+          </div>
+        ))
       )}
       {failed && (
         <p className="field-error" role="alert">
@@ -134,7 +143,7 @@ const LessonAlerts = ({ alerts }: { alerts: LessonAlert[] }) => {
       {recent.length > 0 && (
         <details className="lesson-alerts-earlier">
           <summary className="btn-quiet w-fit">{t("earlier", { count: recent.length })}</summary>
-          <ul className="mt-2 flex flex-col gap-3">{recent.map((a) => item(a, false))}</ul>
+          <ul className="mt-2 flex flex-col gap-3">{recent.map((a) => card(a, false))}</ul>
         </details>
       )}
     </section>

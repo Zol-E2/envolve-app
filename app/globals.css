@@ -46,6 +46,9 @@
   --warn-soft: #fff0c9;
   --destructive: #b42318; /* errors */
   --destructive-soft: #fdecea;
+  --amber: #b45309; /* lesson rule breaks: white text on it 5:1 */
+  --amber-soft: #fef3c7;
+  --amber-line: #f2c96b;
 
   --cta: #1e2b3a;
   --cta-gold: #ffe08a;
@@ -122,6 +125,9 @@
   --color-warn-soft: var(--warn-soft);
   --color-destructive: var(--destructive);
   --color-destructive-soft: var(--destructive-soft);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --color-amber-line: var(--amber-line);
   --color-cta: var(--cta);
   --color-cta-gold: var(--cta-gold);
   --color-border: var(--border);
@@ -1018,10 +1024,10 @@
     @apply border-2 border-destructive bg-destructive-soft;
   }
   .admin-stat[data-kind="violation"] {
-    @apply border-2 border-primary;
+    @apply border-2 border-amber-line bg-amber-soft;
   }
   .admin-stat[data-kind="drift"] {
-    @apply border-2 border-warn;
+    @apply border-2 border-turn-soft bg-turn-soft/60;
   }
   .moderation-card {
     @apply flex min-w-0 flex-col gap-4 rounded-3xl border border-border bg-card p-5 max-sm:rounded-[20px] max-sm:p-4;
@@ -1063,50 +1069,82 @@
   .lesson-helpline {
     @apply flex w-fit items-center gap-2 rounded-xl bg-card px-3 py-2 text-lg font-extrabold;
   }
-  /* One card per stopped lesson; the more serious, the louder the card */
+  /* Stopped lessons on the teacher overview, grouped by importance:
+     red = may be in danger, amber = rule break, blue = drift. Colour always
+     comes with an icon and a word. */
+  .alert-group {
+    @apply flex flex-col gap-2;
+  }
+  .alert-group-title {
+    @apply flex items-center gap-2 text-xl font-bold max-sm:text-lg;
+  }
+  .alert-dot {
+    @apply size-3.5 shrink-0 rounded-full;
+  }
+  .alert-group[data-kind="help"] .alert-dot {
+    @apply bg-destructive;
+  }
+  .alert-group[data-kind="violation"] .alert-dot {
+    @apply bg-amber;
+  }
+  .alert-group[data-kind="drift"] .alert-dot {
+    @apply bg-turn;
+  }
   .lesson-alert {
-    @apply flex flex-col gap-2 rounded-2xl border-2 border-border bg-card p-4;
-  }
-  .lesson-alert[data-kind="drift"] {
-    @apply border-warn;
-  }
-  .lesson-alert[data-kind="violation"] {
-    @apply border-primary;
+    @apply grid items-start gap-4 rounded-2xl border-2 p-4 sm:p-5;
+    grid-template-columns: auto minmax(0, 1fr);
   }
   .lesson-alert[data-kind="help"] {
-    @apply border-4 border-destructive bg-destructive-soft p-5 shadow-md max-sm:p-4;
+    @apply border-destructive bg-destructive-soft shadow-md;
+  }
+  .lesson-alert[data-kind="violation"] {
+    @apply border-amber-line bg-amber-soft;
+  }
+  .lesson-alert[data-kind="drift"] {
+    @apply border-turn-soft bg-turn-soft/60;
   }
   .lesson-alert[data-seen] {
-    @apply border-2 border-border bg-card p-4 shadow-none;
+    @apply border-border bg-card shadow-none;
+  }
+  .alert-icon {
+    @apply flex size-12 shrink-0 items-center justify-center rounded-full text-white max-sm:size-10;
+  }
+  .lesson-alert[data-kind="help"] .alert-icon {
+    @apply bg-destructive;
+  }
+  .lesson-alert[data-kind="violation"] .alert-icon {
+    @apply bg-amber;
+  }
+  .lesson-alert[data-kind="drift"] .alert-icon {
+    @apply bg-turn;
+  }
+  .lesson-alert[data-seen] .alert-icon {
+    @apply bg-muted text-muted-foreground;
+  }
+  .alert-level {
+    @apply text-sm font-bold tracking-wide uppercase;
+  }
+  .lesson-alert[data-kind="help"] .alert-level {
+    @apply text-destructive;
+  }
+  .lesson-alert[data-kind="violation"] .alert-level {
+    @apply text-amber;
+  }
+  .lesson-alert[data-kind="drift"] .alert-level {
+    @apply text-turn-deep;
+  }
+  .lesson-alert[data-seen] .alert-level {
+    @apply text-muted-foreground;
   }
   .lesson-alert-who {
     @apply text-xl font-bold max-sm:text-lg;
   }
-  .alert-level {
-    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-base font-bold;
+  /* Status pills keep their own colour on a tinted card */
+  .lesson-alert .status-pill {
+    @apply border border-current bg-card;
   }
-  .alert-level[data-kind="drift"] {
-    @apply bg-warn-soft text-foreground;
-  }
-  .alert-level[data-kind="violation"] {
-    @apply bg-primary-soft text-primary-deep;
-  }
-  .alert-level[data-kind="help"] {
-    @apply bg-destructive text-white;
-  }
-  /* The overview section while something is unopened: framed in the colour
-     of the most serious alert */
-  .lesson-alerts[data-open] {
-    @apply rounded-3xl border-2 p-5 max-sm:rounded-[22px] max-sm:p-3;
-  }
-  .lesson-alerts[data-open="help"] {
-    @apply border-destructive bg-destructive-soft/40;
-  }
-  .lesson-alerts[data-open="violation"] {
-    @apply border-primary bg-primary-soft/30;
-  }
-  .lesson-alerts[data-open="drift"] {
-    @apply border-warn bg-warn-soft/40;
+  .alert-guidance {
+    @apply rounded-xl bg-card px-3 py-2 text-base;
   }
   .alert-count {
     @apply rounded-full bg-destructive px-3 py-0.5 text-base font-bold text-white;

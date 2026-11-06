@@ -2,13 +2,13 @@ import { getFormatter, getTranslations } from "next-intl/server";
 import { ArrowRight, ShieldAlert } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import type { AdminSafety } from "@/lib/actions/admin.actions";
+import AdminAlertList from "./AdminAlertList";
 
 /**
  * Lesson safety on the admin's home page, in its own card: how many lessons
  * the tutor stopped in the last 30 days, most serious first, and the latest
- * rule breaks with names. Calls for help stay numbers only (they belong to
- * the student's school). If the numbers could not be loaded, it says so
- * instead of showing nothing.
+ * calls for help and rule breaks with names. If the numbers could not be
+ * loaded, it says so instead of showing nothing.
  */
 const AdminSafetyCard = async ({ safety }: { safety: AdminSafety | null }) => {
   const [t, ts, format] = await Promise.all([
@@ -33,7 +33,7 @@ const AdminSafetyCard = async ({ safety }: { safety: AdminSafety | null }) => {
   if (safety && safety.stats.unassigned > 0) {
     numbers.push({ key: "unassigned", kind: "violation", value: safety.stats.unassigned });
   }
-  const latest = safety?.violations.slice(0, 5) ?? [];
+  const latest = safety?.alerts.slice(0, 5) ?? [];
   const total = safety ? safety.stats.help + safety.stats.violation + safety.stats.drift : 0;
 
   return (
@@ -67,24 +67,7 @@ const AdminSafetyCard = async ({ safety }: { safety: AdminSafety | null }) => {
           {latest.length === 0 ? (
             <p className="text-lg text-muted-foreground">{ts("empty")}</p>
           ) : (
-            <ul className="person-list">
-              {latest.map((v) => (
-                <li key={v.id} className="person-row">
-                  <span className="person-name">
-                    <span className="break-words">{v.studentName || v.studentEmail || ts("unknownStudent")}</span>
-                    <span className="person-detail block">{ts(`category.${v.category}`)}</span>
-                    <span className="person-detail block break-words">
-                      {[v.courseName, format.dateTime(new Date(v.createdAt), { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })]
-                        .filter(Boolean)
-                        .join(" · ")}
-                    </span>
-                  </span>
-                  <span className="status-pill" data-status={v.falseAlarm ? "notStarted" : v.seen ? "done" : "stuck"}>
-                    {v.falseAlarm ? ts("falseAlarm") : v.seen ? ts("seen") : ts("notSeen")}
-                  </span>
-                </li>
-              ))}
-            </ul>
+            <AdminAlertList alerts={latest} />
           )}
           <p className="form-hint">{ts("helpNote")}</p>
         </>

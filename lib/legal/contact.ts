@@ -14,7 +14,7 @@ export const LEGAL_CONTACT = {
 };
 
 /** Date of the current version, shown on both pages (YYYY-MM-DD) */
-export const LEGAL_UPDATED = "2026-11-05";
+export const LEGAL_UPDATED = "2026-11-06";
 
 export const isLegalDraft = Object.values(LEGAL_CONTACT).some((value) =>
   value.startsWith("[")

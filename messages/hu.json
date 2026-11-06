@@ -709,11 +709,11 @@
       },
       "numbers": {
         "title": "Számok",
-        "text": "A segítségkérésnél csak azt látod, hogy eljutott-e a tanárhoz. A gyerek ügye az iskolára tartozik."
+        "text": "Az elmúlt 30 nap számai, a legsúlyosabbal kezdve. Látod azt is, hány veszélyre utaló jelzést nyitott meg már a tanár."
       },
       "list": {
-        "title": "Szabályszegések",
-        "text": "A szabályszegéseket a diák nevével látod, hogy a rendszert védeni tudd. A tanár is látja őket, és téves jelzésnek jelölheti."
+        "title": "Leállt órák",
+        "text": "A veszélyre utaló és a szabályszegés miatt leállt órákat a diák nevével látod, hogy egyik se maradjon figyelem nélkül. A tanár is látja őket, és téves jelzésnek jelölheti."
       }
     }
   },
@@ -1079,11 +1079,10 @@
     "capped": "Sok a felhasználó: a szerepenkénti számok az 500 legújabb fiókból készültek.",
     "logTitle": "Legutóbbi admin lépések",
     "logAll": "Teljes napló",
-    "violations": "{count} szabályszegés az órákon",
-    "violationsHint": "Még egy tanár sem nézte meg őket.",
-    "safetyLink": "Órabiztonság",
+    "violations": "{count} leállt óra, amit még egy tanár sem nyitott meg",
+    "violationsHint": "Veszélyre utaló mondat vagy szabályszegés miatt álltak le.",
     "safetyTitle": "Órabiztonság (30 nap)",
-    "safetyRecent": "Legutóbbi szabályszegések",
+    "safetyRecent": "Legutóbbi leállt órák",
     "safetyError": "Az órabiztonsági adatok most nem töltődtek be. Frissítsd az oldalt, és ha nem segít, szólj a fejlesztőnek.",
     "safetyOpen": "Részletek"
   },
@@ -1232,6 +1231,11 @@
       "violation": "Szabályszegés",
       "drift": "Elkalandozás"
     },
+    "group": {
+      "help": "Veszélyben lehet ({count})",
+      "violation": "Szabályszegés ({count})",
+      "drift": "Elkalandozás ({count})"
+    },
     "category": {
       "off_topic": "Többször is más témára tért, ezért az óra véget ért.",
       "override": "Arra kérte a tanár-asszisztenst, hogy hagyja figyelmen kívül a szabályait vagy vegyen fel más szerepet, ezért az óra véget ért.",
@@ -1257,7 +1261,7 @@
   },
   "AdminSafety": {
     "title": "Órabiztonság",
-    "lead": "Az elmúlt 30 nap: a szabályszegések a diák nevével, az elkalandozás és a segítségkérés csak számokban. A beszélgetések szövegét senki nem látja.",
+    "lead": "Az elmúlt 30 nap: a veszélyre utaló és a szabályszegés miatt leállt órák a diák nevével, az elkalandozás csak számban. A beszélgetések szövegét senki nem látja.",
     "numbersTitle": "Számok (30 nap)",
     "number": {
       "violation": "szabályszegés",
@@ -1266,15 +1270,10 @@
       "drift": "elkalandozás",
       "unassigned": "jelzés diákhoz nem köthető hívásból"
     },
-    "helpNote": "A segítségkérések a diák tanárához jutnak, nem ide: egy gyerek érzékeny ügye az iskolára tartozik. Itt csak azt látod, eljutott-e a tanárhoz.",
-    "listTitle": "Szabályszegések",
-    "empty": "Az elmúlt 30 napban nem volt szabályszegés.",
+    "helpNote": "A veszélyre utaló jelzést elsősorban a diák tanára kezeli. Itt azért látod a diák nevével, hogy egy ilyen jelzés se maradhasson figyelem nélkül.",
+    "listTitle": "Leállt órák",
+    "empty": "Az elmúlt 30 napban nem állt le óra veszélyre utaló mondat vagy szabályszegés miatt.",
     "unknownStudent": "Diákhoz nem köthető hívás",
-    "category": {
-      "override": "A szabályok felülírására tett kísérlet",
-      "inappropriate": "Nem gyerekeknek való tartalom",
-      "hurtful": "Bántó vagy sértő beszéd"
-    },
     "seen": "A tanár látta",
     "notSeen": "Még nem látták",
     "falseAlarm": "Téves jelzés",
