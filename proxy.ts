@@ -28,6 +28,12 @@ const isPublic = createRouteMatcher([
 ]);
 
 
+// A file name right after the domain that is not one of the real files in
+// the matcher below (/favicon.png, /apple-touch-icon.png, /wp-login.php):
+// browsers and bots ask for these; answer "not found" without touching the
+// session
+const looksLikeMissingFile = (pathname: string) => /^\/[^/]+\.[A-Za-z0-9]{2,5}$/.test(pathname);
+
 /**
  * Proxy (Next.js 16's new name for middleware; runs on Node.js): Clerk
  * wraps next-intl.
@@ -42,6 +48,9 @@ const isPublic = createRouteMatcher([
  *    (see FOLLOW_BROWSER_LANGUAGE in i18n/routing.ts).
  */
 const proxy = clerkMiddleware(async (auth, request) => {
+  if (looksLikeMissingFile(request.nextUrl.pathname)) {
+    return new NextResponse(null, { status: 404 });
+  }
   if (!isPublic(request)) {
     const { userId, sessionClaims } = await auth();
     const { pathname, search } = request.nextUrl;
@@ -67,9 +76,13 @@ export default proxy;
 
 export const config = {
   matcher: [
-    // Skip Next.js internals, Vercel's own routes (/_vercel/insights for Web
-    // Analytics) and all static files, unless found in search params
-    "/((?!_next|_vercel|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|mp3|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    // Runs for every request except Next.js internals, Vercel's own routes
+    // (/_vercel/insights for Web Analytics) and the files that really exist:
+    // public/images, public/icons, public/speech and the app icons. An
+    // address that only looks like a file (/favicon.png, /hu/foo.png) still
+    // goes through here; otherwise a page could call auth() without Clerk
+    // having run, which throws.
+    "/((?!_next|_vercel|images/|icons/|speech/|favicon\\.ico$|icon\\.svg$|apple-icon\\.png$|manifest\\.webmanifest$|robots\\.txt$).*)",
     // Always run for API routes
     "/(api|trpc)(.*)",
   ],
