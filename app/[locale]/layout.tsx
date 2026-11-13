@@ -7,7 +7,8 @@ import MobileTabBar from "@/components/MobileTabBar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { enUS, huHU } from "@clerk/localizations";
+import { clerkLocalization } from "@/lib/clerkLocalization";
+import { clerkFrontendHost } from "@/lib/clerkHost";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -77,6 +78,7 @@ export default async function LocaleLayout({
 
   // Messages resolved server-side by i18n/request.ts, handed to client components via context
   const [messages, role] = await Promise.all([getMessages(), getRole()]);
+  const clerkHost = clerkFrontendHost();
 
   return (
     // The <head> script adds the student's display settings to <html> before
@@ -87,6 +89,15 @@ export default async function LocaleLayout({
       <head>
         {/* Applies "Így kényelmes nekem" before the first paint (lib/comfort.ts) */}
         <ComfortBootScript />
+        {/* Open the connection to Clerk early: the sign-in box and the session
+            check come from there. The script loads anonymously, the session
+            requests with cookies, hence both kinds of connection. */}
+        {clerkHost && (
+          <>
+            <link rel="preconnect" href={`https://${clerkHost}`} />
+            <link rel="preconnect" href={`https://${clerkHost}`} crossOrigin="anonymous" />
+          </>
+        )}
       </head>
       <body
         className="antialiased"
@@ -105,7 +116,11 @@ export default async function LocaleLayout({
               },
             }}
             // Clerk's own UI (sign-in, user menu, pricing) in the active language
-            localization={locale === "hu" ? huHU : enUS}
+            localization={clerkLocalization(locale)}
+            // No usage reports to Clerk from the browser: one request less on
+            // every page, and nothing about the children leaves for Clerk's
+            // telemetry service
+            telemetry={false}
             // Keep Clerk redirects (SignInButton, sign-out) inside the active locale
             signInUrl={`/${locale}/sign-in`}
             afterSignOutUrl={`/${locale}`}
