@@ -91,3 +91,17 @@ const REDIRECTS: Record<View, readonly { from: RegExp; to: string }[]> = {
 /** Where this view should go instead of `path`, or null when the page is theirs */
 export const redirectFor = (view: View, path: string) =>
   REDIRECTS[view].find((rule) => rule.from.test(path))?.to ?? null;
+
+/**
+ * Signed-out visitors: the home page (/hu, /en) shows the landing page
+ * instead of sending them to the sign-in page. The proxy rewrites to this
+ * static page, so the address stays /hu or /en. Every other page still needs
+ * an account. Returns null for any other path.
+ */
+export const visitorPageFor = (pathname: string): string | null => {
+  const match = /^\/(hu|en)\/?$/.exec(pathname);
+  return match ? `/landing/${match[1]}` : null;
+};
+
+/** The landing page's own address, which visitors never open directly */
+export const isLandingPath = (pathname: string) => /^\/landing(\/|$)/.test(pathname);

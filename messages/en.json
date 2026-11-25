@@ -1,7 +1,7 @@
 {
   "Metadata": {
     "title": "eNvolve",
-    "description": "Real-time AI Teaching Platform",
+    "description": "A voice AI tutor for children with learning difficulties",
     "courses": "Course Library",
     "newCourse": "New Course",
     "profile": "Profile",
@@ -1285,5 +1285,136 @@
     "barHelp": "{count, plural, one {# call for help no teacher has opened yet} other {# calls for help no teacher has opened yet}}",
     "barUnassigned": "{count, plural, one {# report from a call not linked to a student} other {# reports from calls not linked to a student}}",
     "barOpen": "Open"
+  },
+  "Landing": {
+    "metaTitle": "eNvolve – a voice AI tutor for children with learning difficulties",
+    "metaDescription": "With eNvolve, students learn by talking with a patient AI tutor, and teachers see how the class is doing. Designed for students with autism, ADHD or dyslexia.",
+    "skip": "Skip to content",
+    "nav": {
+      "label": "Page sections",
+      "how": "How it works",
+      "teachers": "For teachers",
+      "safety": "Safety",
+      "faq": "FAQ",
+      "signIn": "Sign in",
+      "home": "eNvolve home",
+      "logoAlt": "eNvolve logo",
+      "language": "Language"
+    },
+    "hero": {
+      "title": "A voice AI tutor for children who find traditional learning hard",
+      "lead": "With eNvolve, students learn by talking with a patient AI tutor. They don't have to read or write much. Meanwhile, you see how the class is doing.",
+      "signIn": "Sign in",
+      "contact": "Ask about the pilot",
+      "note": "Designed for students with autism, ADHD or dyslexia · in Hungarian and English",
+      "mockLabel": "Illustration: a student's lesson in eNvolve, with the teacher's overview on a phone"
+    },
+    "who": {
+      "title": "Who is it for?",
+      "lead": "For students for whom lots of reading, busy screens or long stretches of attention get in the way. eNvolve is built on conversation.",
+      "autism": {
+        "title": "Autism",
+        "text": "A predictable flow, calm colours, no surprise pop-ups."
+      },
+      "adhd": {
+        "title": "ADHD",
+        "text": "Short, conversational lessons. The tutor gently steers back when they drift."
+      },
+      "dyslexia": {
+        "title": "Dyslexia",
+        "text": "Voice instead of reading, read-aloud everywhere, an easy-to-read typeface."
+      }
+    },
+    "how": {
+      "title": "How does it work?",
+      "step1": {
+        "title": "The teacher assigns",
+        "text": "They create a class, students join with a code, and the teacher assigns a topic with a deadline."
+      },
+      "step2": {
+        "title": "The student talks",
+        "text": "They press the button, and the AI tutor asks, explains and praises, always staying on topic."
+      },
+      "step3": {
+        "title": "The teacher sees",
+        "text": "Who has finished, who is stuck, who hasn't started. Nobody sees what was said."
+      }
+    },
+    "teachers": {
+      "title": "It makes your work easier, not harder",
+      "lead": "A familiar structure, like the Google Classroom you know, except here students learn by talking.",
+      "item1": "Classes and join codes, assign to the whole class or to selected students",
+      "item2": "Progress at a glance: done, stuck, in progress, not started",
+      "item3": "Support per student: slower speech, shorter lessons, automatic read-aloud",
+      "item4": "A library of ready topics, and your own topics in a few minutes",
+      "mockLabel": "Illustration: the teacher's overview with a class's progress"
+    },
+    "safety": {
+      "title": "Made for children, so safety comes first",
+      "topic": {
+        "title": "Only the topic",
+        "text": "If the conversation drifts, or the child may be in trouble, the lesson stops and the teacher is notified straight away."
+      },
+      "noTranscript": {
+        "title": "No transcripts",
+        "text": "Conversations are not stored or recorded. Teachers only see the status of the lesson."
+      },
+      "aiNotice": {
+        "title": "Always knows it's a computer",
+        "text": "Before the lesson, the child is told clearly, and read aloud too, that they are talking with an AI."
+      },
+      "privacy": {
+        "title": "Little data, strict access",
+        "text": "Everyone sees only what their job needs.",
+        "link": "Privacy policy"
+      }
+    },
+    "parents": {
+      "title": "For parents",
+      "text": "eNvolve is used through schools, by invitation from a teacher. If you would like your child's school to try it, write to us and we will get in touch.",
+      "link": "Write to us"
+    },
+    "story": {
+      "title": "Born from research",
+      "text": "eNvolve is being built as part of university research. In the 2026/27 school year we will measure in a school pilot how much it helps students and teachers."
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "q1": "How much does it cost?",
+      "a1": "It is free for participating schools during the pilot.",
+      "q2": "What do I need?",
+      "a2": "A browser and a microphone: a laptop, tablet or phone will do. Nothing to install.",
+      "q3": "Does it replace the teacher?",
+      "a3": "No. It is a practice partner that patiently explains and asks questions. Decisions always stay with the teacher.",
+      "q4": "How do students sign in?",
+      "a4": "The teacher invites them, and they join with a class code.",
+      "q5": "Which languages does it teach in?",
+      "a5": "Hungarian and English. The lesson language can be set per course."
+    },
+    "cta": {
+      "title": "Would you like to try it with your class?",
+      "text": "We are looking for pilot schools and teachers for the 2026/27 school year.",
+      "contact": "Get in touch",
+      "signIn": "Sign in"
+    },
+    "footer": {
+      "contact": "Contact"
+    },
+    "mock": {
+      "course": "The water cycle",
+      "subject": "Science",
+      "speaking": "The tutor is speaking",
+      "caption": "Great idea! And where do you think the water goes when it evaporates?",
+      "end": "End lesson",
+      "overview": "Overview",
+      "className": "Class 5B",
+      "done": "Done",
+      "stuck": "Stuck",
+      "inProgress": "In progress",
+      "student1": "Anna",
+      "student2": "Ben",
+      "student3": "Chloe",
+      "handled": "Handled"
+    }
   }
 }

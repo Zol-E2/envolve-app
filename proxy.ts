@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { routing } from "@/i18n/routing";
 import { withPrimaryLanguage } from "@/i18n/primaryLanguage";
 import { readRole } from "@/lib/roles";
-import { redirectFor, viewFor } from "@/lib/views";
+import { isLandingPath, redirectFor, viewFor, visitorPageFor } from "@/lib/views";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -51,6 +51,22 @@ const proxy = clerkMiddleware(async (auth, request) => {
   if (looksLikeMissingFile(request.nextUrl.pathname)) {
     return new NextResponse(null, { status: 404 });
   }
+  // The landing page lives at /landing/{locale} but is only shown at /hu and
+  // /en; an old link or a typed address goes to the real address
+  if (isLandingPath(request.nextUrl.pathname)) {
+    const locale = /^\/landing\/en(\/|$)/.test(request.nextUrl.pathname) ? "en" : "hu";
+    return NextResponse.redirect(new URL(`/${locale}`, request.url));
+  }
+  // Signed-out visitors of the home page get the landing page (lib/views.ts),
+  // served as a static page without Clerk; signed-in users their own home
+  const visitorPage = visitorPageFor(request.nextUrl.pathname);
+  if (visitorPage) {
+    const { userId } = await auth();
+    if (!userId) return NextResponse.rewrite(new URL(visitorPage, request.url));
+  }
+  // "/" without a language: next-intl sends everyone to /hu or /en first,
+  // where the line above decides
+  if (request.nextUrl.pathname === "/") return intlMiddleware(withPrimaryLanguage(request));
   if (!isPublic(request)) {
     const { userId, sessionClaims } = await auth();
     const { pathname, search } = request.nextUrl;
@@ -78,11 +94,11 @@ export const config = {
   matcher: [
     // Runs for every request except Next.js internals, Vercel's own routes
     // (/_vercel/insights for Web Analytics) and the files that really exist:
-    // public/images, public/icons, public/speech and the app icons. An
-    // address that only looks like a file (/favicon.png, /hu/foo.png) still
-    // goes through here; otherwise a page could call auth() without Clerk
-    // having run, which throws.
-    "/((?!_next|_vercel|images/|icons/|speech/|favicon\\.ico$|icon\\.svg$|apple-icon\\.png$|manifest\\.webmanifest$|robots\\.txt$).*)",
+    // public/images, public/icons, public/speech, the app icons, robots.txt
+    // and the sitemap. An address that only looks like a file (/favicon.png,
+    // /hu/foo.png) still goes through here; otherwise a page could call
+    // auth() without Clerk having run, which throws.
+    "/((?!_next|_vercel|images/|icons/|speech/|favicon\\.ico$|icon\\.svg$|apple-icon\\.png$|manifest\\.webmanifest$|robots\\.txt$|sitemap\\.xml$).*)",
     // Always run for API routes
     "/(api|trpc)(.*)",
   ],

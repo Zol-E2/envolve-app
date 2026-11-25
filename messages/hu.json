@@ -1,7 +1,7 @@
 {
   "Metadata": {
     "title": "eNvolve",
-    "description": "Valós idejű AI oktatási platform",
+    "description": "Hangalapú MI-tanár tanulási nehézséggel élő gyerekeknek",
     "courses": "Kurzuskönyvtár",
     "newCourse": "Új kurzus",
     "profile": "Profil",
@@ -1285,5 +1285,136 @@
     "barHelp": "{count, plural, one {# segítségkérés, amit a tanár még nem nyitott meg} other {# segítségkérés, amit a tanár még nem nyitott meg}}",
     "barUnassigned": "{count, plural, one {# jelzés diákhoz nem köthető hívásból} other {# jelzés diákhoz nem köthető hívásból}}",
     "barOpen": "Megnézem"
+  },
+  "Landing": {
+    "metaTitle": "eNvolve – hangalapú MI-tanár tanulási nehézséggel élő gyerekeknek",
+    "metaDescription": "Az eNvolve-ban a diák beszélgetve tanul egy türelmes MI-tanárral, a tanár pedig látja, hogyan halad az osztály. Autizmussal, ADHD-val vagy diszlexiával élő diákoknak tervezve.",
+    "skip": "Ugrás a tartalomra",
+    "nav": {
+      "label": "Az oldal részei",
+      "how": "Hogyan működik",
+      "teachers": "Tanároknak",
+      "safety": "Biztonság",
+      "faq": "GYIK",
+      "signIn": "Belépés",
+      "home": "eNvolve főoldal",
+      "logoAlt": "eNvolve logó",
+      "language": "Nyelv"
+    },
+    "hero": {
+      "title": "Hangalapú MI‑tanár azoknak a gyerekeknek, akiknek a hagyományos tanulás nehéz",
+      "lead": "Az eNvolve-ban a diák beszélgetve tanul egy türelmes, gépi tanárral. Nem kell sokat olvasnia vagy írnia. Ön közben látja, hogyan halad az osztály.",
+      "signIn": "Belépés",
+      "contact": "Érdeklődöm a pilotról",
+      "note": "Autizmussal, ADHD-val vagy diszlexiával élő diákoknak tervezve · magyarul és angolul",
+      "mockLabel": "Illusztráció: egy diák órája az eNvolve-ban, mellette a tanár áttekintése telefonon"
+    },
+    "who": {
+      "title": "Kinek készült?",
+      "lead": "Olyan diákoknak, akiknek a sok olvasás, a zsúfolt képernyő vagy a hosszú figyelem akadály. Az eNvolve a beszélgetésre épít.",
+      "autism": {
+        "title": "Autizmus",
+        "text": "Kiszámítható menet, nyugodt színek, nincs váratlan felugró ablak."
+      },
+      "adhd": {
+        "title": "ADHD",
+        "text": "Rövid, beszélgetős órák. A tanár kedvesen visszaterel, ha elkalandozik."
+      },
+      "dyslexia": {
+        "title": "Diszlexia",
+        "text": "Hang az olvasás helyett, felolvasás mindenhol, könnyen olvasható betű."
+      }
+    },
+    "how": {
+      "title": "Hogyan működik?",
+      "step1": {
+        "title": "A tanár kiosztja",
+        "text": "Létrehoz egy osztályt, a diákok kóddal csatlakoznak, és kiosztja a témát határidővel."
+      },
+      "step2": {
+        "title": "A diák beszélget",
+        "text": "Megnyomja a gombot, és az MI-tanár kérdez, magyaráz, dicsér, mindig a témánál maradva."
+      },
+      "step3": {
+        "title": "A tanár látja",
+        "text": "Ki végzett, ki akadt el, ki nem kezdte el. A beszélgetés szövegét senki nem látja."
+      }
+    },
+    "teachers": {
+      "title": "Az Ön munkáját könnyíti, nem bonyolítja",
+      "lead": "Ismerős felépítés, ahogy a Google Classroomban megszokta, csak a diákok itt beszélgetve tanulnak.",
+      "item1": "Osztályok és csatlakozási kód, kiosztás egész osztálynak vagy egyes diákoknak",
+      "item2": "Haladás egy pillantással: kész, elakadt, folyamatban, nem kezdte el",
+      "item3": "Diákonkénti támogatás: lassabb beszéd, rövidebb óra, automatikus felolvasás",
+      "item4": "Kurzustár kész témákkal, és saját témák pár perc alatt",
+      "mockLabel": "Illusztráció: a tanár áttekintése egy osztály haladásával"
+    },
+    "safety": {
+      "title": "Gyerekeknek készült, ezért a biztonság az első",
+      "topic": {
+        "title": "Csak a témáról",
+        "text": "Ha a beszélgetés eltér, vagy a gyerek bajban lehet, az óra leáll, és a tanár azonnal értesítést kap."
+      },
+      "noTranscript": {
+        "title": "Nincs átirat",
+        "text": "A beszélgetéseket nem tároljuk és nem rögzítjük. A tanár csak az óra állapotát látja."
+      },
+      "aiNotice": {
+        "title": "Mindig tudja, hogy gép",
+        "text": "Óra előtt a gyerek érthetően, felolvasva is megtudja, hogy MI-vel beszél."
+      },
+      "privacy": {
+        "title": "Kevés adat, szigorú hozzáférés",
+        "text": "Mindenki csak azt látja, ami a feladatához kell.",
+        "link": "Adatvédelmi tájékoztató"
+      }
+    },
+    "parents": {
+      "title": "Szülőként",
+      "text": "Az eNvolve-ot iskolán keresztül, a tanár meghívásával lehet használni. Ha szeretné, hogy gyermeke iskolája is kipróbálja, írjon nekünk, és felvesszük a kapcsolatot.",
+      "link": "Írok nektek"
+    },
+    "story": {
+      "title": "Kutatásból született",
+      "text": "Az eNvolve egyetemi kutatás (TDK) keretében készül. A 2026/27-es tanévben egy iskolai pilotban mérjük, mennyit segít a diákoknak és a tanároknak."
+    },
+    "faq": {
+      "title": "Gyakori kérdések",
+      "q1": "Mennyibe kerül?",
+      "a1": "A pilot idején a részt vevő iskoláknak ingyenes.",
+      "q2": "Mire van szükség hozzá?",
+      "a2": "Böngészőre és mikrofonra: laptop, tablet vagy telefon is jó. Telepíteni nem kell semmit.",
+      "q3": "Helyettesíti a tanárt?",
+      "a3": "Nem. Gyakorlótárs, amely türelmesen magyaráz és kérdez. A döntés mindig a tanár kezében marad.",
+      "q4": "Hogyan lép be a diák?",
+      "a4": "A tanár meghívja, és a diák egy osztálykóddal csatlakozik.",
+      "q5": "Milyen nyelven tanít?",
+      "a5": "Magyarul és angolul. Az óra nyelvét kurzusonként lehet beállítani."
+    },
+    "cta": {
+      "title": "Kipróbálná az osztályával?",
+      "text": "Pilot iskolákat és tanárokat keresünk a 2026/27-es tanévre.",
+      "contact": "Érdeklődöm",
+      "signIn": "Belépés"
+    },
+    "footer": {
+      "contact": "Kapcsolat"
+    },
+    "mock": {
+      "course": "A víz körforgása",
+      "subject": "Természettudomány",
+      "speaking": "A tanár beszél",
+      "caption": "Szuper ötlet! És szerinted hova kerül a víz, amikor elpárolog?",
+      "end": "Óra befejezése",
+      "overview": "Áttekintés",
+      "className": "5.b osztály",
+      "done": "Kész",
+      "stuck": "Elakadt",
+      "inProgress": "Folyamatban",
+      "student1": "Anna",
+      "student2": "Bence",
+      "student3": "Csenge",
+      "handled": "Kezeltem"
+    }
   }
 }

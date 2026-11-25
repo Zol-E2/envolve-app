@@ -1285,6 +1285,204 @@
   .site-footer a {
     @apply underline-offset-4 hover:underline;
   }
+  /* --- Landing page (app/landing): signed-out visitors of /hu and /en --- */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-xl focus:bg-foreground focus:px-4 focus:py-2 focus:font-bold focus:text-card;
+  }
+  .landing-header {
+    @apply sticky top-0 z-30;
+  }
+  .lang-toggle a {
+    @apply flex h-full min-w-10 items-center justify-center rounded-full px-3 text-[0.9375rem] font-bold text-muted-foreground transition-colors hover:text-foreground max-sm:min-w-9 max-sm:px-2;
+  }
+  .lang-toggle a[aria-current="page"] {
+    @apply bg-foreground text-card hover:text-card;
+  }
+  .landing {
+    gap: clamp(3rem, 2rem + 4vw, 6rem);
+    padding-top: clamp(2rem, 1rem + 4vw, 4.5rem);
+  }
+  .landing h2 {
+    @apply font-extrabold;
+    font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.125rem);
+  }
+  .landing h3,
+  .landing .landing-h3 {
+    @apply text-xl font-bold;
+  }
+  /* minmax(0, …): a long word with big text shrinks the column instead of
+     pushing the page sideways */
+  .landing-hero {
+    @apply grid grid-cols-[minmax(0,1fr)] items-center gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)];
+  }
+  .landing-hero h1 {
+    font-size: clamp(1.75rem, 1.2rem + 2.6vw, 3.25rem);
+  }
+  .landing-hero .btn-primary,
+  .landing-hero .btn-outline {
+    @apply max-w-full text-center;
+  }
+  .landing-lead {
+    @apply max-w-[62ch] text-muted-foreground;
+    font-size: clamp(1.125rem, 1.05rem + 0.3vw, 1.3rem);
+  }
+  .landing-section {
+    @apply flex flex-col gap-5;
+    scroll-margin-top: 5rem;
+  }
+  .landing-grid {
+    @apply grid gap-5 max-sm:gap-4;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+  .landing-grid-4 {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  }
+  .landing-grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  }
+  .landing-card {
+    @apply flex flex-col items-start gap-2;
+  }
+  .landing-card p {
+    @apply text-muted-foreground;
+  }
+  .landing-icon {
+    @apply mb-1 flex size-12 items-center justify-center rounded-2xl;
+  }
+  .landing-steps {
+    counter-reset: landing-step;
+  }
+  .landing-steps li {
+    counter-increment: landing-step;
+  }
+  .landing-steps li::before {
+    @apply mb-1 flex size-11 items-center justify-center rounded-full bg-primary text-xl font-extrabold text-primary-foreground;
+    content: counter(landing-step);
+  }
+  .landing-split {
+    @apply grid grid-cols-[minmax(0,1fr)] items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)];
+  }
+  .landing-checks {
+    @apply flex flex-col gap-3;
+  }
+  .landing-checks li {
+    @apply relative pl-9;
+  }
+  /* A check mark drawn in CSS, so the list needs no icons in the HTML */
+  .landing-checks li::before {
+    @apply absolute top-1 left-0 flex size-6 items-center justify-center rounded-full bg-ok-soft text-sm font-bold text-ok;
+    content: "✓";
+  }
+  .landing-link {
+    @apply mt-auto inline-flex min-h-11 items-center font-bold text-primary-deep underline underline-offset-4 hover:text-primary;
+  }
+  .landing-faq {
+    @apply flex flex-col rounded-3xl border border-border bg-card max-sm:rounded-[20px];
+  }
+  .landing-faq details {
+    @apply border-b border-border last:border-b-0;
+  }
+  .landing-faq summary {
+    @apply flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-6 py-3 text-lg font-bold max-sm:px-4;
+  }
+  .landing-faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .landing-faq summary::after {
+    @apply shrink-0 text-2xl leading-none text-primary;
+    content: "+";
+  }
+  .landing-faq details[open] summary::after {
+    content: "−";
+  }
+  .landing-faq details p {
+    @apply px-6 pb-5 text-muted-foreground max-sm:px-4;
+  }
+  .landing-cta {
+    @apply flex flex-wrap items-center justify-between gap-6 rounded-3xl bg-cta p-8 text-card max-sm:rounded-[22px] max-sm:p-5;
+  }
+  .landing-cta h2 {
+    @apply text-cta-gold;
+  }
+  .landing-cta p {
+    @apply mt-2 max-w-[48ch] opacity-90;
+  }
+  .landing-cta-primary {
+    @apply inline-flex min-h-12 items-center justify-center rounded-2xl bg-cta-gold px-6 text-lg font-bold text-cta transition-opacity hover:opacity-90;
+  }
+  .landing-cta-secondary {
+    @apply inline-flex min-h-12 items-center justify-center rounded-2xl border-2 border-cta-gold px-6 text-lg font-bold text-card transition-colors hover:bg-white/10;
+  }
+
+  /* Drawn app previews (components/landing/AppMocks.tsx) */
+  .landing-visual {
+    @apply relative mx-auto w-full max-w-[34rem] pb-16;
+  }
+  .landing-visual-phone {
+    @apply max-w-[20rem] pb-0;
+  }
+  .mock-laptop {
+    @apply w-[86%];
+    font-size: clamp(0.8rem, 0.6rem + 0.8vw, 1rem);
+  }
+  .mock-screen {
+    @apply flex flex-col gap-3 overflow-hidden rounded-t-2xl border-[6px] border-b-0 border-foreground bg-background p-4;
+  }
+  .mock-laptop-base {
+    @apply mx-[-4%] h-3 rounded-b-xl bg-foreground;
+  }
+  .mock-chip {
+    @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[0.72em] font-bold whitespace-nowrap;
+  }
+  .mock-tutor {
+    @apply relative mx-auto my-2 flex size-[6.5em] items-center justify-center;
+  }
+  .mock-face {
+    @apply relative size-[4.5em] rounded-full border-4 border-card bg-card shadow-sm;
+  }
+  .mock-ring {
+    @apply absolute inset-0 rounded-full bg-primary-soft;
+    animation: mock-pulse 2.4s ease-out infinite;
+  }
+  .mock-ring-2 {
+    animation-delay: 1.2s;
+  }
+  @keyframes mock-pulse {
+    from {
+      transform: scale(0.7);
+      opacity: 1;
+    }
+    to {
+      transform: scale(1.25);
+      opacity: 0;
+    }
+  }
+  .mock-caption {
+    @apply mr-auto max-w-[62%] rounded-2xl rounded-bl-sm bg-card px-3 py-2 text-[0.85em] leading-snug shadow-sm;
+  }
+  .mock-end {
+    @apply mr-auto rounded-xl border-2 border-border bg-card px-3 py-1 text-[0.75em] font-bold;
+  }
+  .mock-phone {
+    @apply overflow-hidden rounded-[1.75rem] border-[6px] border-foreground bg-background p-3 shadow-lg;
+    font-size: clamp(0.8rem, 0.7rem + 0.4vw, 1rem);
+  }
+  .mock-phone-compact {
+    @apply absolute right-0 bottom-0 w-[40%];
+    font-size: clamp(0.55rem, 0.4rem + 0.6vw, 0.75rem);
+  }
+  .mock-stat {
+    @apply flex flex-col rounded-xl py-1 text-[0.65em] font-bold leading-tight;
+  }
+  .mock-stat b {
+    @apply text-[1.6em];
+  }
+  .mock-row {
+    @apply flex min-w-0 items-center justify-between gap-2 rounded-xl bg-card px-2 py-1.5 text-[0.8em];
+  }
+  .mock-handled {
+    @apply mt-2 block rounded-xl bg-primary py-1.5 text-center text-[0.8em] font-bold text-primary-foreground;
+  }
 }
 
 @layer utilities {
