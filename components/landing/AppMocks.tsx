@@ -1,87 +1,70 @@
-import { Check, CircleAlert, Clock, Mic, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 /*
- * Drawn previews of the app for the landing page, built from the app's own
- * colours instead of screenshots: they stay sharp at any size, weigh almost
- * nothing, and never show a real child's name. Decorative: the figure around
- * them describes them in words (aria-label).
+ * The app as it really looks, for the landing page: screenshots of the real
+ * pages (public/images/landing, made from a demo class with invented names,
+ * never a real child), framed as a browser window or a phone. Decorative:
+ * the figure around them describes them in words (aria-label).
  */
 
-/** A student's lesson in a browser window: the tutor speaking, with the caption */
-export const LessonMock = async () => {
-  const t = await getTranslations("Landing.mock");
+type Shot = "lesson" | "teacher" | "alert" | "student-phone";
+const SIZES: Record<Shot, [number, number]> = {
+  lesson: [2560, 1920],
+  teacher: [2400, 1558],
+  alert: [2240, 676],
+  "student-phone": [780, 1688],
+};
+
+const ShotImage = async ({ shot, sizes, priority = false, className }: { shot: Shot; sizes: string; priority?: boolean; className?: string }) => {
+  const locale = await getLocale();
+  const [width, height] = SIZES[shot];
   return (
-    <div className="mock-window" aria-hidden="true">
-      <div className="mock-window-bar">
-        <span className="mock-dot" />
-        <span className="mock-dot" />
-        <span className="mock-dot" />
-        <span className="mock-url">{t("url")}</span>
-      </div>
-      <div className="mock-lesson">
-        <div className="flex items-center justify-between gap-2">
-          <div className="min-w-0">
-            <p className="truncate font-display text-[1.05em] font-extrabold">{t("course")}</p>
-            <p className="text-[0.75em] text-muted-foreground">{t("subject")}</p>
-          </div>
-          <span className="mock-chip bg-turn-soft text-turn-deep">
-            <Mic className="size-[1em]" /> {t("speaking")}
-          </span>
-        </div>
-        <div className="mock-tutor">
-          <span className="mock-ring" />
-          <span className="mock-ring mock-ring-2" />
-          <Image src="/icons/icon-192.png" alt="" width={192} height={192} sizes="96px" className="mock-face" />
-        </div>
-        <p className="mock-caption">{t("caption")}</p>
-        <span className="mock-end">{t("end")}</span>
-      </div>
-    </div>
+    <Image
+      src={`/images/landing/${shot}-${locale}.webp`}
+      alt=""
+      width={width}
+      height={height}
+      sizes={sizes}
+      priority={priority}
+      className={className}
+    />
   );
 };
 
-/** The teacher's overview on a phone: one class with its progress */
-export const TeacherMock = async ({ compact = false }: { compact?: boolean }) => {
-  const t = await getTranslations("Landing.mock");
-  const rows = [
-    { name: t("student1"), status: t("done"), icon: Check, tone: "bg-ok-soft text-ok" },
-    { name: t("student2"), status: t("stuck"), icon: CircleAlert, tone: "bg-warn-soft text-warn" },
-    { name: t("student3"), status: t("inProgress"), icon: Clock, tone: "bg-turn-soft text-turn-deep" },
-  ];
-  return (
-    <div className={compact ? "mock-phone mock-phone-compact" : "mock-phone"} aria-hidden="true">
-      <p className="text-[0.7em] font-bold text-muted-foreground">{t("overview")}</p>
-      <p className="mb-2 font-display text-[0.95em] font-extrabold">{t("className")}</p>
-      {/* The small phone beside the window has no room for the totals */}
-      {!compact && (
-        <div className="mb-2 grid grid-cols-3 gap-1.5 text-center">
-          <span className="mock-stat bg-ok-soft text-ok"><b>12</b>{t("done")}</span>
-          <span className="mock-stat bg-warn-soft text-warn"><b>1</b>{t("stuck")}</span>
-          <span className="mock-stat bg-turn-soft text-turn-deep"><b>3</b>{t("inProgress")}</span>
-        </div>
-      )}
-      <ul className="grid gap-1.5">
-        {rows.map(({ name, status, icon: Icon, tone }) => (
-          <li key={name} className="mock-row">
-            <span className="truncate font-bold">{name}</span>
-            <span className={`mock-chip ${tone}`}>
-              <Icon className="size-[1em]" /> {status}
-            </span>
-          </li>
-        ))}
-      </ul>
-      {!compact && <span className="mock-handled">{t("handled")}</span>}
+/** A screenshot in a browser window */
+export const BrowserShot = async ({ shot, priority = false, className = "" }: { shot: Shot; priority?: boolean; className?: string }) => (
+  <div className={`shot-window ${className}`} aria-hidden="true">
+    <div className="shot-window-bar">
+      <span className="shot-dot" />
+      <span className="shot-dot" />
+      <span className="shot-dot" />
+      <span className="shot-url">envolve.hu</span>
     </div>
-  );
-};
+    <ShotImage shot={shot} sizes="(min-width: 1024px) 860px, 92vw" priority={priority} className="block h-auto w-full" />
+  </div>
+);
+
+/** A screenshot on a phone */
+export const PhoneShot = async ({ shot, className = "" }: { shot: Shot; className?: string }) => (
+  <div className={`shot-phone ${className}`} aria-hidden="true">
+    <ShotImage shot={shot} sizes="(min-width: 1024px) 260px, 40vw" className="block h-auto w-full" />
+  </div>
+);
+
+/** A screenshot as a plain card (no frame) */
+export const CardShot = async ({ shot, className = "" }: { shot: Shot; className?: string }) => (
+  <div className={`shot-card ${className}`} aria-hidden="true">
+    <ShotImage shot={shot} sizes="(min-width: 1024px) 1000px, 92vw" className="block h-auto w-full" />
+  </div>
+);
 
 /** A small floating notice: lesson safety at work */
 export const SafetyBadge = async () => {
   const t = await getTranslations("Landing.mock");
   return (
-    <div className="mock-badge" aria-hidden="true">
+    <div className="shot-badge" aria-hidden="true">
       <span className="flex size-[2em] shrink-0 items-center justify-center rounded-full bg-ok-soft text-ok">
         <ShieldCheck className="size-[1.1em]" />
       </span>

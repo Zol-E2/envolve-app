@@ -1411,7 +1411,7 @@
     @apply grid grid-cols-[minmax(0,1fr)] items-start gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16;
   }
   .lp-split-media {
-    @apply items-center lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)];
+    @apply items-center lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)];
   }
   .lp-split-faq {
     @apply lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)];
@@ -1464,21 +1464,14 @@
   }
 
   .lp-features {
-    @apply grid gap-x-8 gap-y-7 sm:grid-cols-2;
+    @apply grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-1;
   }
   .lp-features li {
-    @apply flex flex-col gap-1;
+    @apply flex flex-col gap-1 lg:grid lg:grid-cols-[auto_1fr] lg:gap-x-4 lg:gap-y-1;
   }
-  .lp-phone-stage {
-    @apply relative mx-auto flex w-full max-w-[24rem] items-center justify-center rounded-[2.5rem] p-8 max-sm:p-4;
-    background:
-      radial-gradient(circle at 30% 20%, var(--primary-soft), transparent 60%),
-      radial-gradient(circle at 80% 90%, var(--turn-soft), transparent 60%);
+  .lp-features li .lp-icon {
+    @apply lg:row-span-2 lg:mb-0;
   }
-  .lp-phone-stage .mock-phone {
-    @apply w-full max-w-[18rem];
-  }
-
   /* Safety: dark band with the four moments of a lesson */
   .lp-dark {
     @apply bg-cta text-card;
@@ -1604,82 +1597,48 @@
     @apply mt-10 border-t border-border pt-6 text-sm;
   }
 
-  /* Drawn app previews (components/landing/AppMocks.tsx) */
-  .mock-window {
-    @apply w-[84%] overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_60px_-20px_rgb(30_43_58/0.35)] max-sm:w-[92%];
-    font-size: clamp(0.75rem, 0.55rem + 0.9vw, 1.1rem);
+  /* Screenshots of the real app (components/landing/AppMocks.tsx) */
+  .shot-window {
+    @apply overflow-hidden rounded-2xl border border-border bg-card shadow-[0_40px_80px_-30px_rgb(30_43_58/0.4)] max-sm:rounded-xl;
   }
-  .mock-window-bar {
-    @apply flex items-center gap-1.5 border-b border-border bg-secondary px-3 py-2;
+  .shot-window-bar {
+    @apply flex items-center gap-1.5 border-b border-border bg-secondary px-3 py-2.5 max-sm:py-1.5;
   }
-  .mock-dot {
-    @apply size-[0.6em] rounded-full bg-border;
+  .shot-dot {
+    @apply size-2.5 rounded-full bg-border max-sm:size-1.5;
   }
-  .mock-url {
-    @apply mx-auto rounded-md bg-card px-6 py-0.5 text-[0.7em] text-muted-foreground;
+  .shot-url {
+    @apply mx-auto rounded-md bg-card px-8 py-0.5 text-xs text-muted-foreground max-sm:px-4 max-sm:text-[0.6rem];
   }
-  .mock-lesson {
-    @apply flex flex-col gap-3 bg-background p-[1.25em];
+  .shot-phone {
+    @apply overflow-hidden rounded-[1.75rem] border-[6px] border-foreground bg-card shadow-[0_30px_60px_-20px_rgb(30_43_58/0.45)] max-sm:rounded-2xl max-sm:border-4;
   }
-  .mock-chip {
-    @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[0.72em] font-bold whitespace-nowrap;
+  /* Only the top of the phone page: it reads like a phone screen */
+  .shot-phone img {
+    @apply aspect-[9/17] object-cover object-top;
   }
-  .mock-tutor {
-    @apply relative mx-auto my-[0.5em] flex size-[7em] items-center justify-center;
+  .shot-card {
+    @apply overflow-hidden rounded-2xl shadow-[0_30px_60px_-25px_rgb(0_0_0/0.6)] ring-1 ring-white/10;
   }
-  .mock-face {
-    @apply relative size-[4.75em] rounded-full border-4 border-card bg-card shadow-sm;
-  }
-  .mock-ring {
-    @apply absolute inset-0 rounded-full bg-primary-soft;
-    animation: mock-pulse 2.4s ease-out infinite;
-  }
-  .mock-ring-2 {
-    animation-delay: 1.2s;
-  }
-  @keyframes mock-pulse {
-    from {
-      transform: scale(0.7);
-      opacity: 1;
-    }
-    to {
-      transform: scale(1.25);
-      opacity: 0;
-    }
-  }
-  .mock-caption {
-    @apply mr-auto max-w-[58%] rounded-2xl rounded-bl-sm bg-card px-[0.9em] py-[0.6em] text-[0.85em] leading-snug shadow-sm max-sm:max-w-[62%];
-  }
-  .mock-end {
-    @apply mr-auto rounded-xl border-2 border-border bg-card px-3 py-1 text-[0.75em] font-bold;
-  }
-  .mock-phone {
-    @apply overflow-hidden rounded-[1.75rem] border-[6px] border-foreground bg-background p-3 shadow-[0_30px_60px_-20px_rgb(30_43_58/0.4)];
-    font-size: clamp(0.85rem, 0.75rem + 0.4vw, 1rem);
-  }
-  .mock-phone-compact {
-    @apply absolute right-0 bottom-0 w-[34%] max-sm:w-[42%];
-    font-size: clamp(0.5rem, 0.35rem + 0.65vw, 0.85rem);
-  }
-  .mock-stat {
-    @apply flex flex-col rounded-xl py-1 text-[0.65em] leading-tight font-bold;
-  }
-  .mock-stat b {
-    @apply text-[1.6em];
-  }
-  .mock-row {
-    @apply flex min-w-0 items-center justify-between gap-2 rounded-xl bg-card px-2 py-1.5 text-[0.8em];
-  }
-  .mock-handled {
-    @apply mt-2 block rounded-xl bg-primary py-1.5 text-center text-[0.8em] font-bold text-primary-foreground;
-  }
-  .mock-badge {
-    @apply absolute top-0 left-[3%] flex -translate-y-1/2 items-center gap-2 rounded-2xl border border-border bg-card py-2 pr-4 pl-2 font-bold shadow-[0_20px_40px_-16px_rgb(30_43_58/0.35)] max-sm:left-0;
+  .shot-badge {
+    @apply absolute bottom-[22%] left-0 flex items-center gap-2 rounded-2xl border border-border bg-card py-2 pr-4 pl-2 font-bold shadow-[0_20px_40px_-16px_rgb(30_43_58/0.35)];
     font-size: clamp(0.6rem, 0.45rem + 0.6vw, 0.95rem);
   }
-  /* The window sits in the middle, the phone and the badge overlap its edges */
-  .lp-showcase .mock-window {
-    @apply mx-auto;
+  .lp-showcase .shot-window {
+    @apply mx-auto w-[84%] max-sm:mr-[12%] max-sm:ml-0 max-sm:w-[88%];
+  }
+  .lp-showcase-phone {
+    @apply absolute right-0 bottom-0 w-[21%] max-sm:w-[34%];
+  }
+  /* The teacher's overview: its top part, as on a laptop screen */
+  .lp-teacher-shot .shot-window img {
+    @apply aspect-[4/3] object-cover object-top;
+  }
+  .lp-alert-shot {
+    @apply mx-auto mb-12 flex max-w-[52rem] flex-col gap-3 max-sm:mb-8;
+  }
+  .lp-alert-shot figcaption {
+    @apply text-center text-base text-card/70;
   }
   /* The audience cards sit close under the hero */
   .landing > .lp-audience-section {

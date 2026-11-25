@@ -19,7 +19,7 @@ import Image from "next/image";
 import { routing } from "@/i18n/routing";
 import LandingHeader from "@/components/landing/LandingHeader";
 import TrackedLink from "@/components/landing/TrackedLink";
-import { LessonMock, SafetyBadge, TeacherMock } from "@/components/landing/AppMocks";
+import { BrowserShot, CardShot, PhoneShot, SafetyBadge } from "@/components/landing/AppMocks";
 import { CONTACT_EMAIL } from "@/lib/site";
 
 interface LandingPageProps {
@@ -100,8 +100,8 @@ export default async function LandingPage({ params }: LandingPageProps) {
             </ul>
           </div>
           <figure className="lp-wrap lp-showcase" aria-label={t("hero.mockLabel")}>
-            <LessonMock />
-            <TeacherMock compact />
+            <BrowserShot shot="lesson" priority />
+            <PhoneShot shot="student-phone" className="lp-showcase-phone" />
             <SafetyBadge />
           </figure>
         </section>
@@ -190,8 +190,8 @@ export default async function LandingPage({ params }: LandingPageProps) {
               ))}
             </ul>
           </div>
-          <figure className="lp-phone-stage" aria-label={t("teachers.mockLabel")}>
-            <TeacherMock />
+          <figure className="lp-teacher-shot" aria-label={t("teachers.mockLabel")}>
+            <BrowserShot shot="teacher" />
           </figure>
         </section>
 
@@ -203,6 +203,10 @@ export default async function LandingPage({ params }: LandingPageProps) {
               <h2 id="safety-title">{t("safety.title")}</h2>
               <p className="lp-lead">{t("safety.lead")}</p>
             </div>
+            <figure className="lp-alert-shot" aria-label={t("safety.alertLabel")}>
+              <CardShot shot="alert" />
+              <figcaption>{t("safety.alertCaption")}</figcaption>
+            </figure>
             <ol className="lp-timeline">
               {([1, 2, 3, 4] as const).map((n) => (
                 <li key={n}>

@@ -1310,7 +1310,7 @@
       "trust1": "Nem tároljuk a beszélgetéseket",
       "trust2": "Magyarul és angolul",
       "trust3": "Böngészőben, telepítés nélkül",
-      "mockLabel": "Illusztráció: egy diák órája az eNvolve-ban, mellette a tanár áttekintése és egy órabiztonsági jelzés"
+      "mockLabel": "Képernyőkép: egy diák órája az eNvolve-ban, mellette a diák főoldala telefonon"
     },
     "audience": {
       "label": "Kinek szól az eNvolve?",
@@ -1383,7 +1383,7 @@
         "title": "Kurzustár",
         "text": "Kész témák egy kattintással, vagy saját téma pár perc alatt."
       },
-      "mockLabel": "Illusztráció: a tanár áttekintése egy osztály haladásával"
+      "mockLabel": "Képernyőkép: a tanár áttekintése, figyelmet igénylő diákokkal és határidőkkel"
     },
     "safety": {
       "eyebrow": "Biztonság és adatvédelem",
@@ -1411,7 +1411,9 @@
       },
       "pledge1": "Mindenki csak azt látja, ami a feladatához kell",
       "pledge2": "Az EU MI-rendelet átláthatósági elvei szerint",
-      "pledge3": "Adatvédelmi tájékoztató"
+      "pledge3": "Adatvédelmi tájékoztató",
+      "alertLabel": "Illusztráció: egy órabiztonsági értesítés a tanár áttekintésében",
+      "alertCaption": "Így látja a tanár, ha egy óra leállt: név, osztály, mi történt, és mit tehet."
     },
     "story": {
       "eyebrow": "Kutatásból született",
@@ -1460,22 +1462,7 @@
       "contact": "Kapcsolat"
     },
     "mock": {
-      "course": "A víz körforgása",
-      "subject": "Természettudomány",
-      "speaking": "A tanár beszél",
-      "caption": "Szuper ötlet! És szerinted hova kerül a víz, amikor elpárolog?",
-      "end": "Óra befejezése",
-      "overview": "Áttekintés",
-      "className": "5.b osztály",
-      "done": "Kész",
-      "stuck": "Elakadt",
-      "inProgress": "Folyamatban",
-      "student1": "Anna",
-      "student2": "Bence",
-      "student3": "Csenge",
-      "handled": "Kezeltem",
-      "safe": "Az óra a témánál maradt",
-      "url": "envolve.hu"
+      "safe": "Az óra a témánál maradt"
     }
   }
 }

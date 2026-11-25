@@ -1310,7 +1310,7 @@
       "trust1": "Conversations are never stored",
       "trust2": "In Hungarian and English",
       "trust3": "In the browser, nothing to install",
-      "mockLabel": "Illustration: a student's lesson in eNvolve, with the teacher's overview and a lesson safety notice"
+      "mockLabel": "Screenshot: a student's lesson in eNvolve, with the student's home page on a phone"
     },
     "audience": {
       "label": "Who is eNvolve for?",
@@ -1383,7 +1383,7 @@
         "title": "Course library",
         "text": "Ready topics in one click, or your own topic in a few minutes."
       },
-      "mockLabel": "Illustration: the teacher's overview with a class's progress"
+      "mockLabel": "Screenshot: the teacher's overview with students who need attention and deadlines"
     },
     "safety": {
       "eyebrow": "Safety and privacy",
@@ -1411,7 +1411,9 @@
       },
       "pledge1": "Everyone sees only what their job needs",
       "pledge2": "Following the EU AI Act's transparency principles",
-      "pledge3": "Privacy policy"
+      "pledge3": "Privacy policy",
+      "alertLabel": "Illustration: a lesson safety alert on the teacher's overview",
+      "alertCaption": "What the teacher sees when a lesson stopped: name, class, what happened and what to do."
     },
     "story": {
       "eyebrow": "Born from research",
@@ -1460,22 +1462,7 @@
       "contact": "Contact"
     },
     "mock": {
-      "course": "The water cycle",
-      "subject": "Science",
-      "speaking": "The tutor is speaking",
-      "caption": "Great idea! And where do you think the water goes when it evaporates?",
-      "end": "End lesson",
-      "overview": "Overview",
-      "className": "Class 5B",
-      "done": "Done",
-      "stuck": "Stuck",
-      "inProgress": "In progress",
-      "student1": "Anna",
-      "student2": "Ben",
-      "student3": "Chloe",
-      "handled": "Handled",
-      "safe": "The lesson stayed on topic",
-      "url": "envolve.hu"
+      "safe": "The lesson stayed on topic"
     }
   }
 }
