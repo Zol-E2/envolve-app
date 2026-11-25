@@ -1302,23 +1302,45 @@
       "language": "Language"
     },
     "hero": {
-      "title": "A voice AI tutor for children who find traditional learning hard",
-      "lead": "With eNvolve, students learn by talking with a patient AI tutor. They don't have to read or write much. Meanwhile, you see how the class is doing.",
+      "eyebrow": "School pilot in the 2026/27 school year",
+      "title": "Learning by talking, at every child's own pace",
+      "lead": "A voice AI tutor for students with autism, ADHD or dyslexia, and a clear overview for their teachers.",
       "signIn": "Sign in",
       "contact": "Ask about the pilot",
-      "note": "Designed for students with autism, ADHD or dyslexia · in Hungarian and English",
-      "mockLabel": "Illustration: a student's lesson in eNvolve, with the teacher's overview on a phone"
+      "trust1": "Conversations are never stored",
+      "trust2": "In Hungarian and English",
+      "trust3": "In the browser, nothing to install",
+      "mockLabel": "Illustration: a student's lesson in eNvolve, with the teacher's overview and a lesson safety notice"
+    },
+    "audience": {
+      "label": "Who is eNvolve for?",
+      "teachers": {
+        "title": "For teachers",
+        "text": "Classes, assignments and progress in one place, adapted to each student's pace.",
+        "link": "How it helps your work"
+      },
+      "leaders": {
+        "title": "For school leaders",
+        "text": "Safe, transparent AI built around child protection and data protection requirements.",
+        "link": "Safety and privacy"
+      },
+      "parents": {
+        "title": "For parents",
+        "text": "eNvolve is available through schools. Write to us and we will get in touch with the teacher.",
+        "link": "Write to us"
+      }
     },
     "who": {
-      "title": "Who is it for?",
-      "lead": "For students for whom lots of reading, busy screens or long stretches of attention get in the way. eNvolve is built on conversation.",
+      "eyebrow": "Who it helps",
+      "title": "Students for whom lots of reading and busy screens get in the way",
+      "lead": "eNvolve is built on conversation. Every detail is designed for children with learning difficulties.",
       "autism": {
         "title": "Autism",
         "text": "A predictable flow, calm colours, no surprise pop-ups."
       },
       "adhd": {
         "title": "ADHD",
-        "text": "Short, conversational lessons. The tutor gently steers back when they drift."
+        "text": "Short, conversational lessons. The tutor gently steers back when a student drifts."
       },
       "dyslexia": {
         "title": "Dyslexia",
@@ -1326,7 +1348,8 @@
       }
     },
     "how": {
-      "title": "How does it work?",
+      "eyebrow": "How it works",
+      "title": "Three steps, and the class is learning",
       "step1": {
         "title": "The teacher assigns",
         "text": "They create a class, students join with a code, and the teacher assigns a topic with a deadline."
@@ -1341,45 +1364,76 @@
       }
     },
     "teachers": {
-      "title": "It makes your work easier, not harder",
+      "eyebrow": "For teachers",
+      "title": "Less admin, more attention for your students",
       "lead": "A familiar structure, like the Google Classroom you know, except here students learn by talking.",
-      "item1": "Classes and join codes, assign to the whole class or to selected students",
-      "item2": "Progress at a glance: done, stuck, in progress, not started",
-      "item3": "Support per student: slower speech, shorter lessons, automatic read-aloud",
-      "item4": "A library of ready topics, and your own topics in a few minutes",
+      "f1": {
+        "title": "Classes and assignments",
+        "text": "A join code, assignments for the whole class or selected students, with deadlines."
+      },
+      "f2": {
+        "title": "Progress at a glance",
+        "text": "Done, stuck, in progress, not started. Stuck students get their own list."
+      },
+      "f3": {
+        "title": "Support per student",
+        "text": "Slower speech, shorter lessons or automatic read-aloud for those who need it."
+      },
+      "f4": {
+        "title": "Course library",
+        "text": "Ready topics in one click, or your own topic in a few minutes."
+      },
       "mockLabel": "Illustration: the teacher's overview with a class's progress"
     },
     "safety": {
+      "eyebrow": "Safety and privacy",
       "title": "Made for children, so safety comes first",
-      "topic": {
+      "lead": "This is what a lesson looks like from start to finish, and what happens at every step to protect the child.",
+      "s1": {
+        "label": "Before the lesson",
+        "title": "Knows it's a computer",
+        "text": "The child is told clearly, and read aloud too, that they are talking with an AI. The microphone only turns on when the lesson starts."
+      },
+      "s2": {
+        "label": "During the lesson",
         "title": "Only the topic",
-        "text": "If the conversation drifts, or the child may be in trouble, the lesson stops and the teacher is notified straight away."
+        "text": "The AI tutor stays on topic and gently steers back when the conversation drifts."
       },
-      "noTranscript": {
+      "s3": {
+        "label": "If something is wrong",
+        "title": "Instant alert",
+        "text": "If the child may be in trouble, or rules are broken, the lesson stops and the teacher is notified straight away."
+      },
+      "s4": {
+        "label": "After the lesson",
         "title": "No transcripts",
-        "text": "Conversations are not stored or recorded. Teachers only see the status of the lesson."
+        "text": "The conversation is not stored or recorded. Teachers only see the status of the lesson."
       },
-      "aiNotice": {
-        "title": "Always knows it's a computer",
-        "text": "Before the lesson, the child is told clearly, and read aloud too, that they are talking with an AI."
-      },
-      "privacy": {
-        "title": "Little data, strict access",
-        "text": "Everyone sees only what their job needs.",
-        "link": "Privacy policy"
-      }
-    },
-    "parents": {
-      "title": "For parents",
-      "text": "eNvolve is used through schools, by invitation from a teacher. If you would like your child's school to try it, write to us and we will get in touch.",
-      "link": "Write to us"
+      "pledge1": "Everyone sees only what their job needs",
+      "pledge2": "Following the EU AI Act's transparency principles",
+      "pledge3": "Privacy policy"
     },
     "story": {
-      "title": "Born from research",
-      "text": "eNvolve is being built as part of university research. In the 2026/27 school year we will measure in a school pilot how much it helps students and teachers."
+      "eyebrow": "Born from research",
+      "title": "University research, a real classroom pilot",
+      "text": "eNvolve is being built as part of university research. In the 2026/27 school year we will measure in a school pilot how much it helps students and teachers, and keep improving it from what we learn.",
+      "fact1": {
+        "value": "2026/27",
+        "label": "school pilot"
+      },
+      "fact2": {
+        "value": "Research",
+        "label": "university project"
+      },
+      "fact3": {
+        "value": "0",
+        "label": "stored conversations"
+      }
     },
     "faq": {
+      "eyebrow": "FAQ",
       "title": "Frequently asked questions",
+      "lead": "Can't find the answer? Feel free to write to us.",
       "q1": "How much does it cost?",
       "a1": "It is free for participating schools during the pilot.",
       "q2": "What do I need?",
@@ -1389,15 +1443,20 @@
       "q4": "How do students sign in?",
       "a4": "The teacher invites them, and they join with a class code.",
       "q5": "Which languages does it teach in?",
-      "a5": "Hungarian and English. The lesson language can be set per course."
+      "a5": "Hungarian and English. The lesson language can be set per course.",
+      "q6": "I'm a parent. How can my child try it?",
+      "a6": "eNvolve is available through schools. Write to us and we will get in touch with your child's teacher or school."
     },
     "cta": {
       "title": "Would you like to try it with your class?",
-      "text": "We are looking for pilot schools and teachers for the 2026/27 school year.",
+      "text": "We are looking for pilot schools and teachers for the 2026/27 school year. Write to us and we will show you how it works in a short call.",
       "contact": "Get in touch",
       "signIn": "Sign in"
     },
     "footer": {
+      "tagline": "A voice AI tutor for children with learning difficulties.",
+      "product": "On this page",
+      "legal": "Legal",
       "contact": "Contact"
     },
     "mock": {
@@ -1414,7 +1473,9 @@
       "student1": "Anna",
       "student2": "Ben",
       "student3": "Chloe",
-      "handled": "Handled"
+      "handled": "Handled",
+      "safe": "The lesson stayed on topic",
+      "url": "envolve.hu"
     }
   }
 }

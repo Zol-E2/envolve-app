@@ -1289,8 +1289,8 @@
   .skip-link {
     @apply sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-xl focus:bg-foreground focus:px-4 focus:py-2 focus:font-bold focus:text-card;
   }
-  .landing-header {
-    @apply sticky top-0 z-30;
+  .lp-header {
+    @apply sticky top-0 z-30 border-b border-border/70 bg-card/85 backdrop-blur-md;
   }
   .lang-toggle a {
     @apply flex h-full min-w-10 items-center justify-center rounded-full px-3 text-[0.9375rem] font-bold text-muted-foreground transition-colors hover:text-foreground max-sm:min-w-9 max-sm:px-2;
@@ -1298,147 +1298,337 @@
   .lang-toggle a[aria-current="page"] {
     @apply bg-foreground text-card hover:text-card;
   }
-  .landing {
-    gap: clamp(3rem, 2rem + 4vw, 6rem);
-    padding-top: clamp(2rem, 1rem + 4vw, 4.5rem);
+  /* The page runs edge to edge; .lp-wrap keeps content at the usual width */
+  main.landing {
+    @apply max-w-none gap-0 p-0;
+  }
+  .lp-wrap {
+    @apply mx-auto w-full max-w-[1200px];
+    padding-inline: clamp(1rem, 4vw, 2.5rem);
+  }
+  .landing > section,
+  .landing > .lp-band,
+  .landing > .lp-dark {
+    padding-block: clamp(3.5rem, 2rem + 5vw, 7rem);
+    scroll-margin-top: 4rem;
   }
   .landing h2 {
-    @apply font-extrabold;
-    font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.125rem);
+    @apply font-extrabold tracking-[-0.01em];
+    font-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.75rem);
   }
-  .landing h3,
-  .landing .landing-h3 {
+  .landing h3 {
     @apply text-xl font-bold;
   }
-  /* minmax(0, …): a long word with big text shrinks the column instead of
-     pushing the page sideways */
-  .landing-hero {
-    @apply grid grid-cols-[minmax(0,1fr)] items-center gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)];
+  .lp-eyebrow {
+    @apply text-sm font-bold tracking-[0.08em] text-primary uppercase;
   }
-  .landing-hero h1 {
-    font-size: clamp(1.75rem, 1.2rem + 2.6vw, 3.25rem);
+  .lp-lead {
+    @apply max-w-[60ch] text-muted-foreground;
+    font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.3rem);
   }
-  .landing-hero .btn-primary,
-  .landing-hero .btn-outline {
-    @apply max-w-full text-center;
-  }
-  .landing-lead {
-    @apply max-w-[62ch] text-muted-foreground;
-    font-size: clamp(1.125rem, 1.05rem + 0.3vw, 1.3rem);
-  }
-  .landing-section {
-    @apply flex flex-col gap-5;
-    scroll-margin-top: 5rem;
-  }
-  .landing-grid {
-    @apply grid gap-5 max-sm:gap-4;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
-  }
-  .landing-grid-4 {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
-  }
-  .landing-grid-2 {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
-  }
-  .landing-card {
-    @apply flex flex-col items-start gap-2;
-  }
-  .landing-card p {
-    @apply text-muted-foreground;
-  }
-  .landing-icon {
-    @apply mb-1 flex size-12 items-center justify-center rounded-2xl;
-  }
-  .landing-steps {
-    counter-reset: landing-step;
-  }
-  .landing-steps li {
-    counter-increment: landing-step;
-  }
-  .landing-steps li::before {
-    @apply mb-1 flex size-11 items-center justify-center rounded-full bg-primary text-xl font-extrabold text-primary-foreground;
-    content: counter(landing-step);
-  }
-  .landing-split {
-    @apply grid grid-cols-[minmax(0,1fr)] items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)];
-  }
-  .landing-checks {
+  .lp-head {
     @apply flex flex-col gap-3;
   }
-  .landing-checks li {
-    @apply relative pl-9;
+  .lp-head-center {
+    @apply mx-auto mb-12 max-w-[46rem] items-center text-center max-sm:mb-8;
   }
-  /* A check mark drawn in CSS, so the list needs no icons in the HTML */
-  .landing-checks li::before {
-    @apply absolute top-1 left-0 flex size-6 items-center justify-center rounded-full bg-ok-soft text-sm font-bold text-ok;
-    content: "✓";
+  .lp-actions {
+    @apply flex flex-wrap gap-3;
   }
-  .landing-link {
-    @apply mt-auto inline-flex min-h-11 items-center font-bold text-primary-deep underline underline-offset-4 hover:text-primary;
+  .lp-actions > a {
+    @apply max-w-full text-center;
   }
-  .landing-faq {
-    @apply flex flex-col rounded-3xl border border-border bg-card max-sm:rounded-[20px];
+
+  /* Hero */
+  .lp-hero {
+    @apply relative overflow-hidden;
+    padding-top: clamp(3rem, 2rem + 4vw, 6rem) !important;
+    padding-bottom: 0 !important;
+    background:
+      radial-gradient(60rem 30rem at 15% -10%, var(--primary-soft), transparent 70%),
+      radial-gradient(50rem 28rem at 95% 10%, var(--turn-soft), transparent 70%),
+      var(--background);
   }
-  .landing-faq details {
-    @apply border-b border-border last:border-b-0;
+  .lp-hero-text {
+    @apply flex flex-col items-center gap-5 text-center;
   }
-  .landing-faq summary {
-    @apply flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-6 py-3 text-lg font-bold max-sm:px-4;
+  .lp-hero h1 {
+    @apply max-w-[18ch] tracking-[-0.02em];
+    font-size: clamp(2.25rem, 1.3rem + 3.6vw, 4.25rem);
+    line-height: 1.05;
   }
-  .landing-faq summary::-webkit-details-marker {
-    display: none;
+  .lp-hero .lp-lead {
+    @apply max-w-[44ch];
   }
-  .landing-faq summary::after {
-    @apply shrink-0 text-2xl leading-none text-primary;
-    content: "+";
+  .lp-hero .lp-actions {
+    @apply justify-center;
   }
-  .landing-faq details[open] summary::after {
-    content: "−";
+  .lp-pill {
+    @apply inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-[0.9375rem] font-bold shadow-sm;
   }
-  .landing-faq details p {
-    @apply px-6 pb-5 text-muted-foreground max-sm:px-4;
+  .lp-pill-dot {
+    @apply size-2 rounded-full bg-ok;
+    box-shadow: 0 0 0 4px var(--ok-soft);
   }
-  .landing-cta {
-    @apply flex flex-wrap items-center justify-between gap-6 rounded-3xl bg-cta p-8 text-card max-sm:rounded-[22px] max-sm:p-5;
+  .lp-trust {
+    @apply flex flex-wrap justify-center gap-x-6 gap-y-2 text-base text-muted-foreground;
   }
-  .landing-cta h2 {
+  .lp-trust li {
+    @apply flex items-center gap-1.5;
+  }
+  .lp-trust svg {
+    @apply text-ok;
+  }
+  .lp-showcase {
+    @apply relative mt-14 max-w-[64rem] max-sm:mt-10;
+    padding-bottom: clamp(2rem, 1rem + 3vw, 4rem);
+  }
+
+  /* Audience cards, pulled up against the hero */
+  .lp-audience {
+    @apply grid gap-5 max-sm:gap-4;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  }
+  .lp-audience li {
+    @apply flex flex-col items-start gap-2 rounded-3xl border border-border bg-card p-7 shadow-[0_1px_2px_rgb(30_43_58/0.04),0_8px_24px_-12px_rgb(30_43_58/0.12)] max-sm:p-5;
+  }
+  .lp-audience h2 {
+    @apply text-2xl!;
+  }
+  .lp-audience p {
+    @apply text-muted-foreground;
+  }
+  .lp-audience-icon {
+    @apply mb-2 size-9 text-primary;
+  }
+  .lp-more {
+    @apply mt-auto inline-flex min-h-11 items-center gap-1.5 pt-2 font-bold text-primary-deep hover:gap-2.5 hover:text-primary;
+    transition: gap 0.15s;
+  }
+
+  /* Two columns: heading on one side, content on the other */
+  .lp-split {
+    @apply grid grid-cols-[minmax(0,1fr)] items-start gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16;
+  }
+  .lp-split-media {
+    @apply items-center lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)];
+  }
+  .lp-split-faq {
+    @apply lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)];
+  }
+  .lp-icon {
+    @apply flex size-12 shrink-0 items-center justify-center rounded-2xl bg-primary-soft text-primary-deep;
+  }
+  .lp-icon-sm {
+    @apply mb-1 size-10 rounded-xl;
+  }
+  .lp-icon-sm svg {
+    @apply size-5;
+  }
+  .lp-rows {
+    @apply flex flex-col;
+  }
+  .lp-rows li {
+    @apply flex items-start gap-5 border-b border-border py-6 first:pt-0 last:border-b-0;
+  }
+  .lp-rows h3 {
+    @apply mb-1 text-2xl!;
+  }
+  .lp-rows p,
+  .lp-features p,
+  .lp-steps p {
+    @apply text-muted-foreground;
+  }
+
+  /* How it works: a white band with three numbered steps joined by a line */
+  .lp-band {
+    @apply border-y border-border bg-card;
+  }
+  .lp-steps {
+    @apply relative grid gap-10 md:grid-cols-3 md:gap-8;
+    counter-reset: lp-step;
+  }
+  .lp-steps li {
+    @apply relative flex flex-col gap-2 md:items-center md:text-center;
+    counter-increment: lp-step;
+  }
+  .lp-steps li::before {
+    @apply relative z-[1] mb-3 flex size-14 items-center justify-center rounded-full border-4 border-card bg-primary text-2xl font-extrabold text-primary-foreground shadow-[0_0_0_2px_var(--primary-soft)];
+    content: counter(lp-step);
+    font-family: var(--font-heading), system-ui, sans-serif;
+  }
+  /* The line between the numbers (wide screens) */
+  .lp-steps li:not(:last-child)::after {
+    @apply absolute top-7 left-[calc(50%+2.5rem)] hidden h-0.5 w-[calc(100%-5rem+2rem)] bg-primary-soft md:block;
+    content: "";
+  }
+
+  .lp-features {
+    @apply grid gap-x-8 gap-y-7 sm:grid-cols-2;
+  }
+  .lp-features li {
+    @apply flex flex-col gap-1;
+  }
+  .lp-phone-stage {
+    @apply relative mx-auto flex w-full max-w-[24rem] items-center justify-center rounded-[2.5rem] p-8 max-sm:p-4;
+    background:
+      radial-gradient(circle at 30% 20%, var(--primary-soft), transparent 60%),
+      radial-gradient(circle at 80% 90%, var(--turn-soft), transparent 60%);
+  }
+  .lp-phone-stage .mock-phone {
+    @apply w-full max-w-[18rem];
+  }
+
+  /* Safety: dark band with the four moments of a lesson */
+  .lp-dark {
+    @apply bg-cta text-card;
+  }
+  .lp-dark .lp-eyebrow {
     @apply text-cta-gold;
   }
-  .landing-cta p {
-    @apply mt-2 max-w-[48ch] opacity-90;
+  .lp-dark .lp-lead,
+  .lp-dark .lp-timeline p:not(.lp-timeline-label) {
+    @apply text-card/75;
   }
-  .landing-cta-primary {
-    @apply inline-flex min-h-12 items-center justify-center rounded-2xl bg-cta-gold px-6 text-lg font-bold text-cta transition-opacity hover:opacity-90;
+  .lp-timeline {
+    @apply grid gap-5 sm:grid-cols-2 lg:grid-cols-4;
+    counter-reset: lp-moment;
   }
-  .landing-cta-secondary {
-    @apply inline-flex min-h-12 items-center justify-center rounded-2xl border-2 border-cta-gold px-6 text-lg font-bold text-card transition-colors hover:bg-white/10;
+  .lp-timeline li {
+    @apply relative flex flex-col gap-2 rounded-3xl border border-white/10 bg-white/[0.04] p-6 max-sm:p-5;
+    counter-increment: lp-moment;
+  }
+  .lp-timeline-label {
+    @apply flex items-center gap-2 text-sm font-bold tracking-[0.06em] text-cta-gold uppercase;
+  }
+  .lp-timeline-label::before {
+    @apply flex size-7 items-center justify-center rounded-full bg-cta-gold text-sm text-cta;
+    content: counter(lp-moment);
+  }
+  .lp-pledges {
+    @apply mt-10 flex flex-wrap justify-center gap-x-8 gap-y-3 text-base text-card/85;
+  }
+  .lp-pledges li {
+    @apply flex items-center gap-2;
+  }
+  .lp-pledges svg {
+    @apply text-cta-gold;
+  }
+  .lp-pledges a {
+    @apply underline underline-offset-4 hover:text-card;
+  }
+
+  /* Research facts */
+  .lp-facts {
+    @apply grid gap-4 sm:grid-cols-3;
+  }
+  .lp-facts div {
+    @apply flex flex-col-reverse gap-1 rounded-3xl border border-border bg-card p-6;
+  }
+  .lp-facts dd {
+    @apply font-extrabold text-primary;
+    font-family: var(--font-heading), system-ui, sans-serif;
+    font-size: clamp(1.5rem, 1.15rem + 1vw, 2.125rem);
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+  .lp-facts dt {
+    @apply text-muted-foreground;
+  }
+
+  /* FAQ */
+  .lp-faq {
+    @apply flex flex-col border-t border-border;
+  }
+  .lp-faq details {
+    @apply border-b border-border;
+  }
+  .lp-faq summary {
+    @apply flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-4 text-lg font-bold;
+  }
+  .lp-faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .lp-faq summary::after {
+    @apply flex size-8 shrink-0 items-center justify-center rounded-full bg-secondary text-xl leading-none text-foreground;
+    content: "+";
+  }
+  .lp-faq details[open] summary::after {
+    content: "−";
+  }
+  .lp-faq details p {
+    @apply max-w-[62ch] pb-5 text-muted-foreground;
+  }
+
+  /* Closing call to action */
+  .lp-cta {
+    @apply relative flex flex-col items-center gap-4 overflow-hidden rounded-[2rem] px-8 py-16 text-center text-white max-sm:rounded-3xl max-sm:px-5 max-sm:py-10;
+    background:
+      radial-gradient(40rem 20rem at 100% 0%, rgb(255 224 138 / 0.35), transparent 60%),
+      linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
+  }
+  .lp-cta h2 {
+    @apply max-w-[22ch] text-white;
+  }
+  .lp-cta p {
+    @apply max-w-[52ch] text-lg text-white/90;
+  }
+  .lp-cta .lp-actions {
+    @apply mt-2;
+  }
+  .lp-cta-primary {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-white px-6 text-lg font-bold text-primary-deep transition-transform hover:-translate-y-0.5;
+  }
+  .lp-cta-secondary {
+    @apply inline-flex min-h-12 items-center justify-center rounded-2xl border-2 border-white/70 px-6 text-lg font-bold text-white transition-colors hover:bg-white/10;
+  }
+
+  /* Footer */
+  .lp-footer {
+    @apply border-t border-border bg-card pt-14 pb-8 text-base text-muted-foreground;
+  }
+  .lp-footer-grid {
+    @apply grid gap-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.3fr];
+  }
+  .lp-footer h2 {
+    @apply mb-3 text-sm font-bold tracking-[0.08em] text-foreground uppercase;
+  }
+  .lp-footer nav,
+  .lp-footer-grid > div:last-child {
+    @apply flex flex-col items-start gap-2;
+  }
+  .lp-footer a {
+    @apply underline-offset-4 hover:text-foreground hover:underline;
+  }
+  .lp-copy {
+    @apply mt-10 border-t border-border pt-6 text-sm;
   }
 
   /* Drawn app previews (components/landing/AppMocks.tsx) */
-  .landing-visual {
-    @apply relative mx-auto w-full max-w-[34rem] pb-16;
+  .mock-window {
+    @apply w-[84%] overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_60px_-20px_rgb(30_43_58/0.35)] max-sm:w-[92%];
+    font-size: clamp(0.75rem, 0.55rem + 0.9vw, 1.1rem);
   }
-  .landing-visual-phone {
-    @apply max-w-[20rem] pb-0;
+  .mock-window-bar {
+    @apply flex items-center gap-1.5 border-b border-border bg-secondary px-3 py-2;
   }
-  .mock-laptop {
-    @apply w-[86%];
-    font-size: clamp(0.8rem, 0.6rem + 0.8vw, 1rem);
+  .mock-dot {
+    @apply size-[0.6em] rounded-full bg-border;
   }
-  .mock-screen {
-    @apply flex flex-col gap-3 overflow-hidden rounded-t-2xl border-[6px] border-b-0 border-foreground bg-background p-4;
+  .mock-url {
+    @apply mx-auto rounded-md bg-card px-6 py-0.5 text-[0.7em] text-muted-foreground;
   }
-  .mock-laptop-base {
-    @apply mx-[-4%] h-3 rounded-b-xl bg-foreground;
+  .mock-lesson {
+    @apply flex flex-col gap-3 bg-background p-[1.25em];
   }
   .mock-chip {
     @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[0.72em] font-bold whitespace-nowrap;
   }
   .mock-tutor {
-    @apply relative mx-auto my-2 flex size-[6.5em] items-center justify-center;
+    @apply relative mx-auto my-[0.5em] flex size-[7em] items-center justify-center;
   }
   .mock-face {
-    @apply relative size-[4.5em] rounded-full border-4 border-card bg-card shadow-sm;
+    @apply relative size-[4.75em] rounded-full border-4 border-card bg-card shadow-sm;
   }
   .mock-ring {
     @apply absolute inset-0 rounded-full bg-primary-soft;
@@ -1458,21 +1648,21 @@
     }
   }
   .mock-caption {
-    @apply mr-auto max-w-[62%] rounded-2xl rounded-bl-sm bg-card px-3 py-2 text-[0.85em] leading-snug shadow-sm;
+    @apply mr-auto max-w-[58%] rounded-2xl rounded-bl-sm bg-card px-[0.9em] py-[0.6em] text-[0.85em] leading-snug shadow-sm max-sm:max-w-[62%];
   }
   .mock-end {
     @apply mr-auto rounded-xl border-2 border-border bg-card px-3 py-1 text-[0.75em] font-bold;
   }
   .mock-phone {
-    @apply overflow-hidden rounded-[1.75rem] border-[6px] border-foreground bg-background p-3 shadow-lg;
-    font-size: clamp(0.8rem, 0.7rem + 0.4vw, 1rem);
+    @apply overflow-hidden rounded-[1.75rem] border-[6px] border-foreground bg-background p-3 shadow-[0_30px_60px_-20px_rgb(30_43_58/0.4)];
+    font-size: clamp(0.85rem, 0.75rem + 0.4vw, 1rem);
   }
   .mock-phone-compact {
-    @apply absolute right-0 bottom-0 w-[40%];
-    font-size: clamp(0.55rem, 0.4rem + 0.6vw, 0.75rem);
+    @apply absolute right-0 bottom-0 w-[34%] max-sm:w-[42%];
+    font-size: clamp(0.5rem, 0.35rem + 0.65vw, 0.85rem);
   }
   .mock-stat {
-    @apply flex flex-col rounded-xl py-1 text-[0.65em] font-bold leading-tight;
+    @apply flex flex-col rounded-xl py-1 text-[0.65em] leading-tight font-bold;
   }
   .mock-stat b {
     @apply text-[1.6em];
@@ -1482,6 +1672,18 @@
   }
   .mock-handled {
     @apply mt-2 block rounded-xl bg-primary py-1.5 text-center text-[0.8em] font-bold text-primary-foreground;
+  }
+  .mock-badge {
+    @apply absolute top-0 left-[3%] flex -translate-y-1/2 items-center gap-2 rounded-2xl border border-border bg-card py-2 pr-4 pl-2 font-bold shadow-[0_20px_40px_-16px_rgb(30_43_58/0.35)] max-sm:left-0;
+    font-size: clamp(0.6rem, 0.45rem + 0.6vw, 0.95rem);
+  }
+  /* The window sits in the middle, the phone and the badge overlap its edges */
+  .lp-showcase .mock-window {
+    @apply mx-auto;
+  }
+  /* The audience cards sit close under the hero */
+  .landing > .lp-audience-section {
+    padding-top: clamp(2.5rem, 1.5rem + 3vw, 4rem);
   }
 }
 

@@ -14,7 +14,7 @@ const LandingHeader = async () => {
   const [locale, t] = await Promise.all([getLocale(), getTranslations("Landing.nav")]);
 
   return (
-    <header className="site-header landing-header">
+    <header className="site-header lp-header">
       <div className="site-header-inner">
         <a href={`/${locale}`} className="brand" aria-label={t("home")}>
           <Image
