@@ -13,6 +13,7 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, unlinkSync, writeFileSync } from "node:fs";
 import { IntlMessageFormat } from "intl-messageformat";
 import {
+  AI_NOTICE_SPEECH,
   COURSE_FORM_SPEECH,
   LESSON_OUTCOME_SPEECH,
   REPORT_SPEECH,
@@ -96,6 +97,9 @@ const speechTexts = (locale) => {
 
   // The report form's question and choices
   texts.push(joinForSpeech(REPORT_SPEECH.map((key) => format(messages.Report[key], locale))));
+
+  // The "your tutor is a computer" note before a lesson
+  texts.push(joinForSpeech(AI_NOTICE_SPEECH.map((key) => format(messages.CourseSession.aiNotice[key], locale))));
 
   // The screen after a lesson ended for safety
   for (const [kind, keys] of Object.entries(LESSON_OUTCOME_SPEECH)) {

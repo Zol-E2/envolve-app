@@ -1059,6 +1059,10 @@
   .lesson-rules {
     @apply flex items-start gap-3 rounded-2xl bg-secondary px-4 py-3 text-base leading-snug;
   }
+  /* "Your tutor is a computer" before a lesson starts (EU AI Act transparency) */
+  .lesson-ai-notice {
+    @apply flex w-full items-start gap-3 rounded-2xl border-2 border-primary bg-primary-soft px-4 py-4 text-left;
+  }
   /* The screen after a lesson the tutor ended for safety: calm, never red */
   .lesson-outcome {
     @apply flex w-full items-start gap-3 rounded-2xl border-2 border-turn bg-turn-soft px-4 py-4 text-left;

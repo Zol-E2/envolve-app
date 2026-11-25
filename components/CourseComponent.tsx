@@ -39,6 +39,8 @@ import { useTranslations } from "next-intl";
 import { getMicPermission } from "@/lib/onboarding/microphone";
 import { useLessonSafety } from "@/lib/useLessonSafety";
 import LessonOutcome from "./LessonOutcome";
+import AiNotice from "./AiNotice";
+import { cleanPromptText } from "@/lib/validation";
 
 // Represents the current state of the Vapi voice call
 enum CallStatus {
@@ -265,6 +267,8 @@ const CourseComponent = ({
       topic,
       minutes: lessonMinutes,
       slower: !!assignment?.support.slowerSpeech,
+      // The topic is cleaned like in the prompt (no template markers)
+      firstMessage: t("firstMessage", { topic: cleanPromptText(topic) }),
     });
     const linked = await safety.track(vapi.start(assistantId, overrides), {
       courseId,
@@ -388,6 +392,8 @@ const CourseComponent = ({
             <span>{t("milestone.end")}</span>
           </div>
         </div>
+        {/* Before the lesson: the tutor is a computer, not a person */}
+        {callStatus === CallStatus.INACTIVE && <AiNotice />}
         {micBlocked && (
           <div className="help-box w-full text-left" role="alert">
             <p className="font-bold">{t("micBlockedTitle")}</p>

@@ -58,6 +58,8 @@ interface LessonCallInput {
   minutes: number;
   /** Teacher's "slower speech" support for this student */
   slower?: boolean;
+  /** The tutor's first sentence, in the lesson language: says it is a computer, not a person (EU AI Act) */
+  firstMessage?: string;
 }
 
 /** ElevenLabs speed for "slower speech" (1 = normal; the API accepts 0.7 to 1.2) */
@@ -73,6 +75,7 @@ export const buildLessonCall = ({
   topic,
   minutes,
   slower = false,
+  firstMessage,
 }: LessonCallInput): { assistantId: string; overrides: AssistantOverrides } => {
   const lang = isLessonLanguage(language) ? language : "hu";
   const gender = voice === "male" ? "male" : "female";
@@ -92,6 +95,9 @@ export const buildLessonCall = ({
         model: VOICE_MODEL,
         ...(slower && { speed: SLOWER_SPEED }),
       },
+      // Replaces the first sentence saved in the Vapi dashboard, so the
+      // "I am a computer" introduction is versioned here, in both languages
+      ...(firstMessage && { firstMessage }),
       // The lesson length used to be shown only; now the call really ends
       maxDurationSeconds: Math.round(Math.min(60, Math.max(1, minutes)) * 60) + GOODBYE_SECONDS,
     },

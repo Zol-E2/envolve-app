@@ -243,6 +243,12 @@
     "reviewNote": "Only you can see this course for now, and you can already use it. If the check finds it fine, others will find it in the library too.",
     "hiddenNote": "An adult took this course out of the library, so others cannot see it. You can still use it.",
     "rulesNote": "In the lesson we only talk about the topic. If you are in trouble, your teacher will know, so they can help.",
+    "aiNotice": {
+      "title": "Your tutor is a computer",
+      "text": "It is an artificial intelligence, a computer program, not a person. It helps you learn, but it can make mistakes. If it says something strange, tell your teacher or another adult.",
+      "readAloud": "Read aloud"
+    },
+    "firstMessage": "Hi! I am a computer tutor, not a person. Today we are learning about: {topic}. What do you already know about it?",
     "startFailed": "The lesson could not start right now. Please try again a little later.",
     "outcome": {
       "drift": {
@@ -368,6 +374,10 @@
       "intro": {
         "title": "This is where you learn with the tutor",
         "text": "On this page you talk with the AI tutor. Let me show you what everything is for. You can close this any time with the X button."
+      },
+      "aiNotice": {
+        "title": "A computer tutor",
+        "text": "Your tutor is a computer program, not a person. It can make mistakes. If it says something strange, tell an adult. The speaker button reads this aloud."
       },
       "tutor": {
         "title": "This is your tutor",
@@ -762,6 +772,8 @@
     "demo": {
       "title": "Spoken introduction",
       "text": "If you like, a voice explains in 2–3 minutes how the app works, and you can ask it questions too. You need your microphone for this.",
+      "aiNote": "The voice is a computer, an artificial intelligence, not a person.",
+      "firstMessage": "Hi! I am a computer voice, not a person. I will tell you how eNvolve works, and you can ask me questions at any time. Shall I start?",
       "start": "Start the introduction",
       "restart": "Listen again",
       "stop": "End demo",

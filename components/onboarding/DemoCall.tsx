@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
+import { Bot } from "lucide-react";
 import { isNormalCallEnd, vapi } from "@/lib/vapi.sdk";
 import { VAPI_DEMO_ASSISTANT_IDS, isLessonLanguage } from "@/lib/ai/assistants";
 import { getMicPermission } from "@/lib/onboarding/microphone";
@@ -73,7 +74,7 @@ const DemoCall = () => {
     setMicBlocked(false);
     setStatus("connecting");
     const language = isLessonLanguage(locale) ? locale : "hu";
-    const linked = await safety.track(vapi.start(VAPI_DEMO_ASSISTANT_IDS[language]));
+    const linked = await safety.track(vapi.start(VAPI_DEMO_ASSISTANT_IDS[language], { firstMessage: t("firstMessage") }));
     if (!linked) setStatus((current) => (current === "connecting" ? "idle" : current));
   };
 
@@ -97,6 +98,11 @@ const DemoCall = () => {
     <div className="demo-box">
       <p className="font-bold text-xl">{t("title")}</p>
       <p className="welcome-note">{t("text")}</p>
+      {/* The guide is an AI, not a person (EU AI Act); it says so first too */}
+      <p className="welcome-note flex items-start gap-2">
+        <Bot className="mt-1 size-5 shrink-0 text-primary" aria-hidden />
+        <span>{t("aiNote")}</span>
+      </p>
 
       {statusText && (
         <p

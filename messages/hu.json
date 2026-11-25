@@ -243,6 +243,12 @@
     "reviewNote": "Ezt a kurzust most csak te látod, és már használhatod is. Ha az ellenőrzés rendben találja, a Kurzustárban mások is megtalálják.",
     "hiddenNote": "Ezt a kurzust egy felnőtt kivette a Kurzustárból, ezért mások nem látják. Te továbbra is használhatod.",
     "rulesNote": "Az órán csak a témáról beszélgetünk. Ha bajban vagy, a tanárod tudni fog róla, hogy segíteni tudjon.",
+    "aiNotice": {
+      "title": "A tanárod most egy gép",
+      "text": "Ez egy mesterséges intelligencia, vagyis számítógépes program, nem ember. Segít tanulni, de néha tévedhet. Ha valami furcsát mond, szólj a tanárodnak vagy egy felnőttnek.",
+      "readAloud": "Felolvasás"
+    },
+    "firstMessage": "Szia! Én egy gépi tanár vagyok, nem ember. Ma erről tanulunk: {topic}. Mit tudsz már róla?",
     "startFailed": "Most nem sikerült elindítani az órát. Próbáld újra egy kicsit később.",
     "outcome": {
       "drift": {
@@ -368,6 +374,10 @@
       "intro": {
         "title": "Itt tanulsz a tanárral",
         "text": "Ezen az oldalon beszélgetsz az AI-tanárral. Megmutatom, mi mire való. Bármikor bezárhatod az X gombbal."
+      },
+      "aiNotice": {
+        "title": "Gépi tanár",
+        "text": "A tanárod egy számítógépes program, nem ember. Néha tévedhet. Ha valami furcsát mond, szólj egy felnőttnek. A hangszóró gombbal fel is olvasom."
       },
       "tutor": {
         "title": "Ez a tanárod",
@@ -762,6 +772,8 @@
     "demo": {
       "title": "Hangos bemutató",
       "text": "Ha szeretnéd, egy hang 2–3 percben elmondja, hogyan működik az alkalmazás, és kérdezhetsz is tőle. Ehhez a mikrofon is kell.",
+      "aiNote": "A hang egy gép, vagyis mesterséges intelligencia, nem ember.",
+      "firstMessage": "Szia! Én egy gépi hang vagyok, nem ember. Elmondom, hogyan működik az eNvolve, és bármikor kérdezhetsz is tőlem. Kezdhetem?",
       "start": "Bemutató indítása",
       "restart": "Újra meghallgatom",
       "stop": "Bemutató befejezése",

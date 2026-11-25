@@ -65,6 +65,7 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
   ],
   lesson: [
     { key: "intro" },
+    { key: "aiNotice", target: "lesson-ai-notice" },
     { key: "reviewNote", target: "lesson-review-note" },
     { key: "tutor", target: "lesson-tutor" },
     { key: "status", target: "lesson-status" },
