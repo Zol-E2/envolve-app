@@ -49,9 +49,12 @@ on their own versions of `/` and `/my-profile`.
 
 The voice tutor only talks about the lesson's topic
 (`supabase/migrations/20261107_lesson_safety.sql`, `docs/vapi-lesson-safety.md`).
-It reports three kinds of event with its `jelentes` tool, which Vapi sends to
-`/api/vapi/lesson-event` (checked with `VAPI_TOOL_SECRET`), then ends the call:
-drift, violation and help.
+It reports three kinds of event with its `jelentes` tool (`report_lesson_event`
+in the English assistants), which Vapi sends to `/api/vapi/lesson-event`
+(checked with `VAPI_TOOL_SECRET`): drift, violation and help. Vapi ends the
+call right after our answer; the tutor has no other way to hang up (no End
+Call tool), so a call ends only after a report, at the time limit, or when the
+student stops it.
 
 - A call for help is never a rule break. It goes to the student's teacher with
   what to do next; admins see it with the student's name too

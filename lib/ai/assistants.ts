@@ -38,6 +38,28 @@ export const VAPI_DEMO_ASSISTANT_IDS: Record<LessonLanguage, string> = {
     "567d5c4e-7d1b-470e-9c92-caeb3e1dcf9a", // eNvolve Demo EN
 };
 
+/**
+ * Messages the browser needs from the call: captions, speaking state, how
+ * it ended, and the tutor's safety reports (lib/useLessonSafety.ts). Set on
+ * every call so it does not depend on the dashboard settings.
+ */
+export const CLIENT_MESSAGES = [
+  "conversation-update",
+  "speech-update",
+  "status-update",
+  "transcript",
+  "tool-calls",
+  "hang",
+  "user-interrupted",
+  "voice-input",
+  "model-output",
+] as const;
+// The generated type lists one message, the API takes a list
+const clientMessages = CLIENT_MESSAGES as unknown as AssistantOverrides["clientMessages"];
+
+/** Overrides for the demo call: only the messages the browser needs */
+export const demoCallOverrides: AssistantOverrides = { clientMessages };
+
 // Must match the voice model set on the saved assistants
 const VOICE_MODEL: ElevenLabsVoice["model"] = "eleven_v4_turbo";
 
@@ -80,6 +102,7 @@ export const buildLessonCall = ({
   return {
     assistantId: VAPI_ASSISTANT_IDS[lang],
     overrides: {
+      clientMessages,
       // The topic is written by a student and goes into the tutor's prompt,
       // so it is cleaned (no template markers, bounded length) first
       variableValues: {

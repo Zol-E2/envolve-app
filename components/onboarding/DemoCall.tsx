@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { isNormalCallEnd, vapi } from "@/lib/vapi.sdk";
-import { VAPI_DEMO_ASSISTANT_IDS, isLessonLanguage } from "@/lib/ai/assistants";
+import { VAPI_DEMO_ASSISTANT_IDS, demoCallOverrides, isLessonLanguage } from "@/lib/ai/assistants";
 import { getMicPermission } from "@/lib/onboarding/microphone";
 import { stopSpeaking } from "@/lib/onboarding/speech";
 import { useLessonSafety } from "@/lib/useLessonSafety";
@@ -73,7 +73,7 @@ const DemoCall = () => {
     setMicBlocked(false);
     setStatus("connecting");
     const language = isLessonLanguage(locale) ? locale : "hu";
-    const linked = await safety.track(vapi.start(VAPI_DEMO_ASSISTANT_IDS[language]));
+    const linked = await safety.track(vapi.start(VAPI_DEMO_ASSISTANT_IDS[language], demoCallOverrides));
     if (!linked) setStatus((current) => (current === "connecting" ? "idle" : current));
   };
 
