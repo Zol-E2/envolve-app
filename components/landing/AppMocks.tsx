@@ -13,7 +13,7 @@ type Shot = "lesson" | "teacher" | "alert" | "student-phone";
 const SIZES: Record<Shot, [number, number]> = {
   lesson: [2560, 1920],
   teacher: [2400, 1558],
-  alert: [2240, 676],
+  alert: [1584, 702],
   "student-phone": [780, 1688],
 };
 
@@ -50,13 +50,6 @@ export const BrowserShot = async ({ shot, priority = false, className = "" }: { 
 export const PhoneShot = async ({ shot, className = "" }: { shot: Shot; className?: string }) => (
   <div className={`shot-phone ${className}`} aria-hidden="true">
     <ShotImage shot={shot} sizes="(min-width: 1024px) 260px, 40vw" className="block h-auto w-full" />
-  </div>
-);
-
-/** A screenshot as a plain card (no frame) */
-export const CardShot = async ({ shot, className = "" }: { shot: Shot; className?: string }) => (
-  <div className={`shot-card ${className}`} aria-hidden="true">
-    <ShotImage shot={shot} sizes="(min-width: 1024px) 1000px, 92vw" className="block h-auto w-full" />
   </div>
 );
 

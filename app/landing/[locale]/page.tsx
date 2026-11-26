@@ -19,7 +19,7 @@ import Image from "next/image";
 import { routing } from "@/i18n/routing";
 import LandingHeader from "@/components/landing/LandingHeader";
 import TrackedLink from "@/components/landing/TrackedLink";
-import { BrowserShot, CardShot, PhoneShot, SafetyBadge } from "@/components/landing/AppMocks";
+import { BrowserShot, PhoneShot, SafetyBadge } from "@/components/landing/AppMocks";
 import { CONTACT_EMAIL } from "@/lib/site";
 
 interface LandingPageProps {
@@ -198,15 +198,17 @@ export default async function LandingPage({ params }: LandingPageProps) {
         {/* 6. Safety: the steps of one lesson, on a dark band */}
         <section id="safety" className="lp-dark" aria-labelledby="safety-title">
           <div className="lp-wrap">
-            <div className="lp-head lp-head-center">
-              <p className="lp-eyebrow">{t("safety.eyebrow")}</p>
-              <h2 id="safety-title">{t("safety.title")}</h2>
-              <p className="lp-lead">{t("safety.lead")}</p>
+            <div className="lp-split lp-split-safety">
+              <div className="lp-head">
+                <p className="lp-eyebrow">{t("safety.eyebrow")}</p>
+                <h2 id="safety-title">{t("safety.title")}</h2>
+                <p className="lp-lead">{t("safety.lead")}</p>
+              </div>
+              <figure className="lp-alert-shot" aria-label={t("safety.alertLabel")}>
+                <BrowserShot shot="alert" />
+                <figcaption>{t("safety.alertCaption")}</figcaption>
+              </figure>
             </div>
-            <figure className="lp-alert-shot" aria-label={t("safety.alertLabel")}>
-              <CardShot shot="alert" />
-              <figcaption>{t("safety.alertCaption")}</figcaption>
-            </figure>
             <ol className="lp-timeline">
               {([1, 2, 3, 4] as const).map((n) => (
                 <li key={n}>

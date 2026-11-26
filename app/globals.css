@@ -1617,9 +1617,6 @@
   .shot-phone img {
     @apply aspect-[9/17] object-cover object-top;
   }
-  .shot-card {
-    @apply overflow-hidden rounded-2xl shadow-[0_30px_60px_-25px_rgb(0_0_0/0.6)] ring-1 ring-white/10;
-  }
   .shot-badge {
     @apply absolute bottom-[22%] left-0 flex items-center gap-2 rounded-2xl border border-border bg-card py-2 pr-4 pl-2 font-bold shadow-[0_20px_40px_-16px_rgb(30_43_58/0.35)];
     font-size: clamp(0.6rem, 0.45rem + 0.6vw, 0.95rem);
@@ -1630,15 +1627,25 @@
   .lp-showcase-phone {
     @apply absolute right-0 bottom-0 w-[21%] max-sm:w-[34%];
   }
-  /* The teacher's overview: its top part, as on a laptop screen */
-  .lp-teacher-shot .shot-window img {
-    @apply aspect-[4/3] object-cover object-top;
+  /* The teacher's overview, whole: never cropped at the sides */
+  .lp-teacher-shot {
+    @apply w-full;
+  }
+  .lp-split-safety {
+    @apply mb-14 items-center max-sm:mb-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)];
   }
   .lp-alert-shot {
-    @apply mx-auto mb-12 flex max-w-[52rem] flex-col gap-3 max-sm:mb-8;
+    @apply flex flex-col gap-4;
+  }
+  .lp-alert-shot .shot-window {
+    @apply border-white/10 shadow-[0_40px_80px_-30px_rgb(0_0_0/0.7)];
   }
   .lp-alert-shot figcaption {
-    @apply text-center text-base text-card/70;
+    @apply flex items-start gap-2 text-base text-card/70;
+  }
+  .lp-alert-shot figcaption::before {
+    @apply mt-2 size-2 shrink-0 rounded-full bg-cta-gold;
+    content: "";
   }
   /* The audience cards sit close under the hero */
   .landing > .lp-audience-section {
