@@ -2,7 +2,6 @@ import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import { SignIn } from "@clerk/nextjs";
 import { QrCode } from "lucide-react";
-import { Link } from "@/i18n/navigation";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Metadata");
@@ -23,10 +22,12 @@ export default async function Page({ params }: SignInPageProps) {
           typing. Everyone else (and the card's username and password) uses
           the Clerk box below. No tips on this page (AGENTS.md). */}
       <div className="sign-in-card-choice">
-        <Link href="/sign-in/card" className="btn-primary sign-in-card-button">
+        {/* A full page load (not <Link>): the card page's own permission
+            policy lets it use the camera (next.config.ts) */}
+        <a href={`/${locale}/sign-in/card`} className="btn-primary sign-in-card-button">
           <QrCode className="size-7" aria-hidden />
           {t("button")}
-        </Link>
+        </a>
         <p className="text-center text-base text-muted-foreground">{t("orBelow")}</p>
       </div>
       {/* Clerk uses path-based routing for its multi-step flow (/sign-in/factor-one, ...),

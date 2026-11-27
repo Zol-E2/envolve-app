@@ -29,7 +29,22 @@ const nextConfig: NextConfig = {
   // Do not advertise the framework in every response
   poweredByHeader: false,
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      // Signing in with a login card reads the QR code with the camera. The
+      // last matching rule wins, so only this page may use it. A permission
+      // policy belongs to the page that was loaded, so the sign-in page links
+      // here with a full page load, not a client-side navigation.
+      {
+        source: "/:locale(hu|en)/sign-in/card",
+        headers: [
+          {
+            key: "Permissions-Policy",
+            value: "microphone=(self), camera=(self), geolocation=(), payment=(), usb=(), browsing-topics=()",
+          },
+        ],
+      },
+    ];
   },
   images: {
     remotePatterns: [

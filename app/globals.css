@@ -1891,7 +1891,8 @@ html[data-motion="reduce"] *::after {
   }
 }
 @layer components {
-  .card-signin-camera[data-phase="noCamera"] {
+  .card-signin-camera[data-phase="noCamera"],
+  .card-signin-camera[data-phase="denied"] {
     display: none;
   }
 }

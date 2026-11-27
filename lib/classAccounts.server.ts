@@ -87,6 +87,8 @@ export const claimClassAccount = async (publicMetadata: unknown, memberOf: reado
   const meta = readClassAccount(publicMetadata);
   if (!meta || memberOf.includes(meta.classId)) return false;
   const supabase = createSupabaseClient();
-  const { data } = await supabase.rpc("claim_class_account", { p_class: meta.classId });
+  const { data, error } = await supabase.rpc("claim_class_account", { p_class: meta.classId });
+  // Shows up in the server logs (Vercel), so a failed join can be found
+  if (error || data !== "ok") console.error("class account not joined", error?.message ?? data);
   return data === "ok";
 };

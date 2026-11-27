@@ -8,7 +8,7 @@ import { Camera, CircleCheck, KeyRound, TriangleAlert } from "lucide-react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { readCardKey } from "@/lib/classAccounts";
 
-type Phase = "starting" | "scanning" | "signingIn" | "done" | "noCamera" | "badCard" | "error";
+type Phase = "starting" | "scanning" | "signingIn" | "done" | "noCamera" | "denied" | "badCard" | "error";
 
 /**
  * Signing in with a login card (20261112_class_accounts.sql): the camera
@@ -105,8 +105,9 @@ const CardSignIn = () => {
       video.srcObject = stream;
       await video.play();
       setPhase("scanning");
-    } catch {
-      setPhase("noCamera");
+    } catch (error) {
+      // Blocked by the user or the browser: they can allow it and try again
+      setPhase(error instanceof DOMException && error.name === "NotAllowedError" ? "denied" : "noCamera");
     }
   }, []);
 
@@ -171,6 +172,8 @@ const CardSignIn = () => {
           ? t("hold")
           : phase === "noCamera"
             ? t("noCamera")
+            : phase === "denied"
+              ? t("denied")
             : phase === "badCard"
               ? t("badCard")
               : phase === "error"
@@ -178,7 +181,7 @@ const CardSignIn = () => {
                 : ""}
       </p>
 
-      {(phase === "noCamera" || phase === "badCard" || phase === "error") && (
+      {(phase === "noCamera" || phase === "denied" || phase === "badCard" || phase === "error") && (
         <div className="flex flex-col items-center gap-3">
           {phase !== "noCamera" && (
             <button type="button" className="btn-primary w-full max-w-sm" onClick={retry}>

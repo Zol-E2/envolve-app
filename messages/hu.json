@@ -1527,6 +1527,7 @@
     "signingIn": "Belépés…",
     "done": "Bent vagy!",
     "noCamera": "Nem látjuk a kamerát. Lépj be a neveddel és a jelszavaddal, ezek is rajta vannak a kártyán.",
+    "denied": "A kamera nincs engedélyezve. Koppints a címsor elején a lakat ikonra, engedélyezd a kamerát, és próbáld újra. Vagy lépj be a neveddel.",
     "badCard": "Ez a kártya most nem működik. Kérj segítséget a tanárodtól.",
     "error": "Most nem sikerült belépni. Próbáld újra.",
     "retry": "Újra próbálom",

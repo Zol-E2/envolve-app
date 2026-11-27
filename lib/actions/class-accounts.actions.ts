@@ -83,14 +83,31 @@ export const getClassAccounts = async (classId: string): Promise<ClassAccount[]>
     .select("student_id, display_name, animal, created_at, joined_at")
     .eq("class_id", classId);
   if (error) return [];
+  // "Has signed in" comes from Clerk, which records every sign-in (card or
+  // password); joined_at is set only once the student has also opened their
+  // home page and joined the class
+  const ids = (data ?? []).map((r) => r.student_id as string);
+  const signedIn = new Map<string, number | null>();
+  if (ids.length) {
+    try {
+      const client = await clerkClient();
+      const { data: users } = await client.users.getUserList({ userId: ids, limit: ids.length });
+      for (const u of users) signedIn.set(u.id, u.lastSignInAt);
+    } catch (clerkError) {
+      console.error("class account sign-ins not read", clerkError);
+    }
+  }
   return (data ?? [])
-    .map((r) => ({
-      studentId: r.student_id as string,
-      displayName: r.display_name as string,
-      animal: (isAnimal(r.animal) ? r.animal : "fox") as Animal,
-      createdAt: r.created_at as string,
-      joinedAt: (r.joined_at as string | null) ?? null,
-    }))
+    .map((r) => {
+      const lastSignIn = signedIn.get(r.student_id as string);
+      return {
+        studentId: r.student_id as string,
+        displayName: r.display_name as string,
+        animal: (isAnimal(r.animal) ? r.animal : "fox") as Animal,
+        createdAt: r.created_at as string,
+        joinedAt: (r.joined_at as string | null) ?? (lastSignIn ? new Date(lastSignIn).toISOString() : null),
+      };
+    })
     .sort((a, b) => a.displayName.localeCompare(b.displayName, "hu"));
 };
 

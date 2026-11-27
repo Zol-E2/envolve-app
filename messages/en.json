@@ -1527,6 +1527,7 @@
     "signingIn": "Signing in…",
     "done": "You are in!",
     "noCamera": "We cannot see a camera. Sign in with your name and password, they are on your card too.",
+    "denied": "The camera is not allowed. Tap the lock icon at the start of the address bar, allow the camera and try again. Or sign in with your name.",
     "badCard": "This card does not work right now. Ask your teacher for help.",
     "error": "Signing in did not work. Please try again.",
     "retry": "Try again",
