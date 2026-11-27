@@ -1,6 +1,8 @@
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import { SignIn } from "@clerk/nextjs";
+import { QrCode } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Metadata");
@@ -13,9 +15,20 @@ interface SignInPageProps {
 
 export default async function Page({ params }: SignInPageProps) {
   const { locale } = await params;
+  const t = await getTranslations("CardSignIn");
 
   return (
     <main className="flex items-center justify-center">
+      {/* Students with a login card from their teacher: one big button, no
+          typing. Everyone else (and the card's username and password) uses
+          the Clerk box below. No tips on this page (AGENTS.md). */}
+      <div className="sign-in-card-choice">
+        <Link href="/sign-in/card" className="btn-primary sign-in-card-button">
+          <QrCode className="size-7" aria-hidden />
+          {t("button")}
+        </Link>
+        <p className="text-center text-base text-muted-foreground">{t("orBelow")}</p>
+      </div>
       {/* Clerk uses path-based routing for its multi-step flow (/sign-in/factor-one, ...),
           so it must know the locale-prefixed path this page is mounted on. */}
       {/* Holds the sign-in box's place while Clerk loads it, so the footer

@@ -12,7 +12,18 @@ import AppSelect from "@/components/ui/AppSelect";
 const SHORTER_OPTIONS = [5, 10, 15, 20] as const;
 
 /** One student on the Students tab: support switches and removal */
-const StudentSupportRow = ({ classId, member, first }: { classId: string; member: ClassMember; first?: boolean }) => {
+const StudentSupportRow = ({
+  classId,
+  member,
+  first,
+  classAccount,
+}: {
+  classId: string;
+  member: ClassMember;
+  first?: boolean;
+  /** Class accounts are deleted from the class accounts list, not removed here */
+  classAccount?: boolean;
+}) => {
   const t = useTranslations("ClassDetail");
   const [open, setOpen] = useState(false);
   const [support, setSupport] = useState<Support>(member.support);
@@ -119,6 +130,9 @@ const StudentSupportRow = ({ classId, member, first }: { classId: string; member
               )}
               {state === "error" && <span className="text-destructive">{t("saveError")}</span>}
             </p>
+            {classAccount ? (
+              <span className="person-detail">{t("classAccountHint")}</span>
+            ) : (
             <ConfirmAction
               label={t("remove")}
               question={t("removeQuestion", { name: member.displayName })}
@@ -126,6 +140,7 @@ const StudentSupportRow = ({ classId, member, first }: { classId: string; member
               action={() => removeStudent(classId, member.studentId)}
               icon={<UserMinus className="size-5" aria-hidden />}
             />
+            )}
           </div>
         </div>
       )}

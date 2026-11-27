@@ -83,6 +83,24 @@ drift, violation and help.
 - The tutor ending the call reaches the browser as an "ejection" error; that
   is a normal end (`isNormalCallEnd` in `lib/vapi.sdk.ts`).
 
+### Class accounts
+
+Students without an e-mail address get an account from their teacher
+(`20261112_class_accounts.sql`, `lib/actions/class-accounts.actions.ts`):
+a Clerk user with a username and an easy password, and a printed login card
+with a QR code (`/sign-in/card`, `/api/card-sign-in`).
+
+- Clerk is the source of truth: `publicMetadata.classAccount = { classId, by }`,
+  written only by our server. Every teacher action on an account checks it
+  (`by` must be the teacher) and the `class_accounts` row.
+- The card key's hash lives in the user's Clerk `privateMetadata`, never in
+  our database. A new card changes the password and the key and signs the
+  student out everywhere.
+- The student joins the class on their own first sign-in
+  (`claimClassAccount` on the home page). Only accounts that really signed
+  in (`joined_at`) have their data deleted with `delete_class_account`.
+- Deleting a class deletes its class accounts first.
+
 ## 2. Tips and read-aloud on every page
 
 Tips live in `lib/onboarding/tours.ts`, their texts under `Tour.<page>` in

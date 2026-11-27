@@ -19,6 +19,7 @@ import {
 } from "../validation";
 import { STATUS_ORDER, computeProgress, type Attempt, type LessonStatus } from "../teacher/status";
 import { localDate } from "../week";
+import { deleteAccountsOfClass } from "./class-accounts.actions";
 import type {
   AssignmentProgress,
   ClassCourse,
@@ -305,6 +306,8 @@ export const createClass = async (input: { name: string; subject: string }) => {
 export const deleteClass = async (classId: string) => {
   const teacher = await requireTeacher();
   if (!isUuid(classId)) throw new Error("Invalid class");
+  // Its class accounts go with it, so no account is left that nobody manages
+  await deleteAccountsOfClass(classId);
   const supabase = createSupabaseClient();
   const { error } = await supabase.from("classes").delete().eq("id", classId).eq("teacher_id", teacher);
   if (error) throw new Error("Class not deleted");

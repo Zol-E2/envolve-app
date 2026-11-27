@@ -79,6 +79,8 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
   ],
   profile: [
     { key: "intro" },
+    // Class accounts only: what to do with a forgotten password
+    { key: "classAccount", target: "profile-class-account" },
     { key: "stats", target: "profile-stats" },
     { key: "comfort", target: "profile-comfort" },
     { key: "size", target: "comfort-size" },
@@ -111,6 +113,7 @@ export const TOUR_STEPS: Record<TourId, readonly TourStep[]> = {
     { key: "renew", target: "class-code-renew", align: "end" },
     { key: "status", target: "class-status", side: "top" },
     { key: "support", target: "class-support", align: "end" },
+    { key: "accounts", target: "class-accounts-create", align: "end" },
   ],
   assign: [{ key: "preview", target: "assign-preview" }],
   join: [

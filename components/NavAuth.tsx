@@ -1,7 +1,8 @@
 "use client";
 
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 import { useTranslations } from "next-intl";
+import { readClassAccount } from "@/lib/classAccounts";
 
 /**
  * Deliberately a Client Component. When this JSX lives in a Server Component,
@@ -13,6 +14,10 @@ import { useTranslations } from "next-intl";
  */
 const NavAuth = () => {
   const t = useTranslations("Navbar");
+  const { user } = useUser();
+  // Class accounts are managed by the teacher (new card, new password), so
+  // the menu offers only signing out, not the account settings
+  const classAccount = !!readClassAccount(user?.publicMetadata);
 
   return (
     <>
@@ -24,7 +29,14 @@ const NavAuth = () => {
       <SignedIn>
         <span className="flex" data-tour="nav-account">
           {/* Same height as the buttons next to it, easier to tap */}
-          <UserButton appearance={{ elements: { userButtonAvatarBox: "size-10 max-sm:size-9" } }} />
+          <UserButton
+            appearance={{
+              elements: {
+                userButtonAvatarBox: "size-10 max-sm:size-9",
+                ...(classAccount && { userButtonPopoverActionButton__manageAccount: "hidden" }),
+              },
+            }}
+          />
         </span>
       </SignedIn>
     </>

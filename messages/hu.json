@@ -278,7 +278,10 @@
     "coursesOwn": "Saját kurzusok",
     "myClasses": "Osztályaim",
     "noClasses": "Még nem vagy egy osztályban sem. Ha a tanárod adott egy kódot, itt csatlakozhatsz.",
-    "joinClass": "Csatlakozás kóddal"
+    "joinClass": "Csatlakozás kóddal",
+    "classAccount": "Osztályfiók",
+    "forgotTitle": "Elfelejtetted a jelszavad?",
+    "forgotText": "Szólj a tanárodnak, ő ad neked új kártyát."
   },
   "NotFound": {
     "title": "Az oldal nem található",
@@ -492,6 +495,10 @@
       "account": {
         "title": "A fiókod",
         "text": "A képedre kattintva módosíthatod a fiókod adatait, vagy kijelentkezhetsz."
+      },
+      "classAccount": {
+        "title": "Ha elfelejted a jelszavad",
+        "text": "Semmi baj! Szólj a tanárodnak. Ő ad neked egy új kártyát, azzal újra be tudsz lépni."
       }
     },
     "subscription": {
@@ -542,6 +549,10 @@
       "support": {
         "title": "Támogatás",
         "text": "Kattints a Támogatás gombra: lassabb beszédet, rövidebb órát vagy automatikus felolvasást állíthatsz be ennek a diáknak. Itt távolíthatod el az osztályból is."
+      },
+      "accounts": {
+        "title": "Osztályfiókok",
+        "text": "Ha egy diáknak nincs e-mail-címe, itt készíthetsz neki fiókot. Csak a rövid nevét tároljuk. A jelszó egyszer, a nyomtatott kártyán látszik. Ha elveszik, új kártyát adsz, a régi azonnal megszűnik."
       }
     },
     "assign": {
@@ -861,7 +872,7 @@
     "statusListLabel": "Ki hol tart",
     "studentsLead": "Diákonként beállíthatod, milyen támogatást kapjon a kiosztott óráknál: lassabb beszédet, rövidebb órát vagy automatikus felolvasást.",
     "deleteClass": "Osztály törlése",
-    "deleteClassHint": "A tagságok és a kiosztások is törlődnek. A kurzusok megmaradnak.",
+    "deleteClassHint": "A tagságok, a kiosztások és az osztályfiókok is törlődnek. A kurzusok megmaradnak.",
     "deleteClassQuestion": "Biztosan törlöd az osztályt?",
     "deleteClassConfirm": "Igen, törlöm",
     "forEveryone": "Az egész osztálynak",
@@ -893,7 +904,9 @@
     "removeConfirm": "Igen, eltávolítom",
     "copyLink": "Link másolása",
     "markHandled": "Kezeltem",
-    "markHandledError": "Nem sikerült menteni. Próbáld újra."
+    "markHandledError": "Nem sikerült menteni. Próbáld újra.",
+    "supportTitle": "Támogatás diákonként",
+    "classAccountHint": "Osztályfiók: fent, az Osztályfiókoknál törölheted."
   },
   "Status": {
     "stuck": "Elakadt",
@@ -1464,5 +1477,59 @@
     "mock": {
       "safe": "Az óra a témánál maradt"
     }
+  },
+  "ClassAccounts": {
+    "title": "Osztályfiókok",
+    "lead": "Diákoknak, akiknek nincs e-mail-címük. Beírod a nevüket, és mindenkinek kinyomtatsz egy belépőkártyát QR-kóddal, felhasználónévvel és jelszóval.",
+    "create": "Diákfiókok készítése",
+    "namesLabel": "Nevek, soronként egy",
+    "namesHint": "Csak keresztnév és kezdőbetű, például „Lili K.”. E-mail-cím nem kell. Egyszerre legfeljebb 40 diák.",
+    "namesPlaceholder": "Lili K.\nMáté S.\nZsófi B.",
+    "namesRequired": "Írj be legalább egy nevet.",
+    "tooManyAtOnce": "Egyszerre legfeljebb {max} fiókot készíthetsz.",
+    "tooManyInClass": "Egy osztályban legfeljebb {max} osztályfiók lehet.",
+    "createCount": "{count} fiók készítése",
+    "creating": "Készül…",
+    "partial": "{count} fiók elkészült, a többi nem. Próbáld újra a hiányzó nevekkel.",
+    "clerkSetup": "A fiókok még nem készíthetők el: a bejelentkezési beállításokban engedélyezni kell a felhasználónevet, és az e-mail-címet nem kötelezővé tenni. Szólj az eNvolve csapatának.",
+    "createError": "Most nem sikerült elkészíteni a fiókokat. Próbáld újra.",
+    "empty": "Még nincs osztályfiók ebben az osztályban.",
+    "listLabel": "Az osztály osztályfiókjai",
+    "joined": "Már belépett",
+    "notJoined": "Még nem lépett be",
+    "newCard": "Új kártya",
+    "newCardQuestion": "Új kártyát készítesz? A régi kártya és jelszó azonnal megszűnik.",
+    "newCardConfirm": "Új kártya",
+    "rename": "Átnevezés",
+    "renameLabel": "Új név",
+    "save": "Mentés",
+    "delete": "Fiók törlése",
+    "deleteQuestion": "Biztosan törlöd {name} fiókját? A fiók és minden órája véglegesen törlődik.",
+    "deleteConfirm": "Végleges törlés",
+    "cancel": "Mégsem",
+    "actionError": "Most nem sikerült. Próbáld újra.",
+    "cardsTitle": "{count, plural, one {Egy belépőkártya} other {# belépőkártya}}",
+    "cardsLabel": "Belépőkártyák nyomtatáshoz",
+    "print": "Kártyák nyomtatása",
+    "onlyOnce": "A jelszavak csak most látszanak. Nyomtasd ki a kártyákat, mielőtt bezárod ezt a részt. Ha egy kártya elveszik, készíts újat.",
+    "qrAlt": "QR-kód {name} belépéséhez",
+    "username": "Felhasználónév",
+    "password": "Jelszó",
+    "close": "Kész, bezárom",
+    "closeQuestion": "Kinyomtattad a kártyákat? Bezárás után a jelszavak nem látszanak többé.",
+    "closeConfirm": "Igen, bezárom"
+  },
+  "CardSignIn": {
+    "title": "Belépés kártyával",
+    "button": "Belépés kártyával",
+    "orBelow": "Vagy lépj be lent a neveddel és a jelszavaddal.",
+    "hold": "Tartsd a kártyádat a keretbe.",
+    "signingIn": "Belépés…",
+    "done": "Bent vagy!",
+    "noCamera": "Nem látjuk a kamerát. Lépj be a neveddel és a jelszavaddal, ezek is rajta vannak a kártyán.",
+    "badCard": "Ez a kártya most nem működik. Kérj segítséget a tanárodtól.",
+    "error": "Most nem sikerült belépni. Próbáld újra.",
+    "retry": "Újra próbálom",
+    "withName": "Belépés névvel"
   }
 }

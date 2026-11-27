@@ -15,7 +15,7 @@ import {
   getLessonCount,
 } from "@/lib/actions/course.actions";
 import Image from "next/image";
-import { Bookmark, Check, GraduationCap } from "lucide-react";
+import { Bookmark, Check, GraduationCap, KeyRound } from "lucide-react";
 import CourseList from "@/components/CourseList";
 import PageTour from "@/components/onboarding/PageTour";
 import ComfortSettings from "@/components/ComfortSettings";
@@ -25,6 +25,7 @@ import { isAdmin, isTeacher } from "@/lib/roles.server";
 import AdminSecurityCard from "@/components/admin/AdminSecurityCard";
 import { readTeacherProfile } from "@/lib/validation";
 import TeacherProfileForm from "@/components/teacher/TeacherProfileForm";
+import { readClassAccount } from "@/lib/classAccounts";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Metadata");
@@ -98,6 +99,10 @@ const Profile = async () => {
     getMyClasses(),
   ]);
 
+  // Class accounts (made by the teacher, no e-mail): no account details to
+  // manage here; the teacher gives a new card when a password is forgotten
+  const classAccount = readClassAccount(user.publicMetadata);
+
   const stats = [
     { key: "lessonsCompleted", value: lessonCount, icon: Check, color: "text-ok" },
     { key: "coursesOwn", value: courses.length, icon: GraduationCap, color: "text-primary" },
@@ -118,10 +123,21 @@ const Profile = async () => {
         <div className="flex min-w-0 flex-col gap-1">
           <h1>{[user.firstName, user.lastName].filter(Boolean).join(" ") || t("title")}</h1>
           <p className="text-base break-all text-muted-foreground">
-            {user.primaryEmailAddress?.emailAddress ?? user.emailAddresses[0]?.emailAddress}
+            {classAccount
+              ? t("classAccount")
+              : (user.primaryEmailAddress?.emailAddress ?? user.emailAddresses[0]?.emailAddress)}
           </p>
         </div>
       </section>
+
+      {classAccount && (
+        <p className="form-hint items-center" data-tour="profile-class-account">
+          <KeyRound className="size-6 shrink-0" aria-hidden />
+          <span>
+            <b>{t("forgotTitle")}</b> {t("forgotText")}
+          </span>
+        </p>
+      )}
 
       {/* Plain numbers, no comparison with other students */}
       <section className="profile-stats" aria-label={t("statsLabel")} data-tour="profile-stats">

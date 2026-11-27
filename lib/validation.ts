@@ -22,6 +22,9 @@ export const LIMITS = {
   classesPerTeacher: 50,
   /** Students one assignment may pick by name */
   pickedStudents: 200,
+  /** Class accounts a teacher may create at once, and in one class */
+  classAccountsPerBatch: 40,
+  classAccountsPerClass: 60,
 } as const;
 
 // Control characters (except line breaks in the topic) never belong in a
@@ -161,6 +164,18 @@ export const shortDisplayName = (first?: string | null, last?: string | null, fa
   const name = [firstName, initial && `${initial.toUpperCase()}.`].filter(Boolean).join(" ");
   return (name || fallback).slice(0, LIMITS.displayName);
 };
+
+/** A class account's name as the teacher types it: "Lili K." (at least one letter) */
+export const classAccountNameSchema = z
+  .string()
+  .transform((value) => cleanText(value, LIMITS.displayName).replace(/[<>{}]/g, "").trim())
+  .pipe(z.string().min(1).regex(/\p{L}/u));
+
+export const classAccountsInputSchema = z.object({
+  classId: z.uuid(),
+  names: z.array(classAccountNameSchema).min(1).max(LIMITS.classAccountsPerBatch),
+  locale: z.enum(["hu", "en"]),
+});
 
 export const teacherProfileSchema = z.object({
   name: z

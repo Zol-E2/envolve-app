@@ -7,11 +7,13 @@ import { getSubjectLabel } from "@/lib/utils";
 import { isUuid } from "@/lib/validation";
 import { loadClassDetail } from "@/lib/teacher/queries";
 import { deleteAssignment, deleteClass } from "@/lib/actions/teacher.actions";
+import { getClassAccounts } from "@/lib/actions/class-accounts.actions";
 import type { AssignmentProgress } from "@/lib/teacher/types";
 import JoinCodeBox from "@/components/teacher/JoinCodeBox";
 import ProgressBadge from "@/components/teacher/ProgressBadge";
 import MarkHandledButton from "@/components/teacher/MarkHandledButton";
 import StudentSupportRow from "@/components/teacher/StudentSupportRow";
+import ClassAccountsPanel from "@/components/teacher/ClassAccountsPanel";
 import ConfirmAction from "@/components/teacher/ConfirmAction";
 import SubjectTile from "@/components/SubjectTile";
 import PageTour from "@/components/onboarding/PageTour";
@@ -46,6 +48,9 @@ const ClassPage = async ({ params, searchParams }: ClassPageProps) => {
     getFormatter(),
   ]);
   const tab: Tab = (TABS as readonly string[]).includes(query.tab ?? "") ? (query.tab as Tab) : "overview";
+  // Only the Students tab shows the class accounts
+  const accounts = tab === "students" ? await getClassAccounts(id) : [];
+  const accountIds = new Set(accounts.map((a) => a.studentId));
   const selected: AssignmentProgress | undefined =
     (isUuid(query.a) && detail.assignments.find((a) => a.id === query.a)) || detail.assignments[0];
   const dueText = (date: string | null) =>
@@ -185,6 +190,8 @@ const ClassPage = async ({ params, searchParams }: ClassPageProps) => {
 
       {tab === "students" && (
         <section className="flex flex-col gap-4">
+          <ClassAccountsPanel classId={id} accounts={accounts} />
+          <h2 className="text-2xl font-bold max-sm:text-xl">{t("supportTitle")}</h2>
           <p className="max-w-prose text-lg text-muted-foreground">{t("studentsLead")}</p>
           {detail.members.length === 0 ? (
             <div className="list-empty card">
@@ -193,7 +200,13 @@ const ClassPage = async ({ params, searchParams }: ClassPageProps) => {
           ) : (
             <ul className="person-list" data-tour="class-students">
               {detail.members.map((member, index) => (
-                <StudentSupportRow key={member.studentId} classId={id} member={member} first={index === 0} />
+                <StudentSupportRow
+                  key={member.studentId}
+                  classId={id}
+                  member={member}
+                  first={index === 0}
+                  classAccount={accountIds.has(member.studentId)}
+                />
               ))}
             </ul>
           )}

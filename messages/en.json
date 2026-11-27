@@ -278,7 +278,10 @@
     "coursesOwn": "My courses",
     "myClasses": "My classes",
     "noClasses": "You are not in a class yet. If your teacher gave you a code, you can join here.",
-    "joinClass": "Join with a code"
+    "joinClass": "Join with a code",
+    "classAccount": "Class account",
+    "forgotTitle": "Forgot your password?",
+    "forgotText": "Tell your teacher, they will give you a new card."
   },
   "NotFound": {
     "title": "Page not found",
@@ -492,6 +495,10 @@
       "account": {
         "title": "Your account",
         "text": "Click your picture to change your account details or to sign out."
+      },
+      "classAccount": {
+        "title": "If you forget your password",
+        "text": "That is fine! Tell your teacher. They will give you a new card, and you can sign in again."
       }
     },
     "subscription": {
@@ -542,6 +549,10 @@
       "support": {
         "title": "Support",
         "text": "Press Support to give this student slower speech, a shorter lesson or automatic read-aloud. You can also remove them from the class here."
+      },
+      "accounts": {
+        "title": "Class accounts",
+        "text": "If a student has no e-mail address, create an account for them here. Only their short name is stored. The password is shown once, on the printed card. If a card gets lost, give a new one: the old one stops working at once."
       }
     },
     "assign": {
@@ -861,7 +872,7 @@
     "statusListLabel": "Where each student is",
     "studentsLead": "Set the support each student gets in assigned lessons: slower speech, a shorter lesson, or automatic read-aloud.",
     "deleteClass": "Delete class",
-    "deleteClassHint": "Memberships and assignments are deleted too. The courses stay.",
+    "deleteClassHint": "Memberships, assignments and class accounts are deleted too. The courses stay.",
     "deleteClassQuestion": "Delete this class?",
     "deleteClassConfirm": "Yes, delete it",
     "forEveryone": "Whole class",
@@ -893,7 +904,9 @@
     "removeConfirm": "Yes, remove",
     "copyLink": "Copy link",
     "markHandled": "Handled",
-    "markHandledError": "Could not save. Please try again."
+    "markHandledError": "Could not save. Please try again.",
+    "supportTitle": "Support per student",
+    "classAccountHint": "Class account: delete it above, under Class accounts."
   },
   "Status": {
     "stuck": "Stuck",
@@ -1464,5 +1477,59 @@
     "mock": {
       "safe": "The lesson stayed on topic"
     }
+  },
+  "ClassAccounts": {
+    "title": "Class accounts",
+    "lead": "For students without an e-mail address. Type their names and print each of them a login card with a QR code, a username and a password.",
+    "create": "Create student accounts",
+    "namesLabel": "Names, one per line",
+    "namesHint": "First name and initial only, for example “Lily K.”. No e-mail address needed. Up to 40 students at a time.",
+    "namesPlaceholder": "Lily K.\nMatt S.\nSophie B.",
+    "namesRequired": "Type at least one name.",
+    "tooManyAtOnce": "You can create up to {max} accounts at a time.",
+    "tooManyInClass": "A class can have up to {max} class accounts.",
+    "createCount": "{count, plural, one {Create # account} other {Create # accounts}}",
+    "creating": "Creating…",
+    "partial": "{count, plural, one {# account was created} other {# accounts were created}}, the others were not. Try again with the missing names.",
+    "clerkSetup": "Accounts cannot be created yet: the sign-in settings must allow usernames and make the e-mail address optional. Please tell the eNvolve team.",
+    "createError": "The accounts could not be created right now. Please try again.",
+    "empty": "This class has no class accounts yet.",
+    "listLabel": "Class accounts of this class",
+    "joined": "Has signed in",
+    "notJoined": "Has not signed in yet",
+    "newCard": "New card",
+    "newCardQuestion": "Make a new card? The old card and password stop working at once.",
+    "newCardConfirm": "New card",
+    "rename": "Rename",
+    "renameLabel": "New name",
+    "save": "Save",
+    "delete": "Delete account",
+    "deleteQuestion": "Delete {name}’s account? The account and all its lessons are deleted for good.",
+    "deleteConfirm": "Delete for good",
+    "cancel": "Cancel",
+    "actionError": "That did not work. Please try again.",
+    "cardsTitle": "{count, plural, one {One login card} other {# login cards}}",
+    "cardsLabel": "Login cards to print",
+    "print": "Print cards",
+    "onlyOnce": "The passwords are shown only now. Print the cards before you close this part. If a card gets lost, make a new one.",
+    "qrAlt": "QR code for {name} to sign in",
+    "username": "Username",
+    "password": "Password",
+    "close": "Done, close",
+    "closeQuestion": "Have you printed the cards? Once closed, the passwords are not shown again.",
+    "closeConfirm": "Yes, close"
+  },
+  "CardSignIn": {
+    "title": "Sign in with your card",
+    "button": "Sign in with your card",
+    "orBelow": "Or sign in below with your name and password.",
+    "hold": "Hold your card inside the frame.",
+    "signingIn": "Signing in…",
+    "done": "You are in!",
+    "noCamera": "We cannot see a camera. Sign in with your name and password, they are on your card too.",
+    "badCard": "This card does not work right now. Ask your teacher for help.",
+    "error": "Signing in did not work. Please try again.",
+    "retry": "Try again",
+    "withName": "Sign in with your name"
   }
 }

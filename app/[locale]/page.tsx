@@ -28,6 +28,7 @@ import { getAdminSafety } from "@/lib/actions/admin.actions";
 import { getTeacherOverview } from "@/lib/actions/teacher.actions";
 import { readTeacherProfile } from "@/lib/validation";
 import TeacherHome from "@/components/teacher/TeacherHome";
+import { claimClassAccount } from "@/lib/classAccounts.server";
 
 const WEEKDAYS = ["d0", "d1", "d2", "d3", "d4", "d5", "d6"] as const;
 
@@ -78,7 +79,7 @@ const Page = async () => {
 
   const week = currentWeek();
   // Independent queries run in parallel instead of one after another
-  const [t, tWelcome, tSubjects, courses, recent, lessonTimes, user, tasks, myClasses] = await Promise.all([
+  const [t, tWelcome, tSubjects, courses, recent, lessonTimes, user, firstTasks, firstClasses] = await Promise.all([
     getTranslations("Home"),
     getTranslations("Welcome"),
     getTranslations("Subjects"),
@@ -89,6 +90,14 @@ const Page = async () => {
     getMyTasks().catch(() => []),
     getMyClasses().catch(() => []),
   ]);
+
+  let tasks = firstTasks;
+  let myClasses = firstClasses;
+  // A class account's first visit: it joins the class its teacher made it
+  // for (lib/classAccounts.server.ts), and sees that class's tasks at once
+  if (user && (await claimClassAccount(user.publicMetadata, myClasses.map((c) => c.id)))) {
+    [tasks, myClasses] = await Promise.all([getMyTasks().catch(() => []), getMyClasses().catch(() => [])]);
+  }
 
   // New users see the short welcome introduction once before the home page
   if (user && !readOnboarding(user.unsafeMetadata).welcomeDone) {

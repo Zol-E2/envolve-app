@@ -43,6 +43,7 @@ export const LEGAL_CONTENT: Record<LegalDocId, Record<"hu" | "en", LegalDocument
           heading: "Milyen adatokat használunk, és mire?",
           list: [
             "Fiókadatok: neved, e-mail-címed és profilképed. Ezekkel tudsz belépni, és ezekből tudjuk, melyik kurzus a tiéd. Ha Google- vagy Facebook-fiókkal lépsz be, ezeket az adatokat onnan kapjuk.",
+            "Osztályfiók: ha a tanárod készítette a fiókodat, nincs hozzá e-mail-cím. Csak a rövid neved (például „Lili K.”), egy felhasználónév és a jelszó lenyomata van meg. A belépőkártyát a tanárod nyomtatja ki, és ő tudja törölni a fiókot az összes adatával együtt.",
             "Tanulási adatok: az általad készített kurzusok (név, téma, tantárgy, hang, nyelv), a mentett kurzusaid és az, hogy melyik órát mikor kezdted el. Ezek kellenek ahhoz, hogy a kezdőlapon és a profilodon lásd őket.",
             "Az órák hangja és szövege: óra közben a hangodat a rendszer valós időben szöveggé alakítja, az AI-tanár erre válaszol, a válaszát pedig hangként hallod. A beszélgetés szövege megjelenik az átiratban. A hívás feldolgozását a Vapi és az általa használt beszédfelismerő, nyelvi modell és hangszolgáltató végzi.",
             "A bemutató állapota és a megjelenítési beállításaid: hogy láttad-e már az üdvözlő képernyőt és az oldalak tippjeit, illetve a betűméret, az olvasóbarát szöveg, a felolvasás és a kevesebb mozgás beállítása. Bejelentkezve a fiókodnál tároljuk, kijelentkezve csak a böngésződben.",
@@ -139,6 +140,7 @@ export const LEGAL_CONTENT: Record<LegalDocId, Record<"hu" | "en", LegalDocument
           heading: "What data we use and why",
           list: [
             "Account data: your name, email address and profile picture. They let you sign in and show which courses are yours. If you sign in with Google or Facebook, we receive this data from there.",
+            "Class account: if your teacher made your account, it has no email address. We only keep your short name (for example “Lily K.”), a username and a hash of the password. Your teacher prints your login card and can delete the account together with all its data.",
             "Learning data: the courses you build (name, topic, subject, voice, language), the courses you save, and when you started each lesson. They are needed to show them on your home page and profile.",
             "Lesson audio and text: during a lesson your voice is turned into text in real time, the AI tutor answers, and you hear the answer as speech. The text of the conversation appears in the transcript. Calls are processed by Vapi and the speech recognition, language model and voice providers it uses.",
             "Introduction progress and display settings: whether you have seen the welcome screen and the page tips, and your text size, easy-reading text, read-aloud and less-motion settings. Stored with your account when signed in, and only in your browser when signed out.",
